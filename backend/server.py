@@ -398,6 +398,10 @@ async def get_recommended_zones():
                 
                 # Only add if competition is low
                 if competitors < 5:
+                    pass  # TODO: Implement zone generation logic
+        
+        # Generate zones using simple algorithm (fallback)
+        if analysis.get('total_score', 0) >= 55:
             # Calculate density to find low-saturation areas
             area = region.get('area_km2', 20000)
             points_density = (len(region_points) / area * 1000) if area > 0 else 0
