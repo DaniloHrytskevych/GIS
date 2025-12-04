@@ -94,7 +94,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [allAnalysis, setAllAnalysis] = useState([]);
   const [recreationalPoints, setRecreationalPoints] = useState([]);
-  const [recommendedLocations, setRecommendedLocations] = useState([]);
+  const [recommendedZones, setRecommendedZones] = useState([]);
   const [pfzObjects, setPfzObjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(UKRAINE_CENTER);
@@ -114,17 +114,19 @@ function App() {
 
   const loadInitialData = async () => {
     try {
-      const [regionsRes, pointsRes, allAnalysisRes, pfzRes] = await Promise.all([
+      const [regionsRes, pointsRes, allAnalysisRes, pfzRes, zonesRes] = await Promise.all([
         axios.get(`${API}/regions`),
         axios.get(`${API}/recreational-points`),
         axios.get(`${API}/analyze-all`),
-        axios.get(`${API}/pfz-objects`)
+        axios.get(`${API}/pfz-objects`),
+        axios.get(`${API}/recommended-zones`)
       ]);
       
       setRegions(regionsRes.data.regions || []);
       setRecreationalPoints(pointsRes.data.features || []);
       setAllAnalysis(allAnalysisRes.data.results || []);
       setPfzObjects(pfzRes.data.objects || []);
+      setRecommendedZones(zonesRes.data.zones || []);
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -134,12 +136,8 @@ function App() {
     if (!regionName) return;
     setLoading(true);
     try {
-      const [analysisRes, locationsRes] = await Promise.all([
-        axios.get(`${API}/analyze/${encodeURIComponent(regionName)}`),
-        axios.get(`${API}/recommended-locations/${encodeURIComponent(regionName)}`)
-      ]);
+      const analysisRes = await axios.get(`${API}/analyze/${encodeURIComponent(regionName)}`);
       setAnalysisResult(analysisRes.data);
-      setRecommendedLocations(locationsRes.data.locations || []);
       
       const center = REGION_CENTERS[regionName];
       if (center) {
