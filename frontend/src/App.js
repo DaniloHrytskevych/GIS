@@ -1126,37 +1126,33 @@ function App() {
                   <TabsContent value="locations" className="flex-1 overflow-hidden m-0">
                     <ScrollArea className="h-full">
                       <div className="p-4 space-y-3">
-                        {recommendedLocations.length > 0 ? (
+                        {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length > 0 ? (
                           <>
                             <h3 className="font-semibold flex items-center gap-2">
                               <Target className="w-4 h-4 text-emerald-600" />
-                              Рекомендовані локації ({recommendedLocations.length})
+                              Рекомендовані зони ({recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length})
                             </h3>
-                            {recommendedLocations.map((loc, idx) => (
-                              <Card key={idx} className={`${loc.warning ? 'border-red-200 bg-red-50' : 'border-emerald-200'}`}>
+                            {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).map((zone, idx) => (
+                              <Card key={idx} className="border-emerald-200">
                                 <CardContent className="p-3">
                                   <div className="flex items-start justify-between mb-2">
                                     <div>
-                                      <p className="font-semibold text-sm">{loc.name}</p>
-                                      <p className="text-xs text-slate-500">Біля: {loc.near_pfz}</p>
+                                      <p className="font-semibold text-sm">{zone.name}</p>
+                                      {zone.type === "near_pfz" && zone.pfz_object && (
+                                        <p className="text-xs text-slate-500">Біля: {zone.pfz_object}</p>
+                                      )}
                                     </div>
-                                    <Badge style={{ backgroundColor: loc.warning ? '#6b7280' : loc.priority >= 90 ? '#ef4444' : loc.priority >= 80 ? '#f97316' : '#eab308' }}>
-                                      {loc.priority}/100
+                                    <Badge style={{ backgroundColor: zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308' }}>
+                                      {zone.priority}/100
                                     </Badge>
                                   </div>
-                                  {loc.warning && (
-                                    <div className="bg-red-100 rounded p-2 mb-2 text-xs text-red-700">
-                                      <strong>{loc.warning}</strong>
-                                      {loc.special_notes && <p className="mt-1">{loc.special_notes}</p>}
-                                    </div>
-                                  )}
                                   <div className="grid grid-cols-2 gap-2 text-xs mb-2">
-                                    <p><span className="text-slate-500">Тип:</span> {loc.recommended_type}</p>
-                                    <p><span className="text-slate-500">Місткість:</span> {loc.recommended_capacity}</p>
-                                    <p><span className="text-slate-500">Інвестиції:</span> {loc.investment_usd}</p>
-                                    <p><span className="text-slate-500">Окупність:</span> {loc.payback_years}</p>
+                                    <p><span className="text-slate-500">Тип:</span> {zone.recommended_type}</p>
+                                    <p><span className="text-slate-500">Місткість:</span> {zone.capacity}</p>
+                                    <p><span className="text-slate-500">Інвестиції:</span> {zone.investment}</p>
+                                    <p><span className="text-slate-500">Окупність:</span> {zone.payback}</p>
                                   </div>
-                                  <Button size="sm" variant="outline" className="w-full text-xs" onClick={() => focusOnLocation(loc.coordinates)}>
+                                  <Button size="sm" variant="outline" className="w-full text-xs" onClick={() => focusOnLocation(zone.coordinates)}>
                                     <Navigation className="w-3 h-3 mr-1" />
                                     Показати на карті
                                   </Button>
@@ -1167,12 +1163,12 @@ function App() {
                         ) : selectedRegion ? (
                           <div className="text-center py-8 text-slate-500">
                             <MapPin className="w-10 h-10 mx-auto mb-2" />
-                            <p>Немає даних про локації</p>
+                            <p>Немає рекомендованих зон для цієї області</p>
                           </div>
                         ) : (
                           <div className="text-center py-8 text-slate-500">
                             <MapPin className="w-10 h-10 mx-auto mb-2" />
-                            <p>Оберіть область</p>
+                            <p>Оберіть область або перегляньте всі зони на карті</p>
                           </div>
                         )}
                       </div>
