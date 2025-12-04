@@ -15,6 +15,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './
 import { getScoreColor, getCategoryColor } from './utils/potentialCalculator';
 import { Map, BarChart3, Download, Building2, TreePine, Car, Users, TrendingUp, AlertTriangle, CheckCircle2, XCircle, MapPin, Layers, Star, Waves, Fuel, Hospital, Wifi, Hotel, Navigation, FileText, Target, DollarSign, Clock, Building, Utensils, Zap, Droplets } from 'lucide-react';
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import './App.css';
 
