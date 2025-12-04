@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime, timezone
+import math
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -38,14 +39,16 @@ INFRASTRUCTURE_DATA = None
 POPULATION_DATA = None
 PROTECTED_AREAS_DATA = None
 RECREATIONAL_POINTS = None
+RECOMMENDED_LOCATIONS = None
 
 @app.on_event("startup")
 async def load_data():
-    global INFRASTRUCTURE_DATA, POPULATION_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS
+    global INFRASTRUCTURE_DATA, POPULATION_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS, RECOMMENDED_LOCATIONS
     INFRASTRUCTURE_DATA = load_json_file('ukraine_infrastructure.json')
     POPULATION_DATA = load_json_file('ukraine_population_data.json')
     PROTECTED_AREAS_DATA = load_json_file('ukraine_protected_areas.json')
     RECREATIONAL_POINTS = load_json_file('recreational_points_web.geojson')
+    RECOMMENDED_LOCATIONS = load_json_file('recommended_locations.json')
     logging.info("Data loaded successfully")
 
 # Models
