@@ -125,7 +125,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "API endpoint /api/recommended-zones"
+    - "Enhanced popup for recommended zones"
+    - "Landing Page comprehensive testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
