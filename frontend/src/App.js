@@ -286,6 +286,83 @@ function MapPage() {
     }
   };
 
+  const exportJSON = () => {
+    if (!analysisResult) return;
+    
+    const d = analysisResult.details;
+    const topZones = recommendedZones
+      .filter(z => z.region === analysisResult.region)
+      .sort((a, b) => b.priority - a.priority)
+      .slice(0, 5)
+      .map(z => ({
+        name: z.name,
+        type: z.type,
+        coordinates: z.coordinates,
+        priority: z.priority,
+        recommended_type: z.recommended_type,
+        capacity: z.capacity,
+        investment: z.investment,
+        payback: z.payback,
+      }));
+    
+    const exportData = {
+      region: analysisResult.region,
+      analysis_date: new Date().toISOString(),
+      total_potential: {
+        score: analysisResult.total_score,
+        category: analysisResult.category,
+        recommendation: analysisResult.recommendation
+      },
+      factors: {
+        demand: {
+          score: analysisResult.demand_score,
+          max: 25,
+          annual_demand: d?.population?.demand,
+          annual_supply: d?.population?.supply,
+          gap: d?.population?.gap
+        },
+        pfz_attraction: {
+          score: analysisResult.pfz_score,
+          max: 20,
+          notable_objects: d?.pfz?.notable_objects || []
+        },
+        nature: {
+          score: analysisResult.nature_score,
+          max: 15
+        },
+        accessibility: {
+          score: analysisResult.accessibility_score,
+          max: 15
+        },
+        infrastructure: {
+          score: analysisResult.infrastructure_score,
+          max: 10
+        },
+        saturation_penalty: {
+          score: analysisResult.saturation_penalty,
+          max: -15
+        }
+      },
+      investment_forecast: {
+        should_build: d?.investment?.should_build,
+        investment_scale: d?.investment?.investment_scale,
+        points_needed: d?.population?.gap > 0 ? Math.ceil(d.population.gap / 18000) : 0
+      },
+      recommended_zones: topZones
+    };
+    
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Analiz_${analysisResult.region.replace(/ /g, '_')}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   // Calculate how many points needed to cover deficit
   const calculatePointsNeeded = (gap) => {
     if (gap <= 0) return 0;
