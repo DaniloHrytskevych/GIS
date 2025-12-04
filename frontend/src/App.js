@@ -126,7 +126,9 @@ function App() {
       setRecreationalPoints(pointsRes.data.features || []);
       setAllAnalysis(allAnalysisRes.data.results || []);
       setPfzObjects(pfzRes.data.objects || []);
-      setRecommendedZones(zonesRes.data.zones || []);
+      const zones = zonesRes.data.zones || [];
+      console.log('Loaded recommended zones:', zones.length, zones);
+      setRecommendedZones(zones);
     } catch (error) {
       console.error('Error loading data:', error);
     }
