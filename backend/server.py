@@ -99,6 +99,23 @@ async def get_recreational_points():
     """Get recreational points GeoJSON"""
     return RECREATIONAL_POINTS or {}
 
+@api_router.get("/recommended-locations/{region_name}")
+async def get_recommended_locations_for_region(region_name: str):
+    """Get detailed recommended locations for a specific region"""
+    if not RECOMMENDED_LOCATIONS:
+        return {"locations": []}
+    
+    locations = RECOMMENDED_LOCATIONS.get('recommended_locations', {}).get(region_name, [])
+    return {"locations": locations, "region": region_name}
+
+@api_router.get("/pfz-objects")
+async def get_pfz_objects():
+    """Get all PFZ objects with coordinates"""
+    if not RECOMMENDED_LOCATIONS:
+        return {"objects": []}
+    
+    return {"objects": RECOMMENDED_LOCATIONS.get('pfz_objects', [])}
+
 @api_router.get("/analyze/{region_name}")
 async def analyze_region(region_name: str):
     """Perform full analysis for a specific region"""
