@@ -90,6 +90,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [allAnalysis, setAllAnalysis] = useState([]);
   const [recreationalPoints, setRecreationalPoints] = useState([]);
+  const [recommendedZones, setRecommendedZones] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(UKRAINE_CENTER);
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM);
@@ -99,6 +100,7 @@ function App() {
   const [layers, setLayers] = useState({
     recreationalPoints: true,
     recommendedZones: true,
+    regionScores: true,
   });
 
   // Load initial data
@@ -108,15 +110,17 @@ function App() {
 
   const loadInitialData = async () => {
     try {
-      const [regionsRes, pointsRes, allAnalysisRes] = await Promise.all([
+      const [regionsRes, pointsRes, allAnalysisRes, zonesRes] = await Promise.all([
         axios.get(`${API}/regions`),
         axios.get(`${API}/recreational-points`),
-        axios.get(`${API}/analyze-all`)
+        axios.get(`${API}/analyze-all`),
+        axios.get(`${API}/recommended-zones`)
       ]);
       
       setRegions(regionsRes.data.regions || []);
       setRecreationalPoints(pointsRes.data.features || []);
       setAllAnalysis(allAnalysisRes.data.results || []);
+      setRecommendedZones(zonesRes.data.zones || []);
     } catch (error) {
       console.error('Error loading data:', error);
     }
