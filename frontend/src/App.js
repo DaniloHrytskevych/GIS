@@ -661,7 +661,15 @@ function MapPage() {
           <div className="col-span-12 lg:col-span-5">
             <Card className="overflow-hidden">
               <div className="h-[calc(100vh-120px)]">
-                <MapContainer center={UKRAINE_CENTER} zoom={DEFAULT_ZOOM} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
+                <MapContainer 
+                  center={UKRAINE_CENTER} 
+                  zoom={DEFAULT_ZOOM} 
+                  style={{ height: '100%', width: '100%' }} 
+                  scrollWheelZoom={true}
+                  maxBounds={[[44.0, 22.0], [52.5, 40.5]]}
+                  minZoom={6}
+                  maxZoom={18}
+                >
                   <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <MapController center={mapCenter} zoom={mapZoom} />
                   
