@@ -82,7 +82,7 @@ const LandingPage = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🎯</div>
+              <div className="mb-4"><Target className="w-12 h-12 text-green-600" /></div>
               <h3 className="text-xl font-bold mb-2">Мета</h3>
               <p className="text-gray-600">
                 Визначення оптимальних локацій для будівництва
