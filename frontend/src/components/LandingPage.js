@@ -418,7 +418,7 @@ const LandingPage = () => {
             {/* File 3 */}
             <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">🌲</div>
+                <div><Trees className="w-10 h-10 text-green-700" /></div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2">
                     ukraine_protected_areas.json
