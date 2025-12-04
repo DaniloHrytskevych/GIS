@@ -326,7 +326,7 @@ function App() {
                     <span className="text-xs">Високий пріоритет</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="text-amber-500 text-sm">\u2605</div>
+                    <span className="text-amber-500 text-sm">★</span>
                     <span className="text-xs">НПП / Заповідник</span>
                   </div>
                 </div>
