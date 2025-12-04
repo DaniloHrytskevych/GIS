@@ -52,6 +52,123 @@ async def load_data():
     RECOMMENDED_LOCATIONS = load_json_file('recommended_locations.json')
     logging.info("Data loaded successfully")
 
+# Helper functions for zone generation
+def generate_consistent_hash(text: str) -> int:
+    """Generate consistent hash from text for reproducible randomness"""
+    return int(hashlib.md5(text.encode()).hexdigest(), 16)
+
+def generate_nearby_coordinates(center_lat: float, center_lng: float, seed: str, min_distance: float = 2, max_distance: float = 10):
+    """
+    Generate coordinates near a point (not at the point itself)
+    Uses hash for consistency - same seed always gives same result
+    
+    Args:
+        center_lat, center_lng: Center coordinates (e.g., park center)
+        seed: String for hash (e.g., park name)
+        min_distance: Minimum distance in km
+        max_distance: Maximum distance in km
+    
+    Returns:
+        [lat, lng] coordinates of nearby settlement/location
+    """
+    hash_val = generate_consistent_hash(seed)
+    
+    # Generate angle (0-360 degrees) from hash
+    angle_degrees = (hash_val % 360)
+    angle_radians = math.radians(angle_degrees)
+    
+    # Generate distance from hash
+    distance_km = min_distance + ((hash_val // 360) % int(max_distance - min_distance + 1))
+    
+    # Convert km to degrees (approximate: 1 degree ≈ 111 km)
+    distance_degrees = distance_km / 111.0
+    
+    # Calculate offset
+    lat_offset = distance_degrees * math.cos(angle_radians)
+    lng_offset = distance_degrees * math.sin(angle_radians)
+    
+    return [center_lat + lat_offset, center_lng + lng_offset]
+
+def count_competitors_nearby(coordinates: list, radius_km: float = 5.0):
+    """
+    Count existing recreational points near given coordinates
+    
+    Args:
+        coordinates: [lat, lng]
+        radius_km: Search radius in km
+    
+    Returns:
+        Number of competitors within radius
+    """
+    if not RECREATIONAL_POINTS or 'features' not in RECREATIONAL_POINTS:
+        return 0
+    
+    lat, lng = coordinates
+    count = 0
+    
+    for feature in RECREATIONAL_POINTS['features']:
+        if 'geometry' not in feature or 'coordinates' not in feature['geometry']:
+            continue
+        
+        point_lng, point_lat = feature['geometry']['coordinates']
+        
+        # Calculate distance using Haversine formula (simplified)
+        dlat = math.radians(point_lat - lat)
+        dlng = math.radians(point_lng - lng)
+        a = math.sin(dlat/2)**2 + math.cos(math.radians(lat)) * math.cos(math.radians(point_lat)) * math.sin(dlng/2)**2
+        c = 2 * math.asin(math.sqrt(a))
+        distance = 6371 * c  # Earth radius in km
+        
+        if distance <= radius_km:
+            count += 1
+    
+    return count
+
+def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infrastructure_score: float, visitors_estimate: int):
+    """
+    Calculate priority for a recommended zone
+    
+    Args:
+        pfz_name: Name of protected area
+        pfz_type: Type (НПП, заповідник, РЛП)
+        competitors: Number of competitors nearby
+        infrastructure_score: Infrastructure quality (0-10)
+        visitors_estimate: Estimated annual visitors
+    
+    Returns:
+        Priority score (0-100)
+    """
+    base_priority = 50
+    
+    # PFZ attraction bonus
+    if 'НПП' in pfz_type or 'Національний' in pfz_name:
+        base_priority += 25
+    elif 'заповідник' in pfz_type:
+        base_priority += 20
+    elif 'РЛП' in pfz_type:
+        base_priority += 10
+    
+    # Competition penalty
+    if competitors == 0:
+        base_priority += 15
+    elif competitors <= 2:
+        base_priority += 10
+    elif competitors <= 5:
+        base_priority += 5
+    else:
+        base_priority -= 10
+    
+    # Infrastructure bonus
+    base_priority += min(10, infrastructure_score)
+    
+    # Visitors bonus
+    if visitors_estimate > 50000:
+        base_priority += 10
+    elif visitors_estimate > 20000:
+        base_priority += 5
+    
+    return min(100, max(0, base_priority))
+
 # Models
 class RegionAnalysis(BaseModel):
     model_config = ConfigDict(extra="ignore")
