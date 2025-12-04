@@ -282,7 +282,6 @@ function App() {
       document.body.removeChild(pdfContent);
     }
   };
-  };
 
   const filteredPoints = selectedRegion 
     ? recreationalPoints.filter(p => p.properties?.region === selectedRegion)
