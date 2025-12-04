@@ -1,0 +1,89 @@
+{
+  "timestamp": "2025-12-04T16:43:10.855476",
+  "total_tests": 12,
+  "passed_tests": 11,
+  "failed_tests": 1,
+  "success_rate": 91.66666666666666,
+  "test_details": [
+    {
+      "test": "API Root",
+      "success": true,
+      "details": "Status: 200, Message: GIS Recreational Potential Analysis API",
+      "timestamp": "2025-12-04T16:43:10.416069"
+    },
+    {
+      "test": "Population Data",
+      "success": true,
+      "details": "Status: 200, Population data regions: 24, Sample: Київська область - 1800000 people",
+      "timestamp": "2025-12-04T16:43:10.453985"
+    },
+    {
+      "test": "Infrastructure Data",
+      "success": true,
+      "details": "Status: 200, Infrastructure data regions: 24, Sample: Київська область - accessibility: 9.5",
+      "timestamp": "2025-12-04T16:43:10.491883"
+    },
+    {
+      "test": "Protected Areas Data",
+      "success": true,
+      "details": "Status: 200, Protected areas data regions: 24, Sample: Київська область - national parks: 3",
+      "timestamp": "2025-12-04T16:43:10.524927"
+    },
+    {
+      "test": "Get Regions",
+      "success": true,
+      "details": "Status: 200, Regions count: 24, Sample: Київська область, Expected regions found: 3/3",
+      "timestamp": "2025-12-04T16:43:10.557453"
+    },
+    {
+      "test": "Get Recreational Points",
+      "success": true,
+      "details": "Status: 200, Points count: 780, Sample: Зона відпочинку \"Криниченька\" in Житомирська область, Valid GeoJSON format",
+      "timestamp": "2025-12-04T16:43:10.632054"
+    },
+    {
+      "test": "Analyze Region (Київська область)",
+      "success": true,
+      "details": "Status: 200, Region: Київська область, Score: 76.1/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-04T16:43:10.671597"
+    },
+    {
+      "test": "Analyze Region (Львівська область)",
+      "success": true,
+      "details": "Status: 200, Region: Львівська область, Score: 78.0/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-04T16:43:10.702525"
+    },
+    {
+      "test": "Analyze Region (Одеська область)",
+      "success": true,
+      "details": "Status: 200, Region: Одеська область, Score: 66.1/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-04T16:43:10.734589"
+    },
+    {
+      "test": "Analyze All Regions",
+      "success": true,
+      "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Львівська область (78.0), Bottom: Черкаська область (27.8)",
+      "timestamp": "2025-12-04T16:43:10.779570"
+    },
+    {
+      "test": "Recommended Zones API",
+      "success": false,
+      "details": "Status: 200, Zones count: 25 ✓ Has zones array ✓ All required fields present | Zone types: near_pfz=True, roadside=True ✓ Priority values valid (0-100) ✓ Reasoning structure valid ✓ Infrastructure data valid ✓ Recommended facilities count valid (4-5) ✓ Zone-specific requirements met ✗ Invalid coordinates (outside Ukraine) | Sample zone: с. біля Яворівський НПП (type: near_pfz, priority: 88)",
+      "timestamp": "2025-12-04T16:43:10.817891"
+    },
+    {
+      "test": "Invalid Region Handling",
+      "success": true,
+      "details": "Status: 404 - Correctly returns 404 for invalid region",
+      "timestamp": "2025-12-04T16:43:10.854774"
+    }
+  ],
+  "failures": [
+    {
+      "test": "Recommended Zones API",
+      "error": "Status: 200, Zones count: 25 ✓ Has zones array ✓ All required fields present | Zone types: near_pfz=True, roadside=True ✓ Priority values valid (0-100) ✓ Reasoning structure valid ✓ Infrastructure data valid ✓ Recommended facilities count valid (4-5) ✓ Zone-specific requirements met ✗ Invalid coordinates (outside Ukraine) | Sample zone: с. біля Яворівський НПП (type: near_pfz, priority: 88)",
+      "expected_status": 200,
+      "actual_status": 200
+    }
+  ]
+}
