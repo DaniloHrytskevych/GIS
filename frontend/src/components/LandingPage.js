@@ -247,7 +247,7 @@ const LandingPage = () => {
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded border border-blue-200">
-                  <p className="font-semibold mb-2">💧 Водойми (0-4 бали):</p>
+                  <p className="font-semibold mb-2 flex items-center gap-2"><Droplets className="w-4 h-4" /> Водойми (0-4 бали):</p>
                   <ul className="text-sm space-y-1">
                     <li>• Великі водойми: <strong>+4 бали</strong></li>
                     <li>• Річки: <strong>+2 бали</strong></li>
