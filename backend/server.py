@@ -180,13 +180,6 @@ async def get_recommended_zones():
                 pfz_region = r
                 break
         
-        # Get infrastructure data
-        infra_region = None
-        for r in INFRASTRUCTURE_DATA.get('ukraine_infrastructure', {}).get('regions', []):
-            if r['region'] == region_name:
-                infra_region = r
-                break
-        
         # Get existing points for region
         region_points = [
             p for p in RECREATIONAL_POINTS.get('features', [])
@@ -196,14 +189,15 @@ async def get_recommended_zones():
         # Calculate analysis for the region
         try:
             analysis = await analyze_region(region_name)
-        except:
+        except Exception:
             continue
         
         # Only recommend if total_score >= 55 (high potential)
         if analysis.get('total_score', 0) >= 55 and analysis.get('details', {}).get('investment', {}).get('should_build', False):
             # Calculate density to find low-saturation areas
             area = region.get('area_km2', 20000)
-            density = (len(region_points) / area * 1000) if area > 0 else 0
+            points_density = (len(region_points) / area * 1000) if area > 0 else 0
+            _ = points_density  # Used for future zone positioning logic
             
             # Generate recommended zone coordinates
             # Use region center as base, offset based on notable objects and low density areas
