@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup, useMap, CircleMarker, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, CircleMarker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
@@ -9,21 +9,19 @@ import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { Badge } from './components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { ScrollArea } from './components/ui/scroll-area';
-import { Progress } from './components/ui/progress';
 import { Checkbox } from './components/ui/checkbox';
 import { Separator } from './components/ui/separator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/ui/accordion';
 import { getScoreColor, getCategoryColor } from './utils/potentialCalculator';
-import { Map, BarChart3, Download, Building2, TreePine, Car, Hospital, Wifi, Users, TrendingUp, AlertTriangle, CheckCircle2, XCircle, MapPin, Layers, Filter, FileText } from 'lucide-react';
+import { Map, BarChart3, Download, Building2, TreePine, Car, Users, TrendingUp, AlertTriangle, CheckCircle2, XCircle, MapPin, Layers, Star, Waves, Fuel, Hospital, Wifi, Hotel, Navigation, FileText, Target, DollarSign, Clock, Building, Utensils, Zap, Droplets } from 'lucide-react';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import './App.css';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Fix Leaflet default icon issue
+// Fix Leaflet icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
@@ -31,7 +29,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
 });
 
-// Custom marker icons
 const createIcon = (color, size = 24) => {
   return L.divIcon({
     className: 'custom-icon',
@@ -41,11 +38,18 @@ const createIcon = (color, size = 24) => {
   });
 };
 
-// Ukraine center coordinates
+const createStarIcon = (color) => {
+  return L.divIcon({
+    className: 'custom-icon',
+    html: `<div style="color: ${color}; font-size: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">\u2605</div>`,
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+};
+
 const UKRAINE_CENTER = [48.5, 31.0];
 const DEFAULT_ZOOM = 6;
 
-// Region coordinates (approximate centers)
 const REGION_CENTERS = {
   'Київська область': [50.45, 30.52],
   'Львівська область': [49.84, 24.03],
@@ -73,7 +77,6 @@ const REGION_CENTERS = {
   'Луганська область': [48.57, 39.31],
 };
 
-// Map controller component
 const MapController = ({ center, zoom }) => {
   const map = useMap();
   useEffect(() => {
@@ -90,37 +93,37 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [allAnalysis, setAllAnalysis] = useState([]);
   const [recreationalPoints, setRecreationalPoints] = useState([]);
-  const [recommendedZones, setRecommendedZones] = useState([]);
+  const [recommendedLocations, setRecommendedLocations] = useState([]);
+  const [pfzObjects, setPfzObjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(UKRAINE_CENTER);
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM);
-  const [activeTab, setActiveTab] = useState('map');
+  const [activeTab, setActiveTab] = useState('analysis');
   
-  // Layer visibility
   const [layers, setLayers] = useState({
     recreationalPoints: true,
     recommendedZones: true,
     regionScores: true,
+    pfzObjects: true,
   });
 
-  // Load initial data
   useEffect(() => {
     loadInitialData();
   }, []);
 
   const loadInitialData = async () => {
     try {
-      const [regionsRes, pointsRes, allAnalysisRes, zonesRes] = await Promise.all([
+      const [regionsRes, pointsRes, allAnalysisRes, pfzRes] = await Promise.all([
         axios.get(`${API}/regions`),
         axios.get(`${API}/recreational-points`),
         axios.get(`${API}/analyze-all`),
-        axios.get(`${API}/recommended-zones`)
+        axios.get(`${API}/pfz-objects`)
       ]);
       
       setRegions(regionsRes.data.regions || []);
       setRecreationalPoints(pointsRes.data.features || []);
       setAllAnalysis(allAnalysisRes.data.results || []);
-      setRecommendedZones(zonesRes.data.zones || []);
+      setPfzObjects(pfzRes.data.objects || []);
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -130,14 +133,17 @@ function App() {
     if (!regionName) return;
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/analyze/${encodeURIComponent(regionName)}`);
-      setAnalysisResult(response.data);
+      const [analysisRes, locationsRes] = await Promise.all([
+        axios.get(`${API}/analyze/${encodeURIComponent(regionName)}`),
+        axios.get(`${API}/recommended-locations/${encodeURIComponent(regionName)}`)
+      ]);
+      setAnalysisResult(analysisRes.data);
+      setRecommendedLocations(locationsRes.data.locations || []);
       
-      // Center map on region
       const center = REGION_CENTERS[regionName];
       if (center) {
         setMapCenter(center);
-        setMapZoom(8);
+        setMapZoom(9);
       }
     } catch (error) {
       console.error('Error analyzing region:', error);
@@ -155,55 +161,69 @@ function App() {
     setLayers(prev => ({ ...prev, [layerName]: !prev[layerName] }));
   };
 
-  // Export PDF
+  const focusOnLocation = (coords) => {
+    setMapCenter(coords);
+    setMapZoom(12);
+  };
+
   const exportPDF = async () => {
     if (!analysisResult) return;
-    
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pageWidth = pdf.internal.pageSize.getWidth();
     
-    // Title
-    pdf.setFontSize(18);
+    // Page 1: Title
+    pdf.setFontSize(20);
     pdf.setFont('helvetica', 'bold');
-    pdf.text(`Аналіз рекреаційного потенціалу`, pageWidth / 2, 20, { align: 'center' });
+    pdf.text('АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ', pageWidth / 2, 30, { align: 'center' });
+    pdf.setFontSize(16);
+    pdf.text(analysisResult.region, pageWidth / 2, 45, { align: 'center' });
+    
+    pdf.setFontSize(36);
+    pdf.text(`${analysisResult.total_score}/100`, pageWidth / 2, 70, { align: 'center' });
+    
     pdf.setFontSize(14);
-    pdf.text(analysisResult.region, pageWidth / 2, 30, { align: 'center' });
+    pdf.text(`Категорія: ${analysisResult.category}`, pageWidth / 2, 85, { align: 'center' });
     
-    // Score
-    pdf.setFontSize(24);
-    pdf.text(`${analysisResult.total_score}/100`, pageWidth / 2, 45, { align: 'center' });
-    
+    let y = 110;
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'normal');
     
-    let y = 60;
-    
-    // Scores breakdown
-    pdf.text(`Попит: ${analysisResult.demand_score}/25`, 20, y); y += 8;
-    pdf.text(`ПЗФ: ${analysisResult.pfz_score}/20`, 20, y); y += 8;
-    pdf.text(`Природа: ${analysisResult.nature_score}/15`, 20, y); y += 8;
-    pdf.text(`Транспорт: ${analysisResult.accessibility_score}/15`, 20, y); y += 8;
+    // Scores
+    pdf.text(`Попит від населення: ${analysisResult.demand_score}/25`, 20, y); y += 8;
+    pdf.text(`ПЗФ як атрактор: ${analysisResult.pfz_score}/20`, 20, y); y += 8;
+    pdf.text(`Природні ресурси: ${analysisResult.nature_score}/15`, 20, y); y += 8;
+    pdf.text(`Транспортна доступність: ${analysisResult.accessibility_score}/15`, 20, y); y += 8;
     pdf.text(`Інфраструктура: ${analysisResult.infrastructure_score}/10`, 20, y); y += 8;
-    pdf.text(`Насиченість: ${analysisResult.saturation_penalty}`, 20, y); y += 15;
+    pdf.text(`Штраф за насиченість: ${analysisResult.saturation_penalty}/15`, 20, y); y += 15;
     
-    // Category and recommendation
+    // Recommendation
     pdf.setFont('helvetica', 'bold');
-    pdf.text(`Категорія: ${analysisResult.category}`, 20, y); y += 10;
+    pdf.text('РЕКОМЕНДАЦІЯ:', 20, y); y += 8;
     pdf.setFont('helvetica', 'normal');
+    const splitRec = pdf.splitTextToSize(analysisResult.recommendation, pageWidth - 40);
+    pdf.text(splitRec, 20, y); y += splitRec.length * 6 + 10;
     
-    // Wrap recommendation text
-    const splitRecommendation = pdf.splitTextToSize(analysisResult.recommendation, pageWidth - 40);
-    pdf.text(splitRecommendation, 20, y);
+    // Investment
+    if (analysisResult.details?.investment) {
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('ІНВЕСТИЦІЙНИЙ ПРОГНОЗ:', 20, y); y += 8;
+      pdf.setFont('helvetica', 'normal');
+      pdf.text(`Рівень ризику: ${analysisResult.details.investment.risk_level}`, 20, y); y += 6;
+      pdf.text(`Масштаб: ${analysisResult.details.investment.investment_scale}`, 20, y); y += 6;
+      pdf.text(`Рекомендується будувати: ${analysisResult.details.investment.should_build ? 'ТАК' : 'НІ'}`, 20, y);
+    }
     
-    pdf.save(`recreational_analysis_${analysisResult.region}.pdf`);
+    pdf.save(`Аналіз_${analysisResult.region}.pdf`);
   };
 
-  // Get points for selected region
   const filteredPoints = selectedRegion 
     ? recreationalPoints.filter(p => p.properties?.region === selectedRegion)
     : recreationalPoints;
 
-  // Radar chart data
+  const filteredPfzObjects = selectedRegion
+    ? pfzObjects.filter(p => p.region === selectedRegion)
+    : pfzObjects;
+
   const getRadarData = () => {
     if (!analysisResult) return [];
     return [
@@ -215,38 +235,44 @@ function App() {
     ];
   };
 
+  const getScoreIcon = (score, max) => {
+    const percent = (score / max) * 100;
+    if (percent >= 80) return <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
+    if (percent >= 60) return <CheckCircle2 className="w-4 h-4 text-lime-500" />;
+    if (percent >= 40) return <AlertTriangle className="w-4 h-4 text-amber-500" />;
+    return <XCircle className="w-4 h-4 text-red-500" />;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100" data-testid="app-container">
+    <div className="min-h-screen bg-slate-50" data-testid="app-container">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50" data-testid="header">
-        <div className="max-w-screen-2xl mx-auto px-4 py-4">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50" data-testid="header">
+        <div className="max-w-screen-2xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                 <Map className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-800">ГІС аналіз рекреаційного потенціалу</h1>
-                <p className="text-sm text-slate-500">Україна • {recreationalPoints.length} рекреаційних пунктів</p>
+                <h1 className="text-lg font-bold text-slate-800">ГІС аналіз рекреаційного потенціалу</h1>
+                <p className="text-xs text-slate-500">Україна • {recreationalPoints.length} пунктів • {pfzObjects.length} об&apos;єктів ПЗФ</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <Select value={selectedRegion || ''} onValueChange={handleRegionChange} data-testid="region-select">
-                <SelectTrigger className="w-64">
+            <div className="flex items-center gap-3">
+              <Select value={selectedRegion || ''} onValueChange={handleRegionChange}>
+                <SelectTrigger className="w-60">
                   <SelectValue placeholder="Оберіть область" />
                 </SelectTrigger>
                 <SelectContent>
                   {regions.map((region) => (
-                    <SelectItem key={region} value={region}>
-                      {region}
-                    </SelectItem>
+                    <SelectItem key={region} value={region}>{region}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               {analysisResult && (
-                <Button onClick={exportPDF} variant="outline" className="gap-2" data-testid="export-pdf-btn">
+                <Button onClick={exportPDF} variant="outline" size="sm" className="gap-2">
                   <Download className="w-4 h-4" />
-                  Експорт PDF
+                  PDF
                 </Button>
               )}
             </div>
@@ -254,218 +280,191 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-screen-2xl mx-auto p-4">
-        <div className="grid grid-cols-12 gap-4">
-          {/* Left Sidebar - Filters & Layers */}
+      <main className="max-w-screen-2xl mx-auto p-3">
+        <div className="grid grid-cols-12 gap-3">
+          {/* Left - Layers */}
           <aside className="col-span-12 lg:col-span-2">
-            <Card className="sticky top-24" data-testid="filters-panel">
-              <CardHeader className="pb-3">
+            <Card className="sticky top-20">
+              <CardHeader className="py-3 px-4">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Layers className="w-4 h-4" />
                   Шари карти
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Checkbox 
-                    id="layer-points" 
-                    checked={layers.recreationalPoints}
-                    onCheckedChange={() => toggleLayer('recreationalPoints')}
-                  />
-                  <label htmlFor="layer-points" className="text-sm cursor-pointer">
-                    Рекреаційні пункти
-                  </label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox 
-                    id="layer-zones" 
-                    checked={layers.recommendedZones}
-                    onCheckedChange={() => toggleLayer('recommendedZones')}
-                  />
-                  <label htmlFor="layer-zones" className="text-sm cursor-pointer">
-                    Рекомендовані зони
-                  </label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox 
-                    id="layer-scores" 
-                    checked={layers.regionScores}
-                    onCheckedChange={() => toggleLayer('regionScores')}
-                  />
-                  <label htmlFor="layer-scores" className="text-sm cursor-pointer">
-                    Скори областей
-                  </label>
-                </div>
+              <CardContent className="px-4 pb-4 space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox checked={layers.recreationalPoints} onCheckedChange={() => toggleLayer('recreationalPoints')} />
+                  <span className="text-xs">Існуючі пункти</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox checked={layers.recommendedZones} onCheckedChange={() => toggleLayer('recommendedZones')} />
+                  <span className="text-xs">Рекомендовані зони</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox checked={layers.pfzObjects} onCheckedChange={() => toggleLayer('pfzObjects')} />
+                  <span className="text-xs">Об&apos;єкти ПЗФ</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox checked={layers.regionScores} onCheckedChange={() => toggleLayer('regionScores')} />
+                  <span className="text-xs">Скори областей</span>
+                </label>
                 
-                <Separator className="my-4" />
+                <Separator className="my-3" />
                 
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-slate-500">Легенда</p>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                      <span className="text-xs">Існуючий рекреаційний пункт</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded border-2 border-dashed border-amber-500 bg-amber-100"></div>
-                      <span className="text-xs">Рекомендована зона (будувати)</span>
-                    </div>
-                    <Separator className="my-2" />
-                    <p className="text-xs font-medium text-slate-500">Пріоритет будівництва</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <span className="text-xs">Критичний</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                      <span className="text-xs">Високий</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <span className="text-xs">Середній</span>
-                    </div>
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-slate-500 mb-2">Легенда</p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span className="text-xs">Існуючий пункт</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500 border-2 border-dashed border-red-300"></div>
+                    <span className="text-xs">Критичний пріоритет</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-orange-500 border-2 border-dashed border-orange-300"></div>
+                    <span className="text-xs">Високий пріоритет</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="text-amber-500 text-sm">\u2605</div>
+                    <span className="text-xs">НПП / Заповідник</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </aside>
 
-          {/* Main Content - Map */}
-          <div className="col-span-12 lg:col-span-6">
-            <Card className="overflow-hidden" data-testid="map-container">
-              <div className="h-[calc(100vh-180px)]">
-                <MapContainer
-                  center={UKRAINE_CENTER}
-                  zoom={DEFAULT_ZOOM}
-                  style={{ height: '100%', width: '100%' }}
-                  scrollWheelZoom={true}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
+          {/* Center - Map */}
+          <div className="col-span-12 lg:col-span-5">
+            <Card className="overflow-hidden">
+              <div className="h-[calc(100vh-120px)]">
+                <MapContainer center={UKRAINE_CENTER} zoom={DEFAULT_ZOOM} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
+                  <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <MapController center={mapCenter} zoom={mapZoom} />
                   
-                  {/* Recreational Points */}
+                  {/* Existing points */}
                   {layers.recreationalPoints && filteredPoints.map((point, idx) => (
                     point.geometry?.coordinates && (
-                      <CircleMarker
-                        key={idx}
-                        center={[point.geometry.coordinates[1], point.geometry.coordinates[0]]}
-                        radius={6}
-                        pathOptions={{
-                          fillColor: '#22c55e',
-                          color: '#fff',
-                          weight: 2,
-                          opacity: 1,
-                          fillOpacity: 0.8,
-                        }}
-                      >
+                      <CircleMarker key={`pt-${idx}`} center={[point.geometry.coordinates[1], point.geometry.coordinates[0]]} radius={5}
+                        pathOptions={{ fillColor: '#22c55e', color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.8 }}>
                         <Popup>
                           <div className="text-sm">
                             <p className="font-semibold">{point.properties?.name || 'Рекреаційний пункт'}</p>
                             <p className="text-slate-500">{point.properties?.region}</p>
-                            {point.properties?.capacity && (
-                              <p>Місткість: {point.properties.capacity}</p>
-                            )}
+                            {point.properties?.capacity && <p>Місткість: {point.properties.capacity}</p>}
                           </div>
                         </Popup>
                       </CircleMarker>
                     )
                   ))}
 
-                  {/* Recommended Zones for Building */}
-                  {layers.recommendedZones && recommendedZones
-                    .filter(zone => !selectedRegion || zone.region === selectedRegion)
-                    .map((zone, idx) => {
-                      const priorityColors = {
-                        'критичний': '#ef4444',
-                        'високий': '#f97316',
-                        'середній': '#eab308',
-                        'низький': '#22c55e'
-                      };
-                      const color = priorityColors[zone.priority] || '#f97316';
-                      
-                      return (
-                        <CircleMarker
-                          key={`zone-${idx}`}
-                          center={zone.coordinates}
-                          radius={12}
-                          pathOptions={{
-                            fillColor: color,
-                            color: color,
-                            weight: 3,
-                            opacity: 1,
-                            fillOpacity: 0.3,
-                            dashArray: '5, 5',
-                          }}
-                        >
-                          <Popup>
-                            <div className="text-sm min-w-[220px]">
-                              <div className="flex items-center gap-2 mb-2">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }}></div>
-                                <p className="font-bold text-base">Рекомендована зона</p>
+                  {/* PFZ Objects */}
+                  {layers.pfzObjects && filteredPfzObjects.map((obj, idx) => (
+                    obj.coordinates && (
+                      <Marker key={`pfz-${idx}`} position={obj.coordinates} icon={createStarIcon('#f59e0b')}>
+                        <Popup>
+                          <div className="text-sm min-w-[220px]">
+                            <p className="font-bold text-amber-600">{obj.name}</p>
+                            <p className="text-xs text-slate-500 mb-2">{obj.type} • {obj.region}</p>
+                            <div className="space-y-1 text-xs">
+                              <p><span className="text-slate-500">Площа:</span> {obj.area_ha?.toLocaleString()} га</p>
+                              <p><span className="text-slate-500">Рік створення:</span> {obj.year_created}</p>
+                              <p><span className="text-slate-500">Відвідуваність:</span> ~{obj.visitors_per_year?.toLocaleString()} осіб/рік</p>
+                              {obj.warning && <p className="text-red-500 font-medium mt-2">{obj.warning}</p>}
+                            </div>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    )
+                  ))}
+
+                  {/* Recommended Locations */}
+                  {layers.recommendedZones && recommendedLocations.map((loc, idx) => {
+                    const priorityColors = { 95: '#ef4444', 92: '#ef4444', 90: '#f97316', 88: '#f97316', 85: '#eab308', 82: '#eab308', 78: '#84cc16', 25: '#6b7280' };
+                    const color = priorityColors[loc.priority] || (loc.priority >= 85 ? '#ef4444' : loc.priority >= 70 ? '#f97316' : '#eab308');
+                    const isWarning = loc.warning || loc.risk_level === 'ВИСОКИЙ';
+                    
+                    return (
+                      <CircleMarker key={`loc-${idx}`} center={loc.coordinates} radius={14}
+                        pathOptions={{ fillColor: isWarning ? '#6b7280' : color, color: isWarning ? '#6b7280' : color, weight: 3, opacity: 1, fillOpacity: 0.3, dashArray: '5, 5' }}>
+                        <Popup>
+                          <div className="text-sm min-w-[280px] max-w-[320px]">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Target className="w-4 h-4" style={{ color }} />
+                              <p className="font-bold">РЕКОМЕНДОВАНА ЗОНА</p>
+                            </div>
+                            <p className="font-semibold text-slate-700">{loc.name}</p>
+                            <p className="text-xs text-slate-500 mb-2">Біля: {loc.near_pfz}</p>
+                            
+                            <div className="bg-slate-50 rounded p-2 mb-2">
+                              <div className="flex justify-between items-center">
+                                <span className="text-xs text-slate-500">Пріоритет:</span>
+                                <span className="font-bold" style={{ color }}>{loc.priority}/100</span>
                               </div>
-                              <p className="text-slate-600 mb-2">{zone.region}</p>
-                              <div className="space-y-1 text-xs">
-                                <div className="flex justify-between">
-                                  <span className="text-slate-500">Пріоритет:</span>
-                                  <span className="font-medium" style={{ color }}>{zone.priority.toUpperCase()}</span>
+                              <div className="h-1.5 bg-slate-200 rounded-full mt-1">
+                                <div className="h-full rounded-full" style={{ width: `${loc.priority}%`, backgroundColor: color }}></div>
+                              </div>
+                            </div>
+                            
+                            {loc.warning ? (
+                              <div className="bg-red-50 border border-red-200 rounded p-2 mb-2">
+                                <p className="text-xs text-red-600 font-medium">{loc.warning}</p>
+                                {loc.special_notes && <p className="text-xs text-red-500 mt-1">{loc.special_notes}</p>}
+                              </div>
+                            ) : (
+                              <div className="bg-emerald-50 border border-emerald-200 rounded p-2 mb-2">
+                                <p className="text-xs text-emerald-700">{loc.legal_status}</p>
+                              </div>
+                            )}
+                            
+                            <div className="space-y-1 text-xs">
+                              <p><span className="text-slate-500">Відстань до ПЗФ:</span> {loc.distance_from_pfz_km} км</p>
+                              <p><span className="text-slate-500">Тип:</span> {loc.recommended_type}</p>
+                              <p><span className="text-slate-500">Місткість:</span> {loc.recommended_capacity}</p>
+                              <p><span className="text-slate-500">Інвестиції:</span> {loc.investment_usd}</p>
+                              <p><span className="text-slate-500">Окупність:</span> {loc.payback_years}</p>
+                              {loc.existing_points_nearby !== undefined && (
+                                <p><span className="text-slate-500">Існуючих пунктів поблизу:</span> {loc.existing_points_nearby}</p>
+                              )}
+                            </div>
+                            
+                            {loc.infrastructure && (
+                              <div className="mt-2 pt-2 border-t">
+                                <p className="text-xs font-medium text-slate-600 mb-1">Інфраструктура поблизу:</p>
+                                <div className="grid grid-cols-2 gap-1 text-xs">
+                                  {loc.infrastructure.hospital_km && <p>Лікарня: {loc.infrastructure.hospital_km} км</p>}
+                                  {loc.infrastructure.gas_station_km && <p>Заправка: {loc.infrastructure.gas_station_km} км</p>}
+                                  {loc.infrastructure.mobile_coverage && <p>Зв&apos;язок: {loc.infrastructure.mobile_coverage}%</p>}
+                                  {loc.infrastructure.road_name && <p>Дорога: {loc.infrastructure.road_name}</p>}
                                 </div>
-                                <div className="flex justify-between">
-                                  <span className="text-slate-500">Тип:</span>
-                                  <span className="font-medium">{zone.zone_type}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="text-slate-500">Потенціал:</span>
-                                  <span className="font-medium">{zone.total_score}/100</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="text-slate-500">Рек. місткість:</span>
-                                  <span className="font-medium">{zone.recommended_capacity} осіб</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="text-slate-500">Масштаб інвестицій:</span>
-                                  <span className="font-medium text-xs">{zone.investment_scale}</span>
-                                </div>
-                                {zone.notable_objects_nearby?.length > 0 && (
-                                  <div className="mt-2 pt-2 border-t">
-                                    <p className="text-slate-500 mb-1">Поблизу ПЗФ:</p>
-                                    {zone.notable_objects_nearby.slice(0, 2).map((obj, i) => (
-                                      <p key={i} className="text-emerald-600 text-xs">• {obj}</p>
-                                    ))}
+                                {loc.infrastructure.warnings && (
+                                  <div className="mt-1 text-xs text-amber-600">
+                                    {loc.infrastructure.warnings.map((w, i) => <p key={i}>⚠️ {w}</p>)}
                                   </div>
                                 )}
                               </div>
-                            </div>
-                          </Popup>
-                        </CircleMarker>
-                      );
-                    })}
+                            )}
+                          </div>
+                        </Popup>
+                      </CircleMarker>
+                    );
+                  })}
 
-                  {/* Region markers with scores */}
-                  {layers.regionScores && allAnalysis.map((analysis, idx) => {
+                  {/* Region score markers */}
+                  {layers.regionScores && !selectedRegion && allAnalysis.map((analysis, idx) => {
                     const center = REGION_CENTERS[analysis.region];
                     if (!center) return null;
                     return (
-                      <Marker
-                        key={idx}
-                        position={center}
-                        icon={createIcon(getScoreColor(analysis.total_score), 32)}
-                        eventHandlers={{
-                          click: () => handleRegionChange(analysis.region)
-                        }}
-                      >
+                      <Marker key={`reg-${idx}`} position={center} icon={createIcon(getScoreColor(analysis.total_score), 28)}
+                        eventHandlers={{ click: () => handleRegionChange(analysis.region) }}>
                         <Popup>
-                          <div className="text-sm min-w-[200px]">
-                            <p className="font-bold text-base mb-2">{analysis.region}</p>
-                            <div className="flex items-center justify-between mb-2">
+                          <div className="text-sm min-w-[180px]">
+                            <p className="font-bold mb-1">{analysis.region}</p>
+                            <div className="flex items-center justify-between">
                               <span>Потенціал:</span>
-                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }}>
-                                {analysis.total_score}/100
-                              </Badge>
+                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }}>{analysis.total_score}/100</Badge>
                             </div>
-                            <p className="text-xs text-slate-500">{analysis.category}</p>
+                            <p className="text-xs text-slate-500 mt-1">{analysis.category}</p>
                           </div>
                         </Popup>
                       </Marker>
@@ -476,267 +475,442 @@ function App() {
             </Card>
           </div>
 
-          {/* Right Sidebar - Analysis Results */}
-          <aside className="col-span-12 lg:col-span-4">
-            <Card className="h-[calc(100vh-180px)] flex flex-col" data-testid="analysis-panel">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5" />
-                  Результати аналізу
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex-1 overflow-hidden">
+          {/* Right - Analysis Panel */}
+          <aside className="col-span-12 lg:col-span-5">
+            <Card className="h-[calc(100vh-120px)] flex flex-col">
+              <CardContent className="flex-1 overflow-hidden p-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="map" data-testid="tab-region">Область</TabsTrigger>
-                    <TabsTrigger value="compare" data-testid="tab-compare">Порівняння</TabsTrigger>
-                    <TabsTrigger value="chart" data-testid="tab-chart">Графіки</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-3 rounded-none border-b">
+                    <TabsTrigger value="analysis">Аналіз</TabsTrigger>
+                    <TabsTrigger value="locations">Локації</TabsTrigger>
+                    <TabsTrigger value="compare">Порівняння</TabsTrigger>
                   </TabsList>
                   
-                  <TabsContent value="map" className="flex-1 overflow-hidden mt-4">
-                    <ScrollArea className="h-[calc(100vh-340px)]">
-                      {loading ? (
-                        <div className="flex items-center justify-center h-40">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
-                        </div>
-                      ) : analysisResult ? (
-                        <div className="space-y-4 animate-fadeIn pr-4" data-testid="analysis-result">
-                          {/* Score Header */}
-                          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100">
-                            <h3 className="text-lg font-semibold text-slate-700 mb-2">{analysisResult.region}</h3>
-                            <div 
-                              className="inline-flex items-center justify-center w-24 h-24 rounded-full text-white text-3xl font-bold mb-2"
-                              style={{ backgroundColor: getScoreColor(analysisResult.total_score) }}
-                            >
-                              {analysisResult.total_score}
+                  <TabsContent value="analysis" className="flex-1 overflow-hidden m-0">
+                    <ScrollArea className="h-full">
+                      <div className="p-4">
+                        {loading ? (
+                          <div className="flex items-center justify-center h-40">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+                          </div>
+                        ) : analysisResult ? (
+                          <div className="space-y-4">
+                            {/* Header */}
+                            <div className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 border">
+                              <h2 className="text-xl font-bold text-slate-800 mb-3">{analysisResult.region}</h2>
+                              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full text-white text-2xl font-bold mb-2"
+                                style={{ backgroundColor: getScoreColor(analysisResult.total_score) }}>
+                                {analysisResult.total_score}
+                              </div>
+                              <p className="text-sm text-slate-500">зі 100 балів</p>
+                              <Badge className="mt-2 text-white" style={{ backgroundColor: getCategoryColor(analysisResult.category) }}>
+                                {analysisResult.category}
+                              </Badge>
                             </div>
-                            <p className="text-sm text-slate-500">зі 100 балів</p>
-                            <Badge 
-                              className="mt-2 text-white"
-                              style={{ backgroundColor: getCategoryColor(analysisResult.category) }}
-                            >
-                              {analysisResult.category}
-                            </Badge>
-                          </div>
 
-                          {/* Score Breakdown */}
-                          <div className="space-y-3">
-                            <ScoreBar label="Попит" value={analysisResult.demand_score} max={25} icon={<Users className="w-4 h-4" />} />
-                            <ScoreBar label="ПЗФ" value={analysisResult.pfz_score} max={20} icon={<TreePine className="w-4 h-4" />} />
-                            <ScoreBar label="Природа" value={analysisResult.nature_score} max={15} icon={<TreePine className="w-4 h-4" />} />
-                            <ScoreBar label="Транспорт" value={analysisResult.accessibility_score} max={15} icon={<Car className="w-4 h-4" />} />
-                            <ScoreBar label="Інфраструктура" value={analysisResult.infrastructure_score} max={10} icon={<Building2 className="w-4 h-4" />} />
-                            <ScoreBar label="Насиченість" value={Math.abs(analysisResult.saturation_penalty)} max={15} icon={<AlertTriangle className="w-4 h-4" />} negative />
-                          </div>
+                            {/* Radar Chart */}
+                            <div className="h-48">
+                              <ResponsiveContainer width="100%" height="100%">
+                                <RadarChart data={getRadarData()}>
+                                  <PolarGrid />
+                                  <PolarAngleAxis dataKey="factor" tick={{ fontSize: 11 }} />
+                                  <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} />
+                                  <Radar name="Потенціал" dataKey="value" stroke="#22c55e" fill="#22c55e" fillOpacity={0.5} />
+                                </RadarChart>
+                              </ResponsiveContainer>
+                            </div>
 
-                          {/* Details Accordion */}
-                          <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="population">
-                              <AccordionTrigger className="text-sm">
-                                <span className="flex items-center gap-2">
-                                  <Users className="w-4 h-4" /> Населення та попит
-                                </span>
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="space-y-2 text-sm">
-                                  <DetailRow label="Населення" value={analysisResult.details.population.total?.toLocaleString()} />
-                                  <DetailRow label="Площа" value={`${analysisResult.details.population.area_km2?.toLocaleString()} км²`} />
-                                  <DetailRow label="Річний попит" value={analysisResult.details.population.annual_demand?.toLocaleString()} />
-                                  <DetailRow label="Річна пропозиція" value={analysisResult.details.population.annual_supply?.toLocaleString()} />
-                                  <DetailRow label="Співвідношення" value={analysisResult.details.population.supply_demand_ratio} />
-                                  <DetailRow 
-                                    label="Статус" 
-                                    value={analysisResult.details.population.gap_status}
-                                    status={analysisResult.details.population.gap > 0 ? 'warning' : 'success'}
-                                  />
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-
-                            <AccordionItem value="pfz">
-                              <AccordionTrigger className="text-sm">
-                                <span className="flex items-center gap-2">
-                                  <TreePine className="w-4 h-4" /> Природно-заповідний фонд
-                                </span>
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="space-y-2 text-sm">
-                                  <DetailRow label="НПП" value={analysisResult.details.pfz.national_parks} />
-                                  <DetailRow label="Заповідники" value={analysisResult.details.pfz.nature_reserves} />
-                                  <DetailRow label="РЛП" value={analysisResult.details.pfz.regional_landscape_parks} />
-                                  <DetailRow label="Заказники" value={analysisResult.details.pfz.zakazniks} />
-                                  <DetailRow label="% території" value={`${analysisResult.details.pfz.percent_of_region}%`} />
-                                  <DetailRow label="Рейтинг ПЗФ" value={analysisResult.details.pfz.pfz_rating} />
-                                  {analysisResult.details.pfz.notable_objects?.length > 0 && (
-                                    <div className="mt-2">
-                                      <p className="text-xs text-slate-500 mb-1">Відомі об&apos;єкти:</p>
-                                      <ul className="text-xs space-y-1">
-                                        {analysisResult.details.pfz.notable_objects.slice(0, 3).map((obj, i) => (
-                                          <li key={i} className="text-emerald-600">• {obj}</li>
-                                        ))}
-                                      </ul>
+                            {/* Factors Accordion */}
+                            <Accordion type="multiple" defaultValue={['demand']} className="w-full">
+                              {/* DEMAND */}
+                              <AccordionItem value="demand">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <Users className="w-4 h-4 text-blue-500" />
+                                    <span>1. ПОПИТ ВІД НАСЕЛЕННЯ</span>
+                                    <Badge variant="outline" className="ml-auto">{analysisResult.demand_score}/25</Badge>
+                                    {getScoreIcon(analysisResult.demand_score, 25)}
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-3 text-sm">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Населення</p>
+                                        <p className="font-semibold">{analysisResult.details.population.total?.toLocaleString()} осіб</p>
+                                      </div>
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Густота</p>
+                                        <p className="font-semibold">{analysisResult.details.population.density_per_km2} осіб/км²</p>
+                                      </div>
                                     </div>
-                                  )}
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
+                                    <div className="bg-blue-50 rounded p-3">
+                                      <p className="text-xs text-slate-500 mb-1">Аналіз попиту/пропозиції:</p>
+                                      <div className="space-y-1">
+                                        <p>Річний попит: <strong>{analysisResult.details.population.annual_demand?.toLocaleString()}</strong> відвідувань</p>
+                                        <p>Річна пропозиція: <strong>{analysisResult.details.population.annual_supply?.toLocaleString()}</strong> місць</p>
+                                        <p>Співвідношення: <strong>{analysisResult.details.population.supply_demand_ratio}</strong></p>
+                                      </div>
+                                    </div>
+                                    <div className={`rounded p-3 ${analysisResult.details.population.gap > 0 ? 'bg-amber-50 border border-amber-200' : 'bg-emerald-50 border border-emerald-200'}`}>
+                                      <p className={`font-semibold ${analysisResult.details.population.gap > 0 ? 'text-amber-700' : 'text-emerald-700'}`}>
+                                        {analysisResult.details.population.gap_status}: {Math.abs(analysisResult.details.population.gap).toLocaleString()} відвідувань
+                                      </p>
+                                    </div>
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
 
-                            <AccordionItem value="transport">
-                              <AccordionTrigger className="text-sm">
-                                <span className="flex items-center gap-2">
-                                  <Car className="w-4 h-4" /> Транспортна доступність
+                              {/* PFZ */}
+                              <AccordionItem value="pfz">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <TreePine className="w-4 h-4 text-emerald-500" />
+                                    <span>2. ПЗФ ЯК АТРАКТОР</span>
+                                    <Badge variant="outline" className="ml-auto">{analysisResult.pfz_score}/20</Badge>
+                                    {getScoreIcon(analysisResult.pfz_score, 20)}
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-3 text-sm">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <div className="bg-emerald-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">НПП</p>
+                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.national_parks}</p>
+                                      </div>
+                                      <div className="bg-green-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Заповідники</p>
+                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.nature_reserves}</p>
+                                      </div>
+                                      <div className="bg-teal-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">РЛП</p>
+                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.regional_landscape_parks}</p>
+                                      </div>
+                                      <div className="bg-cyan-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Заказники</p>
+                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.zakazniks}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex justify-between bg-slate-50 rounded p-2">
+                                      <span>Під ПЗФ:</span>
+                                      <span className="font-semibold">{analysisResult.details.pfz.percent_of_region}% території</span>
+                                    </div>
+                                    {analysisResult.details.pfz.notable_objects?.length > 0 && (
+                                      <div className="bg-amber-50 rounded p-3">
+                                        <p className="text-xs text-slate-500 mb-2">Відомі об&apos;єкти:</p>
+                                        {analysisResult.details.pfz.notable_objects.map((obj, i) => (
+                                          <p key={i} className="text-emerald-700">★ {obj}</p>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
+
+                              {/* NATURE */}
+                              <AccordionItem value="nature">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <Waves className="w-4 h-4 text-cyan-500" />
+                                    <span>3. ПРИРОДНІ РЕСУРСИ</span>
+                                    <Badge variant="outline" className="ml-auto">{analysisResult.nature_score}/15</Badge>
+                                    {getScoreIcon(analysisResult.nature_score, 15)}
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-3 text-sm">
+                                    <div className="flex items-center justify-between bg-green-50 rounded p-3">
+                                      <div className="flex items-center gap-2">
+                                        <TreePine className="w-5 h-5 text-green-600" />
+                                        <span>Лісове покриття</span>
+                                      </div>
+                                      <span className="font-bold text-green-700">{analysisResult.details.nature.forest_coverage_percent}%</span>
+                                    </div>
+                                    <div className="flex items-center justify-between bg-blue-50 rounded p-3">
+                                      <div className="flex items-center gap-2">
+                                        <Waves className="w-5 h-5 text-blue-600" />
+                                        <span>Водні об&apos;єкти</span>
+                                      </div>
+                                      {analysisResult.details.nature.has_water_bodies ? (
+                                        <Badge className="bg-blue-500">Наявні</Badge>
+                                      ) : (
+                                        <Badge variant="secondary">Відсутні</Badge>
+                                      )}
+                                    </div>
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
+
+                              {/* TRANSPORT */}
+                              <AccordionItem value="transport">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <Car className="w-4 h-4 text-indigo-500" />
+                                    <span>4. ТРАНСПОРТНА ДОСТУПНІСТЬ</span>
+                                    <Badge variant="outline" className="ml-auto">{analysisResult.accessibility_score}/15</Badge>
+                                    {getScoreIcon(analysisResult.accessibility_score, 15)}
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-3 text-sm">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <div className="bg-indigo-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Рейтинг</p>
+                                        <p className="font-semibold">{analysisResult.details.transport.accessibility_score}/10</p>
+                                      </div>
+                                      <div className="bg-purple-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Щільність доріг</p>
+                                        <p className="font-semibold">{analysisResult.details.transport.highway_density} км</p>
+                                      </div>
+                                    </div>
+                                    {analysisResult.details.transport.main_roads?.length > 0 && (
+                                      <div className="bg-slate-50 rounded p-3">
+                                        <p className="text-xs text-slate-500 mb-2">Міжнародні траси:</p>
+                                        {analysisResult.details.transport.main_roads.filter(r => r.type === 'міжнародна').slice(0, 4).map((road, i) => (
+                                          <p key={i} className="text-indigo-700">✓ {road.name} ({road.quality})</p>
+                                        ))}
+                                      </div>
+                                    )}
+                                    <div className="grid grid-cols-3 gap-2 text-center">
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Залізниці</p>
+                                        <p className="font-semibold">{analysisResult.details.transport.railway_stations}</p>
+                                      </div>
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Аеропорти</p>
+                                        <p className="font-semibold">{analysisResult.details.transport.airports}</p>
+                                      </div>
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Час до міста</p>
+                                        <p className="font-semibold">{analysisResult.details.transport.avg_travel_time_minutes} хв</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
+
+                              {/* INFRASTRUCTURE */}
+                              <AccordionItem value="infra">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <Building2 className="w-4 h-4 text-orange-500" />
+                                    <span>5. ІНФРАСТРУКТУРА</span>
+                                    <Badge variant="outline" className="ml-auto">{analysisResult.infrastructure_score}/10</Badge>
+                                    {getScoreIcon(analysisResult.infrastructure_score, 10)}
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-2 text-sm">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <div className="flex items-center gap-2 bg-red-50 rounded p-2">
+                                        <Hospital className="w-4 h-4 text-red-500" />
+                                        <div>
+                                          <p className="text-xs text-slate-500">Лікарні/100к</p>
+                                          <p className="font-semibold">{analysisResult.details.infrastructure.hospitals_per_100k}</p>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2 bg-amber-50 rounded p-2">
+                                        <Fuel className="w-4 h-4 text-amber-500" />
+                                        <div>
+                                          <p className="text-xs text-slate-500">Заправки</p>
+                                          <p className="font-semibold">{analysisResult.details.infrastructure.gas_stations_per_100km2}/100км²</p>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2 bg-blue-50 rounded p-2">
+                                        <Wifi className="w-4 h-4 text-blue-500" />
+                                        <div>
+                                          <p className="text-xs text-slate-500">Моб. зв&apos;язок</p>
+                                          <p className="font-semibold">{analysisResult.details.infrastructure.mobile_coverage_percent}%</p>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2 bg-purple-50 rounded p-2">
+                                        <Hotel className="w-4 h-4 text-purple-500" />
+                                        <div>
+                                          <p className="text-xs text-slate-500">Готелі</p>
+                                          <p className="font-semibold">{analysisResult.details.infrastructure.hotels_total}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
+
+                              {/* SATURATION */}
+                              <AccordionItem value="saturation">
+                                <AccordionTrigger className="text-sm py-2">
+                                  <div className="flex items-center gap-2">
+                                    <AlertTriangle className="w-4 h-4 text-red-500" />
+                                    <span>6. ШТРАФ ЗА НАСИЧЕНІСТЬ</span>
+                                    <Badge variant="outline" className="ml-auto text-red-600">{analysisResult.saturation_penalty}/15</Badge>
+                                  </div>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <div className="pl-6 space-y-3 text-sm">
+                                    <div className="grid grid-cols-2 gap-2">
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Існуючих пунктів</p>
+                                        <p className="font-semibold text-lg">{analysisResult.details.saturation.existing_points}</p>
+                                      </div>
+                                      <div className="bg-slate-50 rounded p-2">
+                                        <p className="text-xs text-slate-500">Щільність</p>
+                                        <p className="font-semibold">{analysisResult.details.saturation.density_per_1000km2}/1000км²</p>
+                                      </div>
+                                    </div>
+                                    <div className={`rounded p-3 ${analysisResult.saturation_penalty < -5 ? 'bg-red-50 border border-red-200' : 'bg-emerald-50 border border-emerald-200'}`}>
+                                      <p className={`font-semibold ${analysisResult.saturation_penalty < -5 ? 'text-red-700' : 'text-emerald-700'}`}>
+                                        {analysisResult.details.saturation.density_status}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </AccordionContent>
+                              </AccordionItem>
+                            </Accordion>
+
+                            {/* Conclusion */}
+                            <div className={`rounded-lg p-4 ${analysisResult.details.investment.should_build ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
+                              <div className="flex items-center gap-2 mb-2">
+                                {analysisResult.details.investment.should_build ? (
+                                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                                ) : (
+                                  <XCircle className="w-5 h-5 text-red-600" />
+                                )}
+                                <span className={`font-bold ${analysisResult.details.investment.should_build ? 'text-emerald-700' : 'text-red-700'}`}>
+                                  {analysisResult.details.investment.should_build ? 'РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : 'БУДІВНИЦТВО РИЗИКОВАНЕ'}
                                 </span>
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="space-y-2 text-sm">
-                                  <DetailRow label="Рейтинг доступності" value={`${analysisResult.details.transport.accessibility_score}/10`} />
-                                  <DetailRow label="Щільність доріг" value={`${analysisResult.details.transport.highway_density} км/1000км²`} />
-                                  <DetailRow label="Міжнародні траси" value={analysisResult.details.transport.international_roads_count} />
-                                  <DetailRow label="Залізничні станції" value={analysisResult.details.transport.railway_stations} />
-                                  <DetailRow label="Аеропорти" value={analysisResult.details.transport.airports} />
-                                  <DetailRow label="Час до міста" value={`${analysisResult.details.transport.avg_travel_time_minutes} хв`} />
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-
-                            <AccordionItem value="infrastructure">
-                              <AccordionTrigger className="text-sm">
-                                <span className="flex items-center gap-2">
-                                  <Building2 className="w-4 h-4" /> Інфраструктура
-                                </span>
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="space-y-2 text-sm">
-                                  <DetailRow label="Лікарні/100к" value={analysisResult.details.infrastructure.hospitals_per_100k} />
-                                  <DetailRow label="Заправки/100км²" value={analysisResult.details.infrastructure.gas_stations_per_100km2} />
-                                  <DetailRow label="Моб. зв'язок" value={`${analysisResult.details.infrastructure.mobile_coverage_percent}%`} />
-                                  <DetailRow label="Інтернет" value={`${analysisResult.details.infrastructure.internet_coverage_percent}%`} />
-                                  <DetailRow label="Готелі" value={analysisResult.details.infrastructure.hotels_total} />
-                                  <DetailRow label="Ресторани/кафе" value={analysisResult.details.infrastructure.restaurants_cafes} />
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-
-                            <AccordionItem value="investment">
-                              <AccordionTrigger className="text-sm">
-                                <span className="flex items-center gap-2">
-                                  <TrendingUp className="w-4 h-4" /> Інвестиційний прогноз
-                                </span>
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="space-y-2 text-sm">
-                                  <DetailRow 
-                                    label="Рекомендація" 
-                                    value={analysisResult.details.investment.should_build ? 'Будувати' : 'Не будувати'}
-                                    status={analysisResult.details.investment.should_build ? 'success' : 'error'}
-                                  />
-                                  <DetailRow label="Рівень ризику" value={analysisResult.details.investment.risk_level} />
-                                  <DetailRow label="Масштаб" value={analysisResult.details.investment.investment_scale} />
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-                          </Accordion>
-
-                          {/* Recommendation */}
-                          <div className="p-4 rounded-lg bg-slate-50 border">
-                            <p className="text-sm text-slate-600">
-                              <span className="font-medium">Висновок: </span>
-                              {analysisResult.recommendation}
-                            </p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center h-40 text-slate-400">
-                          <MapPin className="w-12 h-12 mb-2" />
-                          <p>Оберіть область для аналізу</p>
-                        </div>
-                      )}
-                    </ScrollArea>
-                  </TabsContent>
-
-                  <TabsContent value="compare" className="flex-1 overflow-hidden mt-4">
-                    <ScrollArea className="h-[calc(100vh-340px)]">
-                      <div className="space-y-2 pr-4" data-testid="comparison-table">
-                        {allAnalysis.map((analysis, idx) => (
-                          <div 
-                            key={idx}
-                            className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-50 transition-colors ${
-                              selectedRegion === analysis.region ? 'border-emerald-500 bg-emerald-50' : ''
-                            }`}
-                            onClick={() => handleRegionChange(analysis.region)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <p className="font-medium text-sm">{analysis.region}</p>
-                                <p className="text-xs text-slate-500">{analysis.category}</p>
                               </div>
-                              <div 
-                                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
-                                style={{ backgroundColor: getScoreColor(analysis.total_score) }}
-                              >
-                                {analysis.total_score}
+                              <p className="text-sm text-slate-600">{analysisResult.recommendation}</p>
+                            </div>
+
+                            {/* Investment */}
+                            <div className="bg-slate-50 rounded-lg p-4">
+                              <h4 className="font-semibold flex items-center gap-2 mb-3">
+                                <DollarSign className="w-4 h-4 text-emerald-600" />
+                                Інвестиційний прогноз
+                              </h4>
+                              <div className="grid grid-cols-2 gap-3 text-sm">
+                                <div>
+                                  <p className="text-xs text-slate-500">Рівень ризику</p>
+                                  <p className="font-semibold">{analysisResult.details.investment.risk_level}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-slate-500">Масштаб</p>
+                                  <p className="font-semibold text-xs">{analysisResult.details.investment.investment_scale}</p>
+                                </div>
                               </div>
                             </div>
-                            <div className="mt-2 grid grid-cols-5 gap-1">
-                              <MiniScore label="Поп" value={analysis.demand_score} max={25} />
-                              <MiniScore label="ПЗФ" value={analysis.pfz_score} max={20} />
-                              <MiniScore label="Пр" value={analysis.nature_score} max={15} />
-                              <MiniScore label="Тр" value={analysis.accessibility_score} max={15} />
-                              <MiniScore label="Ін" value={analysis.infrastructure_score} max={10} />
-                            </div>
                           </div>
-                        ))}
+                        ) : (
+                          <div className="flex flex-col items-center justify-center h-60 text-slate-400">
+                            <MapPin className="w-12 h-12 mb-3" />
+                            <p>Оберіть область для аналізу</p>
+                          </div>
+                        )}
                       </div>
                     </ScrollArea>
                   </TabsContent>
 
-                  <TabsContent value="chart" className="flex-1 overflow-hidden mt-4">
-                    <ScrollArea className="h-[calc(100vh-340px)]">
-                      <div className="space-y-6 pr-4">
-                        {analysisResult && (
+                  <TabsContent value="locations" className="flex-1 overflow-hidden m-0">
+                    <ScrollArea className="h-full">
+                      <div className="p-4 space-y-3">
+                        {recommendedLocations.length > 0 ? (
                           <>
-                            {/* Radar Chart */}
-                            <div className="h-64">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <RadarChart data={getRadarData()}>
-                                  <PolarGrid />
-                                  <PolarAngleAxis dataKey="factor" tick={{ fontSize: 12 }} />
-                                  <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                                  <Radar
-                                    name="Потенціал"
-                                    dataKey="value"
-                                    stroke="#22c55e"
-                                    fill="#22c55e"
-                                    fillOpacity={0.5}
-                                  />
-                                </RadarChart>
-                              </ResponsiveContainer>
-                            </div>
+                            <h3 className="font-semibold flex items-center gap-2">
+                              <Target className="w-4 h-4 text-emerald-600" />
+                              Рекомендовані локації ({recommendedLocations.length})
+                            </h3>
+                            {recommendedLocations.map((loc, idx) => (
+                              <Card key={idx} className={`${loc.warning ? 'border-red-200 bg-red-50' : 'border-emerald-200'}`}>
+                                <CardContent className="p-3">
+                                  <div className="flex items-start justify-between mb-2">
+                                    <div>
+                                      <p className="font-semibold text-sm">{loc.name}</p>
+                                      <p className="text-xs text-slate-500">Біля: {loc.near_pfz}</p>
+                                    </div>
+                                    <Badge style={{ backgroundColor: loc.warning ? '#6b7280' : loc.priority >= 90 ? '#ef4444' : loc.priority >= 80 ? '#f97316' : '#eab308' }}>
+                                      {loc.priority}/100
+                                    </Badge>
+                                  </div>
+                                  {loc.warning && (
+                                    <div className="bg-red-100 rounded p-2 mb-2 text-xs text-red-700">
+                                      <strong>{loc.warning}</strong>
+                                      {loc.special_notes && <p className="mt-1">{loc.special_notes}</p>}
+                                    </div>
+                                  )}
+                                  <div className="grid grid-cols-2 gap-2 text-xs mb-2">
+                                    <p><span className="text-slate-500">Тип:</span> {loc.recommended_type}</p>
+                                    <p><span className="text-slate-500">Місткість:</span> {loc.recommended_capacity}</p>
+                                    <p><span className="text-slate-500">Інвестиції:</span> {loc.investment_usd}</p>
+                                    <p><span className="text-slate-500">Окупність:</span> {loc.payback_years}</p>
+                                  </div>
+                                  <Button size="sm" variant="outline" className="w-full text-xs" onClick={() => focusOnLocation(loc.coordinates)}>
+                                    <Navigation className="w-3 h-3 mr-1" />
+                                    Показати на карті
+                                  </Button>
+                                </CardContent>
+                              </Card>
+                            ))}
                           </>
-                        )}
-
-                        {/* All regions bar chart */}
-                        <div>
-                          <h4 className="text-sm font-medium mb-2">Порівняння областей</h4>
-                          <div className="h-96">
-                            <ResponsiveContainer width="100%" height="100%">
-                              <BarChart
-                                data={allAnalysis.slice(0, 10)}
-                                layout="vertical"
-                                margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
-                              >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis type="number" domain={[0, 100]} />
-                                <YAxis dataKey="region" type="category" tick={{ fontSize: 11 }} width={95} />
-                                <Tooltip />
-                                <Bar dataKey="total_score" name="Потенціал">
-                                  {allAnalysis.slice(0, 10).map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={getScoreColor(entry.total_score)} />
-                                  ))}
-                                </Bar>
-                              </BarChart>
-                            </ResponsiveContainer>
+                        ) : selectedRegion ? (
+                          <div className="text-center py-8 text-slate-500">
+                            <MapPin className="w-10 h-10 mx-auto mb-2" />
+                            <p>Немає даних про локації</p>
                           </div>
+                        ) : (
+                          <div className="text-center py-8 text-slate-500">
+                            <MapPin className="w-10 h-10 mx-auto mb-2" />
+                            <p>Оберіть область</p>
+                          </div>
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </TabsContent>
+
+                  <TabsContent value="compare" className="flex-1 overflow-hidden m-0">
+                    <ScrollArea className="h-full">
+                      <div className="p-4">
+                        <h3 className="font-semibold mb-3">Порівняння областей</h3>
+                        <div className="space-y-2">
+                          {allAnalysis.map((analysis, idx) => (
+                            <div key={idx} className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-50 ${selectedRegion === analysis.region ? 'border-emerald-500 bg-emerald-50' : ''}`}
+                              onClick={() => handleRegionChange(analysis.region)}>
+                              <div className="flex items-center justify-between mb-2">
+                                <div>
+                                  <p className="font-medium text-sm">{idx + 1}. {analysis.region}</p>
+                                  <p className="text-xs text-slate-500">{analysis.category}</p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                                  style={{ backgroundColor: getScoreColor(analysis.total_score) }}>
+                                  {analysis.total_score}
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-6 gap-1 text-xs">
+                                <div className="text-center">
+                                  <p className="text-slate-400">Поп</p>
+                                  <p className="font-medium">{analysis.demand_score}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-slate-400">ПЗФ</p>
+                                  <p className="font-medium">{analysis.pfz_score}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-slate-400">Пр</p>
+                                  <p className="font-medium">{analysis.nature_score}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-slate-400">Тр</p>
+                                  <p className="font-medium">{analysis.accessibility_score}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-slate-400">Ін</p>
+                                  <p className="font-medium">{analysis.infrastructure_score}</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-slate-400">Нас</p>
+                                  <p className="font-medium text-red-500">{analysis.saturation_penalty}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </ScrollArea>
@@ -750,63 +924,5 @@ function App() {
     </div>
   );
 }
-
-// Helper Components
-const ScoreBar = ({ label, value, max, icon, negative = false }) => {
-  const percentage = (value / max) * 100;
-  const color = negative ? '#ef4444' : getScoreColor((value / max) * 100);
-  
-  return (
-    <div className="space-y-1">
-      <div className="flex items-center justify-between text-sm">
-        <span className="flex items-center gap-2 text-slate-600">
-          {icon}
-          {label}
-        </span>
-        <span className="font-medium">{value}/{max}</span>
-      </div>
-      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-        <div 
-          className="h-full rounded-full transition-all duration-500"
-          style={{ width: `${percentage}%`, backgroundColor: color }}
-        />
-      </div>
-    </div>
-  );
-};
-
-const DetailRow = ({ label, value, status }) => (
-  <div className="flex items-center justify-between">
-    <span className="text-slate-500">{label}</span>
-    <span className={`font-medium ${
-      status === 'success' ? 'text-emerald-600' : 
-      status === 'warning' ? 'text-amber-600' : 
-      status === 'error' ? 'text-red-600' : ''
-    }`}>
-      {status === 'success' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
-      {status === 'error' && <XCircle className="w-3 h-3 inline mr-1" />}
-      {status === 'warning' && <AlertTriangle className="w-3 h-3 inline mr-1" />}
-      {value}
-    </span>
-  </div>
-);
-
-const MiniScore = ({ label, value, max }) => {
-  const percentage = (value / max) * 100;
-  return (
-    <div className="text-center">
-      <div className="text-xs text-slate-400">{label}</div>
-      <div className="h-1 bg-slate-200 rounded-full mt-1">
-        <div 
-          className="h-full rounded-full"
-          style={{ 
-            width: `${percentage}%`, 
-            backgroundColor: getScoreColor(percentage) 
-          }}
-        />
-      </div>
-    </div>
-  );
-};
 
 export default App;
