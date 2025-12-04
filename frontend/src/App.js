@@ -1233,4 +1233,15 @@ function MapPage() {
   );
 }
 
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/map" element={<MapPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
 export default App;
