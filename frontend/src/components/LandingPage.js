@@ -92,7 +92,7 @@ const LandingPage = () => {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">📊</div>
+              <div className="mb-4"><BarChart3 className="w-12 h-12 text-blue-600" /></div>
               <h3 className="text-xl font-bold mb-2">Охоплення</h3>
               <p className="text-gray-600">
                 24 області України<br/>
