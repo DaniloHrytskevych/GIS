@@ -398,7 +398,7 @@ const LandingPage = () => {
             {/* File 2 */}
             <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">👥</div>
+                <div><BarChart3 className="w-10 h-10 text-blue-600" /></div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2">
                     ukraine_population_data.json
