@@ -103,7 +103,7 @@ const LandingPage = () => {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🏆</div>
+              <div className="mb-4"><Trophy className="w-12 h-12 text-yellow-600" /></div>
               <h3 className="text-xl font-bold mb-2">Результат</h3>
               <p className="text-gray-600">
                 Рейтинг областей за потенціалом<br/>
