@@ -587,10 +587,16 @@ function MapPage() {
                 Звіт
               </Button>
               {analysisResult && (
-                <Button onClick={exportPDF} variant="outline" size="sm" className="gap-2">
-                  <Download className="w-4 h-4" />
-                  PDF
-                </Button>
+                <>
+                  <Button onClick={exportPDF} variant="outline" size="sm" className="gap-2">
+                    <Download className="w-4 h-4" />
+                    PDF
+                  </Button>
+                  <Button onClick={exportJSON} variant="outline" size="sm" className="gap-2">
+                    <FileText className="w-4 h-4" />
+                    JSON
+                  </Button>
+                </>
               )}
             </div>
           </div>
