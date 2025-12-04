@@ -1019,6 +1019,42 @@ function App() {
                               <p className="text-sm text-slate-600">{analysisResult.recommendation}</p>
                             </div>
 
+                            {/* Points needed to cover deficit */}
+                            {analysisResult.details.population.gap > 0 && (
+                              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h4 className="font-semibold flex items-center gap-2 mb-3 text-blue-800">
+                                  <Target className="w-4 h-4" />
+                                  Висновок: як покрити дефіцит
+                                </h4>
+                                <div className="space-y-2 text-sm">
+                                  <p className="text-blue-700">
+                                    Для покриття дефіциту в <strong>{analysisResult.details.population.gap.toLocaleString()}</strong> відвідувань/рік 
+                                    необхідно побудувати приблизно:
+                                  </p>
+                                  <div className="bg-white rounded p-3 text-center">
+                                    <p className="text-3xl font-bold text-blue-600">{calculatePointsNeeded(analysisResult.details.population.gap)}</p>
+                                    <p className="text-xs text-slate-500">рекреаційних пунктів</p>
+                                  </div>
+                                  <p className="text-xs text-slate-500 mt-2">
+                                    * Розрахунок: середня місткість 50 осіб × 180 днів сезону × 2 зміни = 18,000 відвідувань/рік на пункт
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+
+                            {analysisResult.details.population.gap <= 0 && (
+                              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                <h4 className="font-semibold flex items-center gap-2 mb-2 text-amber-800">
+                                  <AlertTriangle className="w-4 h-4" />
+                                  Висновок: ринок насичений
+                                </h4>
+                                <p className="text-sm text-amber-700">
+                                  Пропозиція перевищує попит на <strong>{Math.abs(analysisResult.details.population.gap).toLocaleString()}</strong> відвідувань/рік. 
+                                  Нове стандартне будівництво може бути збитковим. Рекомендується розглядати тільки унікальні концепти або преміум-сегмент.
+                                </p>
+                              </div>
+                            )}
+
                             {/* Investment */}
                             <div className="bg-slate-50 rounded-lg p-4">
                               <h4 className="font-semibold flex items-center gap-2 mb-3">
