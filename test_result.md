@@ -130,6 +130,21 @@ test_plan:
   test_all: false
   test_priority: "high_first"
 
+frontend:
+  - task: "Enhanced popup for recommended zones"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/App.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE: Recommended zones popup not working. Backend API returns 25 zones correctly, but frontend implementation has issues: 1) Recommended zones not visible on map despite being in layers panel, 2) Circles with dashArray '5, 5' not found on map, 3) No popups open when clicking on visible circles, 4) Layer checkboxes not found in DOM, 5) Map shows existing points and PFZ objects but recommended zones are missing. The popup structure in App.js code looks complete with all required elements (header, priority, reasoning, infrastructure, etc.) but zones are not rendering on map. Possible issues: layer visibility logic, data loading, or CircleMarker rendering with dashArray."
+
 agent_communication:
     - agent: "testing"
       message: "Successfully tested /api/recommended-zones endpoint with comprehensive validation. All 9 test categories passed: basic functionality, data structure, zone types, priority validation, reasoning structure, infrastructure validation, facilities count, zone-specific requirements, and coordinate validation. API returns 25 zones (6 near_pfz, 19 roadside) with realistic Ukrainian data. Ready for production use."
+    - agent: "testing"
+      message: "❌ FRONTEND TESTING FAILED: Enhanced popup for recommended zones not working. Backend API is functional but frontend has critical rendering issues. Recommended zones are not visible on map despite complete popup implementation in code. Need to investigate: 1) Layer visibility logic in layers state, 2) CircleMarker rendering with dashArray, 3) Data loading from recommendedZones state, 4) Checkbox functionality for layer control. The popup structure is properly implemented with all Ukrainian requirements but zones don't render."
