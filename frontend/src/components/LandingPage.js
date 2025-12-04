@@ -303,7 +303,7 @@ const LandingPage = () => {
                   </div>
 
                   <div className="bg-blue-50 p-3 rounded border border-blue-200">
-                    <p className="font-semibold text-sm">📡 Зв'язок (2 бали):</p>
+                    <p className="font-semibold text-sm flex items-center gap-1"><Radio className="w-4 h-4" /> Зв'язок (2 бали):</p>
                     <ul className="text-xs mt-1 ml-3">
                       <li>≥96%: 2</li>
                       <li>93-96%: 1.5</li>
