@@ -331,8 +331,23 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
     population = population_data.get('population', 1000000)
     annual_demand = population * 0.15 * 3  # 15% population × 3 visits/year
     
+    def safe_float(val):
+        """Safely convert value to float, handling ranges like '34-36'"""
+        if val is None:
+            return 0
+        if isinstance(val, (int, float)):
+            return float(val)
+        try:
+            # Handle ranges like "34-36" by taking the first number
+            str_val = str(val).strip()
+            if '-' in str_val and not str_val.startswith('-'):
+                str_val = str_val.split('-')[0]
+            return float(str_val)
+        except (ValueError, TypeError):
+            return 0
+    
     total_capacity = sum(
-        float(p.get('properties', {}).get('capacity', 0) or 0)
+        safe_float(p.get('properties', {}).get('capacity', 0))
         for p in recreational_points
     )
     annual_supply = total_capacity * 180 * 2  # 180 days × 2 shifts
