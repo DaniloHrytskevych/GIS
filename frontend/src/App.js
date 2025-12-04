@@ -614,72 +614,114 @@ function App() {
                     )
                   ))}
 
-                  {/* Recommended Locations */}
-                  {layers.recommendedZones && recommendedLocations.map((loc, idx) => {
-                    const priorityColors = { 95: '#ef4444', 92: '#ef4444', 90: '#f97316', 88: '#f97316', 85: '#eab308', 82: '#eab308', 78: '#84cc16', 25: '#6b7280' };
-                    const color = priorityColors[loc.priority] || (loc.priority >= 85 ? '#ef4444' : loc.priority >= 70 ? '#f97316' : '#eab308');
-                    const isWarning = loc.warning || loc.risk_level === 'ВИСОКИЙ';
+                  {/* Recommended Zones */}
+                  {layers.recommendedZones && recommendedZones.filter(zone => !selectedRegion || zone.region === selectedRegion).map((zone, idx) => {
+                    const color = zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308';
                     
                     return (
-                      <CircleMarker key={`loc-${idx}`} center={loc.coordinates} radius={14}
-                        pathOptions={{ fillColor: isWarning ? '#6b7280' : color, color: isWarning ? '#6b7280' : color, weight: 3, opacity: 1, fillOpacity: 0.3, dashArray: '5, 5' }}>
-                        <Popup>
-                          <div className="text-sm min-w-[280px] max-w-[320px]">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Target className="w-4 h-4" style={{ color }} />
-                              <p className="font-bold">РЕКОМЕНДОВАНА ЗОНА</p>
-                            </div>
-                            <p className="font-semibold text-slate-700">{loc.name}</p>
-                            <p className="text-xs text-slate-500 mb-2">Біля: {loc.near_pfz}</p>
-                            
-                            <div className="bg-slate-50 rounded p-2 mb-2">
-                              <div className="flex justify-between items-center">
-                                <span className="text-xs text-slate-500">Пріоритет:</span>
-                                <span className="font-bold" style={{ color }}>{loc.priority}/100</span>
-                              </div>
-                              <div className="h-1.5 bg-slate-200 rounded-full mt-1">
-                                <div className="h-full rounded-full" style={{ width: `${loc.priority}%`, backgroundColor: color }}></div>
+                      <CircleMarker key={`zone-${idx}`} center={zone.coordinates} radius={14}
+                        pathOptions={{ fillColor: color, color: color, weight: 3, opacity: 1, fillOpacity: 0.3, dashArray: '5, 5' }}>
+                        <Popup maxWidth={400}>
+                          <div className="p-4 min-w-[300px] max-w-[380px]">
+                            {/* Header */}
+                            <div className="border-b pb-2 mb-3">
+                              <div className="flex items-center gap-2 mb-1">
+                                <MapPin className="text-green-600" size={20} />
+                                <h3 className="font-bold text-lg">РЕКОМЕНДОВАНА ЗОНА</h3>
                               </div>
                             </div>
-                            
-                            {loc.warning ? (
-                              <div className="bg-red-50 border border-red-200 rounded p-2 mb-2">
-                                <p className="text-xs text-red-600 font-medium">{loc.warning}</p>
-                                {loc.special_notes && <p className="text-xs text-red-500 mt-1">{loc.special_notes}</p>}
-                              </div>
-                            ) : (
-                              <div className="bg-emerald-50 border border-emerald-200 rounded p-2 mb-2">
-                                <p className="text-xs text-emerald-700">{loc.legal_status}</p>
-                              </div>
+
+                            {/* Назва */}
+                            <h4 className="text-xl font-bold mb-1">{zone.name}</h4>
+                            {zone.type === "near_pfz" && zone.pfz_object && (
+                              <p className="text-sm text-gray-600 mb-3">
+                                Біля: {zone.pfz_object}
+                              </p>
                             )}
-                            
-                            <div className="space-y-1 text-xs">
-                              <p><span className="text-slate-500">Відстань до ПЗФ:</span> {loc.distance_from_pfz_km} км</p>
-                              <p><span className="text-slate-500">Тип:</span> {loc.recommended_type}</p>
-                              <p><span className="text-slate-500">Місткість:</span> {loc.recommended_capacity}</p>
-                              <p><span className="text-slate-500">Інвестиції:</span> {loc.investment_usd}</p>
-                              <p><span className="text-slate-500">Окупність:</span> {loc.payback_years}</p>
-                              {loc.existing_points_nearby !== undefined && (
-                                <p><span className="text-slate-500">Існуючих пунктів поблизу:</span> {loc.existing_points_nearby}</p>
-                              )}
+
+                            {/* Пріоритет */}
+                            <div className="mb-3">
+                              <div className="flex justify-between mb-1">
+                                <span className="text-sm font-medium">Пріоритет:</span>
+                                <span className="text-lg font-bold text-green-600">
+                                  {zone.priority}/100
+                                </span>
+                              </div>
+                              <div className="h-2 bg-slate-200 rounded-full">
+                                <div className="h-full rounded-full" style={{ width: `${zone.priority}%`, backgroundColor: color }}></div>
+                              </div>
                             </div>
-                            
-                            {loc.infrastructure && (
-                              <div className="mt-2 pt-2 border-t">
-                                <p className="text-xs font-medium text-slate-600 mb-1">Інфраструктура поблизу:</p>
-                                <div className="grid grid-cols-2 gap-1 text-xs">
-                                  {loc.infrastructure.hospital_km && <p>Лікарня: {loc.infrastructure.hospital_km} км</p>}
-                                  {loc.infrastructure.gas_station_km && <p>Заправка: {loc.infrastructure.gas_station_km} км</p>}
-                                  {loc.infrastructure.mobile_coverage && <p>Зв&apos;язок: {loc.infrastructure.mobile_coverage}%</p>}
-                                  {loc.infrastructure.road_name && <p>Дорога: {loc.infrastructure.road_name}</p>}
+
+                            {/* Статус */}
+                            <div className="p-2 bg-green-50 border border-green-200 rounded mb-3">
+                              <p className="text-sm font-medium text-green-800">
+                                {zone.legal_status}
+                              </p>
+                            </div>
+
+                            {/* Відстань до ПЗФ */}
+                            {zone.type === "near_pfz" && zone.distance_from_pfz && (
+                              <p className="text-sm mb-3">
+                                🌲 Відстань до ПЗФ: <strong>{zone.distance_from_pfz} км</strong>
+                              </p>
+                            )}
+
+                            {/* ОБҐРУНТУВАННЯ */}
+                            <div className="mt-3 p-3 bg-blue-50 rounded-lg mb-3">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1">
+                                <BarChart3 size={16} />
+                                Обґрунтування:
+                              </h4>
+                              <ul className="text-sm space-y-1">
+                                <li>• {zone.reasoning.point1}</li>
+                                <li>• {zone.reasoning.point2}</li>
+                                <li>• {zone.reasoning.point3}</li>
+                              </ul>
+                            </div>
+
+                            {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
+                            <div className="mt-3 p-3 bg-green-50 rounded-lg mb-3">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1">
+                                <Building2 size={16} />
+                                Рекомендована інфраструктура:
+                              </h4>
+                              <ul className="text-sm space-y-1">
+                                {zone.recommended_facilities.map((facility, idx) => (
+                                  <li key={idx}>• {facility}</li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Базова інформація */}
+                            <div className="space-y-1 text-sm mb-3">
+                              <p>Тип: <strong>{zone.recommended_type}</strong></p>
+                              <p>Місткість: <strong>{zone.capacity}</strong></p>
+                              <p>Інвестиції: <strong>{zone.investment}</strong></p>
+                              <p>Окупність: <strong>{zone.payback}</strong></p>
+                              <p>Існуючих пунктів поблизу: <strong>{zone.competitors_nearby}</strong></p>
+                            </div>
+
+                            {/* ІНФРАСТРУКТУРА ПОБЛИЗУ */}
+                            <div className="mt-3 border-t pt-3">
+                              <h4 className="font-semibold mb-2">🌍 Інфраструктура поблизу:</h4>
+                              <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>🏥 Лікарня: {zone.infrastructure.hospital_distance} км</div>
+                                <div>⛽ Заправка: {zone.infrastructure.gas_station_distance} км</div>
+                                <div>🏪 Супермаркет: {zone.infrastructure.shop_distance} км</div>
+                                <div>📡 Мобільний: {zone.infrastructure.mobile_coverage}%</div>
+                                <div className="col-span-2">
+                                  🚗 Дорога: {zone.infrastructure.nearest_road}
+                                  ({zone.infrastructure.road_quality})
                                 </div>
-                                {loc.infrastructure.warnings && (
-                                  <div className="mt-1 text-xs text-amber-600">
-                                    {loc.infrastructure.warnings.map((w, i) => <p key={i}>⚠️ {w}</p>)}
-                                  </div>
-                                )}
                               </div>
-                            )}
+                            </div>
+
+                            {/* Кнопка */}
+                            <button 
+                              onClick={() => focusOnLocation(zone.coordinates)}
+                              className="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition-colors">
+                              Показати маршрут 🗺️
+                            </button>
                           </div>
                         </Popup>
                       </CircleMarker>
