@@ -374,8 +374,77 @@ function App() {
                     )
                   ))}
 
+                  {/* Recommended Zones for Building */}
+                  {layers.recommendedZones && recommendedZones
+                    .filter(zone => !selectedRegion || zone.region === selectedRegion)
+                    .map((zone, idx) => {
+                      const priorityColors = {
+                        'критичний': '#ef4444',
+                        'високий': '#f97316',
+                        'середній': '#eab308',
+                        'низький': '#22c55e'
+                      };
+                      const color = priorityColors[zone.priority] || '#f97316';
+                      
+                      return (
+                        <CircleMarker
+                          key={`zone-${idx}`}
+                          center={zone.coordinates}
+                          radius={12}
+                          pathOptions={{
+                            fillColor: color,
+                            color: color,
+                            weight: 3,
+                            opacity: 1,
+                            fillOpacity: 0.3,
+                            dashArray: '5, 5',
+                          }}
+                        >
+                          <Popup>
+                            <div className="text-sm min-w-[220px]">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }}></div>
+                                <p className="font-bold text-base">Рекомендована зона</p>
+                              </div>
+                              <p className="text-slate-600 mb-2">{zone.region}</p>
+                              <div className="space-y-1 text-xs">
+                                <div className="flex justify-between">
+                                  <span className="text-slate-500">Пріоритет:</span>
+                                  <span className="font-medium" style={{ color }}>{zone.priority.toUpperCase()}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-slate-500">Тип:</span>
+                                  <span className="font-medium">{zone.zone_type}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-slate-500">Потенціал:</span>
+                                  <span className="font-medium">{zone.total_score}/100</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-slate-500">Рек. місткість:</span>
+                                  <span className="font-medium">{zone.recommended_capacity} осіб</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-slate-500">Масштаб інвестицій:</span>
+                                  <span className="font-medium text-xs">{zone.investment_scale}</span>
+                                </div>
+                                {zone.notable_objects_nearby?.length > 0 && (
+                                  <div className="mt-2 pt-2 border-t">
+                                    <p className="text-slate-500 mb-1">Поблизу ПЗФ:</p>
+                                    {zone.notable_objects_nearby.slice(0, 2).map((obj, i) => (
+                                      <p key={i} className="text-emerald-600 text-xs">• {obj}</p>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </Popup>
+                        </CircleMarker>
+                      );
+                    })}
+
                   {/* Region markers with scores */}
-                  {allAnalysis.map((analysis, idx) => {
+                  {layers.regionScores && allAnalysis.map((analysis, idx) => {
                     const center = REGION_CENTERS[analysis.region];
                     if (!center) return null;
                     return (
