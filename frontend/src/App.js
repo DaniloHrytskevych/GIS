@@ -168,52 +168,120 @@ function App() {
 
   const exportPDF = async () => {
     if (!analysisResult) return;
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
     
-    // Page 1: Title
-    pdf.setFontSize(20);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ', pageWidth / 2, 30, { align: 'center' });
-    pdf.setFontSize(16);
-    pdf.text(analysisResult.region, pageWidth / 2, 45, { align: 'center' });
+    // Create a temporary div for PDF content
+    const pdfContent = document.createElement('div');
+    pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif;';
     
-    pdf.setFontSize(36);
-    pdf.text(`${analysisResult.total_score}/100`, pageWidth / 2, 70, { align: 'center' });
+    const d = analysisResult.details;
+    const shouldBuild = d?.investment?.should_build;
     
-    pdf.setFontSize(14);
-    pdf.text(`Категорія: ${analysisResult.category}`, pageWidth / 2, 85, { align: 'center' });
+    pdfContent.innerHTML = `
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #1e293b; margin: 0; font-size: 24px;">АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h1>
+        <h2 style="color: #475569; margin: 10px 0; font-size: 20px;">${analysisResult.region}</h2>
+        <div style="display: inline-block; width: 100px; height: 100px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 100px; font-size: 32px; font-weight: bold; margin: 20px 0;">
+          ${analysisResult.total_score}
+        </div>
+        <p style="color: #64748b; margin: 5px 0;">зі 100 балів</p>
+        <span style="display: inline-block; padding: 6px 16px; border-radius: 20px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold;">${analysisResult.category}</span>
+      </div>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ОЦІНКА ЗА ФАКТОРАМИ</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr style="background: #f8fafc;">
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">Попит від населення</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.demand_score}/25</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">ПЗФ як атрактор</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.pfz_score}/20</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">Природні ресурси</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.nature_score}/15</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">Транспортна доступність</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.accessibility_score}/15</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">Інфраструктура</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.infrastructure_score}/10</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; color: #dc2626;">Штраф за насиченість</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold; color: #dc2626;">${analysisResult.saturation_penalty}/15</td>
+        </tr>
+      </table>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">АНАЛІЗ ПОПИТУ</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Населення</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right;">${d?.population?.total?.toLocaleString() || 'N/A'} осіб</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Річний попит</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right;">${d?.population?.annual_demand?.toLocaleString() || 'N/A'} відвідувань</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Річна пропозиція</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right;">${d?.population?.annual_supply?.toLocaleString() || 'N/A'} місць</td>
+        </tr>
+        <tr style="background: ${d?.population?.gap > 0 ? '#fef3c7' : '#d1fae5'};">
+          <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">${d?.population?.gap_status || 'N/A'}</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${Math.abs(d?.population?.gap || 0).toLocaleString()} відвідувань</td>
+        </tr>
+      </table>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ІНВЕСТИЦІЙНИЙ ПРОГНОЗ</h3>
+      <div style="background: ${shouldBuild ? '#d1fae5' : '#fee2e2'}; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: ${shouldBuild ? '#065f46' : '#991b1b'};">
+          ${shouldBuild ? '✓ РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : '✗ БУДІВНИЦТВО РИЗИКОВАНЕ'}
+        </p>
+        <p style="margin: 0; color: #475569;">${analysisResult.recommendation}</p>
+      </div>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Рівень ризику</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${d?.investment?.risk_level || 'N/A'}</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Масштаб інвестицій</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${d?.investment?.investment_scale || 'N/A'}</td>
+        </tr>
+      </table>
+      
+      <p style="text-align: center; color: #94a3b8; margin-top: 30px; font-size: 12px;">
+        Згенеровано: ${new Date().toLocaleDateString('uk-UA')} | ГІС аналіз рекреаційного потенціалу
+      </p>
+    `;
     
-    let y = 110;
-    pdf.setFontSize(12);
-    pdf.setFont('helvetica', 'normal');
+    document.body.appendChild(pdfContent);
     
-    // Scores
-    pdf.text(`Попит від населення: ${analysisResult.demand_score}/25`, 20, y); y += 8;
-    pdf.text(`ПЗФ як атрактор: ${analysisResult.pfz_score}/20`, 20, y); y += 8;
-    pdf.text(`Природні ресурси: ${analysisResult.nature_score}/15`, 20, y); y += 8;
-    pdf.text(`Транспортна доступність: ${analysisResult.accessibility_score}/15`, 20, y); y += 8;
-    pdf.text(`Інфраструктура: ${analysisResult.infrastructure_score}/10`, 20, y); y += 8;
-    pdf.text(`Штраф за насиченість: ${analysisResult.saturation_penalty}/15`, 20, y); y += 15;
-    
-    // Recommendation
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('РЕКОМЕНДАЦІЯ:', 20, y); y += 8;
-    pdf.setFont('helvetica', 'normal');
-    const splitRec = pdf.splitTextToSize(analysisResult.recommendation, pageWidth - 40);
-    pdf.text(splitRec, 20, y); y += splitRec.length * 6 + 10;
-    
-    // Investment
-    if (analysisResult.details?.investment) {
-      pdf.setFont('helvetica', 'bold');
-      pdf.text('ІНВЕСТИЦІЙНИЙ ПРОГНОЗ:', 20, y); y += 8;
-      pdf.setFont('helvetica', 'normal');
-      pdf.text(`Рівень ризику: ${analysisResult.details.investment.risk_level}`, 20, y); y += 6;
-      pdf.text(`Масштаб: ${analysisResult.details.investment.investment_scale}`, 20, y); y += 6;
-      pdf.text(`Рекомендується будувати: ${analysisResult.details.investment.should_build ? 'ТАК' : 'НІ'}`, 20, y);
+    try {
+      const canvas = await html2canvas(pdfContent, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 10;
+      
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save(`Аналіз_${analysisResult.region}.pdf`);
+    } catch (error) {
+      console.error('PDF export error:', error);
+      alert('Помилка експорту PDF');
+    } finally {
+      document.body.removeChild(pdfContent);
     }
-    
-    pdf.save(`Аналіз_${analysisResult.region}.pdf`);
+  };
   };
 
   const filteredPoints = selectedRegion 
