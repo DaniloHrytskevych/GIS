@@ -1,0 +1,846 @@
+{
+  "ukraine_infrastructure": {
+    "metadata": {
+      "description": "Транспортна доступність та антропогенна інфраструктура областей України для рекреаційного аналізу",
+      "data_year": 2024,
+      "source": "Укравтодор, Державна служба статистики України",
+      "last_updated": "2024-12-04"
+    },
+    "regions": [
+      {
+        "region": "Київська область",
+        "region_en": "Kyivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 285,
+          "main_roads": [
+            {"name": "М-01 Київ-Чернігів", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-05 Київ-Одеса", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-07 Київ-Харків", "type": "міжнародна", "quality": "відмінна"}
+          ],
+          "railway_stations": 45,
+          "airports": 1,
+          "accessibility_score": 9.5,
+          "average_travel_time_to_major_city_minutes": 30
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 89,
+          "hospitals_per_100k": 4.9,
+          "gas_stations": 247,
+          "gas_stations_per_100km2": 0.88,
+          "supermarkets": 1240,
+          "restaurants_cafes": 3580,
+          "hotels_total": 189,
+          "mobile_coverage_percent": 98,
+          "internet_coverage_percent": 95,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 12,
+          "camping_sites": 18,
+          "eco_trails": 24,
+          "viewpoints": 15
+        }
+      },
+      {
+        "region": "Львівська область",
+        "region_en": "Lvivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 268,
+          "main_roads": [
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-09 Львів-Ковель", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-10 Львів-Краковець", "type": "міжнародна", "quality": "відмінна"}
+          ],
+          "railway_stations": 52,
+          "airports": 1,
+          "accessibility_score": 8.8,
+          "average_travel_time_to_major_city_minutes": 35
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 102,
+          "hospitals_per_100k": 4.1,
+          "gas_stations": 312,
+          "gas_stations_per_100km2": 1.43,
+          "supermarkets": 1580,
+          "restaurants_cafes": 4250,
+          "hotels_total": 428,
+          "mobile_coverage_percent": 97,
+          "internet_coverage_percent": 92,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 18,
+          "camping_sites": 35,
+          "eco_trails": 42,
+          "viewpoints": 28
+        }
+      },
+      {
+        "region": "Закарпатська область",
+        "region_en": "Zakarpatska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 198,
+          "main_roads": [
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "добра"},
+            {"name": "Т-07-06 Мукачево-Рахів", "type": "територіальна", "quality": "задовільна"}
+          ],
+          "railway_stations": 28,
+          "airports": 1,
+          "accessibility_score": 6.5,
+          "average_travel_time_to_major_city_minutes": 90
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 51,
+          "hospitals_per_100k": 4.0,
+          "gas_stations": 148,
+          "gas_stations_per_100km2": 1.16,
+          "supermarkets": 520,
+          "restaurants_cafes": 1840,
+          "hotels_total": 312,
+          "mobile_coverage_percent": 94,
+          "internet_coverage_percent": 85,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "відмінна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 24,
+          "camping_sites": 68,
+          "eco_trails": 58,
+          "viewpoints": 45
+        }
+      },
+      {
+        "region": "Одеська область",
+        "region_en": "Odeska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 242,
+          "main_roads": [
+            {"name": "М-05 Київ-Одеса", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-14 Одеса-Мелітополь", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-15 Одеса-Рені", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 48,
+          "airports": 1,
+          "accessibility_score": 8.2,
+          "average_travel_time_to_major_city_minutes": 40
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 95,
+          "hospitals_per_100k": 4.0,
+          "gas_stations": 289,
+          "gas_stations_per_100km2": 0.88,
+          "supermarkets": 1420,
+          "restaurants_cafes": 3980,
+          "hotels_total": 456,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 91,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 14,
+          "camping_sites": 42,
+          "eco_trails": 18,
+          "viewpoints": 22
+        }
+      },
+      {
+        "region": "Харківська область",
+        "region_en": "Kharkivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 256,
+          "main_roads": [
+            {"name": "М-03 Київ-Харків", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-18 Харків-Сімферополь", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 58,
+          "airports": 1,
+          "accessibility_score": 8.5,
+          "average_travel_time_to_major_city_minutes": 35
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 118,
+          "hospitals_per_100k": 4.4,
+          "gas_stations": 324,
+          "gas_stations_per_100km2": 1.03,
+          "supermarkets": 1680,
+          "restaurants_cafes": 3240,
+          "hotels_total": 248,
+          "mobile_coverage_percent": 97,
+          "internet_coverage_percent": 93,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 8,
+          "camping_sites": 15,
+          "eco_trails": 12,
+          "viewpoints": 8
+        }
+      },
+      {
+        "region": "Дніпропетровська область",
+        "region_en": "Dnipropetrovska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 278,
+          "main_roads": [
+            {"name": "М-04 Київ-Дніпро", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "М-18 Харків-Сімферополь", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 64,
+          "airports": 1,
+          "accessibility_score": 8.8,
+          "average_travel_time_to_major_city_minutes": 30
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 142,
+          "hospitals_per_100k": 4.4,
+          "gas_stations": 385,
+          "gas_stations_per_100km2": 1.20,
+          "supermarkets": 2140,
+          "restaurants_cafes": 3850,
+          "hotels_total": 312,
+          "mobile_coverage_percent": 98,
+          "internet_coverage_percent": 94,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 6,
+          "camping_sites": 12,
+          "eco_trails": 8,
+          "viewpoints": 5
+        }
+      },
+      {
+        "region": "Житомирська область",
+        "region_en": "Zhytomyrska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 225,
+          "main_roads": [
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-21 Житомир-Могилів-Подільський", "type": "міжнародна", "quality": "задовільна"}
+          ],
+          "railway_stations": 38,
+          "airports": 0,
+          "accessibility_score": 6.8,
+          "average_travel_time_to_major_city_minutes": 55
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 68,
+          "hospitals_per_100k": 5.7,
+          "gas_stations": 198,
+          "gas_stations_per_100km2": 0.66,
+          "supermarkets": 780,
+          "restaurants_cafes": 1420,
+          "hotels_total": 124,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 87,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 14,
+          "camping_sites": 42,
+          "eco_trails": 35,
+          "viewpoints": 18
+        }
+      },
+      {
+        "region": "Волинська область",
+        "region_en": "Volynska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 212,
+          "main_roads": [
+            {"name": "М-07 Київ-Ковель", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-19 Луцьк-Устилуг", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 32,
+          "airports": 1,
+          "accessibility_score": 7.2,
+          "average_travel_time_to_major_city_minutes": 65
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 54,
+          "hospitals_per_100k": 5.2,
+          "gas_stations": 156,
+          "gas_stations_per_100km2": 0.77,
+          "supermarkets": 640,
+          "restaurants_cafes": 1280,
+          "hotels_total": 248,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 88,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "відмінна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 28,
+          "camping_sites": 85,
+          "eco_trails": 52,
+          "viewpoints": 34
+        }
+      },
+      {
+        "region": "Івано-Франківська область",
+        "region_en": "Ivano-Frankivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 186,
+          "main_roads": [
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-09 Івано-Франківськ-Рахів", "type": "національна", "quality": "задовільна"}
+          ],
+          "railway_stations": 28,
+          "airports": 1,
+          "accessibility_score": 6.2,
+          "average_travel_time_to_major_city_minutes": 75
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 58,
+          "hospitals_per_100k": 4.2,
+          "gas_stations": 168,
+          "gas_stations_per_100km2": 1.21,
+          "supermarkets": 720,
+          "restaurants_cafes": 1680,
+          "hotels_total": 296,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 86,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "відмінна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 22,
+          "camping_sites": 58,
+          "eco_trails": 64,
+          "viewpoints": 42
+        }
+      },
+      {
+        "region": "Вінницька область",
+        "region_en": "Vinnytska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 248,
+          "main_roads": [
+            {"name": "М-12 Стрий-Тернопіль-Кропивницький", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-21 Житомир-Могилів-Подільський", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 42,
+          "airports": 0,
+          "accessibility_score": 7.5,
+          "average_travel_time_to_major_city_minutes": 50
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 82,
+          "hospitals_per_100k": 5.2,
+          "gas_stations": 224,
+          "gas_stations_per_100km2": 0.86,
+          "supermarkets": 980,
+          "restaurants_cafes": 1840,
+          "hotels_total": 142,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 89,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 10,
+          "camping_sites": 22,
+          "eco_trails": 18,
+          "viewpoints": 12
+        }
+      },
+      {
+        "region": "Чернігівська область",
+        "region_en": "Chernihivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 205,
+          "main_roads": [
+            {"name": "М-01 Київ-Чернігів", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-02 Київ-Суми", "type": "міжнародна", "quality": "задовільна"}
+          ],
+          "railway_stations": 36,
+          "airports": 0,
+          "accessibility_score": 6.5,
+          "average_travel_time_to_major_city_minutes": 70
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 58,
+          "hospitals_per_100k": 5.6,
+          "gas_stations": 168,
+          "gas_stations_per_100km2": 0.53,
+          "supermarkets": 640,
+          "restaurants_cafes": 1120,
+          "hotels_total": 98,
+          "mobile_coverage_percent": 94,
+          "internet_coverage_percent": 84,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 12,
+          "camping_sites": 28,
+          "eco_trails": 24,
+          "viewpoints": 14
+        }
+      },
+      {
+        "region": "Рівненська область",
+        "region_en": "Rivnenska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 218,
+          "main_roads": [
+            {"name": "М-06 Київ-Чоп", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-07 Київ-Ковель", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 34,
+          "airports": 0,
+          "accessibility_score": 6.8,
+          "average_travel_time_to_major_city_minutes": 60
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 58,
+          "hospitals_per_100k": 5.0,
+          "gas_stations": 172,
+          "gas_stations_per_100km2": 0.86,
+          "supermarkets": 680,
+          "restaurants_cafes": 1240,
+          "hotels_total": 168,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 87,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 18,
+          "camping_sites": 48,
+          "eco_trails": 38,
+          "viewpoints": 22
+        }
+      },
+      {
+        "region": "Чернівецька область",
+        "region_en": "Chernivetska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 192,
+          "main_roads": [
+            {"name": "М-19 Чернівці-Тернопіль", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-03 Чернівці-Хотин", "type": "національна", "quality": "задовільна"}
+          ],
+          "railway_stations": 18,
+          "airports": 1,
+          "accessibility_score": 6.0,
+          "average_travel_time_to_major_city_minutes": 80
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 42,
+          "hospitals_per_100k": 4.6,
+          "gas_stations": 124,
+          "gas_stations_per_100km2": 1.53,
+          "supermarkets": 480,
+          "restaurants_cafes": 1120,
+          "hotels_total": 186,
+          "mobile_coverage_percent": 94,
+          "internet_coverage_percent": 83,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 16,
+          "camping_sites": 52,
+          "eco_trails": 42,
+          "viewpoints": 28
+        }
+      },
+      {
+        "region": "Полтавська область",
+        "region_en": "Poltavska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 235,
+          "main_roads": [
+            {"name": "М-03 Київ-Харків", "type": "міжнародна", "quality": "відмінна"},
+            {"name": "Н-12 Полтава-Олександрія", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 46,
+          "airports": 1,
+          "accessibility_score": 7.8,
+          "average_travel_time_to_major_city_minutes": 45
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 72,
+          "hospitals_per_100k": 5.1,
+          "gas_stations": 218,
+          "gas_stations_per_100km2": 0.76,
+          "supermarkets": 890,
+          "restaurants_cafes": 1680,
+          "hotels_total": 128,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 90,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 8,
+          "camping_sites": 18,
+          "eco_trails": 14,
+          "viewpoints": 10
+        }
+      },
+      {
+        "region": "Черкаська область",
+        "region_en": "Cherkaska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 242,
+          "main_roads": [
+            {"name": "М-05 Київ-Одеса", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-08 Черкаси-Знам'янка", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 38,
+          "airports": 0,
+          "accessibility_score": 7.2,
+          "average_travel_time_to_major_city_minutes": 55
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 64,
+          "hospitals_per_100k": 5.2,
+          "gas_stations": 196,
+          "gas_stations_per_100km2": 0.94,
+          "supermarkets": 820,
+          "restaurants_cafes": 1540,
+          "hotels_total": 112,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 89,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 10,
+          "camping_sites": 24,
+          "eco_trails": 20,
+          "viewpoints": 14
+        }
+      },
+      {
+        "region": "Сумська область",
+        "region_en": "Sumska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 218,
+          "main_roads": [
+            {"name": "М-02 Київ-Суми", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-12 Суми-Полтава", "type": "національна", "quality": "задовільна"}
+          ],
+          "railway_stations": 42,
+          "airports": 0,
+          "accessibility_score": 6.8,
+          "average_travel_time_to_major_city_minutes": 65
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 58,
+          "hospitals_per_100k": 5.2,
+          "gas_stations": 176,
+          "gas_stations_per_100km2": 0.73,
+          "supermarkets": 720,
+          "restaurants_cafes": 1340,
+          "hotels_total": 96,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 88,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 9,
+          "camping_sites": 22,
+          "eco_trails": 18,
+          "viewpoints": 12
+        }
+      },
+      {
+        "region": "Хмельницька область",
+        "region_en": "Khmelnytska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 238,
+          "main_roads": [
+            {"name": "М-21 Житомир-Могилів-Подільський", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-03 Хмельницький-Тернопіль", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 36,
+          "airports": 0,
+          "accessibility_score": 7.0,
+          "average_travel_time_to_major_city_minutes": 60
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 66,
+          "hospitals_per_100k": 5.1,
+          "gas_stations": 204,
+          "gas_stations_per_100km2": 0.98,
+          "supermarkets": 840,
+          "restaurants_cafes": 1620,
+          "hotels_total": 132,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 89,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 12,
+          "camping_sites": 28,
+          "eco_trails": 24,
+          "viewpoints": 16
+        }
+      },
+      {
+        "region": "Тернопільська область",
+        "region_en": "Ternopilska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 225,
+          "main_roads": [
+            {"name": "М-12 Стрий-Тернопіль-Кропивницький", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-03 Хмельницький-Тернопіль", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 28,
+          "airports": 0,
+          "accessibility_score": 6.8,
+          "average_travel_time_to_major_city_minutes": 65
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 54,
+          "hospitals_per_100k": 5.0,
+          "gas_stations": 168,
+          "gas_stations_per_100km2": 1.21,
+          "supermarkets": 680,
+          "restaurants_cafes": 1280,
+          "hotels_total": 108,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 87,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 10,
+          "camping_sites": 24,
+          "eco_trails": 20,
+          "viewpoints": 14
+        }
+      },
+      {
+        "region": "Миколаївська область",
+        "region_en": "Mykolaivska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 228,
+          "main_roads": [
+            {"name": "М-14 Одеса-Мелітополь", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-11 Миколаїв-Кропивницький", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 32,
+          "airports": 1,
+          "accessibility_score": 7.2,
+          "average_travel_time_to_major_city_minutes": 55
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 58,
+          "hospitals_per_100k": 5.0,
+          "gas_stations": 182,
+          "gas_stations_per_100km2": 0.74,
+          "supermarkets": 740,
+          "restaurants_cafes": 1420,
+          "hotels_total": 124,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 88,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 8,
+          "camping_sites": 18,
+          "eco_trails": 12,
+          "viewpoints": 10
+        }
+      },
+      {
+        "region": "Херсонська область",
+        "region_en": "Khersonska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 215,
+          "main_roads": [
+            {"name": "М-14 Одеса-Мелітополь", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-23 Херсон-Каховка", "type": "національна", "quality": "задовільна"}
+          ],
+          "railway_stations": 28,
+          "airports": 1,
+          "accessibility_score": 6.5,
+          "average_travel_time_to_major_city_minutes": 70
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 52,
+          "hospitals_per_100k": 4.9,
+          "gas_stations": 164,
+          "gas_stations_per_100km2": 0.58,
+          "supermarkets": 680,
+          "restaurants_cafes": 1280,
+          "hotels_total": 148,
+          "mobile_coverage_percent": 94,
+          "internet_coverage_percent": 85,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 10,
+          "camping_sites": 32,
+          "eco_trails": 14,
+          "viewpoints": 18
+        }
+      },
+      {
+        "region": "Кіровоградська область",
+        "region_en": "Kirovohradska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 232,
+          "main_roads": [
+            {"name": "М-12 Стрий-Тернопіль-Кропивницький", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-08 Кропивницький-Знам'янка", "type": "національна", "quality": "добра"}
+          ],
+          "railway_stations": 38,
+          "airports": 1,
+          "accessibility_score": 7.0,
+          "average_travel_time_to_major_city_minutes": 60
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 52,
+          "hospitals_per_100k": 5.4,
+          "gas_stations": 172,
+          "gas_stations_per_100km2": 0.71,
+          "supermarkets": 640,
+          "restaurants_cafes": 1180,
+          "hotels_total": 84,
+          "mobile_coverage_percent": 95,
+          "internet_coverage_percent": 87,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "добра"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 5,
+          "camping_sites": 12,
+          "eco_trails": 8,
+          "viewpoints": 6
+        }
+      },
+      {
+        "region": "Запорізька область",
+        "region_en": "Zaporizka",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 245,
+          "main_roads": [
+            {"name": "М-18 Харків-Сімферополь", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-14 Одеса-Мелітополь", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 42,
+          "airports": 1,
+          "accessibility_score": 7.8,
+          "average_travel_time_to_major_city_minutes": 45
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 78,
+          "hospitals_per_100k": 4.5,
+          "gas_stations": 268,
+          "gas_stations_per_100km2": 0.99,
+          "supermarkets": 1240,
+          "restaurants_cafes": 2340,
+          "hotels_total": 186,
+          "mobile_coverage_percent": 96,
+          "internet_coverage_percent": 91,
+          "electricity_reliability": "висока",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 7,
+          "camping_sites": 16,
+          "eco_trails": 10,
+          "viewpoints": 12
+        }
+      },
+      {
+        "region": "Донецька область",
+        "region_en": "Donetska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 268,
+          "main_roads": [
+            {"name": "М-03 Київ-Харків", "type": "міжнародна", "quality": "добра"},
+            {"name": "М-04 Київ-Дніпро-Донецьк", "type": "міжнародна", "quality": "добра"}
+          ],
+          "railway_stations": 68,
+          "airports": 1,
+          "accessibility_score": 8.2,
+          "average_travel_time_to_major_city_minutes": 40
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 168,
+          "hospitals_per_100k": 4.1,
+          "gas_stations": 412,
+          "gas_stations_per_100km2": 1.54,
+          "supermarkets": 2480,
+          "restaurants_cafes": 4120,
+          "hotels_total": 248,
+          "mobile_coverage_percent": 94,
+          "internet_coverage_percent": 89,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 6,
+          "camping_sites": 14,
+          "eco_trails": 10,
+          "viewpoints": 8
+        }
+      },
+      {
+        "region": "Луганська область",
+        "region_en": "Luhanska",
+        "transport_accessibility": {
+          "highway_density_km_per_1000km2": 242,
+          "main_roads": [
+            {"name": "М-03 Київ-Харків", "type": "міжнародна", "quality": "добра"},
+            {"name": "Н-21 Луганськ-Ізварине", "type": "національна", "quality": "задовільна"}
+          ],
+          "railway_stations": 52,
+          "airports": 1,
+          "accessibility_score": 7.0,
+          "average_travel_time_to_major_city_minutes": 60
+        },
+        "anthropogenic_infrastructure": {
+          "hospitals_total": 94,
+          "hospitals_per_100k": 4.3,
+          "gas_stations": 234,
+          "gas_stations_per_100km2": 0.87,
+          "supermarkets": 1340,
+          "restaurants_cafes": 2180,
+          "hotels_total": 142,
+          "mobile_coverage_percent": 93,
+          "internet_coverage_percent": 86,
+          "electricity_reliability": "середня",
+          "water_supply_quality": "задовільна"
+        },
+        "tourism_infrastructure": {
+          "visitor_centers": 5,
+          "camping_sites": 12,
+          "eco_trails": 8,
+          "viewpoints": 6
+        }
+      }
+    ],
+    "accessibility_score_legend": {
+      "9.0-10.0": "Відмінна (великі міста, кілька міжнародних трас)",
+      "8.0-8.9": "Дуже добра (міжнародні траси, залізниця, аеропорт)",
+      "7.0-7.9": "Добра (міжнародні/національні дороги)",
+      "6.0-6.9": "Задовільна (національні/територіальні дороги)",
+      "5.0-5.9": "Обмежена (територіїальні дороги, віддалені регіони)",
+      "below_5": "Низька (віддалені гірські/поліські регіони)"
+    },
+    "infrastructure_quality_metrics": {
+      "hospitals_per_100k_benchmark": 5.0,
+      "gas_stations_per_100km2_benchmark": 1.0,
+      "mobile_coverage_minimum": 90.0,
+      "internet_coverage_minimum": 85.0
+    }
+  }
+}
