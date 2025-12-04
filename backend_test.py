@@ -428,15 +428,18 @@ class GISAPITester:
                     
                     # Test 9: Check coordinates are in Ukraine range
                     coords_valid = True
+                    invalid_coords = []
                     for zone in zones:
                         coords = zone.get('coordinates', [])
                         if len(coords) != 2:
                             coords_valid = False
+                            invalid_coords.append(f"{zone.get('name', 'Unknown')}: invalid format")
                             break
                         lat, lng = coords
                         # Ukraine approximate bounds: lat 44-52, lng 22-40
                         if not (44 <= lat <= 52 and 22 <= lng <= 40):
                             coords_valid = False
+                            invalid_coords.append(f"{zone.get('name', 'Unknown')}: lat={lat}, lng={lng}")
                             break
                     
                     if coords_valid:
