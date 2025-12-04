@@ -301,11 +301,15 @@ async def analyze_all_regions():
 
 @api_router.get("/recommended-zones")
 async def get_recommended_zones():
-    """Get recommended zones for building new recreational facilities"""
+    """
+    Get recommended zones for building new recreational facilities
+    Uses algorithm to calculate coordinates near PFZ objects and main roads
+    """
     if not all([POPULATION_DATA, INFRASTRUCTURE_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS]):
         raise HTTPException(status_code=500, detail="Data not loaded")
     
     recommended_zones = []
+    zone_id_counter = 1
     
     # Analyze each region and generate recommended zones
     for region in POPULATION_DATA.get('ukraine_regions_data', []):
@@ -338,7 +342,62 @@ async def get_recommended_zones():
             continue
         
         # Only recommend if total_score >= 55 (high potential)
-        if analysis.get('total_score', 0) >= 55 and analysis.get('details', {}).get('investment', {}).get('should_build', False):
+        if analysis.get('total_score', 0) < 55 or not analysis.get('details', {}).get('investment', {}).get('should_build', False):
+            continue
+        
+        # ====== STEP 1: Generate zones near PFZ objects ======
+        if pfz_region and pfz_region.get('notable_objects'):
+            notable_objects = pfz_region['notable_objects']
+            
+            # For each notable PFZ object
+            for pfz_obj in notable_objects[:3]:  # Limit to top 3 PFZ objects per region
+                pfz_name = pfz_obj
+                
+                # Try to get coordinates for this PFZ from the data
+                # For simplicity, use region center + offset based on hash
+                region_centers = {
+                    'Київська область': [50.45, 30.52],
+                    'Львівська область': [49.84, 24.03],
+                    'Закарпатська область': [48.62, 22.29],
+                    'Одеська область': [46.48, 30.73],
+                    'Харківська область': [49.99, 36.23],
+                    'Дніпропетровська область': [48.46, 35.04],
+                    'Житомирська область': [50.25, 28.66],
+                    'Волинська область': [50.75, 25.32],
+                    'Івано-Франківська область': [48.92, 24.71],
+                    'Вінницька область': [49.23, 28.47],
+                    'Чернігівська область': [51.50, 31.29],
+                    'Рівненська область': [50.62, 26.23],
+                    'Чернівецька область': [48.29, 25.93],
+                    'Полтавська область': [49.59, 34.55],
+                    'Черкаська область': [49.44, 32.06],
+                    'Сумська область': [50.91, 34.80],
+                    'Хмельницька область': [49.42, 26.98],
+                    'Тернопільська область': [49.55, 25.59],
+                    'Миколаївська область': [46.97, 32.00],
+                    'Херсонська область': [46.64, 32.62],
+                    'Кіровоградська область': [48.51, 32.26],
+                    'Запорізька область': [47.84, 35.14],
+                    'Донецька область': [48.02, 37.80],
+                    'Луганська область': [48.57, 39.31],
+                }
+                
+                base_coords = region_centers.get(region_name, [48.5, 31.0])
+                
+                # Generate coordinates NEARBY (not at the center) using hash
+                zone_coords = generate_nearby_coordinates(
+                    base_coords[0], 
+                    base_coords[1], 
+                    seed=f"{region_name}_{pfz_name}",
+                    min_distance=2,
+                    max_distance=10
+                )
+                
+                # Check competition
+                competitors = count_competitors_nearby(zone_coords, radius_km=5.0)
+                
+                # Only add if competition is low
+                if competitors < 5:
             # Calculate density to find low-saturation areas
             area = region.get('area_km2', 20000)
             points_density = (len(region_points) / area * 1000) if area > 0 else 0
