@@ -3,18 +3,30 @@
     "Київська область": [
       {
         "name": "с. Конча-Заспа",
+        "type": "near_pfz",
         "near_pfz": "НПП \"Голосіївський\"",
         "coordinates": [50.3389, 30.5125],
         "distance_from_pfz_km": 3,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт, ЗА МЕЖАМИ ПЗФ)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт, ЗА МЕЖАМИ ПЗФ)",
         "priority": 95,
         "pfz_visitors_per_year": 30000,
         "existing_points_nearby": 1,
         "recommended_type": "Екологічний готель",
         "recommended_capacity": "50-70 осіб",
-        "additional_facilities": ["Ресторан з місцевою кухнею", "Інформаційний центр про НПП", "Прокат туристичного спорядження"],
         "investment_usd": "$300-400K",
         "payback_years": "2-3 роки",
+        "reasoning": {
+          "point1": "НПП 'Голосіївський' відвідують 30,000 осіб/рік",
+          "point2": "Існуючих рекреаційних пунктів поблизу: лише 1 (недостатньо!)",
+          "point3": "Високий попит на екотуризм біля столиці (Київ - 3 млн населення)"
+        },
+        "recommended_facilities": [
+          "Екологічний готель: 50-70 номерів",
+          "Ресторан з місцевою/органічною кухнею",
+          "Інформаційний центр про НПП (екскурсії, карти маршрутів)",
+          "Прокат туристичного спорядження",
+          "Веранда/тераса з видом на природу"
+        ],
         "infrastructure": {
           "hospital_km": 5,
           "hospital_name": "Центральна районна лікарня",
@@ -32,45 +44,79 @@
       },
       {
         "name": "Траса М-06, км 25",
+        "type": "roadside",
         "near_pfz": "напрямок Житомир-Чоп",
+        "nearest_city": "Житомир",
         "coordinates": [50.42, 29.95],
         "distance_from_pfz_km": 15,
-        "legal_status": "ДОЗВОЛЕНО (придорожня інфраструктура)",
+        "legal_status": "✅ ДОЗВОЛЕНО (придорожня інфраструктура)",
         "priority": 88,
         "daily_traffic": 5000,
         "existing_points_nearby": 0,
         "recommended_type": "Придорожній рекреаційний комплекс",
         "recommended_capacity": "20-30 місць",
-        "additional_facilities": ["Мотель", "Ресторан", "Кафе", "Стоянка для авто", "Дитячий майданчик"],
         "investment_usd": "$150-250K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "М-06 - міжнародна траса Київ-Чоп (5,000+ авто/день)",
+          "point2": "Високий транзитний потік туристів до Західної України",
+          "point3": "Відсутня якісна придорожня інфраструктура на цій ділянці"
+        },
+        "recommended_facilities": [
+          "Мотель: 20-30 місць",
+          "Ресторан/кафе: 40-50 місць для відвідувачів",
+          "Стоянка: 30-40 автомобілів",
+          "Дитячий майданчик",
+          "Зона відпочинку з альтанками та мангалами"
+        ],
         "infrastructure": {
-          "road_name": "М-06",
-          "road_quality": "відмінна",
+          "hospital_km": 20,
+          "hospital_name": "Житомирська обласна лікарня",
+          "gas_station_km": 0,
+          "gas_station_name": "OKKO (при дорозі)",
+          "supermarket_km": 15,
+          "supermarket_name": "ATB",
           "mobile_coverage": 99,
-          "electricity": true,
-          "water": true
+          "road_name": "М-06",
+          "road_distance_km": 0,
+          "road_quality": "відмінна"
         },
         "requirements": ["Дозвіл на будівництво при дорозі", "Санітарні норми"],
         "no_pfz_permission_needed": true
       },
       {
         "name": "с. Гребінки",
+        "type": "near_pfz",
         "near_pfz": "НПП \"Білоозерський\"",
         "coordinates": [50.58, 30.85],
         "distance_from_pfz_km": 4,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 85,
         "pfz_visitors_per_year": 15000,
         "existing_points_nearby": 2,
         "recommended_type": "Екологічний кемпінг",
         "recommended_capacity": "30-40 осіб",
-        "additional_facilities": ["Глемпінг намети", "Зона барбекю", "Прокат велосипедів"],
         "investment_usd": "$100-150K",
         "payback_years": "2-3 роки",
+        "reasoning": {
+          "point1": "НПП 'Білоозерський' відвідують 15,000 осіб/рік",
+          "point2": "Популярний напрямок для вихідного відпочинку киян",
+          "point3": "Існуючих пунктів: 2 (недостатньо для попиту)"
+        },
+        "recommended_facilities": [
+          "Глемпінг намети: 15-20 шт",
+          "Зона барбекю з альтанками",
+          "Прокат велосипедів",
+          "Санітарний блок",
+          "Міні-кафе"
+        ],
         "infrastructure": {
           "hospital_km": 8,
+          "hospital_name": "Районна лікарня",
           "gas_station_km": 5,
+          "gas_station_name": "OKKO",
+          "supermarket_km": 6,
+          "supermarket_name": "Сільпо",
           "mobile_coverage": 96,
           "road_name": "Р-02",
           "road_distance_km": 1,
@@ -81,22 +127,40 @@
       },
       {
         "name": "с. Трахтемирів",
+        "type": "near_pfz",
         "near_pfz": "РЛП \"Трахтемирів\"",
         "coordinates": [49.48, 31.45],
         "distance_from_pfz_km": 2,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 82,
         "pfz_visitors_per_year": 20000,
         "existing_points_nearby": 3,
         "recommended_type": "Гостьовий будинок",
         "recommended_capacity": "20-30 осіб",
-        "additional_facilities": ["Екскурсії по РЛП", "Рибальство", "Катання на човнах"],
         "investment_usd": "$80-120K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "РЛП 'Трахтемирів' - унікальний історичний об'єкт",
+          "point2": "Відвідуваність 20,000 осіб/рік (зростає)",
+          "point3": "Популярний для вихідних екскурсій з Києва"
+        },
+        "recommended_facilities": [
+          "Гостьовий будинок: 8-10 номерів",
+          "Екскурсії по РЛП",
+          "Рибальство на Дніпрі",
+          "Катання на човнах",
+          "Кафе з місцевою кухнею"
+        ],
         "infrastructure": {
           "hospital_km": 15,
+          "hospital_name": "Канівська ЦРЛ",
           "gas_station_km": 10,
+          "gas_station_name": "WOG",
+          "supermarket_km": 12,
+          "supermarket_name": "ATB",
           "mobile_coverage": 94,
+          "road_name": "Р-09",
+          "road_distance_km": 3,
           "road_quality": "задовільна"
         },
         "requirements": ["Погодження з адміністрацією РЛП"],
@@ -104,22 +168,42 @@
       },
       {
         "name": "Траса М-01, км 40",
+        "type": "roadside",
         "near_pfz": "напрямок Чернігів",
+        "nearest_city": "Чернігів",
         "coordinates": [50.72, 30.62],
         "distance_from_pfz_km": 20,
-        "legal_status": "ДОЗВОЛЕНО (придорожня інфраструктура)",
+        "legal_status": "✅ ДОЗВОЛЕНО (придорожня інфраструктура)",
         "priority": 78,
         "daily_traffic": 4500,
         "existing_points_nearby": 1,
         "recommended_type": "Придорожній комплекс",
         "recommended_capacity": "15-25 місць",
-        "additional_facilities": ["Кафе", "Магазин", "Стоянка"],
         "investment_usd": "$120-180K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "М-01 - головна траса на Чернігів (4,500+ авто/день)",
+          "point2": "Високий транзитний потік туристів до Чернігівщини",
+          "point3": "Відсутня якісна придорожня інфраструктура на цій ділянці"
+        },
+        "recommended_facilities": [
+          "Кафе: 30-40 місць",
+          "Магазин продуктів",
+          "Стоянка: 20-30 авто",
+          "Дитячий майданчик",
+          "Туалети"
+        ],
         "infrastructure": {
+          "hospital_km": 30,
+          "hospital_name": "Чернігівська обласна лікарня",
+          "gas_station_km": 2,
+          "gas_station_name": "Shell",
+          "supermarket_km": 25,
+          "supermarket_name": "Сільпо",
+          "mobile_coverage": 98,
           "road_name": "М-01",
-          "road_quality": "відмінна",
-          "mobile_coverage": 98
+          "road_distance_km": 0,
+          "road_quality": "відмінна"
         },
         "requirements": ["Дозвіл на будівництво"],
         "no_pfz_permission_needed": true
@@ -128,23 +212,40 @@
     "Львівська область": [
       {
         "name": "с. Яворів (околиці)",
+        "type": "near_pfz",
         "near_pfz": "Яворівський НПП",
         "coordinates": [49.95, 23.38],
         "distance_from_pfz_km": 2,
-        "legal_status": "ДОЗВОЛЕНО (околиці міста)",
+        "legal_status": "✅ ДОЗВОЛЕНО (околиці міста)",
         "priority": 92,
         "pfz_visitors_per_year": 45000,
         "existing_points_nearby": 2,
         "recommended_type": "Екоготель з SPA",
         "recommended_capacity": "60-80 осіб",
-        "additional_facilities": ["SPA-центр", "Ресторан української кухні", "Прокат лиж взимку"],
         "investment_usd": "$400-500K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "Яворівський НПП відвідують 45,000 осіб/рік",
+          "point2": "Близькість до Львова (50 км) - великий ринок",
+          "point3": "Існуючих пунктів: 2 (недостатньо для попиту)"
+        },
+        "recommended_facilities": [
+          "Екоготель: 40-50 номерів",
+          "SPA-центр з карпатськими процедурами",
+          "Ресторан української кухні",
+          "Прокат лиж взимку",
+          "Інфоцентр НПП"
+        ],
         "infrastructure": {
           "hospital_km": 3,
+          "hospital_name": "Яворівська ЦРЛ",
           "gas_station_km": 1,
+          "gas_station_name": "OKKO",
+          "supermarket_km": 2,
+          "supermarket_name": "Сільпо",
           "mobile_coverage": 97,
           "road_name": "Н-13",
+          "road_distance_km": 1,
           "road_quality": "добра"
         },
         "requirements": ["Погодження з міською радою", "Екологічна експертиза"],
@@ -152,23 +253,40 @@
       },
       {
         "name": "смт. Сколе",
+        "type": "near_pfz",
         "near_pfz": "Сколівські Бескиди НПП",
         "coordinates": [48.93, 23.51],
         "distance_from_pfz_km": 1,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 90,
         "pfz_visitors_per_year": 60000,
         "existing_points_nearby": 4,
         "recommended_type": "Гірський готель",
         "recommended_capacity": "50-70 осіб",
-        "additional_facilities": ["Лижна база", "Ресторан", "Організація походів"],
         "investment_usd": "$350-450K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "Сколівські Бескиди - найпопулярніший НПП (60,000 осіб/рік)",
+          "point2": "Гірськолижний курорт з цілорічним попитом",
+          "point3": "Існуючих пунктів: 4 (не вистачає у сезон)"
+        },
+        "recommended_facilities": [
+          "Гірський готель: 30-40 номерів",
+          "Лижна база (зимовий сезон)",
+          "Ресторан карпатської кухні",
+          "Організація походів у гори",
+          "Прокат спорядження"
+        ],
         "infrastructure": {
           "hospital_km": 2,
+          "hospital_name": "Сколівська ЦРЛ",
           "gas_station_km": 1,
+          "gas_station_name": "WOG",
+          "supermarket_km": 1,
+          "supermarket_name": "ATB",
           "mobile_coverage": 95,
           "road_name": "М-06",
+          "road_distance_km": 2,
           "road_quality": "добра"
         },
         "requirements": ["Погодження з адміністрацією НПП (для екскурсій)"],
@@ -176,22 +294,41 @@
       },
       {
         "name": "с. Розточчя",
+        "type": "near_pfz",
         "near_pfz": "Розточчя природний заповідник",
         "coordinates": [50.05, 23.62],
         "distance_from_pfz_km": 5,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 85,
         "pfz_visitors_per_year": 25000,
         "existing_points_nearby": 1,
         "recommended_type": "Еко-садиба",
         "recommended_capacity": "20-30 осіб",
-        "additional_facilities": ["Органічна ферма", "Дегустації", "Майстер-класи"],
         "investment_usd": "$150-200K",
         "payback_years": "2-3 роки",
+        "reasoning": {
+          "point1": "Заповідник 'Розточчя' - унікальна екосистема",
+          "point2": "Відвідуваність 25,000 осіб/рік (зростає)",
+          "point3": "Існуючих пунктів: 1 (критично мало!)"
+        },
+        "recommended_facilities": [
+          "Еко-садиба: 8-12 номерів",
+          "Органічна ферма",
+          "Дегустації місцевих продуктів",
+          "Майстер-класи з ремесел",
+          "Екскурсії по заповіднику"
+        ],
         "infrastructure": {
           "hospital_km": 12,
+          "hospital_name": "Районна лікарня",
           "gas_station_km": 8,
-          "mobile_coverage": 93
+          "gas_station_name": "OKKO",
+          "supermarket_km": 10,
+          "supermarket_name": "ATB",
+          "mobile_coverage": 93,
+          "road_name": "Р-14",
+          "road_distance_km": 2,
+          "road_quality": "задовільна"
         },
         "requirements": ["Погодження з сільською радою"],
         "no_pfz_permission_needed": true
@@ -200,74 +337,128 @@
     "Закарпатська область": [
       {
         "name": "смт. Рахів (околиці)",
+        "type": "near_pfz",
         "near_pfz": "Карпатський біосферний заповідник",
         "coordinates": [48.05, 24.22],
         "distance_from_pfz_km": 3,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 88,
         "pfz_visitors_per_year": 35000,
         "existing_points_nearby": 6,
         "recommended_type": "Преміум еко-готель",
         "recommended_capacity": "30-40 осіб",
-        "additional_facilities": ["SPA з карпатськими травами", "Автономне електропостачання", "Starlink інтернет"],
         "investment_usd": "$350-450K",
         "payback_years": "4-5 років",
+        "reasoning": {
+          "point1": "Карпатський біосферний заповідник - об'єкт ЮНЕСКО",
+          "point2": "Відвідуваність 35,000 осіб/рік (зростає)",
+          "point3": "Преміум-сегмент через віддаленість (менша конкуренція)"
+        },
+        "recommended_facilities": [
+          "Преміум еко-готель: 15-20 номерів",
+          "SPA з карпатськими травами",
+          "Автономне електропостачання",
+          "Starlink інтернет",
+          "Організація експедицій у заповідник"
+        ],
         "infrastructure": {
           "hospital_km": 2,
+          "hospital_name": "Рахівська ЦРЛ",
           "gas_station_km": 1,
+          "gas_station_name": "WOG",
+          "supermarket_km": 1,
+          "supermarket_name": "Місцевий магазин",
           "mobile_coverage": 90,
+          "road_name": "М-09",
+          "road_distance_km": 1,
           "road_quality": "задовільна",
           "warnings": ["Потрібен автономний генератор", "Рекомендується Starlink"]
         },
         "requirements": ["Автономні системи", "Погодження з громадою"],
-        "no_pfz_permission_needed": true,
-        "special_notes": "Преміум-сегмент через віддаленість"
+        "no_pfz_permission_needed": true
       },
       {
         "name": "с. Ясіня",
+        "type": "near_pfz",
         "near_pfz": "Карпатський НПП",
         "coordinates": [48.28, 24.37],
         "distance_from_pfz_km": 4,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 85,
         "pfz_visitors_per_year": 40000,
         "existing_points_nearby": 8,
         "recommended_type": "Гірський глемпінг",
         "recommended_capacity": "20-25 осіб",
-        "additional_facilities": ["Купіль з карпатськими травами", "Організація сходжень"],
         "investment_usd": "$200-280K",
         "payback_years": "4-5 років",
+        "reasoning": {
+          "point1": "Карпатський НПП - 40,000 відвідувачів/рік",
+          "point2": "Популярний для активного туризму (походи, лижі)",
+          "point3": "Глемпінг - трендовий формат (менша конкуренція)"
+        },
+        "recommended_facilities": [
+          "Глемпінг намети: 10-15 шт",
+          "Купіль/чан з карпатськими травами",
+          "Організація сходжень на говерлу",
+          "Кафе з гуцульською кухнею",
+          "Прокат спорядження"
+        ],
         "infrastructure": {
           "hospital_km": 5,
+          "hospital_name": "Районна лікарня",
+          "gas_station_km": 3,
+          "gas_station_name": "OKKO",
+          "supermarket_km": 2,
+          "supermarket_name": "Місцевий магазин",
           "mobile_coverage": 88,
+          "road_name": "Р-03",
+          "road_distance_km": 1,
+          "road_quality": "задовільна",
           "warnings": ["Нестабільне електропостачання у гірських районах"]
         },
         "requirements": ["Автономні системи обов'язково"],
-        "no_pfz_permission_needed": true,
-        "special_notes": "Активний туризм, походи"
+        "no_pfz_permission_needed": true
       }
     ],
     "Волинська область": [
       {
         "name": "смт. Шацьк",
+        "type": "near_pfz",
         "near_pfz": "Шацький НПП",
         "coordinates": [51.50, 23.94],
         "distance_from_pfz_km": 1,
-        "legal_status": "ДОЗВОЛЕНО (але НЕ РЕКОМЕНДУЄТЬСЯ)",
+        "legal_status": "⚠️ ДОЗВОЛЕНО, але НЕ РЕКОМЕНДУЄТЬСЯ",
         "priority": 25,
         "pfz_visitors_per_year": 100000,
         "existing_points_nearby": 45,
-        "warning": "РИНОК ПЕРЕНАСИЧЕНИЙ!",
+        "warning": "⚠️ РИНОК ПЕРЕНАСИЧЕНИЙ!",
         "saturation_ratio": 2.4,
         "recommended_type": "ТІЛЬКИ преміум або унікальний концепт",
         "recommended_capacity": "15-20 осіб (екслюзив)",
-        "additional_facilities": ["Дайвінг-центр", "Яхт-клуб", "Спа з озерними процедурами"],
         "investment_usd": "$300-400K (високий ризик)",
         "payback_years": "6-8 років (якщо взагалі)",
+        "reasoning": {
+          "point1": "125 існуючих пунктів в області!",
+          "point2": "Пропозиція перевищує попит у 2.4 рази",
+          "point3": "Стандартне будівництво ЗБИТКОВЕ!"
+        },
+        "recommended_facilities": [
+          "Дайвінг-центр (унікальний концепт)",
+          "Яхт-клуб (екслюзив)",
+          "Спа з озерними процедурами",
+          "ТІЛЬКИ преміум-сегмент"
+        ],
         "infrastructure": {
           "hospital_km": 3,
+          "hospital_name": "Шацька ЦРЛ",
           "gas_station_km": 1,
-          "mobile_coverage": 96
+          "gas_station_name": "OKKO",
+          "supermarket_km": 1,
+          "supermarket_name": "ATB",
+          "mobile_coverage": 96,
+          "road_name": "Р-04",
+          "road_distance_km": 0,
+          "road_quality": "добра"
         },
         "requirements": ["Унікальна концепція обов'язкова"],
         "risk_level": "ВИСОКИЙ",
@@ -277,45 +468,82 @@
     "Одеська область": [
       {
         "name": "с. Вилкове",
+        "type": "near_pfz",
         "near_pfz": "Дунайський біосферний заповідник",
         "coordinates": [45.40, 29.58],
         "distance_from_pfz_km": 2,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 90,
         "pfz_visitors_per_year": 25000,
         "existing_points_nearby": 3,
         "recommended_type": "Еко-готель на воді",
         "recommended_capacity": "40-50 осіб",
-        "additional_facilities": ["Екскурсії по дельті Дунаю", "Рибальські тури", "Спостереження за птахами"],
         "investment_usd": "$250-350K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "Дунайський заповідник - унікальна дельта Дунаю",
+          "point2": "Відвідуваність 25,000 осіб/рік (зростає)",
+          "point3": "Існуючих пунктів: 3 (недостатньо!)"
+        },
+        "recommended_facilities": [
+          "Еко-готель на воді: 20-25 номерів",
+          "Екскурсії по дельті Дунаю",
+          "Рибальські тури",
+          "Спостереження за птахами (birdwatching)",
+          "Ресторан з рибними стравами"
+        ],
         "infrastructure": {
           "hospital_km": 5,
+          "hospital_name": "Вилківська ЦРЛ",
           "gas_station_km": 3,
-          "mobile_coverage": 92
+          "gas_station_name": "OKKO",
+          "supermarket_km": 2,
+          "supermarket_name": "ATB",
+          "mobile_coverage": 92,
+          "road_name": "Р-33",
+          "road_distance_km": 1,
+          "road_quality": "задовільна"
         },
         "requirements": ["Погодження водних маршрутів"],
         "no_pfz_permission_needed": true
       },
       {
         "name": "Траса М-15, біля Білгород-Дністровського",
+        "type": "roadside",
         "near_pfz": "Нижньодністровський НПП",
+        "nearest_city": "Білгород-Дністровський",
         "coordinates": [46.20, 30.35],
         "distance_from_pfz_km": 8,
-        "legal_status": "ДОЗВОЛЕНО",
+        "legal_status": "✅ ДОЗВОЛЕНО",
         "priority": 85,
         "daily_traffic": 3500,
         "existing_points_nearby": 2,
         "recommended_type": "Курортний комплекс",
         "recommended_capacity": "60-80 осіб",
-        "additional_facilities": ["Пляж", "Ресторан морепродуктів", "Прокат човнів"],
         "investment_usd": "$400-550K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "М-15 - траса на Одесу (3,500+ авто/день)",
+          "point2": "Білгород-Дністровський - історичне місто (30,000 туристів/рік)",
+          "point3": "Нижньодністровський НПП поблизу - додатковий потік"
+        },
+        "recommended_facilities": [
+          "Курортний готель: 35-45 номерів",
+          "Пляж на лимані",
+          "Ресторан морепродуктів",
+          "Прокат човнів",
+          "Екскурсії до фортеці"
+        ],
         "infrastructure": {
           "hospital_km": 10,
+          "hospital_name": "Білгород-Дністровська ЦРЛ",
           "gas_station_km": 2,
+          "gas_station_name": "WOG",
+          "supermarket_km": 8,
+          "supermarket_name": "Сільпо",
           "mobile_coverage": 95,
           "road_name": "М-15",
+          "road_distance_km": 0,
           "road_quality": "добра"
         },
         "requirements": ["Дозвіл на будівництво"],
@@ -325,22 +553,41 @@
     "Харківська область": [
       {
         "name": "с. Гомільшани",
+        "type": "near_pfz",
         "near_pfz": "Гомільшанські ліси НПП",
         "coordinates": [49.62, 36.32],
         "distance_from_pfz_km": 2,
-        "legal_status": "ДОЗВОЛЕНО (населений пункт)",
+        "legal_status": "✅ ДОЗВОЛЕНО (населений пункт)",
         "priority": 88,
         "pfz_visitors_per_year": 30000,
         "existing_points_nearby": 3,
         "recommended_type": "Лісовий готель",
         "recommended_capacity": "40-50 осіб",
-        "additional_facilities": ["Тропи здоров'я", "Прокат велосипедів", "Мотузковий парк"],
         "investment_usd": "$280-380K",
         "payback_years": "3-4 роки",
+        "reasoning": {
+          "point1": "Гомільшанські ліси - 30,000 відвідувачів/рік",
+          "point2": "Близькість до Харкова (50 км) - 1.4 млн населення",
+          "point3": "Існуючих пунктів: 3 (недостатньо для ринку Харкова)"
+        },
+        "recommended_facilities": [
+          "Лісовий готель: 20-25 номерів",
+          "Тропи здоров'я",
+          "Прокат велосипедів",
+          "Мотузковий парк",
+          "Ресторан з терасою у лісі"
+        ],
         "infrastructure": {
           "hospital_km": 25,
+          "hospital_name": "Зміївська ЦРЛ",
           "gas_station_km": 15,
-          "mobile_coverage": 94
+          "gas_station_name": "OKKO",
+          "supermarket_km": 20,
+          "supermarket_name": "ATB",
+          "mobile_coverage": 94,
+          "road_name": "Р-45",
+          "road_distance_km": 3,
+          "road_quality": "задовільна"
         },
         "requirements": ["Погодження з адміністрацією НПП для екскурсій"],
         "no_pfz_permission_needed": true
