@@ -286,19 +286,43 @@ function App() {
                     Рекомендовані зони
                   </label>
                 </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox 
+                    id="layer-scores" 
+                    checked={layers.regionScores}
+                    onCheckedChange={() => toggleLayer('regionScores')}
+                  />
+                  <label htmlFor="layer-scores" className="text-sm cursor-pointer">
+                    Скори областей
+                  </label>
+                </div>
                 
                 <Separator className="my-4" />
                 
                 <div className="space-y-2">
                   <p className="text-xs font-medium text-slate-500">Легенда</p>
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                      <span className="text-xs">Рекреаційний пункт</span>
+                      <span className="text-xs">Існуючий рекреаційний пункт</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                      <span className="text-xs">Рекомендована зона</span>
+                      <div className="w-4 h-4 rounded border-2 border-dashed border-amber-500 bg-amber-100"></div>
+                      <span className="text-xs">Рекомендована зона (будувати)</span>
+                    </div>
+                    <Separator className="my-2" />
+                    <p className="text-xs font-medium text-slate-500">Пріоритет будівництва</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <span className="text-xs">Критичний</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                      <span className="text-xs">Високий</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <span className="text-xs">Середній</span>
                     </div>
                   </div>
                 </div>
