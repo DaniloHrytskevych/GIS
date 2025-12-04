@@ -161,6 +161,141 @@ async def analyze_all_regions():
     results.sort(key=lambda x: x.get('total_score', 0), reverse=True)
     return {"results": results}
 
+@api_router.get("/recommended-zones")
+async def get_recommended_zones():
+    """Get recommended zones for building new recreational facilities"""
+    if not all([POPULATION_DATA, INFRASTRUCTURE_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS]):
+        raise HTTPException(status_code=500, detail="Data not loaded")
+    
+    recommended_zones = []
+    
+    # Analyze each region and generate recommended zones
+    for region in POPULATION_DATA.get('ukraine_regions_data', []):
+        region_name = region['name']
+        
+        # Get PFZ data for notable objects
+        pfz_region = None
+        for r in PROTECTED_AREAS_DATA.get('ukraine_protected_areas', {}).get('regions', []):
+            if r['region'] == region_name:
+                pfz_region = r
+                break
+        
+        # Get infrastructure data
+        infra_region = None
+        for r in INFRASTRUCTURE_DATA.get('ukraine_infrastructure', {}).get('regions', []):
+            if r['region'] == region_name:
+                infra_region = r
+                break
+        
+        # Get existing points for region
+        region_points = [
+            p for p in RECREATIONAL_POINTS.get('features', [])
+            if p.get('properties', {}).get('region') == region_name
+        ]
+        
+        # Calculate analysis for the region
+        try:
+            analysis = await analyze_region(region_name)
+        except:
+            continue
+        
+        # Only recommend if total_score >= 55 (high potential)
+        if analysis.get('total_score', 0) >= 55 and analysis.get('details', {}).get('investment', {}).get('should_build', False):
+            # Calculate density to find low-saturation areas
+            area = region.get('area_km2', 20000)
+            density = (len(region_points) / area * 1000) if area > 0 else 0
+            
+            # Generate recommended zone coordinates
+            # Use region center as base, offset based on notable objects and low density areas
+            region_centers = {
+                'Київська область': [50.45, 30.52],
+                'Львівська область': [49.84, 24.03],
+                'Закарпатська область': [48.62, 22.29],
+                'Одеська область': [46.48, 30.73],
+                'Харківська область': [49.99, 36.23],
+                'Дніпропетровська область': [48.46, 35.04],
+                'Житомирська область': [50.25, 28.66],
+                'Волинська область': [50.75, 25.32],
+                'Івано-Франківська область': [48.92, 24.71],
+                'Вінницька область': [49.23, 28.47],
+                'Чернігівська область': [51.50, 31.29],
+                'Рівненська область': [50.62, 26.23],
+                'Чернівецька область': [48.29, 25.93],
+                'Полтавська область': [49.59, 34.55],
+                'Черкаська область': [49.44, 32.06],
+                'Сумська область': [50.91, 34.80],
+                'Хмельницька область': [49.42, 26.98],
+                'Тернопільська область': [49.55, 25.59],
+                'Миколаївська область': [46.97, 32.00],
+                'Херсонська область': [46.64, 32.62],
+                'Кіровоградська область': [48.51, 32.26],
+                'Запорізька область': [47.84, 35.14],
+                'Донецька область': [48.02, 37.80],
+                'Луганська область': [48.57, 39.31],
+            }
+            
+            base_coords = region_centers.get(region_name, [48.5, 31.0])
+            
+            # Generate multiple recommended zones per region based on potential
+            num_zones = 1
+            if analysis.get('total_score', 0) >= 85:
+                num_zones = 4
+            elif analysis.get('total_score', 0) >= 70:
+                num_zones = 3
+            elif analysis.get('total_score', 0) >= 55:
+                num_zones = 2
+            
+            # Calculate optimal positions for new facilities
+            import math
+            for i in range(num_zones):
+                # Offset from center
+                angle = (2 * math.pi / num_zones) * i + (math.pi / 4)
+                offset_lat = 0.3 * math.cos(angle)
+                offset_lng = 0.4 * math.sin(angle)
+                
+                zone_lat = base_coords[0] + offset_lat
+                zone_lng = base_coords[1] + offset_lng
+                
+                # Determine zone type based on PFZ and nature scores
+                zone_type = "загальний"
+                if pfz_region and pfz_region.get('pfz_score', 0) >= 7:
+                    zone_type = "екотуризм"
+                elif region.get('has_water_bodies', False):
+                    zone_type = "водний відпочинок"
+                elif region.get('forest_coverage_percent', 0) > 30:
+                    zone_type = "лісовий відпочинок"
+                
+                # Calculate priority based on gap
+                gap = analysis.get('details', {}).get('population', {}).get('gap', 0)
+                if gap > 200000:
+                    priority = "критичний"
+                elif gap > 100000:
+                    priority = "високий"
+                elif gap > 50000:
+                    priority = "середній"
+                else:
+                    priority = "низький"
+                
+                recommended_zones.append({
+                    "id": f"{region_name}_{i+1}",
+                    "region": region_name,
+                    "coordinates": [zone_lat, zone_lng],
+                    "zone_type": zone_type,
+                    "priority": priority,
+                    "total_score": analysis.get('total_score', 0),
+                    "category": analysis.get('category', ''),
+                    "recommended_capacity": int(gap / num_zones / 180 / 2) if gap > 0 else 100,
+                    "investment_scale": analysis.get('details', {}).get('investment', {}).get('investment_scale', ''),
+                    "notable_objects_nearby": pfz_region.get('notable_objects', [])[:3] if pfz_region else [],
+                    "infrastructure_score": analysis.get('infrastructure_score', 0),
+                    "accessibility_score": analysis.get('accessibility_score', 0),
+                })
+    
+    # Sort by total_score descending
+    recommended_zones.sort(key=lambda x: x.get('total_score', 0), reverse=True)
+    
+    return {"zones": recommended_zones}
+
 def calculate_full_potential(region_name, population_data, pfz_data, infra_data, recreational_points):
     """
     Calculate full recreational potential using 6-factor formula:
