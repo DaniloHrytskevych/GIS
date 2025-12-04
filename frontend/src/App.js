@@ -90,7 +90,7 @@ const MapController = ({ center, zoom }) => {
   return null;
 };
 
-function App() {
+function MapPage() {
   const [regions, setRegions] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
