@@ -569,7 +569,7 @@ function App() {
                                   <DetailRow label="Рейтинг ПЗФ" value={analysisResult.details.pfz.pfz_rating} />
                                   {analysisResult.details.pfz.notable_objects?.length > 0 && (
                                     <div className="mt-2">
-                                      <p className="text-xs text-slate-500 mb-1">Відомі об'єкти:</p>
+                                      <p className="text-xs text-slate-500 mb-1">Відомі об&apos;єкти:</p>
                                       <ul className="text-xs space-y-1">
                                         {analysisResult.details.pfz.notable_objects.slice(0, 3).map((obj, i) => (
                                           <li key={i} className="text-emerald-600">• {obj}</li>
