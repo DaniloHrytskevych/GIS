@@ -284,6 +284,172 @@ function App() {
     }
   };
 
+  // Calculate how many points needed to cover deficit
+  const calculatePointsNeeded = (gap) => {
+    if (gap <= 0) return 0;
+    // Average capacity per point: 50 people, 180 days season, 2 shifts
+    const avgCapacityPerPoint = 50 * 180 * 2; // = 18,000 visits per year
+    return Math.ceil(gap / avgCapacityPerPoint);
+  };
+
+  // Export comparison report for all regions
+  const exportComparisonPDF = async () => {
+    if (allAnalysis.length === 0) return;
+    
+    const pdfContent = document.createElement('div');
+    pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 900px; padding: 30px; background: white; font-family: Arial, sans-serif;';
+    
+    // Summary stats
+    const highPotential = allAnalysis.filter(a => a.total_score >= 70).length;
+    const mediumPotential = allAnalysis.filter(a => a.total_score >= 55 && a.total_score < 70).length;
+    const lowPotential = allAnalysis.filter(a => a.total_score < 55).length;
+    const totalDeficit = allAnalysis.reduce((sum, a) => {
+      const gap = a.details?.population?.gap || 0;
+      return sum + (gap > 0 ? gap : 0);
+    }, 0);
+    const totalPointsNeeded = calculatePointsNeeded(totalDeficit);
+    
+    let tableRows = allAnalysis.map((a, idx) => {
+      const gap = a.details?.population?.gap || 0;
+      const pointsNeeded = calculatePointsNeeded(gap);
+      const statusColor = a.total_score >= 70 ? '#22c55e' : a.total_score >= 55 ? '#eab308' : '#ef4444';
+      return `
+        <tr style="background: ${idx % 2 === 0 ? '#f8fafc' : 'white'};">
+          <td style="padding: 8px; border: 1px solid #e2e8f0;">${idx + 1}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: 500;">${a.region}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">
+            <span style="display: inline-block; padding: 4px 12px; border-radius: 12px; background: ${statusColor}; color: white; font-weight: bold;">${a.total_score}</span>
+          </td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${a.demand_score}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${a.pfz_score}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${a.nature_score}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${a.accessibility_score}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;">${a.infrastructure_score}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center; color: ${a.saturation_penalty < -5 ? '#dc2626' : '#16a34a'};">${a.saturation_penalty}</td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: right; color: ${gap > 0 ? '#dc2626' : '#16a34a'};">
+            ${gap > 0 ? '+' : ''}${gap.toLocaleString()}
+          </td>
+          <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center; font-weight: ${pointsNeeded > 0 ? 'bold' : 'normal'}; color: ${pointsNeeded > 0 ? '#1e40af' : '#16a34a'};">
+            ${pointsNeeded > 0 ? pointsNeeded : '—'}
+          </td>
+        </tr>
+      `;
+    }).join('');
+    
+    // Recommendations
+    const topRegions = allAnalysis.filter(a => a.total_score >= 70 && a.details?.population?.gap > 0);
+    const oversaturated = allAnalysis.filter(a => a.saturation_penalty <= -10);
+    
+    pdfContent.innerHTML = `
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #22c55e; padding-bottom: 20px;">
+        <h1 style="color: #1e293b; margin: 0; font-size: 22px;">ПОРІВНЯЛЬНИЙ АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h1>
+        <h2 style="color: #475569; margin: 8px 0 0 0; font-size: 16px;">Області України</h2>
+      </div>
+      
+      <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+        <div style="flex: 1; background: #d1fae5; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; color: #065f46; font-size: 24px; font-weight: bold;">${highPotential}</p>
+          <p style="margin: 5px 0 0 0; color: #047857; font-size: 12px;">Високий потенціал (70+)</p>
+        </div>
+        <div style="flex: 1; background: #fef3c7; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; color: #92400e; font-size: 24px; font-weight: bold;">${mediumPotential}</p>
+          <p style="margin: 5px 0 0 0; color: #b45309; font-size: 12px;">Середній потенціал (55-69)</p>
+        </div>
+        <div style="flex: 1; background: #fee2e2; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; color: #991b1b; font-size: 24px; font-weight: bold;">${lowPotential}</p>
+          <p style="margin: 5px 0 0 0; color: #b91c1c; font-size: 12px;">Низький потенціал (&lt;55)</p>
+        </div>
+        <div style="flex: 1; background: #dbeafe; padding: 15px; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; color: #1e40af; font-size: 24px; font-weight: bold;">${totalPointsNeeded}</p>
+          <p style="margin: 5px 0 0 0; color: #1d4ed8; font-size: 12px;">Потрібно пунктів</p>
+        </div>
+      </div>
+      
+      <h3 style="color: #1e293b; font-size: 14px; margin: 20px 0 10px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">РЕЙТИНГ ОБЛАСТЕЙ</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px;">
+        <thead>
+          <tr style="background: #1e293b; color: white;">
+            <th style="padding: 8px; border: 1px solid #334155;">#</th>
+            <th style="padding: 8px; border: 1px solid #334155; text-align: left;">Область</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Скор</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Поп</th>
+            <th style="padding: 8px; border: 1px solid #334155;">ПЗФ</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Прир</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Трансп</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Інфр</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Насич</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Дефіцит</th>
+            <th style="padding: 8px; border: 1px solid #334155;">Потр. пунктів</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+        </tbody>
+      </table>
+      
+      <h3 style="color: #1e293b; font-size: 14px; margin: 20px 0 10px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">ЗАГАЛЬНІ ВИСНОВКИ</h3>
+      
+      <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+        <h4 style="margin: 0 0 10px 0; color: #166534; font-size: 13px;">✓ РЕКОМЕНДОВАНО ДЛЯ БУДІВНИЦТВА (${topRegions.length} областей)</h4>
+        <p style="margin: 0; font-size: 12px; color: #15803d;">
+          ${topRegions.map(r => r.region.replace(' область', '')).join(', ') || 'Немає'}
+        </p>
+        ${topRegions.length > 0 ? `<p style="margin: 10px 0 0 0; font-size: 11px; color: #166534;">
+          Загальний дефіцит: <strong>${topRegions.reduce((s, r) => s + (r.details?.population?.gap || 0), 0).toLocaleString()}</strong> відвідувань/рік.
+          Для покриття потрібно <strong>${calculatePointsNeeded(topRegions.reduce((s, r) => s + (r.details?.population?.gap || 0), 0))}</strong> нових пунктів.
+        </p>` : ''}
+      </div>
+      
+      ${oversaturated.length > 0 ? `
+      <div style="background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+        <h4 style="margin: 0 0 10px 0; color: #991b1b; font-size: 13px;">✗ НЕ РЕКОМЕНДОВАНО (перенасичені ринки)</h4>
+        <p style="margin: 0; font-size: 12px; color: #b91c1c;">
+          ${oversaturated.map(r => r.region.replace(' область', '')).join(', ')}
+        </p>
+        <p style="margin: 10px 0 0 0; font-size: 11px; color: #991b1b;">
+          Пропозиція перевищує попит. Стандартне будівництво збиткове. Тільки преміум або унікальні концепти.
+        </p>
+      </div>` : ''}
+      
+      <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 15px;">
+        <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 13px;">📊 ЗАГАЛЬНА СТАТИСТИКА</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px;">
+          <p style="margin: 0;"><span style="color: #64748b;">Загальний дефіцит України:</span> <strong>${totalDeficit.toLocaleString()}</strong> відвідувань/рік</p>
+          <p style="margin: 0;"><span style="color: #64748b;">Потрібно побудувати:</span> <strong>${totalPointsNeeded}</strong> рекреаційних пунктів</p>
+          <p style="margin: 0;"><span style="color: #64748b;">Середня місткість пункту:</span> <strong>50</strong> осіб</p>
+          <p style="margin: 0;"><span style="color: #64748b;">Сезон роботи:</span> <strong>180</strong> днів/рік</p>
+        </div>
+      </div>
+      
+      <p style="text-align: center; color: #94a3b8; margin-top: 25px; font-size: 11px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        Згенеровано: ${new Date().toLocaleDateString('uk-UA')} | ГІС аналіз рекреаційного потенціалу територій України
+      </p>
+    `;
+    
+    document.body.appendChild(pdfContent);
+    
+    try {
+      const canvas = await html2canvas(pdfContent, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, (pdfHeight - 20) / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      
+      pdf.addImage(imgData, 'PNG', imgX, 10, imgWidth * ratio, imgHeight * ratio);
+      pdf.save('Порівняльний_аналіз_областей.pdf');
+    } catch (error) {
+      console.error('PDF export error:', error);
+      alert('Помилка експорту PDF');
+    } finally {
+      document.body.removeChild(pdfContent);
+    }
+  };
+
   const filteredPoints = selectedRegion 
     ? recreationalPoints.filter(p => p.properties?.region === selectedRegion)
     : recreationalPoints;
