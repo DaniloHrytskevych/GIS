@@ -323,7 +323,7 @@ const LandingPage = () => {
                   </div>
 
                   <div className="bg-green-50 p-3 rounded border border-green-200">
-                    <p className="font-semibold text-sm">🏨 Готелі (1 бал):</p>
+                    <p className="font-semibold text-sm flex items-center gap-1"><Building className="w-4 h-4" /> Готелі (1 бал):</p>
                     <ul className="text-xs mt-1 ml-3">
                       <li>&gt;200: 1</li>
                       <li>100-200: 0.5</li>
