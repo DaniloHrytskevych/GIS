@@ -617,7 +617,11 @@ function App() {
                   ))}
 
                   {/* Recommended Zones */}
-                  {layers.recommendedZones && recommendedZones.filter(zone => !selectedRegion || zone.region === selectedRegion).map((zone, idx) => {
+                  {(() => {
+                    const filteredZones = layers.recommendedZones && recommendedZones.filter(zone => !selectedRegion || zone.region === selectedRegion);
+                    console.log('Rendering zones:', { layerEnabled: layers.recommendedZones, totalZones: recommendedZones.length, filteredZones: filteredZones ? filteredZones.length : 0, selectedRegion });
+                    return filteredZones;
+                  })()?.map((zone, idx) => {
                     const color = zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308';
                     
                     return (
