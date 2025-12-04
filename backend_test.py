@@ -510,6 +510,9 @@ class GISAPITester:
         
         self.test_analyze_all_regions()
         
+        # Test recommended zones endpoint (as specifically requested)
+        self.test_recommended_zones()
+        
         # Test error handling
         self.test_invalid_region()
         
