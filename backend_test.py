@@ -445,7 +445,7 @@ class GISAPITester:
                     if coords_valid:
                         details += " ✓ Coordinates within Ukraine bounds"
                     else:
-                        details += " ✗ Invalid coordinates (outside Ukraine)"
+                        details += f" ✗ Invalid coordinates: {invalid_coords[:2]}"
                         success = False
                     
                     # Additional info for debugging
