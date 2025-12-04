@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, BarChart3, Download, Target } from 'lucide-react';
+import { MapPin, BarChart3, Download, Target, Award, TreePine, Droplets, Car, Hospital, Fuel, Radio, Building, Zap, Trees, Trophy } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
