@@ -914,7 +914,7 @@ function MapPage() {
                             {/* ОБҐРУНТУВАННЯ */}
                             <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-amber-300">
-                                📊 Обґрунтування:
+                                <TbChartDots3 className="inline" size={16} /> Обґрунтування:
                               </h4>
                               <ul className="text-sm space-y-1 text-gray-200">
                                 <li>• {zone.reasoning.point1}</li>
@@ -926,7 +926,7 @@ function MapPage() {
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
                             <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-emerald-300">
-                                🏗️ Рекомендована інфраструктура:
+                                <MdApartment className="inline" size={16} /> Рекомендована інфраструктура:
                               </h4>
                               <ul className="text-sm space-y-1 text-gray-200">
                                 {zone.recommended_facilities.map((facility, idx) => (
