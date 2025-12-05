@@ -122,6 +122,9 @@ backend:
         - working: true
           agent: "main"
           comment: "✅ FIXED FIRE COORDINATES: Generated new forest_fires.geojson with 1875 realistic fire coordinates in forest areas only (not in water bodies). 1) Defined forest areas for all 24 regions avoiding Dnipro, reservoirs, and seas, 2) Generated 649 human-caused fires and 1226 natural fires, 3) API now returns 101 zones: 33 near_pfz, 34 roadside, 34 fire_prevention, 4) Kyiv region clusters now in forest areas: Eastern forests (Brovary, 7 fires) and Western forests (Makariv, 9 fires), 5) All fire_prevention zones verified to be on land in forested regions. Fire data is now realistic and accurate."
+        - working: true
+          agent: "testing"
+          comment: "✅ CRITICAL FIRE COORDINATES VERIFICATION COMPLETED - ALL REQUIREMENTS MET: 1) Fire Prevention Zones Count: 34 zones (increased from 22) ✓, 2) Total Zones: 101 (increased from 89) with distribution near_pfz=33, roadside=34, fire_prevention=34 ✓, 3) Kyiv Region CRITICAL CHECK: 2 fire clusters in correct forest areas - Eastern forests (lat 50.564, lng 30.856, 7 fires) and Western forests (lat 50.654, lng 30.306, 9 fires) - NOT in Dnipro river or reservoirs ✓, 4) Fire cluster sizes ≥3 for all zones ✓, 5) Sample regional coordinates validated for Lviv, Odesa, Kharkiv - all within expected bounds ✓, 6) Forest Fires Metadata: 1875 total fires, 649 human-caused, note mentions 'реалістичними координатами в лісових масивах' ✓. CRITICAL ISSUE RESOLVED: Fire prevention zones are now properly located in forest areas, not water bodies. All coordinate fixes verified and working correctly."
 
 metadata:
   created_by: "testing_agent"
