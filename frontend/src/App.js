@@ -218,8 +218,31 @@ function MapPage() {
           <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.infrastructure_score}/10</td>
         </tr>
         <tr>
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">🔥 Профілактика пожеж</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.fire_score || 0}/5</td>
+        </tr>
+        <tr style="background: #f8fafc;">
           <td style="padding: 12px; border: 1px solid #e2e8f0; color: #dc2626;">Штраф за насиченість</td>
           <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold; color: #dc2626;">${analysisResult.saturation_penalty}/15</td>
+        </tr>
+      </table>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ПОЖЕЖНА БЕЗПЕКА</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Всього пожеж у регіоні</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right;">${d?.fires?.total_fires || 0}</td>
+        </tr>
+        <tr style="background: #fef3c7;">
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Людський фактор</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${d?.fires?.human_caused_fires || 0}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #e2e8f0;">Оцінка ризику</td>
+          <td style="padding: 10px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${d?.fires?.fire_prevention_score || 0}/5</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td colspan="2" style="padding: 10px; border: 1px solid #e2e8f0; font-size: 12px; color: #64748b;">${d?.fires?.interpretation || 'Більше людських пожеж = вища потреба в облаштованих пунктах'}</td>
         </tr>
       </table>
       
