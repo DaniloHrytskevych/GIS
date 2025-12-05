@@ -603,19 +603,21 @@ const LandingPage = () => {
             </div>
 
             {/* File 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-blue-600 hover:shadow-2xl transition-shadow">
               <div className="flex items-start gap-4">
-                <div><BarChart3 className="w-10 h-10 text-blue-600" /></div>
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <MdAnalytics className="w-8 h-8 text-blue-700" />
+                </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'Courier New, monospace' }}>
                     ukraine_population_data.json
                   </h3>
-                  <p className="text-gray-600 mb-3">
-                    Демографічні та природні характеристики областей
+                  <p className="text-gray-600 mb-3 text-sm">
+                    Демографічні та природні характеристики регіонів
                   </p>
-                  <div className="bg-gray-50 p-3 rounded text-sm space-y-1">
-                    <p><strong>Областей:</strong> 24</p>
-                    <p><strong>Тип:</strong> JSON</p>
+                  <div className="bg-slate-50 p-3 rounded text-sm space-y-1 border border-slate-200">
+                    <p><strong>Регіонів:</strong> 24</p>
+                    <p><strong>Формат:</strong> JSON</p>
                     <p><strong>Розмір:</strong> 8.2 КБ</p>
                   </div>
                 </div>
@@ -623,19 +625,21 @@ const LandingPage = () => {
             </div>
 
             {/* File 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-emerald-600 hover:shadow-2xl transition-shadow">
               <div className="flex items-start gap-4">
-                <div><Trees className="w-10 h-10 text-green-700" /></div>
+                <div className="bg-emerald-100 p-3 rounded-full">
+                  <GiForest className="w-8 h-8 text-emerald-700" />
+                </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'Courier New, monospace' }}>
                     ukraine_protected_areas.json
                   </h3>
-                  <p className="text-gray-600 mb-3">
-                    Природоохоронні території України (ПЗФ)
+                  <p className="text-gray-600 mb-3 text-sm">
+                    Природоохоронний фонд України (ПЗФ)
                   </p>
-                  <div className="bg-gray-50 p-3 rounded text-sm space-y-1">
-                    <p><strong>Об'єктів:</strong> 8,512 (НПП, заповідники, РЛП)</p>
-                    <p><strong>Тип:</strong> JSON</p>
+                  <div className="bg-slate-50 p-3 rounded text-sm space-y-1 border border-slate-200">
+                    <p><strong>Об'єктів:</strong> 8,512</p>
+                    <p><strong>Формат:</strong> JSON</p>
                     <p><strong>Розмір:</strong> 17 КБ</p>
                   </div>
                 </div>
@@ -643,20 +647,44 @@ const LandingPage = () => {
             </div>
 
             {/* File 4 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-purple-600 hover:shadow-2xl transition-shadow">
               <div className="flex items-start gap-4">
-                <div><Car className="w-10 h-10 text-purple-600" /></div>
+                <div className="bg-purple-100 p-3 rounded-full">
+                  <MdDirectionsCar className="w-8 h-8 text-purple-700" />
+                </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'Courier New, monospace' }}>
                     ukraine_infrastructure.json
                   </h3>
-                  <p className="text-gray-600 mb-3">
+                  <p className="text-gray-600 mb-3 text-sm">
                     Транспортна та антропогенна інфраструктура
                   </p>
-                  <div className="bg-gray-50 p-3 rounded text-sm space-y-1">
-                    <p><strong>Областей:</strong> 24</p>
-                    <p><strong>Тип:</strong> JSON</p>
+                  <div className="bg-slate-50 p-3 rounded text-sm space-y-1 border border-slate-200">
+                    <p><strong>Регіонів:</strong> 24</p>
+                    <p><strong>Формат:</strong> JSON</p>
                     <p><strong>Розмір:</strong> 33 КБ</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* File 5 */}
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-orange-600 hover:shadow-2xl transition-shadow">
+              <div className="flex items-start gap-4">
+                <div className="bg-orange-100 p-3 rounded-full">
+                  <GiFireBowl className="w-8 h-8 text-orange-700" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'Courier New, monospace' }}>
+                    forest_fires.geojson
+                  </h3>
+                  <p className="text-gray-600 mb-3 text-sm">
+                    Статистика лісових пожеж (профілактика)
+                  </p>
+                  <div className="bg-slate-50 p-3 rounded text-sm space-y-1 border border-slate-200">
+                    <p><strong>Пожеж:</strong> 1,875</p>
+                    <p><strong>Формат:</strong> GeoJSON</p>
+                    <p><strong>Розмір:</strong> 1.1 МБ</p>
                   </div>
                 </div>
               </div>
