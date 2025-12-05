@@ -1311,28 +1311,28 @@ function MapPage() {
                               )}
 
                               {/* SATURATION */}
-                              <AccordionItem value="saturation">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="saturation" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <MdWarning className="w-4 h-4 text-red-500" />
+                                    <MdWarning className="w-4 h-4 text-red-400" />
                                     <span>7. ШТРАФ ЗА НАСИЧЕНІСТЬ</span>
-                                    <Badge variant="outline" className="ml-auto text-red-600">{analysisResult.saturation_penalty}/15</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.saturation_penalty}/15</Badge>
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Існуючих пунктів</p>
-                                        <p className="font-semibold text-lg">{analysisResult.details.saturation.existing_points}</p>
+                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <p className="text-xs text-gray-400">Існуючих пунктів</p>
+                                        <p className="font-semibold text-lg text-white">{analysisResult.details.saturation.existing_points}</p>
                                       </div>
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Щільність</p>
-                                        <p className="font-semibold">{analysisResult.details.saturation.density_per_1000km2}/1000км²</p>
+                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <p className="text-xs text-gray-400">Щільність</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.saturation.density_per_1000km2}/1000км²</p>
                                       </div>
                                     </div>
-                                    <div className={`rounded p-3 ${analysisResult.saturation_penalty < -5 ? 'bg-red-50 border border-red-200' : 'bg-emerald-50 border border-emerald-200'}`}>
-                                      <p className={`font-semibold ${analysisResult.saturation_penalty < -5 ? 'text-red-700' : 'text-emerald-700'}`}>
+                                    <div className={`rounded p-3 ${analysisResult.saturation_penalty < -5 ? 'bg-red-900/30 border border-red-600/50' : 'bg-emerald-900/30 border border-emerald-600/50'}`}>
+                                      <p className={`font-semibold ${analysisResult.saturation_penalty < -5 ? 'text-red-300' : 'text-emerald-300'}`}>
                                         {analysisResult.details.saturation.density_status}
                                       </p>
                                     </div>
