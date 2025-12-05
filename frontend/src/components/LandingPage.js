@@ -282,15 +282,23 @@ const LandingPage = () => {
             </div>
 
             {/* Factor 2 */}
-            <div className="bg-white border-2 border-gray-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-green-100 text-green-700 px-3 py-1 rounded">2</span>
-                ПЗФ як туристичний атрактор (0-20 балів)
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-emerald-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₂
+                </div>
+                <div>
+                  <div>ПЗФ як туристичний атрактор</div>
+                  <div className="text-sm text-emerald-700 font-normal">Ваговий коефіцієнт: 0-20 балів (20%)</div>
+                </div>
               </h4>
 
               <div className="space-y-4 ml-4">
-                <div className="bg-blue-50 p-4 rounded border border-blue-200">
-                  <p className="font-semibold mb-2">Ваги категорій ПЗФ:</p>
+                <div className="bg-emerald-50 p-4 rounded border-l-2 border-emerald-600">
+                  <p className="font-semibold mb-2 flex items-center gap-2">
+                    <GiForest className="text-emerald-600" />
+                    Ваги категорій ПЗФ:
+                  </p>
                   <ul className="text-sm space-y-1 ml-4">
                     <li>• НПП (Національні природні парки): <strong>×2.0</strong></li>
                     <li>• Природні заповідники: <strong>×1.5</strong></li>
@@ -303,10 +311,15 @@ const LandingPage = () => {
             </div>
 
             {/* Factor 3 */}
-            <div className="bg-white border-2 border-gray-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded">3</span>
-                Природні ресурси (0-15 балів)
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-blue-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₃
+                </div>
+                <div>
+                  <div>Природні ресурси</div>
+                  <div className="text-sm text-blue-700 font-normal">Ваговий коефіцієнт: 0-15 балів (15%)</div>
+                </div>
               </h4>
 
               <div className="grid md:grid-cols-2 gap-4 ml-4">
