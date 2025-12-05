@@ -871,7 +871,7 @@ function MapPage() {
                             {/* Header */}
                             <div className="border-b border-amber-600/30 pb-2 mb-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <MdPlace className="text-amber-400" size={20} />
+                                <MdTrendingUp className="text-amber-400" size={20} />
                                 <h3 className="font-bold text-lg text-amber-400">РЕКОМЕНДОВАНА ЗОНА</h3>
                               </div>
                             </div>
@@ -880,7 +880,7 @@ function MapPage() {
                             <h4 className="text-xl font-bold mb-1 text-white">{zone.name}</h4>
                             {zone.type === "near_pfz" && zone.pfz_object && (
                               <p className="text-sm text-gray-300 mb-3">
-                                Біля: {zone.pfz_object}
+                                <span className="text-amber-400">★</span> Біля: {zone.pfz_object}
                               </p>
                             )}
 
@@ -898,26 +898,25 @@ function MapPage() {
                             </div>
 
                             {/* Статус */}
-                            <div className="p-2 bg-green-900/30 border border-green-600/50 rounded mb-3 backdrop-blur">
-                              <p className="text-sm font-medium text-green-300">
-                                {zone.legal_status}
+                            <div className="p-2 bg-emerald-900/40 border border-emerald-500/50 rounded mb-3">
+                              <p className="text-sm font-medium text-emerald-200">
+                                ✓ {zone.legal_status}
                               </p>
                             </div>
 
                             {/* Відстань до ПЗФ */}
                             {zone.type === "near_pfz" && zone.distance_from_pfz && (
                               <p className="text-sm mb-3 text-gray-300">
-                                🌲 Відстань до ПЗФ: <strong className="text-white">{zone.distance_from_pfz} км</strong>
+                                <span className="text-amber-400">★</span> Відстань до ПЗФ: <strong className="text-white">{zone.distance_from_pfz} км</strong>
                               </p>
                             )}
 
                             {/* ОБҐРУНТУВАННЯ */}
-                            <div className="mt-3 p-3 bg-blue-900/30 border border-blue-600/30 rounded-lg mb-3 backdrop-blur">
-                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-blue-300">
-                                <MdAnalytics size={16} />
-                                Обґрунтування:
+                            <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-amber-300">
+                                📊 Обґрунтування:
                               </h4>
-                              <ul className="text-sm space-y-1 text-gray-300">
+                              <ul className="text-sm space-y-1 text-gray-200">
                                 <li>• {zone.reasoning.point1}</li>
                                 <li>• {zone.reasoning.point2}</li>
                                 <li>• {zone.reasoning.point3}</li>
@@ -925,12 +924,11 @@ function MapPage() {
                             </div>
 
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
-                            <div className="mt-3 p-3 bg-green-900/30 border border-green-600/30 rounded-lg mb-3 backdrop-blur">
-                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-green-300">
-                                <MdApartment size={16} />
-                                Рекомендована інфраструктура:
+                            <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-emerald-300">
+                                🏗️ Рекомендована інфраструктура:
                               </h4>
-                              <ul className="text-sm space-y-1 text-gray-300">
+                              <ul className="text-sm space-y-1 text-gray-200">
                                 {zone.recommended_facilities.map((facility, idx) => (
                                   <li key={idx}>• {facility}</li>
                                 ))}
