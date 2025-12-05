@@ -348,7 +348,7 @@ const LandingPage = () => {
               <div className="grid md:grid-cols-2 gap-4 ml-4">
                 <div className="space-y-2">
                   <div className="bg-red-50 p-3 rounded border border-red-200">
-                    <p className="font-semibold text-sm flex items-center gap-1"><Hospital className="w-4 h-4" /> Медицина (3 бали):</p>
+                    <p className="font-semibold text-sm flex items-center gap-1"><MdLocalHospital className="w-4 h-4" /> Медицина (3 бали):</p>
                     <ul className="text-xs mt-1 ml-3">
                       <li>≥5.0 лікарень/100K: 3</li>
                       <li>4.0-5.0: 2</li>
