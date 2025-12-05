@@ -544,6 +544,7 @@ const DataImport = () => {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
