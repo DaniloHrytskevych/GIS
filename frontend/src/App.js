@@ -589,10 +589,10 @@ function MapPage() {
 
   const getScoreIcon = (score, max) => {
     const percent = (score / max) * 100;
-    if (percent >= 80) return <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
-    if (percent >= 60) return <CheckCircle2 className="w-4 h-4 text-lime-500" />;
-    if (percent >= 40) return <AlertTriangle className="w-4 h-4 text-amber-500" />;
-    return <XCircle className="w-4 h-4 text-red-500" />;
+    if (percent >= 80) return <MdCheckCircle className="w-4 h-4 text-emerald-500" />;
+    if (percent >= 60) return <MdCheckCircle className="w-4 h-4 text-lime-500" />;
+    if (percent >= 40) return <MdWarning className="w-4 h-4 text-amber-500" />;
+    return <MdCancel className="w-4 h-4 text-red-500" />;
   };
 
   return (
@@ -603,7 +603,7 @@ function MapPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-                <Map className="w-6 h-6 text-white" />
+                <MdMap className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-slate-800">ГІС аналіз рекреаційного потенціалу</h1>
@@ -622,17 +622,17 @@ function MapPage() {
                 </SelectContent>
               </Select>
               <Button onClick={exportComparisonPDF} variant="outline" size="sm" className="gap-2">
-                <FileText className="w-4 h-4" />
+                <MdDescription className="w-4 h-4" />
                 Звіт
               </Button>
               {analysisResult && (
                 <>
                   <Button onClick={exportPDF} variant="outline" size="sm" className="gap-2">
-                    <Download className="w-4 h-4" />
+                    <MdDownload className="w-4 h-4" />
                     PDF
                   </Button>
                   <Button onClick={exportJSON} variant="outline" size="sm" className="gap-2">
-                    <FileText className="w-4 h-4" />
+                    <MdDescription className="w-4 h-4" />
                     JSON
                   </Button>
                 </>
@@ -649,7 +649,7 @@ function MapPage() {
             <Card className="sticky top-20">
               <CardHeader className="py-3 px-4">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <Layers className="w-4 h-4" />
+                  <MdLayers className="w-4 h-4" />
                   Шари карти
                 </CardTitle>
               </CardHeader>
@@ -696,7 +696,7 @@ function MapPage() {
                     <span className="text-xs">НПП / Заповідник</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Zap className="w-3 h-3 text-orange-600" />
+                    <MdElectricalServices className="w-3 h-3 text-orange-600" />
                     <span className="text-xs">Лісова пожежа</span>
                   </div>
                 </div>
@@ -771,7 +771,7 @@ function MapPage() {
                         <Popup>
                           <div className="text-sm min-w-[250px]">
                             <div className="flex items-center gap-2 mb-2">
-                              <Zap className={`w-4 h-4 ${isHuman ? 'text-orange-600' : 'text-orange-500'}`} />
+                              <MdElectricalServices className={`w-4 h-4 ${isHuman ? 'text-orange-600' : 'text-orange-500'}`} />
                               <p className="font-bold text-orange-600">Лісова пожежа</p>
                             </div>
                             <p className="text-xs font-semibold mb-2">{fire.properties.name}</p>
@@ -811,7 +811,7 @@ function MapPage() {
                             {/* Header */}
                             <div className="border-b pb-2 mb-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <MapPin className="text-green-600" size={20} />
+                                <MdPlace className="text-green-600" size={20} />
                                 <h3 className="font-bold text-lg">РЕКОМЕНДОВАНА ЗОНА</h3>
                               </div>
                             </div>
@@ -854,7 +854,7 @@ function MapPage() {
                             {/* ОБҐРУНТУВАННЯ */}
                             <div className="mt-3 p-3 bg-blue-50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1">
-                                <BarChart3 size={16} />
+                                <MdAnalytics size={16} />
                                 Обґрунтування:
                               </h4>
                               <ul className="text-sm space-y-1">
@@ -867,7 +867,7 @@ function MapPage() {
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
                             <div className="mt-3 p-3 bg-green-50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1">
-                                <Building2 size={16} />
+                                <MdApartment size={16} />
                                 Рекомендована інфраструктура:
                               </h4>
                               <ul className="text-sm space-y-1">
@@ -983,7 +983,7 @@ function MapPage() {
                               <AccordionItem value="demand">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <Users className="w-4 h-4 text-blue-500" />
+                                    <MdPeople className="w-4 h-4 text-blue-500" />
                                     <span>1. ПОПИТ ВІД НАСЕЛЕННЯ</span>
                                     <Badge variant="outline" className="ml-auto">{analysisResult.demand_score}/25</Badge>
                                     {getScoreIcon(analysisResult.demand_score, 25)}
@@ -1022,7 +1022,7 @@ function MapPage() {
                               <AccordionItem value="pfz">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <TreePine className="w-4 h-4 text-emerald-500" />
+                                    <GiForest className="w-4 h-4 text-emerald-500" />
                                     <span>2. ПЗФ ЯК АТРАКТОР</span>
                                     <Badge variant="outline" className="ml-auto">{analysisResult.pfz_score}/20</Badge>
                                     {getScoreIcon(analysisResult.pfz_score, 20)}
@@ -1068,7 +1068,7 @@ function MapPage() {
                               <AccordionItem value="nature">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <Waves className="w-4 h-4 text-cyan-500" />
+                                    <GiWaterDrop className="w-4 h-4 text-cyan-500" />
                                     <span>3. ПРИРОДНІ РЕСУРСИ</span>
                                     <Badge variant="outline" className="ml-auto">{analysisResult.nature_score}/15</Badge>
                                     {getScoreIcon(analysisResult.nature_score, 15)}
@@ -1078,14 +1078,14 @@ function MapPage() {
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="flex items-center justify-between bg-green-50 rounded p-3">
                                       <div className="flex items-center gap-2">
-                                        <TreePine className="w-5 h-5 text-green-600" />
+                                        <GiForest className="w-5 h-5 text-green-600" />
                                         <span>Лісове покриття</span>
                                       </div>
                                       <span className="font-bold text-green-700">{analysisResult.details.nature.forest_coverage_percent}%</span>
                                     </div>
                                     <div className="flex items-center justify-between bg-blue-50 rounded p-3">
                                       <div className="flex items-center gap-2">
-                                        <Waves className="w-5 h-5 text-blue-600" />
+                                        <GiWaterDrop className="w-5 h-5 text-blue-600" />
                                         <span>Водні об&apos;єкти</span>
                                       </div>
                                       {analysisResult.details.nature.has_water_bodies ? (
@@ -1102,7 +1102,7 @@ function MapPage() {
                               <AccordionItem value="transport">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <Car className="w-4 h-4 text-indigo-500" />
+                                    <FaCar className="w-4 h-4 text-indigo-500" />
                                     <span>4. ТРАНСПОРТНА ДОСТУПНІСТЬ</span>
                                     <Badge variant="outline" className="ml-auto">{analysisResult.accessibility_score}/15</Badge>
                                     {getScoreIcon(analysisResult.accessibility_score, 15)}
@@ -1150,7 +1150,7 @@ function MapPage() {
                               <AccordionItem value="infra">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <Building2 className="w-4 h-4 text-orange-500" />
+                                    <MdApartment className="w-4 h-4 text-orange-500" />
                                     <span>5. ІНФРАСТРУКТУРА</span>
                                     <Badge variant="outline" className="ml-auto">{analysisResult.infrastructure_score}/10</Badge>
                                     {getScoreIcon(analysisResult.infrastructure_score, 10)}
@@ -1160,28 +1160,28 @@ function MapPage() {
                                   <div className="pl-6 space-y-2 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
                                       <div className="flex items-center gap-2 bg-red-50 rounded p-2">
-                                        <Hospital className="w-4 h-4 text-red-500" />
+                                        <MdLocalHospital className="w-4 h-4 text-red-500" />
                                         <div>
                                           <p className="text-xs text-slate-500">Лікарні/100к</p>
                                           <p className="font-semibold">{analysisResult.details.infrastructure.hospitals_per_100k}</p>
                                         </div>
                                       </div>
                                       <div className="flex items-center gap-2 bg-amber-50 rounded p-2">
-                                        <Fuel className="w-4 h-4 text-amber-500" />
+                                        <MdLocalGasStation className="w-4 h-4 text-amber-500" />
                                         <div>
                                           <p className="text-xs text-slate-500">Заправки</p>
                                           <p className="font-semibold">{analysisResult.details.infrastructure.gas_stations_per_100km2}/100км²</p>
                                         </div>
                                       </div>
                                       <div className="flex items-center gap-2 bg-blue-50 rounded p-2">
-                                        <Wifi className="w-4 h-4 text-blue-500" />
+                                        <MdWifi className="w-4 h-4 text-blue-500" />
                                         <div>
                                           <p className="text-xs text-slate-500">Моб. зв&apos;язок</p>
                                           <p className="font-semibold">{analysisResult.details.infrastructure.mobile_coverage_percent}%</p>
                                         </div>
                                       </div>
                                       <div className="flex items-center gap-2 bg-purple-50 rounded p-2">
-                                        <Hotel className="w-4 h-4 text-purple-500" />
+                                        <MdHotel className="w-4 h-4 text-purple-500" />
                                         <div>
                                           <p className="text-xs text-slate-500">Готелі</p>
                                           <p className="font-semibold">{analysisResult.details.infrastructure.hotels_total}</p>
@@ -1197,7 +1197,7 @@ function MapPage() {
                                 <AccordionItem value="fires">
                                   <AccordionTrigger className="text-sm py-2">
                                     <div className="flex items-center gap-2">
-                                      <Zap className="w-4 h-4 text-orange-500" />
+                                      <MdElectricalServices className="w-4 h-4 text-orange-500" />
                                       <span>6. РИЗИК ЛІСОВИХ ПОЖЕЖ (профілактика)</span>
                                       <Badge variant="outline" className="ml-auto text-orange-600">{analysisResult.fire_score}/5</Badge>
                                     </div>
@@ -1220,7 +1220,7 @@ function MapPage() {
                                       </div>
                                       <div className="bg-orange-50 border border-orange-200 rounded p-3">
                                         <p className="font-semibold text-orange-800 mb-2 flex items-center gap-2">
-                                          <Zap className="w-4 h-4" />
+                                          <MdElectricalServices className="w-4 h-4" />
                                           Логіка профілактики:
                                         </p>
                                         <p className="text-xs text-orange-700">
@@ -1241,7 +1241,7 @@ function MapPage() {
                               <AccordionItem value="saturation">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
-                                    <AlertTriangle className="w-4 h-4 text-red-500" />
+                                    <MdWarning className="w-4 h-4 text-red-500" />
                                     <span>7. ШТРАФ ЗА НАСИЧЕНІСТЬ</span>
                                     <Badge variant="outline" className="ml-auto text-red-600">{analysisResult.saturation_penalty}/15</Badge>
                                   </div>
@@ -1272,9 +1272,9 @@ function MapPage() {
                             <div className={`rounded-lg p-4 ${analysisResult.details.investment.should_build ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
                               <div className="flex items-center gap-2 mb-2">
                                 {analysisResult.details.investment.should_build ? (
-                                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                                  <MdCheckCircle className="w-5 h-5 text-emerald-600" />
                                 ) : (
-                                  <XCircle className="w-5 h-5 text-red-600" />
+                                  <MdCancel className="w-5 h-5 text-red-600" />
                                 )}
                                 <span className={`font-bold ${analysisResult.details.investment.should_build ? 'text-emerald-700' : 'text-red-700'}`}>
                                   {analysisResult.details.investment.should_build ? 'РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : 'БУДІВНИЦТВО РИЗИКОВАНЕ'}
@@ -1287,7 +1287,7 @@ function MapPage() {
                             {analysisResult.details.population.gap > 0 && (
                               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                                 <h4 className="font-semibold flex items-center gap-2 mb-3 text-blue-800">
-                                  <Target className="w-4 h-4" />
+                                  <TbTarget className="w-4 h-4" />
                                   Висновок: як покрити дефіцит
                                 </h4>
                                 <div className="space-y-2 text-sm">
@@ -1309,7 +1309,7 @@ function MapPage() {
                             {analysisResult.details.population.gap <= 0 && (
                               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                                 <h4 className="font-semibold flex items-center gap-2 mb-2 text-amber-800">
-                                  <AlertTriangle className="w-4 h-4" />
+                                  <MdWarning className="w-4 h-4" />
                                   Висновок: ринок насичений
                                 </h4>
                                 <p className="text-sm text-amber-700">
@@ -1322,7 +1322,7 @@ function MapPage() {
                             {/* Investment */}
                             <div className="bg-slate-50 rounded-lg p-4">
                               <h4 className="font-semibold flex items-center gap-2 mb-3">
-                                <DollarSign className="w-4 h-4 text-emerald-600" />
+                                <MdAttachMoney className="w-4 h-4 text-emerald-600" />
                                 Інвестиційний прогноз
                               </h4>
                               <div className="grid grid-cols-2 gap-3 text-sm">
@@ -1339,7 +1339,7 @@ function MapPage() {
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center h-60 text-slate-400">
-                            <MapPin className="w-12 h-12 mb-3" />
+                            <MdPlace className="w-12 h-12 mb-3" />
                             <p>Оберіть область для аналізу</p>
                           </div>
                         )}
@@ -1353,7 +1353,7 @@ function MapPage() {
                         {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length > 0 ? (
                           <>
                             <h3 className="font-semibold flex items-center gap-2">
-                              <Target className="w-4 h-4 text-emerald-600" />
+                              <TbTarget className="w-4 h-4 text-emerald-600" />
                               Рекомендовані зони ({recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length})
                             </h3>
                             {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).map((zone, idx) => (
@@ -1377,7 +1377,7 @@ function MapPage() {
                                     <p><span className="text-slate-500">Окупність:</span> {zone.payback}</p>
                                   </div>
                                   <Button size="sm" variant="outline" className="w-full text-xs" onClick={() => focusOnLocation(zone.coordinates)}>
-                                    <Navigation className="w-3 h-3 mr-1" />
+                                    <MdNavigation className="w-3 h-3 mr-1" />
                                     Показати на карті
                                   </Button>
                                 </CardContent>
@@ -1386,12 +1386,12 @@ function MapPage() {
                           </>
                         ) : selectedRegion ? (
                           <div className="text-center py-8 text-slate-500">
-                            <MapPin className="w-10 h-10 mx-auto mb-2" />
+                            <MdPlace className="w-10 h-10 mx-auto mb-2" />
                             <p>Немає рекомендованих зон для цієї області</p>
                           </div>
                         ) : (
                           <div className="text-center py-8 text-slate-500">
-                            <MapPin className="w-10 h-10 mx-auto mb-2" />
+                            <MdPlace className="w-10 h-10 mx-auto mb-2" />
                             <p>Оберіть область або перегляньте всі зони на карті</p>
                           </div>
                         )}
