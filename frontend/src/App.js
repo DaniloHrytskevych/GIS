@@ -307,7 +307,123 @@ function MapPage() {
         </tr>
       </table>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ПОЖЕЖНА БЕЗПЕКА</h3>
+      <!-- ВИХІДНІ ДАНІ -->
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📁 ВИХІДНІ ДАНІ ДЛЯ РОЗРАХУНКУ</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px;">
+        <tr style="background: #1e293b; color: white;">
+          <th style="padding: 6px; text-align: left; border: 1px solid #475569;">Категорія</th>
+          <th style="padding: 6px; text-align: left; border: 1px solid #475569;">Параметр</th>
+          <th style="padding: 6px; text-align: right; border: 1px solid #475569;">Значення</th>
+        </tr>
+        <tr>
+          <td rowspan="3" style="padding: 6px; border: 1px solid #e2e8f0; background: #eff6ff; font-weight: bold;">Демографія</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Населення області</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.population?.total?.toLocaleString() || 'N/A'} осіб</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Густота населення</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.population?.density_per_km2 || 'N/A'} осіб/км²</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Коефіцієнт відвідувань</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">0.15 (15% населення)</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td rowspan="5" style="padding: 6px; border: 1px solid #e2e8f0; background: #dcfce7; font-weight: bold;">ПЗФ</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Національні природні парки</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.pfz?.national_parks || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Природні заповідники</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.pfz?.nature_reserves || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Регіональні ландшафтні парки</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.pfz?.regional_landscape_parks || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Заказники</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.pfz?.zakazniks || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Площа під ПЗФ</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.pfz?.percent_of_region || 0}% території</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="padding: 6px; border: 1px solid #e2e8f0; background: #dbeafe; font-weight: bold;">Природа</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Лісове покриття</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.nature?.forest_coverage_percent || 0}%</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Водні об'єкти</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.nature?.has_water_bodies ? 'Наявні' : 'Відсутні'}</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td rowspan="3" style="padding: 6px; border: 1px solid #e2e8f0; background: #fae8ff; font-weight: bold;">Транспорт</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Щільність доріг</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.transport?.highway_density || 0} км/100км²</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Залізничні станції</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.transport?.railway_stations || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Аеропорти</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.transport?.airports || 0} шт.</td>
+        </tr>
+        <tr>
+          <td rowspan="4" style="padding: 6px; border: 1px solid #e2e8f0; background: #fef3c7; font-weight: bold;">Інфраструктура</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Лікарні на 100 тис. населення</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.infrastructure?.hospitals_per_100k || 0}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Заправки на 100 км²</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.infrastructure?.gas_stations_per_100km2 || 0}</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Готелі (всього)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.infrastructure?.hotels_total || 0} шт.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Покриття мобільним зв'язком</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.infrastructure?.mobile_coverage_percent || 0}%</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td rowspan="2" style="padding: 6px; border: 1px solid #e2e8f0; background: #fee2e2; font-weight: bold;">Пожежі</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Всього пожеж (2025)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.fires?.total_fires || 0} шт.</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Спричинені людьми</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.fires?.human_caused_fires || 0} шт.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; background: #e0e7ff; font-weight: bold;">Насиченість</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Існуючі рекреаційні пункти</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${d?.saturation?.existing_points || 0} шт.</td>
+        </tr>
+      </table>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">🧮 ПРИКЛАД ПОКРОКОВОГО РОЗРАХУНКУ</h3>
+      <div style="background: #f1f5f9; padding: 12px; border-left: 4px solid #3b82f6; margin-bottom: 15px; font-size: 10px;">
+        <p style="margin: 0 0 8px 0; font-weight: bold;">Фактор 1: ПОПИТ ВІД НАСЕЛЕННЯ (максимум 25 балів)</p>
+        <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
+          <li><strong>Крок 1:</strong> Річний попит = населення × 0.15<br/>
+              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.total?.toLocaleString() || 0} × 0.15 = ${d?.population?.annual_demand?.toLocaleString() || 0} відвідувань</code>
+          </li>
+          <li><strong>Крок 2:</strong> Існуюча пропозиція<br/>
+              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.annual_supply?.toLocaleString() || 0} місць на рік</code>
+          </li>
+          <li><strong>Крок 3:</strong> Дефіцит/Профіцит<br/>
+              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.annual_demand?.toLocaleString() || 0} - ${d?.population?.annual_supply?.toLocaleString() || 0} = ${Math.abs(d?.population?.gap || 0).toLocaleString()} (${d?.population?.gap_status || 'N/A'})</code>
+          </li>
+          <li><strong>Крок 4:</strong> Нормалізація до шкали 0-25<br/>
+              <code style="background: white; padding: 2px 6px; border-radius: 3px;">Результат = <strong>${analysisResult.demand_score} балів</strong></code>
+          </li>
+        </ol>
+      </div>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 15px; font-size: 14px;">🔥 ПОЖЕЖНА БЕЗПЕКА</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <tr>
           <td style="padding: 10px; border: 1px solid #e2e8f0;">Всього пожеж у регіоні</td>
