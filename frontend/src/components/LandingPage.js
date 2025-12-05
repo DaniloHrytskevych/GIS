@@ -723,54 +723,65 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section id="analysis" className="py-20 bg-white">
+      <section id="analysis" className="py-20 bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Готові проаналізувати потенціал?
+          <div className="mb-6">
+            <TbMapSearch className="text-6xl text-amber-500 mx-auto" />
+          </div>
+          <h2 className="text-4xl font-bold mb-6 text-white" style={{ fontFamily: 'Georgia, serif' }}>
+            Розпочати геопросторовий аналіз
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Оберіть область та отримайте детальний аналіз з рекомендованими локаціями
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Оберіть регіон України та отримайте детальний багатофакторний аналіз 
+            з картою рекомендованих зон розміщення рекреаційних об'єктів
           </p>
           <button
             onClick={() => navigate('/map')}
-            className="bg-green-600 hover:bg-green-700 text-white px-12 py-4 rounded-lg text-xl font-semibold shadow-lg hover:shadow-xl transition"
+            className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-12 py-4 rounded-lg text-xl font-bold shadow-2xl hover:shadow-amber-500/50 transition-all transform hover:scale-105 flex items-center gap-3 mx-auto"
           >
-            Відкрити інтерактивну карту 🗺️
+            <TbMapSearch className="text-2xl" />
+            Відкрити інтерактивну карту
           </button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
+      <footer className="bg-gradient-to-b from-slate-900 to-black text-white py-12 border-t-2 border-amber-600">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">ГІС Рекреація</h3>
-              <p className="text-gray-400">
-                Геоінформаційна система для аналізу рекреаційного
-                потенціалу територій України
+              <div className="flex items-center gap-2 mb-4">
+                <GiMountains className="text-2xl text-amber-500" />
+                <h3 className="text-xl font-bold" style={{ fontFamily: 'Georgia, serif' }}>ГІС АНАЛІЗ</h3>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Геоінформаційна система багатофакторного аналізу 
+                рекреаційного потенціалу територій України
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Посилання</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="hover:text-white cursor-pointer">Про систему</a></li>
-                <li><a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="hover:text-white cursor-pointer">Логіка</a></li>
-                <li><a href="#methodology" onClick={(e) => { e.preventDefault(); scrollTo('#methodology'); }} className="hover:text-white cursor-pointer">Методологія</a></li>
-                <li><a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="hover:text-white cursor-pointer">Дані</a></li>
-                <li><button onClick={() => navigate('/map')} className="hover:text-white cursor-pointer">Карта</button></li>
+              <h3 className="text-lg font-bold mb-4 text-amber-400" style={{ fontFamily: 'Georgia, serif' }}>Розділи</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="hover:text-amber-400 cursor-pointer transition-colors">Характеристики</a></li>
+                <li><a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="hover:text-amber-400 cursor-pointer transition-colors">Методологія</a></li>
+                <li><a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="hover:text-amber-400 cursor-pointer transition-colors">Джерела даних</a></li>
+                <li><button onClick={() => navigate('/map')} className="hover:text-amber-400 cursor-pointer transition-colors">Карта аналізу</button></li>
+                <li><button onClick={() => navigate('/import')} className="hover:text-amber-400 cursor-pointer transition-colors">Імпорт даних</button></li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Контакти</h3>
-              <p className="text-gray-400">
-                Магістерська робота<br/>
-                2025
-              </p>
+              <h3 className="text-lg font-bold mb-4 text-amber-400" style={{ fontFamily: 'Georgia, serif' }}>Технології</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li>React + Tailwind CSS</li>
+                <li>FastAPI + Python</li>
+                <li>Leaflet Maps</li>
+                <li>MongoDB</li>
+                <li>GeoJSON / Pydantic</li>
+              </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            © 2025 ГІС Рекреаційного Потенціалу. Всі права захищені.
+          <div className="border-t border-slate-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+            <p>Система геопросторового аналізу рекреаційного потенціалу • 2025</p>
           </div>
         </div>
       </footer>
