@@ -146,10 +146,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "API endpoint /api/recommended-zones with 7-factor model"
-    - "Verify all 3 zone types: near_pfz, roadside, fire_prevention"
-    - "Validate priority calculation uses all 7 factors"
-    - "Check fire_prevention zones have fire_cluster_size"
+    - "Data Import API with strict validation"
+    - "Data Import UI page"
+    - "Test all 5 import endpoints with valid and invalid data"
+    - "Verify strict validation and error messages"
+    - "Check data-status endpoint and auto-reload"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
