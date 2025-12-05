@@ -1466,6 +1466,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/import" element={<DataImport />} />
       </Routes>
     </Router>
   );
