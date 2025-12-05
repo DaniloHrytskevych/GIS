@@ -828,27 +828,27 @@ function MapPage() {
                     
                     return (
                       <Marker key={`fire-${idx}`} position={[fire.geometry.coordinates[1], fire.geometry.coordinates[0]]} icon={fireIcon}>
-                        <Popup>
-                          <div className="text-sm min-w-[250px]">
+                        <Popup className="dark-popup">
+                          <div className="text-sm min-w-[250px] bg-gradient-to-br from-slate-800 to-slate-900 text-white p-3 rounded-lg">
                             <div className="flex items-center gap-2 mb-2">
-                              <MdElectricalServices className={`w-4 h-4 ${isHuman ? 'text-orange-600' : 'text-orange-500'}`} />
-                              <p className="font-bold text-orange-600">Лісова пожежа</p>
+                              <GiFireBowl className={`w-4 h-4 ${isHuman ? 'text-orange-500' : 'text-orange-400'}`} />
+                              <p className="font-bold text-orange-400">Лісова пожежа</p>
                             </div>
-                            <p className="text-xs font-semibold mb-2">{fire.properties.name}</p>
+                            <p className="text-xs font-semibold mb-2 text-white">{fire.properties.name}</p>
                             
                             <div className="space-y-1 text-xs mb-2">
-                              <p><span className="text-slate-500">Дата:</span> {fire.properties.date}</p>
-                              <p><span className="text-slate-500">Площа:</span> {fire.properties.area_ha} га</p>
-                              <p><span className="text-slate-500">Область:</span> {fire.properties.region}</p>
+                              <p><span className="text-gray-400">Дата:</span> <span className="text-white">{fire.properties.date}</span></p>
+                              <p><span className="text-gray-400">Площа:</span> <span className="text-white">{fire.properties.area_ha} га</span></p>
+                              <p><span className="text-gray-400">Область:</span> <span className="text-white">{fire.properties.region}</span></p>
                             </div>
                             
-                            <div className={`p-2 rounded ${isHuman ? 'bg-orange-50 border border-orange-200' : 'bg-slate-50 border border-slate-200'}`}>
-                              <p className="text-xs font-semibold mb-1">Причина:</p>
-                              <p className={`text-xs ${isHuman ? 'text-orange-700 font-medium' : 'text-slate-600'}`}>
+                            <div className={`p-2 rounded backdrop-blur ${isHuman ? 'bg-orange-900/30 border border-orange-600/50' : 'bg-slate-700/50 border border-slate-600/30'}`}>
+                              <p className="text-xs font-semibold mb-1 text-gray-300">Причина:</p>
+                              <p className={`text-xs ${isHuman ? 'text-orange-300 font-medium' : 'text-gray-300'}`}>
                                 {fire.properties.cause}
                               </p>
                               {isHuman && (
-                                <p className="text-xs text-orange-600 mt-2 font-medium">
+                                <p className="text-xs text-orange-300 mt-2 font-medium">
                                   ⚠️ Людський фактор - потреба в облаштованих пунктах!
                                 </p>
                               )}
