@@ -421,24 +421,33 @@ const DataImport = () => {
 
       {/* Import Cards */}
       <div className="space-y-4">
-        {dataTypes.map((dataType) => (
-          <Card key={dataType.id}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">{dataType.icon}</span>
-                {dataType.title}
-              </CardTitle>
-              <CardDescription>{dataType.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {/* Current Status */}
-                {dataStatus && dataStatus[dataType.statusKey]?.loaded && (
-                  <div className="text-sm text-green-600 flex items-center gap-2">
-                    <CheckCircle2 size={16} />
-                    <span>Завантажено: {getStatusInfo(dataType.statusKey)}</span>
+        {dataTypes.map((dataType) => {
+          const IconComponent = dataType.icon;
+          return (
+            <Card key={dataType.id} className={`border-l-4 ${dataType.borderColor} shadow-lg hover:shadow-xl transition-shadow ${dataType.bgColor}`}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                  <div className={`p-3 rounded-full ${dataType.bgColor} border-2 ${dataType.borderColor}`}>
+                    <IconComponent className={`text-2xl ${dataType.iconColor}`} />
                   </div>
-                )}
+                  <div>
+                    <div>{dataType.title}</div>
+                    <div className="text-xs font-mono text-gray-500 font-normal mt-1">
+                      {dataType.description.split(' - ')[0]}
+                    </div>
+                  </div>
+                </CardTitle>
+                <CardDescription className="text-gray-600 ml-16">{dataType.description.split(' - ')[1]}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {/* Current Status */}
+                  {dataStatus && dataStatus[dataType.statusKey]?.loaded && (
+                    <div className="text-sm text-green-700 flex items-center gap-2 bg-green-50 px-3 py-2 rounded border border-green-200">
+                      <MdCheckCircle size={18} />
+                      <span className="font-medium">Завантажено: {getStatusInfo(dataType.statusKey)}</span>
+                    </div>
+                  )}
 
                 {/* Expected Fields */}
                 <div className="text-xs text-slate-500">
