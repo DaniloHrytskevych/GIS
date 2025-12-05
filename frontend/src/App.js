@@ -19,6 +19,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
+import DataImport from './components/DataImport';
 import './App.css';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
