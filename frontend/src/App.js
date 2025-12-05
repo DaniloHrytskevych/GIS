@@ -111,6 +111,7 @@ function MapPage() {
   const [recommendedZones, setRecommendedZones] = useState([]);
   const [pfzObjects, setPfzObjects] = useState([]);
   const [forestFires, setForestFires] = useState([]);
+  const [regionBoundaries, setRegionBoundaries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mapCenter, setMapCenter] = useState(UKRAINE_CENTER);
   const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOM);
@@ -122,6 +123,7 @@ function MapPage() {
     regionScores: true,
     pfzObjects: true,
     forestFires: true,
+    regionBoundaries: true,
   });
 
   useEffect(() => {
