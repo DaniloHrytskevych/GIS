@@ -314,14 +314,14 @@ const DataImport = () => {
 
 
       {/* Backup Section */}
-      <Card className="mb-6 bg-amber-50 border-amber-200">
+      <Card className="mb-6 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 shadow-lg">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Database size={20} className="text-amber-600" />
-            Бекап даних
+          <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+            <MdDownload size={24} className="text-amber-700" />
+            Резервне копіювання даних
           </CardTitle>
-          <CardDescription>
-            Завантажте поточні дані перед імпортом нових файлів. Це допоможе відновити дані у разі помилки.
+          <CardDescription className="text-gray-700">
+            Створіть бекап перед імпортом нових файлів. Система дозволяє відновити дані у разі помилки валідації.
           </CardDescription>
         </CardHeader>
         <CardContent>
