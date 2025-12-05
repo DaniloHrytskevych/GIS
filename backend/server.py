@@ -847,8 +847,41 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
     else:
         saturation_penalty = 0
     
-    # TOTAL SCORE
-    total_score = demand_score + pfz_score + nature_score + accessibility_score + infra_score + saturation_penalty
+    # 7. FIRE PREVENTION BONUS (+5 points) - NEW FACTOR
+    # Calculate fire score for region center
+    region_centers = {
+        'Київська область': [50.45, 30.52],
+        'Львівська область': [49.84, 24.03],
+        'Закарпатська область': [48.62, 22.29],
+        'Одеська область': [46.48, 30.73],
+        'Харківська область': [49.99, 36.23],
+        'Дніпропетровська область': [48.46, 35.04],
+        'Житомирська область': [50.25, 28.66],
+        'Волинська область': [50.75, 25.32],
+        'Івано-Франківська область': [48.92, 24.71],
+        'Вінницька область': [49.23, 28.47],
+        'Чернігівська область': [51.50, 31.29],
+        'Рівненська область': [50.62, 26.23],
+        'Чернівецька область': [48.29, 25.93],
+        'Полтавська область': [49.59, 34.55],
+        'Черкаська область': [49.44, 32.06],
+        'Сумська область': [50.91, 34.80],
+        'Хмельницька область': [49.42, 26.98],
+        'Тернопільська область': [49.55, 25.59],
+        'Миколаївська область': [46.97, 32.00],
+        'Херсонська область': [46.64, 32.62],
+        'Кіровоградська область': [48.51, 32.26],
+        'Запорізька область': [47.84, 35.14],
+        'Донецька область': [48.02, 37.80],
+        'Луганська область': [48.57, 39.31],
+    }
+    
+    center_coords = region_centers.get(region_name, [48.5, 31.0])
+    fire_data = count_human_fires_nearby(center_coords, radius_km=50.0)  # Regional scope
+    fire_score = fire_data['score']  # 0-5 points
+    
+    # TOTAL SCORE (with new fire factor)
+    total_score = demand_score + pfz_score + nature_score + accessibility_score + infra_score + fire_score + saturation_penalty
     total_score = max(0, min(100, total_score))
     
     # CATEGORY & RECOMMENDATION
