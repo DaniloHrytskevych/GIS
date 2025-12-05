@@ -1462,15 +1462,15 @@ function MapPage() {
                   <TabsContent value="compare" className="flex-1 overflow-hidden m-0">
                     <ScrollArea className="h-full">
                       <div className="p-4">
-                        <h3 className="font-semibold mb-3">Порівняння областей</h3>
+                        <h3 className="font-semibold mb-3 text-white">Порівняння областей</h3>
                         <div className="space-y-2">
                           {allAnalysis.map((analysis, idx) => (
-                            <div key={idx} className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-50 ${selectedRegion === analysis.region ? 'border-emerald-500 bg-emerald-50' : ''}`}
+                            <div key={idx} className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-700/50 transition-colors ${selectedRegion === analysis.region ? 'border-amber-500 bg-amber-900/30' : 'border-amber-600/20 bg-slate-800/30'}`}
                               onClick={() => handleRegionChange(analysis.region)}>
                               <div className="flex items-center justify-between mb-2">
                                 <div>
-                                  <p className="font-medium text-sm">{idx + 1}. {analysis.region}</p>
-                                  <p className="text-xs text-slate-500">{analysis.category}</p>
+                                  <p className="font-medium text-sm text-white">{idx + 1}. {analysis.region}</p>
+                                  <p className="text-xs text-gray-400">{analysis.category}</p>
                                 </div>
                                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
                                   style={{ backgroundColor: getScoreColor(analysis.total_score) }}>
