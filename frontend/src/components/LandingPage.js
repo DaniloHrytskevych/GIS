@@ -395,7 +395,7 @@ const LandingPage = () => {
                   </div>
 
                   <div className="bg-yellow-50 p-3 rounded border border-yellow-200">
-                    <p className="font-semibold text-sm flex items-center gap-1"><Zap className="w-4 h-4" /> Електрика (1 бал):</p>
+                    <p className="font-semibold text-sm flex items-center gap-1"><MdElectricalServices className="w-4 h-4" /> Електрика (1 бал):</p>
                     <ul className="text-xs mt-1 ml-3">
                       <li>Висока: 1</li>
                       <li>Середня: 0.5</li>
