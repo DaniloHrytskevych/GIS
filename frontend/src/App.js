@@ -615,8 +615,128 @@ function MapPage() {
       }));
     
     const exportData = {
+      metadata: {
+        report_version: "1.0",
+        generated_at: new Date().toISOString(),
+        methodology: "7-factor weighted model for recreational potential assessment",
+        formulas: {
+          total: "demand + pfz + nature + transport + infrastructure + fire_prevention - saturation",
+          demand: "(population * 0.15 - existing_supply) normalized to 0-25",
+          pfz: "national_parks*8 + reserves*6 + regional_parks*3 + zakazniks*1, max 20",
+          nature: "forest_coverage% * 0.15 + water_bodies(5 if present), max 15",
+          transport: "highway_density*2 + railways*3 + airports*5, max 15",
+          infrastructure: "hospitals_per_100k + gas_stations + hotels + mobile_coverage%, max 10",
+          fire_prevention: "human_caused_fires / 100, max 5 (higher fires = higher need)",
+          saturation: "-1 point per 50 recreational_points/1000km², max penalty -15"
+        },
+        weights: {
+          demand: 25,
+          pfz: 20,
+          nature: 15,
+          transport: 15,
+          infrastructure: 10,
+          fire_prevention: 5,
+          saturation_penalty: -15
+        }
+      },
       region: analysisResult.region,
       analysis_date: new Date().toISOString(),
+      total_potential: {
+        score: analysisResult.total_score,
+        category: analysisResult.category,
+        recommendation: analysisResult.recommendation
+      },
+      raw_input_data: {
+        demographics: {
+          total_population: d?.population?.total,
+          population_density_per_km2: d?.population?.density_per_km2,
+          visit_coefficient: 0.15,
+          source: "Державна служба статистики України (2023)"
+        },
+        pfz: {
+          national_parks: d?.pfz?.national_parks,
+          nature_reserves: d?.pfz?.nature_reserves,
+          regional_landscape_parks: d?.pfz?.regional_landscape_parks,
+          zakazniks: d?.pfz?.zakazniks,
+          percent_of_region: d?.pfz?.percent_of_region,
+          notable_objects: d?.pfz?.notable_objects || [],
+          source: "Міністерство захисту довкілля та природних ресурсів (2024)"
+        },
+        nature: {
+          forest_coverage_percent: d?.nature?.forest_coverage_percent,
+          has_water_bodies: d?.nature?.has_water_bodies,
+          source: "Держлісагентство України (2023)"
+        },
+        transport: {
+          highway_density_per_100km2: d?.transport?.highway_density,
+          railway_stations: d?.transport?.railway_stations,
+          airports: d?.transport?.airports,
+          avg_travel_time_minutes: d?.transport?.avg_travel_time_minutes,
+          main_roads: d?.transport?.main_roads || [],
+          source: "OpenStreetMap + Укравтодор (2024)"
+        },
+        infrastructure: {
+          hospitals_per_100k: d?.infrastructure?.hospitals_per_100k,
+          gas_stations_per_100km2: d?.infrastructure?.gas_stations_per_100km2,
+          hotels_total: d?.infrastructure?.hotels_total,
+          mobile_coverage_percent: d?.infrastructure?.mobile_coverage_percent,
+          source: "OpenStreetMap + Google Maps API (2024)"
+        },
+        forest_fires: {
+          total_fires: d?.fires?.total_fires,
+          human_caused_fires: d?.fires?.human_caused_fires,
+          interpretation: d?.fires?.interpretation,
+          source: "ДСНС України (2025)"
+        },
+        saturation: {
+          existing_points: d?.saturation?.existing_points,
+          density_per_1000km2: d?.saturation?.density_per_1000km2,
+          density_status: d?.saturation?.density_status,
+          source: "Мінкультури України (2024)"
+        }
+      },
+      calculation_steps: [
+        {
+          factor: "demand",
+          step: 1,
+          description: "Розрахунок річного попиту",
+          formula: "population * 0.15",
+          values: {
+            population: d?.population?.total,
+            coefficient: 0.15
+          },
+          result: d?.population?.annual_demand
+        },
+        {
+          factor: "demand",
+          step: 2,
+          description: "Існуюча пропозиція",
+          formula: "existing_capacity",
+          values: {
+            supply: d?.population?.annual_supply
+          },
+          result: d?.population?.annual_supply
+        },
+        {
+          factor: "demand",
+          step: 3,
+          description: "Дефіцит/Профіцит",
+          formula: "demand - supply",
+          values: {
+            demand: d?.population?.annual_demand,
+            supply: d?.population?.annual_supply
+          },
+          result: d?.population?.gap,
+          status: d?.population?.gap_status
+        },
+        {
+          factor: "demand",
+          step: 4,
+          description: "Нормалізація до шкали 0-25",
+          formula: "normalized_score",
+          result: analysisResult.demand_score
+        }
+      ],
       total_potential: {
         score: analysisResult.total_score,
         category: analysisResult.category,
