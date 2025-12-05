@@ -369,7 +369,7 @@ const DataImport = () => {
             <MdDownload size={24} className="text-amber-400" />
             Резервне копіювання даних
           </CardTitle>
-          <CardDescription className="text-gray-700">
+          <CardDescription className="text-gray-300">
             Створіть бекап перед імпортом нових файлів. Система дозволяє відновити дані у разі помилки валідації.
           </CardDescription>
         </CardHeader>
@@ -377,7 +377,7 @@ const DataImport = () => {
           <div className="space-y-4">
             {/* Backup Info */}
             {backupInfo && (
-              <div className="bg-white rounded-lg p-4 border border-amber-200">
+              <div className="bg-slate-700/50 rounded-lg p-4 border border-amber-500/30 backdrop-blur">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                   <div className="text-center">
                     <div className="text-lg font-bold text-amber-600">
