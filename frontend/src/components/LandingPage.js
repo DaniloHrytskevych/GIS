@@ -357,7 +357,7 @@ const LandingPage = () => {
                   </div>
 
                   <div className="bg-orange-50 p-3 rounded border border-orange-200">
-                    <p className="font-semibold text-sm flex items-center gap-1"><Fuel className="w-4 h-4" /> Заправки (2 бали):</p>
+                    <p className="font-semibold text-sm flex items-center gap-1"><MdLocalGasStation className="w-4 h-4" /> Заправки (2 бали):</p>
                     <ul className="text-xs mt-1 ml-3">
                       <li>≥1.0 на 100км²: 2</li>
                       <li>0.7-1.0: 1.5</li>
