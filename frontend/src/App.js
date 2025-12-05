@@ -1425,31 +1425,31 @@ function MapPage() {
                       <div className="p-4 space-y-3">
                         {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length > 0 ? (
                           <>
-                            <h3 className="font-semibold flex items-center gap-2">
-                              <TbTarget className="w-4 h-4 text-emerald-600" />
+                            <h3 className="font-semibold flex items-center gap-2 text-white">
+                              <TbTarget className="w-4 h-4 text-emerald-400" />
                               Рекомендовані зони ({recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).length})
                             </h3>
                             {recommendedZones.filter(z => !selectedRegion || z.region === selectedRegion).map((zone, idx) => (
-                              <Card key={idx} className="border-emerald-200">
+                              <Card key={idx} className="bg-slate-800/50 border-emerald-600/30 backdrop-blur">
                                 <CardContent className="p-3">
                                   <div className="flex items-start justify-between mb-2">
                                     <div>
-                                      <p className="font-semibold text-sm">{zone.name}</p>
+                                      <p className="font-semibold text-sm text-white">{zone.name}</p>
                                       {zone.type === "near_pfz" && zone.pfz_object && (
-                                        <p className="text-xs text-slate-500">Біля: {zone.pfz_object}</p>
+                                        <p className="text-xs text-gray-400">★ Біля: {zone.pfz_object}</p>
                                       )}
                                     </div>
-                                    <Badge style={{ backgroundColor: zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308' }}>
+                                    <Badge className="text-white" style={{ backgroundColor: zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308' }}>
                                       {zone.priority}/100
                                     </Badge>
                                   </div>
-                                  <div className="grid grid-cols-2 gap-2 text-xs mb-2">
-                                    <p><span className="text-slate-500">Тип:</span> {zone.recommended_type}</p>
-                                    <p><span className="text-slate-500">Місткість:</span> {zone.capacity}</p>
-                                    <p><span className="text-slate-500">Інвестиції:</span> {zone.investment}</p>
-                                    <p><span className="text-slate-500">Окупність:</span> {zone.payback}</p>
+                                  <div className="grid grid-cols-2 gap-2 text-xs mb-2 text-gray-300">
+                                    <p><span className="text-gray-400">Тип:</span> <span className="text-white">{zone.recommended_type}</span></p>
+                                    <p><span className="text-gray-400">Місткість:</span> <span className="text-white">{zone.capacity}</span></p>
+                                    <p><span className="text-gray-400">Інвестиції:</span> <span className="text-amber-400">{zone.investment}</span></p>
+                                    <p><span className="text-gray-400">Окупність:</span> <span className="text-white">{zone.payback}</span></p>
                                   </div>
-                                  <Button size="sm" variant="outline" className="w-full text-xs" onClick={() => focusOnLocation(zone.coordinates)}>
+                                  <Button size="sm" className="w-full text-xs bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" onClick={() => focusOnLocation(zone.coordinates)}>
                                     <MdNavigation className="w-3 h-3 mr-1" />
                                     Показати на карті
                                   </Button>
@@ -1458,13 +1458,13 @@ function MapPage() {
                             ))}
                           </>
                         ) : selectedRegion ? (
-                          <div className="text-center py-8 text-slate-500">
-                            <MdPlace className="w-10 h-10 mx-auto mb-2" />
+                          <div className="text-center py-8 text-gray-400">
+                            <MdTrendingUp className="w-10 h-10 mx-auto mb-2 text-gray-500" />
                             <p>Немає рекомендованих зон для цієї області</p>
                           </div>
                         ) : (
-                          <div className="text-center py-8 text-slate-500">
-                            <MdPlace className="w-10 h-10 mx-auto mb-2" />
+                          <div className="text-center py-8 text-gray-400">
+                            <MdTrendingUp className="w-10 h-10 mx-auto mb-2 text-gray-500" />
                             <p>Оберіть область або перегляньте всі зони на карті</p>
                           </div>
                         )}
