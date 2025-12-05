@@ -1512,7 +1512,7 @@ function MapPage() {
                                   <p className="font-medium text-white">{analysis.infrastructure_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-gray-400">🔥</p>
+                                  <p className="text-gray-400"><GiFireBowl className="inline" size={12} /></p>
                                   <p className="font-medium text-white">{analysis.fire_score || 0}</p>
                                 </div>
                                 <div className="text-center">
