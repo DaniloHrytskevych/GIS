@@ -674,22 +674,52 @@ const LandingPage = () => {
               </div>
             </h3>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white p-4 rounded-lg">
-                <h4 className="font-bold text-red-700 mb-2">❌ Відсутність рекреаційних пунктів:</h4>
+              <div className="bg-white p-4 rounded-lg border-l-2 border-red-600 shadow-md">
+                <h4 className="font-bold text-red-700 mb-2 flex items-center gap-2">
+                  <MdCancel size={20} />
+                  Відсутність рекреаційних пунктів:
+                </h4>
                 <ul className="text-sm space-y-1 text-gray-700">
-                  <li>→ Неконтрольоване розпалювання вогнищ</li>
-                  <li>→ Відсутність води для гасіння</li>
-                  <li>→ Відсутність протипожежних заходів</li>
-                  <li className="font-bold text-red-600">→ ЗБІЛЬШЕННЯ ризику пожеж</li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500">→</span>
+                    <span>Неконтрольоване розпалювання вогнищ</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500">→</span>
+                    <span>Відсутність води для гасіння</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500">→</span>
+                    <span>Відсутність протипожежних заходів</span>
+                  </li>
+                  <li className="font-bold text-red-600 flex items-start gap-2">
+                    <MdWarning size={16} className="flex-shrink-0 mt-0.5" />
+                    <span>ЗБІЛЬШЕННЯ ризику пожеж</span>
+                  </li>
                 </ul>
               </div>
-              <div className="bg-white p-4 rounded-lg">
-                <h4 className="font-bold text-green-700 mb-2">✅ Наявність облаштованих пунктів:</h4>
+              <div className="bg-white p-4 rounded-lg border-l-2 border-green-600 shadow-md">
+                <h4 className="font-bold text-green-700 mb-2 flex items-center gap-2">
+                  <MdCheckCircle size={20} />
+                  Наявність облаштованих пунктів:
+                </h4>
                 <ul className="text-sm space-y-1 text-gray-700">
-                  <li>→ Контрольовані вогнища у кам'яних кільцях</li>
-                  <li>→ Доступ до води для гасіння</li>
-                  <li>→ Інформування про пожежну безпеку</li>
-                  <li className="font-bold text-green-600">→ ЗНИЖЕННЯ ризику на 40%</li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">→</span>
+                    <span>Контрольовані вогнища у кам'яних кільцях</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">→</span>
+                    <span>Доступ до води для гасіння</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">→</span>
+                    <span>Інформування про пожежну безпеку</span>
+                  </li>
+                  <li className="font-bold text-green-600 flex items-start gap-2">
+                    <MdCheckCircle size={16} className="flex-shrink-0 mt-0.5" />
+                    <span>ЗНИЖЕННЯ ризику на 40%</span>
+                  </li>
                 </ul>
               </div>
             </div>
