@@ -789,6 +789,32 @@ function MapPage() {
                   />
                   <MapController center={mapCenter} zoom={mapZoom} />
                   
+                  {/* Region Boundaries */}
+                  {layers.regionBoundaries && regionBoundaries.length > 0 && (
+                    <GeoJSON
+                      data={{
+                        type: "FeatureCollection",
+                        features: regionBoundaries
+                      }}
+                      style={{
+                        fillColor: 'transparent',
+                        fillOpacity: 0,
+                        color: '#f59e0b',
+                        weight: 2,
+                        opacity: 0.7
+                      }}
+                      onEachFeature={(feature, layer) => {
+                        if (feature.properties && feature.properties.name) {
+                          layer.bindTooltip(feature.properties.name, {
+                            permanent: false,
+                            direction: 'center',
+                            className: 'region-label'
+                          });
+                        }
+                      }}
+                    />
+                  )}
+                  
                   {/* Existing points */}
                   {layers.recreationalPoints && filteredPoints.map((point, idx) => (
                     point.geometry?.coordinates && (
