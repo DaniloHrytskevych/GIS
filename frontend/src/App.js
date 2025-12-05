@@ -866,20 +866,20 @@ function MapPage() {
                     return (
                       <CircleMarker key={`zone-${idx}`} center={zone.coordinates} radius={14}
                         pathOptions={{ fillColor: color, color: color, weight: 3, opacity: 1, fillOpacity: 0.3, dashArray: '5, 5' }}>
-                        <Popup maxWidth={400}>
-                          <div className="p-4 min-w-[300px] max-w-[380px]">
+                        <Popup maxWidth={400} className="dark-popup">
+                          <div className="p-4 min-w-[300px] max-w-[380px] bg-gradient-to-br from-slate-800 to-slate-900 text-white rounded-lg">
                             {/* Header */}
-                            <div className="border-b pb-2 mb-3">
+                            <div className="border-b border-amber-600/30 pb-2 mb-3">
                               <div className="flex items-center gap-2 mb-1">
-                                <MdPlace className="text-green-600" size={20} />
-                                <h3 className="font-bold text-lg">РЕКОМЕНДОВАНА ЗОНА</h3>
+                                <MdPlace className="text-amber-400" size={20} />
+                                <h3 className="font-bold text-lg text-amber-400">РЕКОМЕНДОВАНА ЗОНА</h3>
                               </div>
                             </div>
 
                             {/* Назва */}
-                            <h4 className="text-xl font-bold mb-1">{zone.name}</h4>
+                            <h4 className="text-xl font-bold mb-1 text-white">{zone.name}</h4>
                             {zone.type === "near_pfz" && zone.pfz_object && (
-                              <p className="text-sm text-gray-600 mb-3">
+                              <p className="text-sm text-gray-300 mb-3">
                                 Біля: {zone.pfz_object}
                               </p>
                             )}
@@ -887,37 +887,37 @@ function MapPage() {
                             {/* Пріоритет */}
                             <div className="mb-3">
                               <div className="flex justify-between mb-1">
-                                <span className="text-sm font-medium">Пріоритет:</span>
-                                <span className="text-lg font-bold text-green-600">
+                                <span className="text-sm font-medium text-gray-300">Пріоритет:</span>
+                                <span className="text-lg font-bold text-amber-400">
                                   {zone.priority}/100
                                 </span>
                               </div>
-                              <div className="h-2 bg-slate-200 rounded-full">
+                              <div className="h-2 bg-slate-700 rounded-full">
                                 <div className="h-full rounded-full" style={{ width: `${zone.priority}%`, backgroundColor: color }}></div>
                               </div>
                             </div>
 
                             {/* Статус */}
-                            <div className="p-2 bg-green-50 border border-green-200 rounded mb-3">
-                              <p className="text-sm font-medium text-green-800">
+                            <div className="p-2 bg-green-900/30 border border-green-600/50 rounded mb-3 backdrop-blur">
+                              <p className="text-sm font-medium text-green-300">
                                 {zone.legal_status}
                               </p>
                             </div>
 
                             {/* Відстань до ПЗФ */}
                             {zone.type === "near_pfz" && zone.distance_from_pfz && (
-                              <p className="text-sm mb-3">
-                                🌲 Відстань до ПЗФ: <strong>{zone.distance_from_pfz} км</strong>
+                              <p className="text-sm mb-3 text-gray-300">
+                                🌲 Відстань до ПЗФ: <strong className="text-white">{zone.distance_from_pfz} км</strong>
                               </p>
                             )}
 
                             {/* ОБҐРУНТУВАННЯ */}
-                            <div className="mt-3 p-3 bg-blue-50 rounded-lg mb-3">
-                              <h4 className="font-semibold mb-2 flex items-center gap-1">
+                            <div className="mt-3 p-3 bg-blue-900/30 border border-blue-600/30 rounded-lg mb-3 backdrop-blur">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-blue-300">
                                 <MdAnalytics size={16} />
                                 Обґрунтування:
                               </h4>
-                              <ul className="text-sm space-y-1">
+                              <ul className="text-sm space-y-1 text-gray-300">
                                 <li>• {zone.reasoning.point1}</li>
                                 <li>• {zone.reasoning.point2}</li>
                                 <li>• {zone.reasoning.point3}</li>
@@ -925,12 +925,12 @@ function MapPage() {
                             </div>
 
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
-                            <div className="mt-3 p-3 bg-green-50 rounded-lg mb-3">
-                              <h4 className="font-semibold mb-2 flex items-center gap-1">
+                            <div className="mt-3 p-3 bg-green-900/30 border border-green-600/30 rounded-lg mb-3 backdrop-blur">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-green-300">
                                 <MdApartment size={16} />
                                 Рекомендована інфраструктура:
                               </h4>
-                              <ul className="text-sm space-y-1">
+                              <ul className="text-sm space-y-1 text-gray-300">
                                 {zone.recommended_facilities.map((facility, idx) => (
                                   <li key={idx}>• {facility}</li>
                                 ))}
@@ -938,25 +938,25 @@ function MapPage() {
                             </div>
 
                             {/* Базова інформація */}
-                            <div className="space-y-1 text-sm mb-3">
-                              <p>Тип: <strong>{zone.recommended_type}</strong></p>
-                              <p>Місткість: <strong>{zone.capacity}</strong></p>
-                              <p>Інвестиції: <strong>{zone.investment}</strong></p>
-                              <p>Окупність: <strong>{zone.payback}</strong></p>
-                              <p>Існуючих пунктів поблизу: <strong>{zone.competitors_nearby}</strong></p>
+                            <div className="space-y-1 text-sm mb-3 text-gray-300">
+                              <p>Тип: <strong className="text-white">{zone.recommended_type}</strong></p>
+                              <p>Місткість: <strong className="text-white">{zone.capacity}</strong></p>
+                              <p>Інвестиції: <strong className="text-amber-400">{zone.investment}</strong></p>
+                              <p>Окупність: <strong className="text-white">{zone.payback}</strong></p>
+                              <p>Існуючих пунктів поблизу: <strong className="text-white">{zone.competitors_nearby}</strong></p>
                             </div>
 
                             {/* ІНФРАСТРУКТУРА ПОБЛИЗУ */}
-                            <div className="mt-3 border-t pt-3">
-                              <h4 className="font-semibold mb-2">🌍 Інфраструктура поблизу:</h4>
-                              <div className="grid grid-cols-2 gap-2 text-sm">
-                                <div>🏥 Лікарня: {zone.infrastructure.hospital_distance} км</div>
-                                <div>⛽ Заправка: {zone.infrastructure.gas_station_distance} км</div>
-                                <div>🏪 Супермаркет: {zone.infrastructure.shop_distance} км</div>
-                                <div>📡 Мобільний: {zone.infrastructure.mobile_coverage}%</div>
+                            <div className="mt-3 border-t border-amber-600/30 pt-3">
+                              <h4 className="font-semibold mb-2 text-amber-400">🌍 Інфраструктура поблизу:</h4>
+                              <div className="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                                <div>🏥 Лікарня: <span className="text-white">{zone.infrastructure.hospital_distance} км</span></div>
+                                <div>⛽ Заправка: <span className="text-white">{zone.infrastructure.gas_station_distance} км</span></div>
+                                <div>🏪 Супермаркет: <span className="text-white">{zone.infrastructure.shop_distance} км</span></div>
+                                <div>📡 Мобільний: <span className="text-white">{zone.infrastructure.mobile_coverage}%</span></div>
                                 <div className="col-span-2">
-                                  🚗 Дорога: {zone.infrastructure.nearest_road}
-                                  ({zone.infrastructure.road_quality})
+                                  🚗 Дорога: <span className="text-white">{zone.infrastructure.nearest_road}</span>
+                                  <span className="text-gray-400"> ({zone.infrastructure.road_quality})</span>
                                 </div>
                               </div>
                             </div>
