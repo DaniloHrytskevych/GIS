@@ -514,19 +514,34 @@ const DataImport = () => {
       </div>
 
       {/* Help Section */}
-      <Card className="mt-6 bg-slate-50">
+      <Card className="mt-6 bg-gradient-to-br from-slate-100 to-slate-50 border-2 border-slate-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileJson size={20} />
-            Вимоги до формату даних
+          <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+            <TbFileCode size={24} className="text-slate-700" />
+            Технічні вимоги та валідація
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm text-slate-600 space-y-2">
-          <p>✅ <strong>Строга валідація:</strong> Система перевірить структуру даних перед імпортом</p>
-          <p>✅ <strong>Координати:</strong> Мають бути в межах України (lat: 44-52, lng: 21.5-40.5)</p>
-          <p>✅ <strong>Регіони:</strong> Очікується рівно 24 регіони для населення, інфраструктури та ПЗФ</p>
-          <p>✅ <strong>GeoJSON:</strong> Тип має бути &quot;FeatureCollection&quot; з масивом &quot;features&quot;</p>
-          <p>⚠️ <strong>Увага:</strong> Імпорт повністю замінює існуючі дані. Рекомендуємо зробити резервну копію</p>
+        <CardContent className="text-sm text-slate-700 space-y-3">
+          <div className="flex items-start gap-2">
+            <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={18} />
+            <p><strong>Строга валідація:</strong> Система використовує Pydantic schemas для перевірки структури даних перед імпортом</p>
+          </div>
+          <div className="flex items-start gap-2">
+            <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={18} />
+            <p><strong>Координати:</strong> Географічні координати повинні знаходитися в межах України (lat: 44-52°, lng: 21.5-40.5°)</p>
+          </div>
+          <div className="flex items-start gap-2">
+            <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={18} />
+            <p><strong>Регіони:</strong> Очікується рівно 24 адміністративні області для файлів населення, інфраструктури та ПЗФ</p>
+          </div>
+          <div className="flex items-start gap-2">
+            <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={18} />
+            <p><strong>GeoJSON:</strong> Тип документа має бути &quot;FeatureCollection&quot; з обов'язковим масивом &quot;features&quot;</p>
+          </div>
+          <div className="flex items-start gap-2 bg-amber-50 p-3 rounded border border-amber-200">
+            <MdWarning className="text-amber-700 flex-shrink-0 mt-0.5" size={18} />
+            <p className="text-amber-800"><strong>Увага:</strong> Імпорт виконує повну заміну існуючих даних. Обов'язково створіть резервну копію перед операцією</p>
+          </div>
         </CardContent>
       </Card>
     </div>
