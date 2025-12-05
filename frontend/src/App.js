@@ -974,14 +974,14 @@ function MapPage() {
                     return (
                       <Marker key={`reg-${idx}`} position={center} icon={createIcon(getScoreColor(analysis.total_score), 28)}
                         eventHandlers={{ click: () => handleRegionChange(analysis.region) }}>
-                        <Popup>
-                          <div className="text-sm min-w-[180px]">
-                            <p className="font-bold mb-1">{analysis.region}</p>
+                        <Popup className="dark-popup">
+                          <div className="text-sm min-w-[180px] bg-gradient-to-br from-slate-800 to-slate-900 text-white p-3 rounded-lg">
+                            <p className="font-bold mb-1 text-white">{analysis.region}</p>
                             <div className="flex items-center justify-between">
-                              <span>Потенціал:</span>
-                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }}>{analysis.total_score}/100</Badge>
+                              <span className="text-gray-300">Потенціал:</span>
+                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }} className="text-white">{analysis.total_score}/100</Badge>
                             </div>
-                            <p className="text-xs text-slate-500 mt-1">{analysis.category}</p>
+                            <p className="text-xs text-gray-400 mt-1">{analysis.category}</p>
                           </div>
                         </Popup>
                       </Marker>
