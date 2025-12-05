@@ -526,6 +526,115 @@ class GISAPITester:
             self.log_test("Recommended Zones - 7-Factor Model", False, f"Exception: {str(e)}")
             return False, {}
 
+    def test_seven_factor_priority_model(self):
+        """CRITICAL TEST: Verify 7-factor priority calculation is actually being used"""
+        try:
+            response = requests.get(f"{self.api_url}/recommended-zones", timeout=30)
+            if response.status_code != 200:
+                self.log_test("7-Factor Priority Model Verification", False, f"API Error: {response.status_code}")
+                return False
+            
+            data = response.json()
+            zones = data.get('zones', [])
+            
+            if not zones:
+                self.log_test("7-Factor Priority Model Verification", False, "No zones to analyze")
+                return False
+            
+            success = True
+            details = f"Analyzing {len(zones)} zones for 7-factor model compliance"
+            
+            # ====== CRITICAL: Verify 7 factors are reflected in reasoning ======
+            factor_indicators = {
+                'demand': ['попит', 'demand', 'відвідувачів'],
+                'pfz_attractor': ['пзф', 'pfz', 'національний', 'заповідник', 'траса', 'кластер'],
+                'nature': ['природа', 'nature', 'ліс', 'forest'],
+                'transport': ['транспорт', 'transport', 'accessibility', 'доступність'],
+                'infrastructure': ['інфраструктура', 'infrastructure', 'лікарня', 'заправка'],
+                'fires': ['пожеж', 'fire', 'вогню', 'безпек'],
+                'saturation': ['конкуренція', 'competition', 'насиченість', 'р.п.']
+            }
+            
+            factor_coverage = {factor: 0 for factor in factor_indicators.keys()}
+            
+            # Analyze reasoning for factor mentions
+            for zone in zones[:10]:  # Check first 10 zones
+                reasoning_text = ' '.join(zone.get('reasoning', {}).values()).lower()
+                
+                for factor, keywords in factor_indicators.items():
+                    if any(keyword in reasoning_text for keyword in keywords):
+                        factor_coverage[factor] += 1
+            
+            # Check if all 7 factors are represented across zones
+            missing_factors = [f for f, count in factor_coverage.items() if count == 0]
+            covered_factors = len([f for f, count in factor_coverage.items() if count > 0])
+            
+            details += f" | Factor coverage: {covered_factors}/7 factors found"
+            details += f" | Factor mentions: {dict(factor_coverage)}"
+            
+            if missing_factors:
+                details += f" ✗ Missing factors in reasoning: {missing_factors}"
+                success = False
+            else:
+                details += " ✓ All 7 factors represented in reasoning"
+            
+            # ====== Verify priority ranges match expected 7-factor calculation ======
+            priorities = [zone.get('priority', 0) for zone in zones]
+            
+            # Expected ranges based on 7-factor model:
+            # Base(50) + Demand(0-25) + Attractor(0-20) + Nature(0-15) + Transport(0-15) + Infrastructure(0-10) + Fires(0-5) + Saturation(0 to -15)
+            # Theoretical range: 50 + 0 + 0 + 0 + 0 + 0 + 0 + (-15) = 35 minimum
+            # Theoretical range: 50 + 25 + 20 + 15 + 15 + 10 + 5 + 0 = 140 maximum (capped at 100)
+            
+            realistic_min = 35  # Very low scoring zone
+            realistic_max = 100  # Capped maximum
+            
+            priorities_in_range = all(realistic_min <= p <= realistic_max for p in priorities)
+            
+            if not priorities_in_range:
+                out_of_range = [p for p in priorities if not (realistic_min <= p <= realistic_max)]
+                details += f" ✗ Priorities out of expected range: {out_of_range[:5]}"
+                success = False
+            else:
+                details += f" ✓ Priorities in expected range ({realistic_min}-{realistic_max})"
+            
+            # ====== Check for priority diversity (not all same values) ======
+            unique_priorities = len(set(priorities))
+            priority_diversity = unique_priorities / len(priorities) if priorities else 0
+            
+            if priority_diversity < 0.3:  # Less than 30% unique values suggests simple calculation
+                details += f" ✗ Low priority diversity ({priority_diversity:.2f}) - may indicate simple calculation"
+                success = False
+            else:
+                details += f" ✓ Good priority diversity ({priority_diversity:.2f})"
+            
+            # ====== Verify zone-specific priority logic ======
+            zone_type_priorities = {}
+            for zone in zones:
+                zone_type = zone.get('type')
+                priority = zone.get('priority', 0)
+                if zone_type not in zone_type_priorities:
+                    zone_type_priorities[zone_type] = []
+                zone_type_priorities[zone_type].append(priority)
+            
+            # Calculate average priorities by type
+            avg_priorities = {}
+            for zone_type, prios in zone_type_priorities.items():
+                avg_priorities[zone_type] = sum(prios) / len(prios) if prios else 0
+            
+            details += f" | Avg priorities by type: {avg_priorities}"
+            
+            # Fire prevention zones should generally have decent priorities due to fire factor
+            if 'fire_prevention' in avg_priorities and avg_priorities['fire_prevention'] < 50:
+                details += " ⚠ Fire prevention zones have unexpectedly low priorities"
+            
+            self.log_test("7-Factor Priority Model Verification", success, details)
+            return success
+            
+        except Exception as e:
+            self.log_test("7-Factor Priority Model Verification", False, f"Exception: {str(e)}")
+            return False
+
     def test_invalid_region(self):
         """Test analysis with invalid region name"""
         try:
