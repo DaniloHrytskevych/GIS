@@ -75,6 +75,77 @@ const DataImport = () => {
     }
   };
 
+  const fetchBackupInfo = async () => {
+    try {
+      const response = await axios.get(`${API}/backup/info`);
+      setBackupInfo(response.data);
+    } catch (error) {
+      console.error('Error fetching backup info:', error);
+    }
+  };
+
+  const handleDownloadBackup = async () => {
+    try {
+      const response = await axios.get(`${API}/backup/download-all`, {
+        responseType: 'blob'
+      });
+      
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+      link.setAttribute('download', `gis_data_backup_${timestamp}.zip`);
+      
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      
+      // Save backup timestamp to localStorage
+      localStorage.setItem('lastBackupTime', new Date().toISOString());
+      
+    } catch (error) {
+      console.error('Error downloading backup:', error);
+      alert('Помилка завантаження бекапу: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  const handleDownloadSingle = async (dataType) => {
+    try {
+      const response = await axios.get(`${API}/backup/download/${dataType}`, {
+        responseType: 'blob'
+      });
+      
+      // Get filename from Content-Disposition header
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = `${dataType}_backup.json`;
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      // Create download link
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename);
+      
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      
+    } catch (error) {
+      console.error('Error downloading file:', error);
+      alert('Помилка завантаження файлу: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+
   const handleFileUpload = async (dataType, file) => {
     if (!file) return;
 
