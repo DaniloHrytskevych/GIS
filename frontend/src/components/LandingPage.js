@@ -158,6 +158,10 @@ const LandingPage = () => {
                   <span>+ Антропогенна інфраструктура</span>
                   <span className="font-bold text-blue-600">10%</span>
                 </div>
+                <div className="flex justify-between items-center border-b pb-2 bg-orange-50">
+                  <span>+ Ризик лісових пожеж (профілактика)</span>
+                  <span className="font-bold text-orange-600">+5%</span>
+                </div>
                 <div className="flex justify-between items-center border-t-2 border-red-200 pt-2">
                   <span>− Насиченість існуючими пунктами</span>
                   <span className="font-bold text-red-600">−15%</span>
