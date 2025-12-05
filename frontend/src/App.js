@@ -700,9 +700,31 @@ function MapPage() {
     const oversaturated = allAnalysis.filter(a => a.saturation_penalty <= -10);
     
     pdfContent.innerHTML = `
-      <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #22c55e; padding-bottom: 20px;">
-        <h1 style="color: #1e293b; margin: 0; font-size: 22px;">ПОРІВНЯЛЬНИЙ АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h1>
-        <h2 style="color: #475569; margin: 8px 0 0 0; font-size: 16px;">Області України</h2>
+      <div style="text-align: center; margin-bottom: 20px; border-bottom: 3px solid #f59e0b; padding-bottom: 15px;">
+        <h1 style="color: #1e293b; margin: 0; font-size: 20px; font-weight: bold;">НАУКОВИЙ ЗВІТ</h1>
+        <h2 style="color: #f59e0b; margin: 8px 0; font-size: 16px;">ПОРІВНЯЛЬНИЙ АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h2>
+        <h3 style="color: #475569; margin: 6px 0; font-size: 14px;">Області України (24 регіони)</h3>
+        <p style="color: #94a3b8; margin-top: 12px; font-size: 9px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
+      </div>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">📐 МЕТОДОЛОГІЯ</h3>
+      <div style="background: #fef3c7; padding: 10px; border-left: 4px solid #f59e0b; margin-bottom: 12px; font-size: 9px;">
+        <p style="margin: 0 0 6px 0; font-weight: bold;">7-факторна модель оцінки:</p>
+        <p style="margin: 0; font-family: monospace; background: white; padding: 6px; border-radius: 4px; font-size: 9px;">
+          TOTAL = Попит(25) + ПЗФ(20) + Природа(15) + Транспорт(15) + Інфраструктура(10) + Пожежі(5) - Насиченість(15)
+        </p>
+      </div>
+      
+      <h4 style="color: #1e293b; font-size: 11px; margin: 12px 0 6px 0;">📋 Пояснення колонок:</h4>
+      <div style="font-size: 9px; background: #f8fafc; padding: 10px; border-radius: 6px; margin-bottom: 12px; line-height: 1.6;">
+        <p style="margin: 2px 0;"><strong>Поп (0-25):</strong> Попит населення = населення × 0.15 - існуюча пропозиція</p>
+        <p style="margin: 2px 0;"><strong>ПЗФ (0-20):</strong> НПП×8 + Заповідники×6 + РЛП×3 + Заказники×1</p>
+        <p style="margin: 2px 0;"><strong>Прир (0-15):</strong> % лісів × 0.15 + водойми(так=5)</p>
+        <p style="margin: 2px 0;"><strong>Трансп (0-15):</strong> Щільність доріг + залізниці + аеропорти</p>
+        <p style="margin: 2px 0;"><strong>Інфр (0-10):</strong> Лікарні + заправки + готелі + мобільний зв'язок</p>
+        <p style="margin: 2px 0;"><strong>Насич (-15 до 0):</strong> Штраф -1 за кожні 50 пунктів/1000км²</p>
+        <p style="margin: 2px 0;"><strong>Дефіцит:</strong> + дефіцит, - профіцит (відвідувань/рік)</p>
+        <p style="margin: 2px 0;"><strong>Потр. пунктів:</strong> Дефіцит ÷ 500 відвідувань на пункт</p>
       </div>
       
       <div style="display: flex; gap: 15px; margin-bottom: 25px;">
