@@ -282,6 +282,113 @@ const DataImport = () => {
         </Card>
       )}
 
+
+      {/* Backup Section */}
+      <Card className="mb-6 bg-amber-50 border-amber-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Database size={20} className="text-amber-600" />
+            Бекап даних
+          </CardTitle>
+          <CardDescription>
+            Завантажте поточні дані перед імпортом нових файлів. Це допоможе відновити дані у разі помилки.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Backup Info */}
+            {backupInfo && (
+              <div className="bg-white rounded-lg p-4 border border-amber-200">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-amber-600">
+                      {backupInfo.file_count}
+                    </div>
+                    <div className="text-slate-600">Файлів</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-amber-600">
+                      {backupInfo.total_size_mb} MB
+                    </div>
+                    <div className="text-slate-600">Загальний розмір</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-amber-600">
+                      24
+                    </div>
+                    <div className="text-slate-600">Регіонів</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-amber-600">
+                      {dataStatus?.forest_fires?.total_fires || 0}
+                    </div>
+                    <div className="text-slate-600">Пожеж</div>
+                  </div>
+                </div>
+                
+                {/* Individual Files */}
+                <div className="space-y-2">
+                  <div className="text-xs font-semibold text-slate-600 mb-2">Окремі файли:</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {backupInfo.files.map((file, idx) => (
+                      <div key={idx} className="flex items-center justify-between bg-slate-50 p-2 rounded text-xs">
+                        <div className="flex-1">
+                          <div className="font-medium">{file.description}</div>
+                          <div className="text-slate-500">{file.size_mb} MB</div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const typeMapping = {
+                              'ukraine_population_data.json': 'population',
+                              'ukraine_infrastructure.json': 'infrastructure',
+                              'ukraine_protected_areas.json': 'protected-areas',
+                              'recreational_points_web.geojson': 'recreational-points',
+                              'forest_fires.geojson': 'fires'
+                            };
+                            handleDownloadSingle(typeMapping[file.filename]);
+                          }}
+                          className="text-amber-600 hover:text-amber-800 underline"
+                        >
+                          Завантажити
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Download All Button */}
+            <div className="flex items-center gap-3">
+              <Button 
+                onClick={handleDownloadBackup}
+                className="bg-amber-600 hover:bg-amber-700 text-white"
+              >
+                <Database size={16} className="mr-2" />
+                Завантажити всі дані (ZIP)
+              </Button>
+              
+              <div className="text-xs text-slate-500">
+                {localStorage.getItem('lastBackupTime') && (
+                  <span>
+                    Останній бекап: {new Date(localStorage.getItem('lastBackupTime')).toLocaleString('uk-UA')}
+                  </span>
+                )}
+              </div>
+            </div>
+            
+            {/* Warning */}
+            <Alert className="bg-amber-50 border-amber-300">
+              <AlertCircle size={16} className="text-amber-600" />
+              <AlertDescription className="ml-2 text-amber-800">
+                <strong>Важливо:</strong> Завантажте бекап перед імпортом нових даних. 
+                Імпорт повністю замінює існуючі файли, і без бекапу відновлення буде неможливим.
+              </AlertDescription>
+            </Alert>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Import Cards */}
       <div className="space-y-4">
         {dataTypes.map((dataType) => (
