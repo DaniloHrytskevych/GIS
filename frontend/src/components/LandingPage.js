@@ -17,22 +17,29 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
+      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 shadow-xl sticky top-0 z-50 border-b-2 border-amber-600">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-green-600">
-              ГІС Рекреація
+            <div className="flex items-center gap-3">
+              <GiMountains className="text-amber-500 text-3xl" />
+              <div>
+                <div className="text-xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                  ГІС АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ
+                </div>
+                <div className="text-xs text-amber-400">Система геопросторового аналізу та моделювання</div>
+              </div>
             </div>
             <div className="hidden md:flex gap-6 items-center">
-              <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="hover:text-green-600 cursor-pointer">Про систему</a>
-              <a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="hover:text-green-600 cursor-pointer">Логіка системи</a>
-              <a href="#methodology" onClick={(e) => { e.preventDefault(); scrollTo('#methodology'); }} className="hover:text-green-600 cursor-pointer">Методологія</a>
-              <a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="hover:text-green-600 cursor-pointer">Джерела даних</a>
-              <button onClick={() => navigate('/import')} className="border border-green-600 text-green-600 px-4 py-2 rounded hover:bg-green-50">
+              <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="text-gray-300 hover:text-amber-400 cursor-pointer transition-colors text-sm font-medium">Про систему</a>
+              <a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="text-gray-300 hover:text-amber-400 cursor-pointer transition-colors text-sm font-medium">Методологія</a>
+              <a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="text-gray-300 hover:text-amber-400 cursor-pointer transition-colors text-sm font-medium">Джерела даних</a>
+              <button onClick={() => navigate('/import')} className="border border-amber-500 text-amber-400 px-4 py-2 rounded hover:bg-amber-500 hover:text-white transition-colors text-sm font-medium">
+                <TbDatabase className="inline mr-1" />
                 Імпорт даних
               </button>
-              <button onClick={() => navigate('/map')} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                Відкрити карту
+              <button onClick={() => navigate('/map')} className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-5 py-2 rounded hover:from-amber-700 hover:to-amber-800 transition-all shadow-lg text-sm font-bold">
+                <TbMapSearch className="inline mr-1 text-lg" />
+                Аналіз на карті
               </button>
             </div>
           </div>
