@@ -178,6 +178,20 @@ const LandingPage = () => {
               </p>
             </div>
           </div>
+          
+          {/* Scroll to Logic Arrow */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => scrollTo('#logic')}
+              className="inline-flex flex-col items-center text-amber-600 hover:text-amber-700 transition-colors animate-bounce"
+              aria-label="Перейти до методології"
+            >
+              <span className="text-sm font-medium mb-1">Методологія аналізу</span>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
