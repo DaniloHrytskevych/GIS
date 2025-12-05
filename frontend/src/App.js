@@ -126,6 +126,14 @@ function MapPage() {
 
   useEffect(() => {
     loadInitialData();
+    
+    // Scroll to top button handler
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const loadInitialData = async () => {
