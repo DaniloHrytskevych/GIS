@@ -539,13 +539,20 @@ function MapPage() {
 
   const getRadarData = () => {
     if (!analysisResult) return [];
-    return [
+    const data = [
       { factor: 'Попит', value: (analysisResult.demand_score / 25) * 100, fullMark: 100 },
       { factor: 'ПЗФ', value: (analysisResult.pfz_score / 20) * 100, fullMark: 100 },
       { factor: 'Природа', value: (analysisResult.nature_score / 15) * 100, fullMark: 100 },
       { factor: 'Транспорт', value: (analysisResult.accessibility_score / 15) * 100, fullMark: 100 },
       { factor: 'Інфра', value: (analysisResult.infrastructure_score / 10) * 100, fullMark: 100 },
     ];
+    
+    // Add fire score if available
+    if (analysisResult.fire_score !== undefined) {
+      data.push({ factor: 'Пожежі', value: (analysisResult.fire_score / 5) * 100, fullMark: 100 });
+    }
+    
+    return data;
   };
 
   const getScoreIcon = (score, max) => {
