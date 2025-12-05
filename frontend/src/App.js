@@ -1092,38 +1092,38 @@ function MapPage() {
                               </AccordionItem>
 
                               {/* PFZ */}
-                              <AccordionItem value="pfz">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="pfz" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <GiForest className="w-4 h-4 text-emerald-500" />
+                                    <span className="text-amber-400 text-lg">★</span>
                                     <span>2. ПЗФ ЯК АТРАКТОР</span>
-                                    <Badge variant="outline" className="ml-auto">{analysisResult.pfz_score}/20</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.pfz_score}/20</Badge>
                                     {getScoreIcon(analysisResult.pfz_score, 20)}
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-emerald-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">НПП</p>
-                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.national_parks}</p>
+                                      <div className="bg-slate-700/60 border border-emerald-600/30 rounded p-2">
+                                        <p className="text-xs text-emerald-400">★ НПП</p>
+                                        <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.national_parks}</p>
                                       </div>
-                                      <div className="bg-green-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Заповідники</p>
-                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.nature_reserves}</p>
+                                      <div className="bg-slate-700/60 border border-green-600/30 rounded p-2">
+                                        <p className="text-xs text-green-400">★ Заповідники</p>
+                                        <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.nature_reserves}</p>
                                       </div>
-                                      <div className="bg-teal-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">РЛП</p>
-                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.regional_landscape_parks}</p>
+                                      <div className="bg-slate-700/60 border border-teal-600/30 rounded p-2">
+                                        <p className="text-xs text-teal-400">★ РЛП</p>
+                                        <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.regional_landscape_parks}</p>
                                       </div>
-                                      <div className="bg-cyan-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Заказники</p>
-                                        <p className="font-semibold text-lg">{analysisResult.details.pfz.zakazniks}</p>
+                                      <div className="bg-slate-700/60 border border-cyan-600/30 rounded p-2">
+                                        <p className="text-xs text-cyan-400">★ Заказники</p>
+                                        <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.zakazniks}</p>
                                       </div>
                                     </div>
-                                    <div className="flex justify-between bg-slate-50 rounded p-2">
-                                      <span>Під ПЗФ:</span>
-                                      <span className="font-semibold">{analysisResult.details.pfz.percent_of_region}% території</span>
+                                    <div className="flex justify-between bg-slate-700/60 border border-amber-600/30 rounded p-2">
+                                      <span className="text-gray-300">Під ПЗФ:</span>
+                                      <span className="font-semibold text-white">{analysisResult.details.pfz.percent_of_region}% території</span>
                                     </div>
                                     {analysisResult.details.pfz.notable_objects?.length > 0 && (
                                       <div className="bg-amber-50 rounded p-3">
