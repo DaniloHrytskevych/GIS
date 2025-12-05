@@ -1283,7 +1283,7 @@ function MapPage() {
                                           <p className="font-semibold text-lg text-white">{analysisResult.details.fires.total_fires}</p>
                                         </div>
                                         <div className="bg-slate-700/60 border border-orange-600/30 rounded p-2">
-                                          <p className="text-xs text-orange-400">🔥 Від людей</p>
+                                          <p className="text-xs text-orange-400 flex items-center gap-1"><GiFireBowl size={14} /> Від людей</p>
                                           <p className="font-semibold text-lg text-orange-300">{analysisResult.details.fires.human_caused_fires}</p>
                                         </div>
                                         <div className="bg-slate-700/60 border border-green-600/30 rounded p-2">
