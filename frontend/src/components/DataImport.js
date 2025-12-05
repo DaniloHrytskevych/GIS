@@ -447,7 +447,7 @@ const DataImport = () => {
                 Завантажити всі дані (ZIP)
               </Button>
               
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-gray-400">
                 {localStorage.getItem('lastBackupTime') && (
                   <span>
                     Останній бекап: {new Date(localStorage.getItem('lastBackupTime')).toLocaleString('uk-UA')}
@@ -457,9 +457,9 @@ const DataImport = () => {
             </div>
             
             {/* Warning */}
-            <Alert className="bg-amber-50 border-amber-300">
-              <MdWarning size={18} className="text-amber-600" />
-              <AlertDescription className="ml-2 text-amber-800">
+            <Alert className="bg-amber-900/30 border-amber-600/50 backdrop-blur">
+              <MdWarning size={18} className="text-amber-400" />
+              <AlertDescription className="ml-2 text-amber-200">
                 <strong>Важливо:</strong> Завантажте бекап перед імпортом нових даних. 
                 Імпорт повністю замінює існуючі файли, і без бекапу відновлення буде неможливим.
               </AlertDescription>
