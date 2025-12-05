@@ -474,8 +474,8 @@ const DataImport = () => {
                         ? 'opacity-50 cursor-not-allowed' 
                         : ''
                     }`}>
-                      <Upload size={16} className="mr-2" />
-                      {uploadStatus[dataType.id]?.status === 'uploading' ? 'Завантаження...' : 'Вибрати файл'}
+                      <MdUploadFile size={18} className="mr-2" />
+                      {uploadStatus[dataType.id]?.status === 'uploading' ? 'Завантаження...' : 'Обрати файл'}
                     </div>
                   </label>
 
