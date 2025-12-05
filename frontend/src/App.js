@@ -1126,10 +1126,10 @@ function MapPage() {
                                       <span className="font-semibold text-white">{analysisResult.details.pfz.percent_of_region}% території</span>
                                     </div>
                                     {analysisResult.details.pfz.notable_objects?.length > 0 && (
-                                      <div className="bg-amber-50 rounded p-3">
-                                        <p className="text-xs text-slate-500 mb-2">Відомі об&apos;єкти:</p>
+                                      <div className="bg-amber-900/30 border border-amber-600/50 rounded p-3">
+                                        <p className="text-xs text-amber-300 mb-2">★ Відомі об&apos;єкти:</p>
                                         {analysisResult.details.pfz.notable_objects.map((obj, i) => (
-                                          <p key={i} className="text-emerald-700">★ {obj}</p>
+                                          <p key={i} className="text-emerald-300">★ {obj}</p>
                                         ))}
                                       </div>
                                     )}
@@ -1138,31 +1138,31 @@ function MapPage() {
                               </AccordionItem>
 
                               {/* NATURE */}
-                              <AccordionItem value="nature">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="nature" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <GiWaterDrop className="w-4 h-4 text-cyan-500" />
+                                    <GiForest className="w-4 h-4 text-green-400" />
                                     <span>3. ПРИРОДНІ РЕСУРСИ</span>
-                                    <Badge variant="outline" className="ml-auto">{analysisResult.nature_score}/15</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.nature_score}/15</Badge>
                                     {getScoreIcon(analysisResult.nature_score, 15)}
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
-                                    <div className="flex items-center justify-between bg-green-50 rounded p-3">
+                                    <div className="flex items-center justify-between bg-slate-700/60 border border-green-600/30 rounded p-3">
                                       <div className="flex items-center gap-2">
-                                        <GiForest className="w-5 h-5 text-green-600" />
-                                        <span>Лісове покриття</span>
+                                        <GiForest className="w-5 h-5 text-green-400" />
+                                        <span className="text-gray-200">Лісове покриття</span>
                                       </div>
-                                      <span className="font-bold text-green-700">{analysisResult.details.nature.forest_coverage_percent}%</span>
+                                      <span className="font-bold text-white">{analysisResult.details.nature.forest_coverage_percent}%</span>
                                     </div>
-                                    <div className="flex items-center justify-between bg-blue-50 rounded p-3">
+                                    <div className="flex items-center justify-between bg-slate-700/60 border border-blue-600/30 rounded p-3">
                                       <div className="flex items-center gap-2">
-                                        <GiWaterDrop className="w-5 h-5 text-blue-600" />
-                                        <span>Водні об&apos;єкти</span>
+                                        <GiWaterDrop className="w-5 h-5 text-blue-400" />
+                                        <span className="text-gray-200">Водні об&apos;єкти</span>
                                       </div>
                                       {analysisResult.details.nature.has_water_bodies ? (
-                                        <Badge className="bg-blue-500">Наявні</Badge>
+                                        <Badge className="bg-blue-600 text-white">Наявні</Badge>
                                       ) : (
                                         <Badge variant="secondary">Відсутні</Badge>
                                       )}
