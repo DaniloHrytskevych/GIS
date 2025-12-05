@@ -657,37 +657,37 @@ function MapPage() {
         <div className="max-w-screen-2xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
                 <MdMap className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-slate-800">ГІС аналіз рекреаційного потенціалу</h1>
-                <p className="text-xs text-slate-500">Україна • {recreationalPoints.length} пунктів • {pfzObjects.length} об&apos;єктів ПЗФ</p>
+                <h1 className="text-lg font-bold text-white">ГІС аналіз рекреаційного потенціалу</h1>
+                <p className="text-xs text-gray-300">Україна • {recreationalPoints.length} пунктів • {pfzObjects.length} об&apos;єктів ПЗФ</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Select value={selectedRegion || ''} onValueChange={handleRegionChange}>
-                <SelectTrigger className="w-60">
+                <SelectTrigger className="w-60 bg-slate-700 text-white border-amber-600/50">
                   <SelectValue placeholder="Оберіть область" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-slate-800 text-white border-amber-600/50">
                   {regions.map((region) => (
-                    <SelectItem key={region} value={region}>{region}</SelectItem>
+                    <SelectItem key={region} value={region} className="hover:bg-slate-700">{region}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <Button onClick={exportComparisonPDF} variant="outline" size="sm" className="gap-2">
-                <MdDescription className="w-4 h-4" />
+              <Button onClick={exportComparisonPDF} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
+                <MdDescription className="w-4 h-4 mr-2" />
                 Звіт
               </Button>
               {analysisResult && (
                 <>
-                  <Button onClick={exportPDF} variant="outline" size="sm" className="gap-2">
-                    <MdDownload className="w-4 h-4" />
+                  <Button onClick={exportPDF} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
+                    <MdDownload className="w-4 h-4 mr-2" />
                     PDF
                   </Button>
-                  <Button onClick={exportJSON} variant="outline" size="sm" className="gap-2">
-                    <MdDescription className="w-4 h-4" />
+                  <Button onClick={exportJSON} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
+                    <MdDescription className="w-4 h-4 mr-2" />
                     JSON
                   </Button>
                 </>
