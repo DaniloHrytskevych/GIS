@@ -249,15 +249,15 @@ const DataImport = () => {
                       }
                     }}
                   />
-                  <label htmlFor={`file-${dataType.id}`}>
-                    <Button 
-                      as="span" 
-                      variant="outline"
-                      disabled={loading && uploadStatus[dataType.id]?.status === 'uploading'}
-                    >
+                  <label htmlFor={`file-${dataType.id}`} className="cursor-pointer">
+                    <div className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-slate-300 bg-white hover:bg-slate-100 h-10 px-4 py-2 ${
+                      loading && uploadStatus[dataType.id]?.status === 'uploading' 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : ''
+                    }`}>
                       <Upload size={16} className="mr-2" />
                       {uploadStatus[dataType.id]?.status === 'uploading' ? 'Завантаження...' : 'Вибрати файл'}
-                    </Button>
+                    </div>
                   </label>
 
                   {uploadStatus[dataType.id] && (
