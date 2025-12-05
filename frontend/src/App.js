@@ -1172,47 +1172,47 @@ function MapPage() {
                               </AccordionItem>
 
                               {/* TRANSPORT */}
-                              <AccordionItem value="transport">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="transport" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <FaCar className="w-4 h-4 text-indigo-500" />
+                                    <FaCar className="w-4 h-4 text-indigo-400" />
                                     <span>4. ТРАНСПОРТНА ДОСТУПНІСТЬ</span>
-                                    <Badge variant="outline" className="ml-auto">{analysisResult.accessibility_score}/15</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.accessibility_score}/15</Badge>
                                     {getScoreIcon(analysisResult.accessibility_score, 15)}
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-indigo-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Рейтинг</p>
-                                        <p className="font-semibold">{analysisResult.details.transport.accessibility_score}/10</p>
+                                      <div className="bg-slate-700/60 border border-indigo-600/30 rounded p-2">
+                                        <p className="text-xs text-indigo-400">Рейтинг</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.transport.accessibility_score}/10</p>
                                       </div>
-                                      <div className="bg-purple-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Щільність доріг</p>
-                                        <p className="font-semibold">{analysisResult.details.transport.highway_density} км</p>
+                                      <div className="bg-slate-700/60 border border-purple-600/30 rounded p-2">
+                                        <p className="text-xs text-purple-400">Щільність доріг</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.transport.highway_density} км</p>
                                       </div>
                                     </div>
                                     {analysisResult.details.transport.main_roads?.length > 0 && (
-                                      <div className="bg-slate-50 rounded p-3">
-                                        <p className="text-xs text-slate-500 mb-2">Міжнародні траси:</p>
+                                      <div className="bg-slate-700/60 border border-indigo-600/30 rounded p-3">
+                                        <p className="text-xs text-indigo-300 mb-2">🚗 Міжнародні траси:</p>
                                         {analysisResult.details.transport.main_roads.filter(r => r.type === 'міжнародна').slice(0, 4).map((road, i) => (
-                                          <p key={i} className="text-indigo-700">✓ {road.name} ({road.quality})</p>
+                                          <p key={i} className="text-gray-200">✓ {road.name} <span className="text-gray-400">({road.quality})</span></p>
                                         ))}
                                       </div>
                                     )}
                                     <div className="grid grid-cols-3 gap-2 text-center">
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Залізниці</p>
-                                        <p className="font-semibold">{analysisResult.details.transport.railway_stations}</p>
+                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <p className="text-xs text-gray-400">Залізниці</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.transport.railway_stations}</p>
                                       </div>
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Аеропорти</p>
-                                        <p className="font-semibold">{analysisResult.details.transport.airports}</p>
+                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <p className="text-xs text-gray-400">Аеропорти</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.transport.airports}</p>
                                       </div>
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Час до міста</p>
-                                        <p className="font-semibold">{analysisResult.details.transport.avg_travel_time_minutes} хв</p>
+                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <p className="text-xs text-gray-400">Час до міста</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.transport.avg_travel_time_minutes} хв</p>
                                       </div>
                                     </div>
                                   </div>
