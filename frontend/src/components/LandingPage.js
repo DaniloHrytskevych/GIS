@@ -519,23 +519,32 @@ const LandingPage = () => {
               <TbChartDots3 size={32} />
               Метод Analytic Hierarchy Process (AHP)
             </h3>
-            <p className="text-gray-700 mb-4">
-              Для визначення вагових коефіцієнтів застосовано <strong>Analytic Hierarchy Process (AHP)</strong> - 
+            <p className="text-gray-300 mb-4 leading-relaxed">
+              Для визначення вагових коефіцієнтів застосовано <strong className="text-amber-400">Analytic Hierarchy Process (AHP)</strong> - 
               систематичний підхід до багатокритеріального прийняття рішень, широко визнаний у міжнародній 
               практиці оцінки туристичного та рекреаційного потенціалу.
             </p>
-            <div className="grid md:grid-cols-3 gap-4 mt-4">
-              <div className="bg-green-50 p-4 rounded">
-                <p className="font-semibold text-green-700 mb-2">✅ Систематична інтеграція</p>
-                <p className="text-sm text-gray-600">Кількісних та якісних факторів</p>
+            <div className="grid md:grid-cols-3 gap-4 mt-6">
+              <div className="bg-slate-700/50 p-4 rounded border border-green-600/30">
+                <p className="font-semibold text-green-400 mb-2 flex items-center gap-2">
+                  <MdCheckCircle size={20} />
+                  Систематична інтеграція
+                </p>
+                <p className="text-sm text-gray-400">Кількісних та якісних факторів</p>
               </div>
-              <div className="bg-blue-50 p-4 rounded">
-                <p className="font-semibold text-blue-700 mb-2">✅ Парне порівняння</p>
-                <p className="text-sm text-gray-600">Експертами для визначення пріоритетів</p>
+              <div className="bg-slate-700/50 p-4 rounded border border-blue-600/30">
+                <p className="font-semibold text-blue-400 mb-2 flex items-center gap-2">
+                  <MdCheckCircle size={20} />
+                  Парне порівняння
+                </p>
+                <p className="text-sm text-gray-400">Експертами для визначення пріоритетів</p>
               </div>
-              <div className="bg-purple-50 p-4 rounded">
-                <p className="font-semibold text-purple-700 mb-2">✅ Перевірка консистентності</p>
-                <p className="text-sm text-gray-600">Валідація експертних суджень</p>
+              <div className="bg-slate-700/50 p-4 rounded border border-purple-600/30">
+                <p className="font-semibold text-purple-400 mb-2 flex items-center gap-2">
+                  <MdCheckCircle size={20} />
+                  Перевірка консистентності
+                </p>
+                <p className="text-sm text-gray-400">Валідація експертних суджень</p>
               </div>
             </div>
           </div>
