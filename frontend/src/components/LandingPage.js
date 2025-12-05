@@ -237,12 +237,21 @@ const LandingPage = () => {
           </div>
 
           {/* Detailed Factors */}
-          <div className="space-y-8">
+          <div className="mt-16 space-y-6">
+            <h3 className="text-3xl font-bold text-center mb-8" style={{ fontFamily: 'Georgia, serif' }}>
+              Детальний аналіз факторів
+            </h3>
+            
             {/* Factor 1 */}
-            <div className="bg-white border-2 border-gray-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-green-100 text-green-700 px-3 py-1 rounded">1</span>
-                Попит від населення (0-25 балів)
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-green-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₁
+                </div>
+                <div>
+                  <div>Попит від населення</div>
+                  <div className="text-sm text-green-700 font-normal">Ваговий коефіцієнт: 0-25 балів (25%)</div>
+                </div>
               </h4>
 
               <div className="space-y-4 ml-4">
