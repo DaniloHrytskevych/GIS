@@ -668,6 +668,10 @@ function MapPage() {
                     <span className="text-amber-500 text-sm">★</span>
                     <span className="text-xs">НПП / Заповідник</span>
                   </div>
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-3 h-3 text-orange-600" />
+                    <span className="text-xs">Лісова пожежа</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
