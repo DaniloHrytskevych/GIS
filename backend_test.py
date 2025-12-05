@@ -635,6 +635,175 @@ class GISAPITester:
             self.log_test("7-Factor Priority Model Verification", False, f"Exception: {str(e)}")
             return False
 
+    def test_fire_coordinates_verification(self):
+        """
+        CRITICAL TEST: Verify FIXED fire coordinates in /api/recommended-zones
+        Ensures fire_prevention zones are NOT in water bodies (Dnipro river, reservoirs)
+        """
+        try:
+            # Test forest fires metadata first
+            fires_response = requests.get(f"{self.api_url}/forest-fires", timeout=15)
+            if fires_response.status_code != 200:
+                self.log_test("Fire Coordinates - Forest Fires API", False, f"Forest fires API failed: {fires_response.status_code}")
+                return False
+            
+            fires_data = fires_response.json()
+            total_fires = len(fires_data.get('features', []))
+            human_fires = len([f for f in fires_data.get('features', []) if f.get('properties', {}).get('cause_type') == "людський фактор"])
+            
+            # Test recommended zones
+            zones_response = requests.get(f"{self.api_url}/recommended-zones", timeout=30)
+            if zones_response.status_code != 200:
+                self.log_test("Fire Coordinates - Zones API", False, f"Zones API failed: {zones_response.status_code}")
+                return False
+            
+            zones_data = zones_response.json()
+            zones = zones_data.get('zones', [])
+            
+            success = True
+            details = f"Forest fires: {total_fires} total, {human_fires} human-caused"
+            
+            # ====== TEST 1: Fire Prevention Zones Count ======
+            fire_zones = [z for z in zones if z.get('type') == 'fire_prevention']
+            details += f" | Fire prevention zones: {len(fire_zones)}"
+            
+            if len(fire_zones) < 30:  # Should be around 34, but allow some variance
+                details += f" ✗ Expected ~34 fire prevention zones, got {len(fire_zones)}"
+                success = False
+            else:
+                details += " ✓ Fire prevention zones count acceptable"
+            
+            # ====== TEST 2: Total Zones Count ======
+            total_zones = len(zones)
+            details += f" | Total zones: {total_zones}"
+            
+            if total_zones < 95:  # Should be ~101, allow some variance
+                details += f" ✗ Expected ~101 total zones, got {total_zones}"
+                success = False
+            else:
+                details += " ✓ Total zones count acceptable"
+            
+            # ====== TEST 3: Zone Type Distribution ======
+            zone_types = {}
+            for zone in zones:
+                zone_type = zone.get('type')
+                zone_types[zone_type] = zone_types.get(zone_type, 0) + 1
+            
+            details += f" | Distribution: {zone_types}"
+            
+            # ====== TEST 4: Kyiv Region Critical Check ======
+            kyiv_fire_zones = [z for z in fire_zones if z.get('region') == 'Київська область']
+            details += f" | Kyiv fire zones: {len(kyiv_fire_zones)}"
+            
+            kyiv_coords_valid = True
+            water_body_issues = []
+            
+            for zone in kyiv_fire_zones:
+                coords = zone.get('coordinates', [])
+                if len(coords) != 2:
+                    continue
+                
+                lat, lng = coords
+                zone_name = zone.get('name', 'Unknown')
+                
+                # Check if coordinates are in expected forest areas (NOT in Dnipro river)
+                # Dnipro river runs roughly through Kyiv at lng ~30.5, lat ~50.4
+                # Eastern forests: lng ~30.85, lat ~50.56 (Brovary district)
+                # Western forests: lng ~30.30, lat ~50.65 (Makariv district)
+                
+                # Flag potential water body coordinates
+                # Dnipro river corridor: lng 30.4-30.6, lat 50.3-50.5
+                in_dnipro_corridor = (30.4 <= lng <= 30.6 and 50.3 <= lat <= 50.5)
+                
+                # Kyiv reservoir area: lng 30.4-30.7, lat 50.5-50.6
+                in_reservoir_area = (30.4 <= lng <= 30.7 and 50.5 <= lat <= 50.6)
+                
+                if in_dnipro_corridor or in_reservoir_area:
+                    water_body_issues.append(f"{zone_name}: ({lat:.3f}, {lng:.3f})")
+                    kyiv_coords_valid = False
+                
+                # Verify fire_cluster_size ≥ 3
+                fire_cluster_size = zone.get('fire_cluster_size', 0)
+                if fire_cluster_size < 3:
+                    details += f" ✗ {zone_name} has fire_cluster_size={fire_cluster_size} < 3"
+                    success = False
+            
+            if not kyiv_coords_valid:
+                details += f" ✗ CRITICAL: Kyiv zones in water bodies: {water_body_issues}"
+                success = False
+            else:
+                details += " ✓ Kyiv fire zones coordinates look valid (not in water)"
+            
+            # ====== TEST 5: Sample Other Regions ======
+            test_regions = ['Львівська область', 'Одеська область', 'Харківська область']
+            region_coord_issues = []
+            
+            for region in test_regions:
+                region_fire_zones = [z for z in fire_zones if z.get('region') == region]
+                
+                for zone in region_fire_zones[:2]:  # Check first 2 zones per region
+                    coords = zone.get('coordinates', [])
+                    if len(coords) != 2:
+                        continue
+                    
+                    lat, lng = coords
+                    zone_name = zone.get('name', 'Unknown')
+                    
+                    # Basic coordinate validation for Ukraine
+                    if not (44 <= lat <= 52 and 21.5 <= lng <= 40.5):
+                        region_coord_issues.append(f"{region}: {zone_name} out of Ukraine bounds")
+                        success = False
+                    
+                    # Region-specific water body checks
+                    if region == 'Одеська область':
+                        # Check not in Black Sea (south of lat 46.0)
+                        if lat < 46.0:
+                            region_coord_issues.append(f"{region}: {zone_name} possibly in Black Sea")
+                            success = False
+                    
+                    elif region == 'Львівська область':
+                        # Check reasonable coordinates for Lviv region
+                        if not (49.0 <= lat <= 50.5 and 23.0 <= lng <= 25.5):
+                            region_coord_issues.append(f"{region}: {zone_name} outside expected region bounds")
+                            success = False
+            
+            if region_coord_issues:
+                details += f" ✗ Regional coordinate issues: {region_coord_issues[:3]}"
+                success = False
+            else:
+                details += " ✓ Sample regional coordinates look reasonable"
+            
+            # ====== TEST 6: Forest Fires Metadata Verification ======
+            metadata = fires_data.get('metadata', {})
+            
+            # Check total fires count
+            if total_fires < 1800:  # Should be 1875
+                details += f" ✗ Expected ~1875 total fires, got {total_fires}"
+                success = False
+            else:
+                details += f" ✓ Total fires count acceptable ({total_fires})"
+            
+            # Check human-caused fires count
+            if human_fires < 600:  # Should be 649
+                details += f" ✗ Expected ~649 human fires, got {human_fires}"
+                success = False
+            else:
+                details += f" ✓ Human fires count acceptable ({human_fires})"
+            
+            # Check metadata note about realistic coordinates
+            metadata_note = str(metadata.get('note', '')).lower()
+            if 'реалістичними координатами' in metadata_note or 'лісових масивах' in metadata_note:
+                details += " ✓ Metadata mentions realistic forest coordinates"
+            else:
+                details += " ⚠ Metadata doesn't mention realistic coordinates"
+            
+            self.log_test("CRITICAL: Fire Coordinates Verification", success, details)
+            return success
+            
+        except Exception as e:
+            self.log_test("CRITICAL: Fire Coordinates Verification", False, f"Exception: {str(e)}")
+            return False
+
     def test_invalid_region(self):
         """Test analysis with invalid region name"""
         try:
