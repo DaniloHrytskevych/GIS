@@ -1435,6 +1435,10 @@ function MapPage() {
                                   <p className="font-medium">{analysis.infrastructure_score}</p>
                                 </div>
                                 <div className="text-center">
+                                  <p className="text-slate-400">🔥</p>
+                                  <p className="font-medium">{analysis.fire_score || 0}</p>
+                                </div>
+                                <div className="text-center">
                                   <p className="text-slate-400">Нас</p>
                                   <p className="font-medium text-red-500">{analysis.saturation_penalty}</p>
                                 </div>
