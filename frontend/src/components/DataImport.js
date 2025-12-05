@@ -394,7 +394,7 @@ const DataImport = () => {
                 onClick={handleDownloadBackup}
                 className="bg-amber-600 hover:bg-amber-700 text-white"
               >
-                <Database size={16} className="mr-2" />
+                <MdDownload size={18} className="mr-2" />
                 Завантажити всі дані (ZIP)
               </Button>
               
