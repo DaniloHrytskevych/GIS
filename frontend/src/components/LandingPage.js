@@ -346,14 +346,22 @@ const LandingPage = () => {
             </div>
 
             {/* Factor 4 */}
-            <div className="bg-white border-2 border-gray-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded">4</span>
-                Транспортна доступність (0-15 балів)
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-cyan-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₄
+                </div>
+                <div>
+                  <div>Транспортна доступність</div>
+                  <div className="text-sm text-cyan-700 font-normal">Ваговий коефіцієнт: 0-15 балів (15%)</div>
+                </div>
               </h4>
 
-              <div className="bg-blue-50 p-4 rounded border border-blue-200 ml-4">
-                <p className="font-semibold mb-2">Компоненти:</p>
+              <div className="bg-cyan-50 p-4 rounded border-l-2 border-cyan-600 ml-4">
+                <p className="font-semibold mb-2 flex items-center gap-2">
+                  <FaCar className="text-cyan-600" />
+                  Компоненти:
+                </p>
                 <ul className="text-sm space-y-2 ml-4">
                   <li>• <strong>Base score:</strong> accessibility_score / 10 × 10 (0-10 балів)</li>
                   <li>• <strong>Міжнародні траси:</strong> кількість × 0.8 (макс 3 бали)</li>
