@@ -1389,6 +1389,125 @@ async def import_fires(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
 
+
+# ===== DATA BACKUP ENDPOINTS =====
+from fastapi.responses import StreamingResponse
+import zipfile
+import io
+
+@api_router.get("/backup/download-all")
+async def backup_download_all():
+    """Download all data files as ZIP archive"""
+    try:
+        # Create in-memory ZIP file
+        zip_buffer = io.BytesIO()
+        
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            # List of files to backup
+            backup_files = [
+                ('ukraine_population_data.json', 'population_data.json'),
+                ('ukraine_infrastructure.json', 'infrastructure_data.json'),
+                ('ukraine_protected_areas.json', 'protected_areas_data.json'),
+                ('recreational_points_web.geojson', 'recreational_points.geojson'),
+                ('forest_fires.geojson', 'forest_fires.geojson')
+            ]
+            
+            for source_file, archive_name in backup_files:
+                file_path = DATA_DIR / source_file
+                if file_path.exists():
+                    zip_file.write(file_path, archive_name)
+        
+        # Prepare response
+        zip_buffer.seek(0)
+        
+        # Generate filename with timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"gis_data_backup_{timestamp}.zip"
+        
+        return StreamingResponse(
+            iter([zip_buffer.getvalue()]),
+            media_type="application/zip",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Backup error: {str(e)}")
+
+@api_router.get("/backup/download/{data_type}")
+async def backup_download_single(data_type: str):
+    """Download single data file"""
+    file_mapping = {
+        'population': ('ukraine_population_data.json', 'application/json'),
+        'infrastructure': ('ukraine_infrastructure.json', 'application/json'),
+        'protected-areas': ('ukraine_protected_areas.json', 'application/json'),
+        'recreational-points': ('recreational_points_web.geojson', 'application/geo+json'),
+        'fires': ('forest_fires.geojson', 'application/geo+json')
+    }
+    
+    if data_type not in file_mapping:
+        raise HTTPException(status_code=404, detail=f"Unknown data type: {data_type}")
+    
+    filename, media_type = file_mapping[data_type]
+    file_path = DATA_DIR / filename
+    
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail=f"File not found: {filename}")
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return StreamingResponse(
+            iter([content.encode('utf-8')]),
+            media_type=media_type,
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading file: {str(e)}")
+
+@api_router.get("/backup/info")
+async def backup_info():
+    """Get information about current data files for backup"""
+    try:
+        files_info = []
+        
+        file_list = [
+            ('ukraine_population_data.json', 'Населення регіонів'),
+            ('ukraine_infrastructure.json', 'Інфраструктура'),
+            ('ukraine_protected_areas.json', 'Природоохоронні зони'),
+            ('recreational_points_web.geojson', 'Рекреаційні пункти'),
+            ('forest_fires.geojson', 'Лісові пожежі')
+        ]
+        
+        total_size = 0
+        
+        for filename, description in file_list:
+            file_path = DATA_DIR / filename
+            if file_path.exists():
+                size = file_path.stat().st_size
+                modified = datetime.fromtimestamp(file_path.stat().st_mtime).isoformat()
+                total_size += size
+                
+                files_info.append({
+                    'filename': filename,
+                    'description': description,
+                    'size_bytes': size,
+                    'size_mb': round(size / (1024 * 1024), 2),
+                    'last_modified': modified
+                })
+        
+        return {
+            'files': files_info,
+            'total_size_bytes': total_size,
+            'total_size_mb': round(total_size / (1024 * 1024), 2),
+            'file_count': len(files_info)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error getting backup info: {str(e)}")
+
 # Include router
 app.include_router(api_router)
 
