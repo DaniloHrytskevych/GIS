@@ -692,6 +692,9 @@ class GISAPITester:
         # Test recommended zones endpoint (as specifically requested)
         self.test_recommended_zones()
         
+        # CRITICAL: Test 7-factor priority model verification
+        self.test_seven_factor_priority_model()
+        
         # Test error handling
         self.test_invalid_region()
         
