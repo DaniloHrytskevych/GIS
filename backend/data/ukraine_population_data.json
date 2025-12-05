@@ -1,196 +1,251 @@
 {
   "ukraine_regions_data": [
     {
-      "name": "Тестова область 1",
-      "population": 1000000,
-      "area_km2": 20000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 25.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 2",
-      "population": 1100000,
-      "area_km2": 21000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 26.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 3",
-      "population": 1200000,
-      "area_km2": 22000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 27.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 4",
-      "population": 1300000,
-      "area_km2": 23000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 28.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 5",
-      "population": 1400000,
-      "area_km2": 24000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 29.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 6",
-      "population": 1500000,
-      "area_km2": 25000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 30.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 7",
-      "population": 1600000,
-      "area_km2": 26000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 31.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 8",
-      "population": 1700000,
-      "area_km2": 27000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 32.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 9",
+      "name": "Київська область",
+      "name_en": "Kyivska",
       "population": 1800000,
-      "area_km2": 28000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 33.5,
-      "has_water_bodies": true
+      "area_km2": 28131,
+      "forest_coverage_percent": 22,
+      "has_water_bodies": true,
+      "major_cities": ["Біла Церква", "Бровари", "Бориспіль"],
+      "density_per_km2": 64
     },
     {
-      "name": "Тестова область 10",
-      "population": 1900000,
-      "area_km2": 29000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 34.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 11",
-      "population": 2000000,
-      "area_km2": 30000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 35.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 12",
-      "population": 2100000,
-      "area_km2": 31000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 36.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 13",
-      "population": 2200000,
-      "area_km2": 32000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 37.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 14",
-      "population": 2300000,
-      "area_km2": 33000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 38.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 15",
-      "population": 2400000,
-      "area_km2": 34000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 39.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 16",
+      "name": "Львівська область",
+      "name_en": "Lvivska",
       "population": 2500000,
-      "area_km2": 35000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 40.5,
-      "has_water_bodies": false
+      "area_km2": 21833,
+      "forest_coverage_percent": 30,
+      "has_water_bodies": true,
+      "major_cities": ["Львів", "Дрогобич", "Червоноград"],
+      "density_per_km2": 115
     },
     {
-      "name": "Тестова область 17",
-      "population": 2600000,
-      "area_km2": 36000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 41.5,
-      "has_water_bodies": true
+      "name": "Одеська область",
+      "name_en": "Odeska",
+      "population": 2400000,
+      "area_km2": 33310,
+      "forest_coverage_percent": 8,
+      "has_water_bodies": true,
+      "major_cities": ["Одеса", "Чорноморськ", "Ізмаїл"],
+      "density_per_km2": 72
     },
     {
-      "name": "Тестова область 18",
+      "name": "Харківська область",
+      "name_en": "Kharkivska",
       "population": 2700000,
-      "area_km2": 37000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 42.5,
-      "has_water_bodies": false
+      "area_km2": 31415,
+      "forest_coverage_percent": 12,
+      "has_water_bodies": true,
+      "major_cities": ["Харків", "Лозова", "Ізюм"],
+      "density_per_km2": 86
     },
     {
-      "name": "Тестова область 19",
-      "population": 2800000,
-      "area_km2": 38000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 43.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 20",
-      "population": 2900000,
-      "area_km2": 39000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 44.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 21",
-      "population": 3000000,
-      "area_km2": 40000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 45.5,
-      "has_water_bodies": true
-    },
-    {
-      "name": "Тестова область 22",
-      "population": 3100000,
-      "area_km2": 41000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 46.5,
-      "has_water_bodies": false
-    },
-    {
-      "name": "Тестова область 23",
+      "name": "Дніпропетровська область",
+      "name_en": "Dnipropetrovska",
       "population": 3200000,
-      "area_km2": 42000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 47.5,
-      "has_water_bodies": true
+      "area_km2": 31914,
+      "forest_coverage_percent": 5,
+      "has_water_bodies": true,
+      "major_cities": ["Дніпро", "Кривий Ріг", "Кам'янське"],
+      "density_per_km2": 100
     },
     {
-      "name": "Тестова область 24",
-      "population": 3300000,
-      "area_km2": 43000.0,
-      "density_per_km2": null,
-      "forest_coverage_percent": 48.5,
-      "has_water_bodies": false
+      "name": "Донецька область",
+      "name_en": "Donetska",
+      "population": 4100000,
+      "area_km2": 26517,
+      "forest_coverage_percent": 7,
+      "has_water_bodies": false,
+      "major_cities": ["Донецьк", "Маріуполь", "Краматорськ"],
+      "density_per_km2": 155
+    },
+    {
+      "name": "Запорізька область",
+      "name_en": "Zaporizka",
+      "population": 1700000,
+      "area_km2": 27180,
+      "forest_coverage_percent": 4,
+      "has_water_bodies": true,
+      "major_cities": ["Запоріжжя", "Мелітополь", "Бердянськ"],
+      "density_per_km2": 63
+    },
+    {
+      "name": "Житомирська область",
+      "name_en": "Zhytomyrska",
+      "population": 1200000,
+      "area_km2": 29832,
+      "forest_coverage_percent": 42,
+      "has_water_bodies": true,
+      "major_cities": ["Житомир", "Бердичів", "Коростень"],
+      "density_per_km2": 40
+    },
+    {
+      "name": "Вінницька область",
+      "name_en": "Vinnytska",
+      "population": 1560000,
+      "area_km2": 26513,
+      "forest_coverage_percent": 14,
+      "has_water_bodies": true,
+      "major_cities": ["Вінниця", "Хмільник", "Жмеринка"],
+      "density_per_km2": 59
+    },
+    {
+      "name": "Полтавська область",
+      "name_en": "Poltavska",
+      "population": 1400000,
+      "area_km2": 28748,
+      "forest_coverage_percent": 10,
+      "has_water_bodies": true,
+      "major_cities": ["Полтава", "Кременчук", "Лубни"],
+      "density_per_km2": 49
+    },
+    {
+      "name": "Чернігівська область",
+      "name_en": "Chernihivska",
+      "population": 1000000,
+      "area_km2": 31865,
+      "forest_coverage_percent": 21,
+      "has_water_bodies": true,
+      "major_cities": ["Чернігів", "Ніжин", "Прилуки"],
+      "density_per_km2": 31
+    },
+    {
+      "name": "Черкаська область",
+      "name_en": "Cherkaska",
+      "population": 1200000,
+      "area_km2": 20900,
+      "forest_coverage_percent": 15,
+      "has_water_bodies": true,
+      "major_cities": ["Черкаси", "Умань", "Сміла"],
+      "density_per_km2": 57
+    },
+    {
+      "name": "Сумська область",
+      "name_en": "Sumska",
+      "population": 1070000,
+      "area_km2": 23834,
+      "forest_coverage_percent": 18,
+      "has_water_bodies": true,
+      "major_cities": ["Суми", "Конотоп", "Шостка"],
+      "density_per_km2": 45
+    },
+    {
+      "name": "Хмельницька область",
+      "name_en": "Khmelnytska",
+      "population": 1260000,
+      "area_km2": 20629,
+      "forest_coverage_percent": 16,
+      "has_water_bodies": true,
+      "major_cities": ["Хмельницький", "Кам'янець-Подільський", "Шепетівка"],
+      "density_per_km2": 61
+    },
+    {
+      "name": "Рівненська область",
+      "name_en": "Rivnenska",
+      "population": 1160000,
+      "area_km2": 20047,
+      "forest_coverage_percent": 35,
+      "has_water_bodies": true,
+      "major_cities": ["Рівне", "Вараш", "Дубно"],
+      "density_per_km2": 58
+    },
+    {
+      "name": "Волинська область",
+      "name_en": "Volynska",
+      "population": 1040000,
+      "area_km2": 20144,
+      "forest_coverage_percent": 32,
+      "has_water_bodies": true,
+      "major_cities": ["Луцьк", "Ковель", "Володимир-Волинський"],
+      "density_per_km2": 52
+    },
+    {
+      "name": "Івано-Франківська область",
+      "name_en": "Ivano-Frankivska",
+      "population": 1380000,
+      "area_km2": 13928,
+      "forest_coverage_percent": 41,
+      "has_water_bodies": true,
+      "major_cities": ["Івано-Франківськ", "Коломия", "Калуш"],
+      "density_per_km2": 99
+    },
+    {
+      "name": "Тернопільська область",
+      "name_en": "Ternopilska",
+      "population": 1050000,
+      "area_km2": 13823,
+      "forest_coverage_percent": 15,
+      "has_water_bodies": false,
+      "major_cities": ["Тернопіль", "Чортків", "Кременець"],
+      "density_per_km2": 76
+    },
+    {
+      "name": "Закарпатська область",
+      "name_en": "Zakarpatska",
+      "population": 1260000,
+      "area_km2": 12777,
+      "forest_coverage_percent": 50,
+      "has_water_bodies": true,
+      "major_cities": ["Ужгород", "Мукачево", "Хуст"],
+      "density_per_km2": 99
+    },
+    {
+      "name": "Чернівецька область",
+      "name_en": "Chernivetska",
+      "population": 910000,
+      "area_km2": 8097,
+      "forest_coverage_percent": 28,
+      "has_water_bodies": true,
+      "major_cities": ["Чернівці"],
+      "density_per_km2": 112
+    },
+    {
+      "name": "Миколаївська область",
+      "name_en": "Mykolaivska",
+      "population": 1140000,
+      "area_km2": 24598,
+      "forest_coverage_percent": 3,
+      "has_water_bodies": true,
+      "major_cities": ["Миколаїв", "Первомайськ", "Вознесенськ"],
+      "density_per_km2": 46
+    },
+    {
+      "name": "Херсонська область",
+      "name_en": "Khersonska",
+      "population": 1040000,
+      "area_km2": 28461,
+      "forest_coverage_percent": 2,
+      "has_water_bodies": true,
+      "major_cities": ["Херсон", "Нова Каховка", "Каховка"],
+      "density_per_km2": 37
+    },
+    {
+      "name": "Кіровоградська область",
+      "name_en": "Kirovohradska",
+      "population": 950000,
+      "area_km2": 24588,
+      "forest_coverage_percent": 5,
+      "has_water_bodies": false,
+      "major_cities": ["Кропивницький", "Олександрія", "Світловодськ"],
+      "density_per_km2": 39
+    },
+    {
+      "name": "Луганська область",
+      "name_en": "Luhanska",
+      "population": 2200000,
+      "area_km2": 26684,
+      "forest_coverage_percent": 12,
+      "has_water_bodies": false,
+      "major_cities": ["Луганськ", "Сєвєродонецьк", "Лисичанськ"],
+      "density_per_km2": 82
     }
-  ]
+  ],
+  "metadata": {
+    "total_population": 41900000,
+    "total_area_km2": 603628,
+    "average_density": 69,
+    "source": "Державна служба статистики України, 2023",
+    "notes": "Дані про населення є наближеними станом на 2023 рік"
+  }
 }

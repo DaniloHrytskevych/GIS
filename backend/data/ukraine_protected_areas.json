@@ -1,414 +1,511 @@
 {
   "ukraine_protected_areas": {
+    "metadata": {
+      "total_protected_areas": 8512,
+      "total_area_hectares": 4108000,
+      "percent_of_ukraine": 6.8,
+      "source": "Міністерство захисту довкілля та природних ресурсів України, 2023",
+      "last_updated": "2024-12-04"
+    },
     "regions": [
       {
-        "region": "Тестова область 1",
+        "region": "Київська область",
+        "region_en": "Kyivska",
         "protected_areas": {
-          "national_parks": 1,
+          "national_parks": 3,
           "nature_reserves": 2,
-          "regional_landscape_parks": 3,
-          "zakazniks": 10,
-          "monuments_of_nature": 5,
-          "percent_of_region": 8.5
+          "regional_landscape_parks": 15,
+          "zakazniks": 78,
+          "monuments_of_nature": 42,
+          "total_objects": 140,
+          "total_area_hectares": 145600,
+          "percent_of_region": 5.2
         },
-        "pfz_score": 6.5,
         "notable_objects": [
-          "Тестовий НПП 1",
-          "Заповідник 1"
+          "НПП \"Голосіївський\"",
+          "НПП \"Білоозерський\"",
+          "РЛП \"Трахтемирів\""
         ],
-        "recreational_value": "high"
+        "recreational_value": "high",
+        "pfz_score": 8.5
       },
       {
-        "region": "Тестова область 2",
+        "region": "Львівська область",
+        "region_en": "Lvivska",
         "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 3,
-          "regional_landscape_parks": 4,
-          "zakazniks": 12,
-          "monuments_of_nature": 6,
-          "percent_of_region": 9.0
-        },
-        "pfz_score": 6.7,
-        "notable_objects": [
-          "Тестовий НПП 2",
-          "Заповідник 2"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 3",
-        "protected_areas": {
-          "national_parks": 1,
+          "national_parks": 2,
           "nature_reserves": 4,
-          "regional_landscape_parks": 5,
-          "zakazniks": 14,
-          "monuments_of_nature": 7,
-          "percent_of_region": 9.5
+          "regional_landscape_parks": 11,
+          "zakazniks": 95,
+          "monuments_of_nature": 68,
+          "total_objects": 180,
+          "total_area_hectares": 187400,
+          "percent_of_region": 8.6
         },
-        "pfz_score": 6.9,
         "notable_objects": [
-          "Тестовий НПП 3",
-          "Заповідник 3"
+          "Яворівський НПП",
+          "Сколівські Бескиди НПП",
+          "Розточчя природний заповідник"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "very_high",
+        "pfz_score": 9.2
       },
       {
-        "region": "Тестова область 4",
+        "region": "Одеська область",
+        "region_en": "Odeska",
         "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 2,
-          "regional_landscape_parks": 6,
-          "zakazniks": 16,
-          "monuments_of_nature": 8,
-          "percent_of_region": 10.0
-        },
-        "pfz_score": 7.1,
-        "notable_objects": [
-          "Тестовий НПП 4",
-          "Заповідник 4"
-        ],
-        "recreational_value": "high"
-      },
-      {
-        "region": "Тестова область 5",
-        "protected_areas": {
-          "national_parks": 1,
+          "national_parks": 2,
           "nature_reserves": 3,
-          "regional_landscape_parks": 7,
-          "zakazniks": 18,
-          "monuments_of_nature": 9,
-          "percent_of_region": 10.5
+          "regional_landscape_parks": 8,
+          "zakazniks": 52,
+          "monuments_of_nature": 28,
+          "total_objects": 93,
+          "total_area_hectares": 98500,
+          "percent_of_region": 3.0
         },
-        "pfz_score": 7.3,
         "notable_objects": [
-          "Тестовий НПП 5",
-          "Заповідник 5"
+          "Нижньодністровський НПП",
+          "Дунайський біосферний заповідник",
+          "Тузловські лимани заказник"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "high",
+        "pfz_score": 7.8
       },
       {
-        "region": "Тестова область 6",
-        "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 3,
-          "zakazniks": 20,
-          "monuments_of_nature": 10,
-          "percent_of_region": 11.0
-        },
-        "pfz_score": 7.5,
-        "notable_objects": [
-          "Тестовий НПП 6",
-          "Заповідник 6"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 7",
-        "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 2,
-          "regional_landscape_parks": 4,
-          "zakazniks": 22,
-          "monuments_of_nature": 11,
-          "percent_of_region": 11.5
-        },
-        "pfz_score": 7.7,
-        "notable_objects": [
-          "Тестовий НПП 7",
-          "Заповідник 7"
-        ],
-        "recreational_value": "high"
-      },
-      {
-        "region": "Тестова область 8",
-        "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 3,
-          "regional_landscape_parks": 5,
-          "zakazniks": 24,
-          "monuments_of_nature": 12,
-          "percent_of_region": 12.0
-        },
-        "pfz_score": 7.9,
-        "notable_objects": [
-          "Тестовий НПП 8",
-          "Заповідник 8"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 9",
-        "protected_areas": {
-          "national_parks": 1,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 6,
-          "zakazniks": 26,
-          "monuments_of_nature": 13,
-          "percent_of_region": 12.5
-        },
-        "pfz_score": 8.1,
-        "notable_objects": [
-          "Тестовий НПП 9",
-          "Заповідник 9"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 10",
+        "region": "Харківська область",
+        "region_en": "Kharkivska",
         "protected_areas": {
           "national_parks": 1,
           "nature_reserves": 2,
           "regional_landscape_parks": 7,
-          "zakazniks": 28,
-          "monuments_of_nature": 14,
-          "percent_of_region": 13.0
+          "zakazniks": 71,
+          "monuments_of_nature": 35,
+          "total_objects": 116,
+          "total_area_hectares": 82300,
+          "percent_of_region": 2.6
         },
-        "pfz_score": 8.3,
         "notable_objects": [
-          "Тестовий НПП 10",
-          "Заповідник 10"
+          "Гомільшанські ліси НПП",
+          "Слобожанський НПП"
         ],
-        "recreational_value": "high"
+        "recreational_value": "medium",
+        "pfz_score": 6.5
       },
       {
-        "region": "Тестова область 11",
+        "region": "Дніпропетровська область",
+        "region_en": "Dnipropetrovska",
         "protected_areas": {
-          "national_parks": 0,
+          "national_parks": 1,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 5,
+          "zakazniks": 48,
+          "monuments_of_nature": 22,
+          "total_objects": 78,
+          "total_area_hectares": 67800,
+          "percent_of_region": 2.1
+        },
+        "notable_objects": [
+          "Орільський природний заповідник",
+          "Самарський ліс заказник"
+        ],
+        "recreational_value": "medium",
+        "pfz_score": 5.8
+      },
+      {
+        "region": "Житомирська область",
+        "region_en": "Zhytomyrska",
+        "protected_areas": {
+          "national_parks": 3,
           "nature_reserves": 3,
-          "regional_landscape_parks": 3,
-          "zakazniks": 30,
-          "monuments_of_nature": 15,
-          "percent_of_region": 13.5
+          "regional_landscape_parks": 12,
+          "zakazniks": 127,
+          "monuments_of_nature": 58,
+          "total_objects": 203,
+          "total_area_hectares": 198700,
+          "percent_of_region": 6.7
         },
-        "pfz_score": 8.5,
         "notable_objects": [
-          "Тестовий НПП 11",
-          "Заповідник 11"
+          "Поліський природний заповідник",
+          "НПП \"Древлянський\"",
+          "НПП \"Sloboda Bushanska\"",
+          "Ушомирський заказник"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "very_high",
+        "pfz_score": 9.4
       },
       {
-        "region": "Тестова область 12",
+        "region": "Вінницька область",
+        "region_en": "Vinnytska",
         "protected_areas": {
           "national_parks": 0,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 4,
-          "zakazniks": 32,
-          "monuments_of_nature": 16,
-          "percent_of_region": 14.0
+          "nature_reserves": 1,
+          "regional_landscape_parks": 9,
+          "zakazniks": 84,
+          "monuments_of_nature": 41,
+          "total_objects": 135,
+          "total_area_hectares": 89400,
+          "percent_of_region": 3.4
         },
-        "pfz_score": 8.7,
         "notable_objects": [
-          "Тестовий НПП 12",
-          "Заповідник 12"
+          "Кармелюкове Поділля РЛП",
+          "Дністровський каньйон РЛП"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "medium",
+        "pfz_score": 6.8
       },
       {
-        "region": "Тестова область 13",
+        "region": "Полтавська область",
+        "region_en": "Poltavska",
         "protected_areas": {
           "national_parks": 0,
           "nature_reserves": 2,
-          "regional_landscape_parks": 5,
-          "zakazniks": 34,
-          "monuments_of_nature": 17,
-          "percent_of_region": 14.5
-        },
-        "pfz_score": 8.9,
-        "notable_objects": [
-          "Тестовий НПП 13",
-          "Заповідник 13"
-        ],
-        "recreational_value": "high"
-      },
-      {
-        "region": "Тестова область 14",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 3,
           "regional_landscape_parks": 6,
-          "zakazniks": 36,
-          "monuments_of_nature": 18,
-          "percent_of_region": 15.0
+          "zakazniks": 67,
+          "monuments_of_nature": 29,
+          "total_objects": 104,
+          "total_area_hectares": 74200,
+          "percent_of_region": 2.6
         },
-        "pfz_score": 9.1,
         "notable_objects": [
-          "Тестовий НПП 14",
-          "Заповідник 14"
+          "Кременчуцькі плавні заказник"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "medium",
+        "pfz_score": 6.2
       },
       {
-        "region": "Тестова область 15",
+        "region": "Чернігівська область",
+        "region_en": "Chernihivska",
         "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 4,
+          "national_parks": 2,
+          "nature_reserves": 3,
+          "regional_landscape_parks": 8,
+          "zakazniks": 103,
+          "monuments_of_nature": 47,
+          "total_objects": 163,
+          "total_area_hectares": 156300,
+          "percent_of_region": 4.9
+        },
+        "notable_objects": [
+          "Мезинський НПП",
+          "Ічнянський НПП",
+          "Деснянсько-Старогутський НПП"
+        ],
+        "recreational_value": "high",
+        "pfz_score": 8.3
+      },
+      {
+        "region": "Черкаська область",
+        "region_en": "Cherkaska",
+        "protected_areas": {
+          "national_parks": 1,
+          "nature_reserves": 2,
           "regional_landscape_parks": 7,
-          "zakazniks": 38,
-          "monuments_of_nature": 19,
+          "zakazniks": 89,
+          "monuments_of_nature": 52,
+          "total_objects": 151,
+          "total_area_hectares": 112500,
+          "percent_of_region": 5.4
+        },
+        "notable_objects": [
+          "Черкаський бір заказник",
+          "Канівський природний заповідник"
+        ],
+        "recreational_value": "high",
+        "pfz_score": 7.9
+      },
+      {
+        "region": "Сумська область",
+        "region_en": "Sumska",
+        "protected_areas": {
+          "national_parks": 2,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 6,
+          "zakazniks": 72,
+          "monuments_of_nature": 38,
+          "total_objects": 120,
+          "total_area_hectares": 98600,
+          "percent_of_region": 4.1
+        },
+        "notable_objects": [
+          "Деснянсько-Старогутський НПП",
+          "Гетьманський НПП"
+        ],
+        "recreational_value": "high",
+        "pfz_score": 7.6
+      },
+      {
+        "region": "Хмельницька область",
+        "region_en": "Khmelnytska",
+        "protected_areas": {
+          "national_parks": 1,
+          "nature_reserves": 1,
+          "regional_landscape_parks": 8,
+          "zakazniks": 76,
+          "monuments_of_nature": 44,
+          "total_objects": 130,
+          "total_area_hectares": 87300,
+          "percent_of_region": 4.2
+        },
+        "notable_objects": [
+          "Подільські Товтри НПП",
+          "Медобори заповідник"
+        ],
+        "recreational_value": "high",
+        "pfz_score": 7.8
+      },
+      {
+        "region": "Рівненська область",
+        "region_en": "Rivnenska",
+        "protected_areas": {
+          "national_parks": 3,
+          "nature_reserves": 4,
+          "regional_landscape_parks": 10,
+          "zakazniks": 118,
+          "monuments_of_nature": 63,
+          "total_objects": 198,
+          "total_area_hectares": 178900,
+          "percent_of_region": 8.9
+        },
+        "notable_objects": [
+          "Рівненський природний заповідник",
+          "Національний природний парк \"Цуманська пуща\"",
+          "НПП \"Дермансько-Острозький\""
+        ],
+        "recreational_value": "very_high",
+        "pfz_score": 9.5
+      },
+      {
+        "region": "Волинська область",
+        "region_en": "Volynska",
+        "protected_areas": {
+          "national_parks": 4,
+          "nature_reserves": 3,
+          "regional_landscape_parks": 11,
+          "zakazniks": 134,
+          "monuments_of_nature": 71,
+          "total_objects": 223,
+          "total_area_hectares": 189400,
+          "percent_of_region": 9.4
+        },
+        "notable_objects": [
+          "Шацький НПП",
+          "Прип'ять-Стохід НПП",
+          "Волинське Полісся заповідник"
+        ],
+        "recreational_value": "very_high",
+        "pfz_score": 9.8
+      },
+      {
+        "region": "Івано-Франківська область",
+        "region_en": "Ivano-Frankivska",
+        "protected_areas": {
+          "national_parks": 3,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 7,
+          "zakazniks": 88,
+          "monuments_of_nature": 54,
+          "total_objects": 154,
+          "total_area_hectares": 156800,
+          "percent_of_region": 11.3
+        },
+        "notable_objects": [
+          "Карпатський НПП",
+          "Гуцульщина НПП",
+          "Горгани природний заповідник"
+        ],
+        "recreational_value": "very_high",
+        "pfz_score": 9.7
+      },
+      {
+        "region": "Закарпатська область",
+        "region_en": "Zakarpatska",
+        "protected_areas": {
+          "national_parks": 3,
+          "nature_reserves": 4,
+          "regional_landscape_parks": 9,
+          "zakazniks": 97,
+          "monuments_of_nature": 68,
+          "total_objects": 181,
+          "total_area_hectares": 198600,
           "percent_of_region": 15.5
         },
-        "pfz_score": 9.3,
         "notable_objects": [
-          "Тестовий НПП 15",
-          "Заповідник 15"
+          "Карпатський біосферний заповідник",
+          "Ужанський НПП",
+          "Синевир НПП"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "very_high",
+        "pfz_score": 10.0
       },
       {
-        "region": "Тестова область 16",
+        "region": "Тернопільська область",
+        "region_en": "Ternopilska",
+        "protected_areas": {
+          "national_parks": 1,
+          "nature_reserves": 1,
+          "regional_landscape_parks": 6,
+          "zakazniks": 64,
+          "monuments_of_nature": 36,
+          "total_objects": 108,
+          "total_area_hectares": 65400,
+          "percent_of_region": 4.7
+        },
+        "notable_objects": [
+          "Дністровський каньйон НПП",
+          "Медобори заповідник"
+        ],
+        "recreational_value": "medium",
+        "pfz_score": 7.2
+      },
+      {
+        "region": "Чернівецька область",
+        "region_en": "Chernivetska",
+        "protected_areas": {
+          "national_parks": 2,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 8,
+          "zakazniks": 112,
+          "monuments_of_nature": 59,
+          "total_objects": 183,
+          "total_area_hectares": 98700,
+          "percent_of_region": 12.2
+        },
+        "notable_objects": [
+          "Вижницький НПП",
+          "Черемоський НПП",
+          "Хотинський НПП"
+        ],
+        "recreational_value": "very_high",
+        "pfz_score": 9.6
+      },
+      {
+        "region": "Миколаївська область",
+        "region_en": "Mykolaivska",
+        "protected_areas": {
+          "national_parks": 1,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 5,
+          "zakazniks": 43,
+          "monuments_of_nature": 18,
+          "total_objects": 69,
+          "total_area_hectares": 54300,
+          "percent_of_region": 2.2
+        },
+        "notable_objects": [
+          "Бузький Гард НПП",
+          "Чорноморський біосферний заповідник"
+        ],
+        "recreational_value": "medium",
+        "pfz_score": 6.4
+      },
+      {
+        "region": "Херсонська область",
+        "region_en": "Khersonska",
+        "protected_areas": {
+          "national_parks": 2,
+          "nature_reserves": 3,
+          "regional_landscape_parks": 4,
+          "zakazniks": 38,
+          "monuments_of_nature": 15,
+          "total_objects": 62,
+          "total_area_hectares": 87600,
+          "percent_of_region": 3.1
+        },
+        "notable_objects": [
+          "Азово-Сиваський НПП",
+          "Джарилгацький НПП",
+          "Чорноморський біосферний заповідник"
+        ],
+        "recreational_value": "high",
+        "pfz_score": 7.5
+      },
+      {
+        "region": "Кіровоградська область",
+        "region_en": "Kirovohradska",
+        "protected_areas": {
+          "national_parks": 0,
+          "nature_reserves": 1,
+          "regional_landscape_parks": 4,
+          "zakazniks": 51,
+          "monuments_of_nature": 23,
+          "total_objects": 79,
+          "total_area_hectares": 45800,
+          "percent_of_region": 1.9
+        },
+        "notable_objects": [
+          "Єланецький степ заповідник"
+        ],
+        "recreational_value": "low",
+        "pfz_score": 5.2
+      },
+      {
+        "region": "Запорізька область",
+        "region_en": "Zaporizka",
         "protected_areas": {
           "national_parks": 0,
           "nature_reserves": 2,
           "regional_landscape_parks": 3,
-          "zakazniks": 40,
-          "monuments_of_nature": 20,
-          "percent_of_region": 16.0
+          "zakazniks": 47,
+          "monuments_of_nature": 19,
+          "total_objects": 71,
+          "total_area_hectares": 56700,
+          "percent_of_region": 2.1
         },
-        "pfz_score": 9.5,
         "notable_objects": [
-          "Тестовий НПП 16",
-          "Заповідник 16"
+          "Кам'яні Могили заповідник",
+          "Приазовський НПП"
         ],
-        "recreational_value": "high"
+        "recreational_value": "medium",
+        "pfz_score": 6.1
       },
       {
-        "region": "Тестова область 17",
+        "region": "Донецька область",
+        "region_en": "Donetska",
         "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 3,
-          "regional_landscape_parks": 4,
-          "zakazniks": 42,
-          "monuments_of_nature": 21,
-          "percent_of_region": 16.5
-        },
-        "pfz_score": 9.7,
-        "notable_objects": [
-          "Тестовий НПП 17",
-          "Заповідник 17"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 18",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 5,
-          "zakazniks": 44,
-          "monuments_of_nature": 22,
-          "percent_of_region": 17.0
-        },
-        "pfz_score": 9.9,
-        "notable_objects": [
-          "Тестовий НПП 18",
-          "Заповідник 18"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 19",
-        "protected_areas": {
-          "national_parks": 0,
+          "national_parks": 1,
           "nature_reserves": 2,
           "regional_landscape_parks": 6,
-          "zakazniks": 46,
-          "monuments_of_nature": 23,
-          "percent_of_region": 17.5
-        },
-        "pfz_score": 10.1,
-        "notable_objects": [
-          "Тестовий НПП 19",
-          "Заповідник 19"
-        ],
-        "recreational_value": "high"
-      },
-      {
-        "region": "Тестова область 20",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 3,
-          "regional_landscape_parks": 7,
-          "zakazniks": 48,
-          "monuments_of_nature": 24,
-          "percent_of_region": 18.0
-        },
-        "pfz_score": 10.3,
-        "notable_objects": [
-          "Тестовий НПП 20",
-          "Заповідник 20"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 21",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 3,
-          "zakazniks": 50,
-          "monuments_of_nature": 25,
-          "percent_of_region": 18.5
-        },
-        "pfz_score": 10.5,
-        "notable_objects": [
-          "Тестовий НПП 21",
-          "Заповідник 21"
-        ],
-        "recreational_value": "medium"
-      },
-      {
-        "region": "Тестова область 22",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 2,
-          "regional_landscape_parks": 4,
-          "zakazniks": 52,
-          "monuments_of_nature": 26,
-          "percent_of_region": 19.0
-        },
-        "pfz_score": 10.7,
-        "notable_objects": [
-          "Тестовий НПП 22",
-          "Заповідник 22"
-        ],
-        "recreational_value": "high"
-      },
-      {
-        "region": "Тестова область 23",
-        "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 3,
-          "regional_landscape_parks": 5,
           "zakazniks": 54,
           "monuments_of_nature": 27,
-          "percent_of_region": 19.5
+          "total_objects": 90,
+          "total_area_hectares": 67200,
+          "percent_of_region": 2.5
         },
-        "pfz_score": 10.9,
         "notable_objects": [
-          "Тестовий НПП 23",
-          "Заповідник 23"
+          "Святі Гори НПП",
+          "Український степовий заповідник"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "medium",
+        "pfz_score": 6.3
       },
       {
-        "region": "Тестова область 24",
+        "region": "Луганська область",
+        "region_en": "Luhanska",
         "protected_areas": {
-          "national_parks": 0,
-          "nature_reserves": 4,
-          "regional_landscape_parks": 6,
-          "zakazniks": 56,
-          "monuments_of_nature": 28,
-          "percent_of_region": 20.0
+          "national_parks": 1,
+          "nature_reserves": 2,
+          "regional_landscape_parks": 5,
+          "zakazniks": 49,
+          "monuments_of_nature": 21,
+          "total_objects": 78,
+          "total_area_hectares": 58900,
+          "percent_of_region": 2.2
         },
-        "pfz_score": 11.100000000000001,
         "notable_objects": [
-          "Тестовий НПП 24",
-          "Заповідник 24"
+          "Станично-Луганський заповідник",
+          "Кременські ліси НПП"
         ],
-        "recreational_value": "medium"
+        "recreational_value": "medium",
+        "pfz_score": 6.0
       }
-    ]
+    ],
+    "pfz_score_legend": {
+      "10.0": "Винятковий (Закарпаття)",
+      "9.0-9.9": "Дуже високий (Волинська, Рівненська, Чернівецька, Івано-Франківська, Житомирська, Львівська)",
+      "7.0-8.9": "Високий (Київська, Одеська, Хмельницька, Черкаська, Чернігівська, Сумська, Херсонська)",
+      "6.0-6.9": "Середній (Вінницька, Полтавська, Харківська, Тернопільська, Миколаївська, Донецька, Запорізька, Луганська)",
+      "5.0-5.9": "Низький (Дніпропетровська, Кіровоградська)",
+      "below_5": "Дуже низький"
+    }
   }
 }
