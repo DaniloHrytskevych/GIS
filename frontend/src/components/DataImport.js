@@ -264,44 +264,48 @@ const DataImport = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="text-center bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-blue-400">
                   {dataStatus.population_data?.regions_count || 0}
                 </div>
-                <div className="text-slate-600">Регіонів (населення)</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Регіонів</div>
+                <div className="text-gray-500 text-xs">Населення</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="text-center bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-purple-400">
                   {dataStatus.infrastructure_data?.regions_count || 0}
                 </div>
-                <div className="text-slate-600">Регіонів (інфра)</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Регіонів</div>
+                <div className="text-gray-500 text-xs">Інфраструктура</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="text-center bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-green-400">
                   {dataStatus.protected_areas?.regions_count || 0}
                 </div>
-                <div className="text-slate-600">Регіонів (ПЗФ)</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Регіонів</div>
+                <div className="text-gray-500 text-xs">ПЗФ</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="text-center bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-emerald-400">
                   {dataStatus.recreational_points?.points_count || 0}
                 </div>
-                <div className="text-slate-600">Рекр. пунктів</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Об'єктів</div>
+                <div className="text-gray-500 text-xs">Рекреація</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+              <div className="text-center bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-orange-400">
                   {dataStatus.forest_fires?.total_fires || 0}
                 </div>
-                <div className="text-slate-600">Пожеж</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Пожеж</div>
+                <div className="text-gray-500 text-xs">Статистика</div>
               </div>
             </div>
             <Button 
               onClick={fetchDataStatus} 
-              variant="outline" 
-              size="sm" 
-              className="mt-4"
+              className="mt-4 bg-amber-600 hover:bg-amber-700 text-white"
+              size="sm"
             >
-              <RefreshCw size={16} className="mr-2" />
+              <MdRefresh size={18} className="mr-2" />
               Оновити статус
             </Button>
           </CardContent>
