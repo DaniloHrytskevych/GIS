@@ -567,20 +567,25 @@ const LandingPage = () => {
       </section>
 
       {/* Data Sources Section */}
-      <section id="data" className="py-20 bg-gray-50">
+      <section id="data" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            Джерела даних
-          </h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">
-            Система використовує 4 основні джерела реальних даних про Україну
-          </p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Джерела даних
+            </h2>
+            <div className="w-24 h-1 bg-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Система використовує 5 основних джерел верифікованих геопросторових даних про Україну
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* File 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-green-600 hover:shadow-2xl transition-shadow">
               <div className="flex items-start gap-4">
-                <div><MapPin className="w-10 h-10 text-green-600" /></div>
+                <div className="bg-green-100 p-3 rounded-full">
+                  <MdLandscape className="w-8 h-8 text-green-700" />
+                </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2">
                     recreational_points_web.geojson
