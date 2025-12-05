@@ -997,6 +997,12 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
                 "density_per_1000km2": round(density, 2),
                 "density_status": density_status
             },
+            "fires": {
+                "total_fires": fire_data['total'],
+                "human_caused_fires": fire_data['human'],
+                "fire_prevention_score": round(fire_score, 1),
+                "interpretation": "Більше людських пожеж = вища потреба в облаштованих пунктах"
+            },
             "investment": {
                 "risk_level": risk_level,
                 "investment_scale": investment_scale,
