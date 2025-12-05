@@ -177,6 +177,18 @@ frontend:
     priority: "high"
     needs_retesting: false
     status_history:
+  - task: "Data Import UI page"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/DataImport.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "✅ DATA IMPORT UI IMPLEMENTED (NEEDS TESTING): 1) Created DataImport component with 5 data type cards: Population (👥), Infrastructure (🏗️), Protected Areas (🌲), Recreational Points (🏨), Forest Fires (🔥), 2) Each card shows: title, description, expected JSON/GeoJSON fields, current data status (regions/points count), file upload button, 3) Data status overview card displays current counts from /api/data-status: regions (population, infrastructure, protected areas), recreational points count, total fires and human-caused fires, 4) File upload functionality: accepts .json/.geojson files, shows uploading/success/error status with color-coded alerts (green for success, red for error), auto-refreshes data status after successful import, 5) Added route /import in App.js with navigation button in LandingPage.js header, 6) Help section explains validation requirements: strict validation, Ukraine coordinate bounds, 24 regions expected, GeoJSON format requirements, 7) Warning about complete data replacement. UI needs testing for file upload flow, validation error display, and data refresh functionality."
+
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE LANDING PAGE TESTING COMPLETED - All user requirements verified: 1) Landing page loads correctly on root '/' with proper hero section containing background image and title 'Геоінформаційна система аналізу рекреаційного потенціалу', 2) Sticky navigation present and functional, 3) 'Про систему' section contains exactly 3 cards as required, 4) 'Логіка системи' section displays mathematical formulas correctly, 5) 'Джерела даних' section shows data sources (note: displays 8 items instead of expected 4 - minor UI discrepancy), 6) CTA button 'Відкрити інтерактивну карту' present and functional, 7) Footer complete and properly styled, 8) Navigation to /map works flawlessly via 'Почати аналіз' button. All core landing page functionality operational and meets user specifications."
