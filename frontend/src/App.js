@@ -238,7 +238,7 @@ function MapPage() {
           <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.infrastructure_score}/10</td>
         </tr>
         <tr>
-          <td style="padding: 12px; border: 1px solid #e2e8f0;">🔥 Профілактика пожеж</td>
+          <td style="padding: 12px; border: 1px solid #e2e8f0;">Профілактика пожеж</td>
           <td style="padding: 12px; border: 1px solid #e2e8f0; text-align: right; font-weight: bold;">${analysisResult.fire_score || 0}/5</td>
         </tr>
         <tr style="background: #f8fafc;">
