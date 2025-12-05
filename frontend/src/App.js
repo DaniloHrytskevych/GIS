@@ -1492,20 +1492,20 @@ function MapPage() {
                               </div>
                               <div className="grid grid-cols-6 gap-1 text-xs">
                                 <div className="text-center">
-                                  <p className="text-slate-400">Поп</p>
-                                  <p className="font-medium">{analysis.demand_score}</p>
+                                  <p className="text-gray-400">Поп</p>
+                                  <p className="font-medium text-white">{analysis.demand_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">ПЗФ</p>
-                                  <p className="font-medium">{analysis.pfz_score}</p>
+                                  <p className="text-gray-400">ПЗФ</p>
+                                  <p className="font-medium text-white">{analysis.pfz_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">Пр</p>
-                                  <p className="font-medium">{analysis.nature_score}</p>
+                                  <p className="text-gray-400">Пр</p>
+                                  <p className="font-medium text-white">{analysis.nature_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">Тр</p>
-                                  <p className="font-medium">{analysis.accessibility_score}</p>
+                                  <p className="text-gray-400">Тр</p>
+                                  <p className="font-medium text-white">{analysis.accessibility_score}</p>
                                 </div>
                                 <div className="text-center">
                                   <p className="text-slate-400">Ін</p>
