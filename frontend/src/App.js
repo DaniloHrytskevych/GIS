@@ -1058,19 +1058,19 @@ function MapPage() {
                                       </div>
                                       <div className="bg-slate-700/50 rounded p-2 border border-amber-600/20">
                                         <p className="text-xs text-gray-400">Густота</p>
-                                        <p className="font-semibold">{analysisResult.details.population.density_per_km2} осіб/км²</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.population.density_per_km2} осіб/км²</p>
                                       </div>
                                     </div>
-                                    <div className="bg-blue-50 rounded p-3">
-                                      <p className="text-xs text-slate-500 mb-1">Аналіз попиту/пропозиції:</p>
-                                      <div className="space-y-1">
-                                        <p>Річний попит: <strong>{analysisResult.details.population.annual_demand?.toLocaleString()}</strong> відвідувань</p>
-                                        <p>Річна пропозиція: <strong>{analysisResult.details.population.annual_supply?.toLocaleString()}</strong> місць</p>
-                                        <p>Співвідношення: <strong>{analysisResult.details.population.supply_demand_ratio}</strong></p>
+                                    <div className="bg-blue-900/30 border border-blue-600/30 rounded p-3 backdrop-blur">
+                                      <p className="text-xs text-blue-300 mb-1">Аналіз попиту/пропозиції:</p>
+                                      <div className="space-y-1 text-gray-300">
+                                        <p>Річний попит: <strong className="text-white">{analysisResult.details.population.annual_demand?.toLocaleString()}</strong> відвідувань</p>
+                                        <p>Річна пропозиція: <strong className="text-white">{analysisResult.details.population.annual_supply?.toLocaleString()}</strong> місць</p>
+                                        <p>Співвідношення: <strong className="text-white">{analysisResult.details.population.supply_demand_ratio}</strong></p>
                                       </div>
                                     </div>
-                                    <div className={`rounded p-3 ${analysisResult.details.population.gap > 0 ? 'bg-amber-50 border border-amber-200' : 'bg-emerald-50 border border-emerald-200'}`}>
-                                      <p className={`font-semibold ${analysisResult.details.population.gap > 0 ? 'text-amber-700' : 'text-emerald-700'}`}>
+                                    <div className={`rounded p-3 backdrop-blur ${analysisResult.details.population.gap > 0 ? 'bg-amber-900/30 border border-amber-600/50' : 'bg-emerald-900/30 border border-emerald-600/50'}`}>
+                                      <p className={`font-semibold ${analysisResult.details.population.gap > 0 ? 'text-amber-300' : 'text-emerald-300'}`}>
                                         {analysisResult.details.population.gap_status}: {Math.abs(analysisResult.details.population.gap).toLocaleString()} відвідувань
                                       </p>
                                     </div>
