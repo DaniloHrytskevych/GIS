@@ -480,8 +480,64 @@ function MapPage() {
         </tr>
       </table>
       
-      <p style="text-align: center; color: #94a3b8; margin-top: 30px; font-size: 12px;">
-        Згенеровано: ${new Date().toLocaleDateString('uk-UA')} | ГІС аналіз рекреаційного потенціалу
+      
+      <!-- ДЖЕРЕЛА ДАНИХ -->
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📚 ДЖЕРЕЛА ДАНИХ</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px;">
+        <tr style="background: #1e293b; color: white;">
+          <th style="padding: 6px; text-align: left; border: 1px solid #475569; width: 30%;">Категорія даних</th>
+          <th style="padding: 6px; text-align: left; border: 1px solid #475569;">Джерело</th>
+          <th style="padding: 6px; text-align: center; border: 1px solid #475569; width: 15%;">Рік</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Населення та демографія</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Державна служба статистики України (ukrstat.gov.ua)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2023</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Об'єкти природно-заповідного фонду</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Міністерство захисту довкілля та природних ресурсів України</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Лісове покриття</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Державне агентство лісових ресурсів України</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2023</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Транспортна інфраструктура</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">OpenStreetMap + Укравтодор</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Інфраструктура (готелі, заправки)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">OpenStreetMap + Google Maps API</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Лісові пожежі</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">ДСНС України (dsns.gov.ua)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2025</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Рекреаційні пункти</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;">Міністерство культури та інформаційної політики</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+      </table>
+      
+      <div style="background: #dbeafe; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 9px;">
+        <p style="margin: 0 0 5px 0; font-weight: bold; color: #1e40af;">ℹ️ МЕТОДОЛОГІЧНЕ ЗАУВАЖЕННЯ:</p>
+        <p style="margin: 0; color: #1e3a8a; line-height: 1.5;">
+          Цей звіт базується на 7-факторній моделі оцінки рекреаційного потенціалу, розробленій для територіального планування України. 
+          Модель враховує демографічні, природні, інфраструктурні та безпекові аспекти. Усі розрахунки виконуються автоматично на основі актуальних даних з офіційних джерел.
+        </p>
+      </div>
+      
+      <p style="text-align: center; color: #94a3b8; margin-top: 20px; font-size: 10px; border-top: 2px solid #e2e8f0; padding-top: 10px;">
+        <strong>ГІС аналіз рекреаційного потенціалу України</strong><br/>
+        Науковий звіт згенеровано: ${new Date().toLocaleString('uk-UA')}<br/>
+        Версія методології: 1.0 | © 2024-2025
       </p>
     `;
     
