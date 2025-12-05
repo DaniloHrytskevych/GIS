@@ -777,7 +777,46 @@ function MapPage() {
         investment_scale: d?.investment?.investment_scale,
         points_needed: d?.population?.gap > 0 ? Math.ceil(d.population.gap / 18000) : 0
       },
-      recommended_zones: topZones
+      recommended_zones: topZones,
+      data_sources: [
+        {
+          category: "Населення та демографія",
+          source: "Державна служба статистики України",
+          url: "https://ukrstat.gov.ua",
+          year: 2023
+        },
+        {
+          category: "Природно-заповідний фонд",
+          source: "Міністерство захисту довкілля та природних ресурсів України",
+          year: 2024
+        },
+        {
+          category: "Лісові ресурси",
+          source: "Державне агентство лісових ресурсів України",
+          year: 2023
+        },
+        {
+          category: "Транспортна інфраструктура",
+          source: "OpenStreetMap + Укравтодор",
+          year: 2024
+        },
+        {
+          category: "Інфраструктура готелів та послуг",
+          source: "OpenStreetMap + Google Maps API",
+          year: 2024
+        },
+        {
+          category: "Лісові пожежі",
+          source: "Державна служба України з надзвичайних ситуацій",
+          url: "https://dsns.gov.ua",
+          year: 2025
+        },
+        {
+          category: "Рекреаційні пункти",
+          source: "Міністерство культури та інформаційної політики України",
+          year: 2024
+        }
+      ]
     };
     
     const dataStr = JSON.stringify(exportData, null, 2);
