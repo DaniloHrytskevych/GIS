@@ -409,7 +409,7 @@ const DataImport = () => {
             
             {/* Warning */}
             <Alert className="bg-amber-50 border-amber-300">
-              <AlertCircle size={16} className="text-amber-600" />
+              <MdWarning size={18} className="text-amber-600" />
               <AlertDescription className="ml-2 text-amber-800">
                 <strong>Важливо:</strong> Завантажте бекап перед імпортом нових даних. 
                 Імпорт повністю замінює існуючі файли, і без бекапу відновлення буде неможливим.
