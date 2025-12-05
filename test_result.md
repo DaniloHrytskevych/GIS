@@ -125,6 +125,18 @@ backend:
         - working: true
           agent: "testing"
           comment: "✅ CRITICAL FIRE COORDINATES VERIFICATION COMPLETED - ALL REQUIREMENTS MET: 1) Fire Prevention Zones Count: 34 zones (increased from 22) ✓, 2) Total Zones: 101 (increased from 89) with distribution near_pfz=33, roadside=34, fire_prevention=34 ✓, 3) Kyiv Region CRITICAL CHECK: 2 fire clusters in correct forest areas - Eastern forests (lat 50.564, lng 30.856, 7 fires) and Western forests (lat 50.654, lng 30.306, 9 fires) - NOT in Dnipro river or reservoirs ✓, 4) Fire cluster sizes ≥3 for all zones ✓, 5) Sample regional coordinates validated for Lviv, Odesa, Kharkiv - all within expected bounds ✓, 6) Forest Fires Metadata: 1875 total fires, 649 human-caused, note mentions 'реалістичними координатами в лісових масивах' ✓. CRITICAL ISSUE RESOLVED: Fire prevention zones are now properly located in forest areas, not water bodies. All coordinate fixes verified and working correctly."
+  - task: "Data Import API with strict validation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/schemas.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "✅ DATA IMPORT SYSTEM IMPLEMENTED: 1) Created Pydantic validation schemas in schemas.py for 5 data types: PopulationDataSchema (24 regions), InfrastructureDataSchema (24 regions), ProtectedAreasSchema (24 regions), RecreationalPointsSchema (GeoJSON features), ForestFiresSchema (GeoJSON features with metadata), 2) API endpoints implemented: POST /api/import/population-data, /import/infrastructure-data, /import/protected-areas, /import/recreational-points, /import/fires, 3) GET /api/data-status shows current data statistics (regions_count, points_count, total_fires, human_caused), 4) Strict validation rules: coordinates within Ukraine bounds (lat: 44-52, lng: 21.5-40.5), exactly 24 regions for population/infrastructure/protected areas, GeoJSON type must be FeatureCollection, cause_type must be 'людський фактор' or 'природні причини', 5) Import flow: upload file → validate schema → save to /app/backend/data/ → auto-reload data in memory via reload_data() function, 6) Tested with forest_fires.geojson: successfully imported 3 test fires replacing 1875 original fires, then restored original data. All endpoints working with proper error handling for invalid JSON and validation failures."
+
 
 metadata:
   created_by: "testing_agent"
