@@ -994,13 +994,13 @@ function MapPage() {
 
           {/* Right - Analysis Panel */}
           <aside className="col-span-12 lg:col-span-5">
-            <Card className="h-[calc(100vh-120px)] flex flex-col">
+            <Card className="h-[calc(100vh-180px)] flex flex-col bg-slate-800/50 backdrop-blur border-2 border-amber-600/30 shadow-xl">
               <CardContent className="flex-1 overflow-hidden p-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-                  <TabsList className="grid w-full grid-cols-3 rounded-none border-b">
-                    <TabsTrigger value="analysis">Аналіз</TabsTrigger>
-                    <TabsTrigger value="locations">Локації</TabsTrigger>
-                    <TabsTrigger value="compare">Порівняння</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-3 rounded-none border-b bg-slate-700/50 border-amber-600/30">
+                    <TabsTrigger value="analysis" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Аналіз</TabsTrigger>
+                    <TabsTrigger value="locations" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Локації</TabsTrigger>
+                    <TabsTrigger value="compare" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Порівняння</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="analysis" className="flex-1 overflow-hidden m-0">
