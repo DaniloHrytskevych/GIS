@@ -534,9 +534,38 @@ function MapPage() {
         </p>
       </div>
       
-      <p style="text-align: center; color: #94a3b8; margin-top: 20px; font-size: 10px; border-top: 2px solid #e2e8f0; padding-top: 10px;">
-        <strong>ГІС аналіз рекреаційного потенціалу України</strong><br/>
-        Науковий звіт згенеровано: ${new Date().toLocaleString('uk-UA')}<br/>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">📚 ДЖЕРЕЛА ДАНИХ</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9px;">
+        <tr style="background: #1e293b; color: white;">
+          <th style="padding: 5px; text-align: left; border: 1px solid #475569; width: 30%;">Категорія</th>
+          <th style="padding: 5px; text-align: left; border: 1px solid #475569;">Джерело</th>
+          <th style="padding: 5px; text-align: center; border: 1px solid #475569; width: 12%;">Рік</th>
+        </tr>
+        <tr>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">Населення</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">Державна служба статистики України</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0; text-align: center;">2023</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">ПЗФ</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">Міністерство захисту довкілля та природних ресурсів</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">Транспорт та інфраструктура</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">OpenStreetMap + Укравтодор</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0; text-align: center;">2024</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">Пожежі</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0;">ДСНС України</td>
+          <td style="padding: 4px; border: 1px solid #e2e8f0; text-align: center;">2025</td>
+        </tr>
+      </table>
+      
+      <p style="text-align: center; color: #94a3b8; margin-top: 15px; font-size: 9px; border-top: 2px solid #e2e8f0; padding-top: 8px;">
+        <strong>ГІС аналіз рекреаційного потенціалу України</strong> | Порівняльний звіт<br/>
         Версія методології: 1.0 | © 2024-2025
       </p>
     `;
