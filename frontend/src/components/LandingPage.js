@@ -501,18 +501,22 @@ const LandingPage = () => {
       </section>
 
       {/* Methodology Section */}
-      <section id="methodology" className="py-20 bg-slate-100">
+      <section id="methodology" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            Науково-методологічне обґрунтування
-          </h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">
-            Вагові коефіцієнти моделі базуються на міжнародній практиці та наукових дослідженнях
-          </p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Науково-методологічне обґрунтування
+            </h2>
+            <div className="w-24 h-1 bg-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Вагові коефіцієнти моделі базуються на міжнародній практиці та наукових дослідженнях
+            </p>
+          </div>
 
           {/* AHP Method */}
-          <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
-            <h3 className="text-2xl font-bold mb-4 text-green-700">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-xl shadow-2xl mb-8 border-2 border-amber-600">
+            <h3 className="text-2xl font-bold mb-4 text-amber-400 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+              <TbChartDots3 size={32} />
               Метод Analytic Hierarchy Process (AHP)
             </h3>
             <p className="text-gray-700 mb-4">
