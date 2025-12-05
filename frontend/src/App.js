@@ -842,7 +842,7 @@ function MapPage() {
                               <p><span className="text-gray-400">Область:</span> <span className="text-white">{fire.properties.region}</span></p>
                             </div>
                             
-                            <div className={`p-2 rounded backdrop-blur ${isHuman ? 'bg-orange-900/30 border border-orange-600/50' : 'bg-slate-800/90 border border-slate-600/30'}`}>
+                            <div className={`p-2 rounded backdrop-blur ${isHuman ? 'bg-orange-900/30 border border-orange-600/50' : 'bg-slate-800/90 border border-slate-500/40'}`}>
                               <p className="text-xs font-semibold mb-1 text-gray-300">Причина:</p>
                               <p className={`text-xs ${isHuman ? 'text-orange-300 font-medium' : 'text-gray-300'}`}>
                                 {fire.properties.cause}
@@ -912,7 +912,7 @@ function MapPage() {
                             )}
 
                             {/* ОБҐРУНТУВАННЯ */}
-                            <div className="mt-3 p-3 bg-slate-800 border border-slate-600/50 rounded-lg mb-3">
+                            <div className="mt-3 p-3 bg-slate-800 border border-slate-500/60 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-amber-300">
                                 <TbChartDots3 className="inline" size={16} /> Обґрунтування:
                               </h4>
@@ -924,7 +924,7 @@ function MapPage() {
                             </div>
 
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
-                            <div className="mt-3 p-3 bg-slate-800 border border-slate-600/50 rounded-lg mb-3">
+                            <div className="mt-3 p-3 bg-slate-800 border border-slate-500/60 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-emerald-300">
                                 <MdApartment className="inline" size={16} /> Рекомендована інфраструктура:
                               </h4>
@@ -936,7 +936,7 @@ function MapPage() {
                             </div>
 
                             {/* Базова інформація */}
-                            <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-800/80 p-3 rounded-lg border border-slate-600/30">
+                            <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-800/80 p-3 rounded-lg border border-slate-500/40">
                               <p>Тип: <strong className="text-white">{zone.recommended_type}</strong></p>
                               <p>Місткість: <strong className="text-white">{zone.capacity}</strong></p>
                               <p className="flex items-center gap-1"><MdAttachMoney className="text-amber-400" size={14} />Інвестиції: <strong className="text-amber-300">{zone.investment}</strong></p>
@@ -945,7 +945,7 @@ function MapPage() {
                             </div>
 
                             {/* ІНФРАСТРУКТУРА ПОБЛИЗУ */}
-                            <div className="mt-3 pt-3 border-t border-slate-600/50">
+                            <div className="mt-3 pt-3 border-t border-slate-500/60">
                               <h4 className="font-semibold mb-2 text-amber-300 flex items-center gap-1">
                                 <MdMap className="inline" size={16} /> Інфраструктура поблизу:
                               </h4>
@@ -1202,15 +1202,15 @@ function MapPage() {
                                       </div>
                                     )}
                                     <div className="grid grid-cols-3 gap-2 text-center">
-                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                         <p className="text-xs text-gray-400">Залізниці</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.railway_stations}</p>
                                       </div>
-                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                         <p className="text-xs text-gray-400">Аеропорти</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.airports}</p>
                                       </div>
-                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                         <p className="text-xs text-gray-400">Час до міста</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.avg_travel_time_minutes} хв</p>
                                       </div>
@@ -1278,7 +1278,7 @@ function MapPage() {
                                   <AccordionContent>
                                     <div className="pl-6 space-y-3 text-sm">
                                       <div className="grid grid-cols-3 gap-2">
-                                        <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                        <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                           <p className="text-xs text-gray-400">Всього пожеж</p>
                                           <p className="font-semibold text-lg text-white">{analysisResult.details.fires.total_fires}</p>
                                         </div>
@@ -1322,11 +1322,11 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                         <p className="text-xs text-gray-400">Існуючих пунктів</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.saturation.existing_points}</p>
                                       </div>
-                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-500/40 rounded p-2">
                                         <p className="text-xs text-gray-400">Щільність</p>
                                         <p className="font-semibold text-white">{analysisResult.details.saturation.density_per_1000km2}/1000км²</p>
                                       </div>
