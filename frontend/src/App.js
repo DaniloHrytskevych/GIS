@@ -1102,12 +1102,57 @@ function MapPage() {
                                 </AccordionContent>
                               </AccordionItem>
 
+                              {/* FOREST FIRES - NEW */}
+                              {analysisResult.fire_score !== undefined && (
+                                <AccordionItem value="fires">
+                                  <AccordionTrigger className="text-sm py-2">
+                                    <div className="flex items-center gap-2">
+                                      <Zap className="w-4 h-4 text-orange-500" />
+                                      <span>6. РИЗИК ЛІСОВИХ ПОЖЕЖ (профілактика)</span>
+                                      <Badge variant="outline" className="ml-auto text-orange-600">{analysisResult.fire_score}/5</Badge>
+                                    </div>
+                                  </AccordionTrigger>
+                                  <AccordionContent>
+                                    <div className="pl-6 space-y-3 text-sm">
+                                      <div className="grid grid-cols-3 gap-2">
+                                        <div className="bg-slate-50 rounded p-2">
+                                          <p className="text-xs text-slate-500">Всього пожеж</p>
+                                          <p className="font-semibold text-lg">{analysisResult.details.fires.total_fires}</p>
+                                        </div>
+                                        <div className="bg-orange-50 rounded p-2">
+                                          <p className="text-xs text-slate-500">Від людей</p>
+                                          <p className="font-semibold text-lg text-orange-600">{analysisResult.details.fires.human_caused_fires}</p>
+                                        </div>
+                                        <div className="bg-green-50 rounded p-2">
+                                          <p className="text-xs text-slate-500">Бонус</p>
+                                          <p className="font-semibold text-lg text-green-600">+{analysisResult.fire_score}</p>
+                                        </div>
+                                      </div>
+                                      <div className="bg-orange-50 border border-orange-200 rounded p-3">
+                                        <p className="font-semibold text-orange-800 mb-2 flex items-center gap-2">
+                                          <Zap className="w-4 h-4" />
+                                          Логіка профілактики:
+                                        </p>
+                                        <p className="text-xs text-orange-700">
+                                          {analysisResult.details.fires.interpretation}
+                                        </p>
+                                        <ul className="text-xs text-orange-700 mt-2 space-y-1">
+                                          <li>✅ Облаштовані пункти знижують ризик на 40%</li>
+                                          <li>✅ Контрольовані вогнища у кам'яних кільцях</li>
+                                          <li>✅ Доступ до води для гасіння</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </AccordionContent>
+                                </AccordionItem>
+                              )}
+
                               {/* SATURATION */}
                               <AccordionItem value="saturation">
                                 <AccordionTrigger className="text-sm py-2">
                                   <div className="flex items-center gap-2">
                                     <AlertTriangle className="w-4 h-4 text-red-500" />
-                                    <span>6. ШТРАФ ЗА НАСИЧЕНІСТЬ</span>
+                                    <span>7. ШТРАФ ЗА НАСИЧЕНІСТЬ</span>
                                     <Badge variant="outline" className="ml-auto text-red-600">{analysisResult.saturation_penalty}/15</Badge>
                                   </div>
                                 </AccordionTrigger>
