@@ -611,12 +611,6 @@ async def get_recommended_zones():
                 infra_region = r
                 break
         
-        # Get existing points for region
-        region_points = [
-            p for p in RECREATIONAL_POINTS.get('features', [])
-            if p.get('properties', {}).get('region') == region_name
-        ]
-        
         # Calculate analysis for the region (contains all 7 factor scores)
         try:
             analysis = await analyze_region(region_name)
