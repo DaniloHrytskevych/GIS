@@ -518,7 +518,7 @@ const DataImport = () => {
                     }}
                   />
                   <label htmlFor={`file-${dataType.id}`} className="cursor-pointer">
-                    <div className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-slate-300 bg-white hover:bg-slate-100 h-10 px-4 py-2 ${
+                    <div className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors border border-amber-600/50 bg-slate-700 hover:bg-slate-600 text-white h-10 px-4 py-2 ${
                       loading && uploadStatus[dataType.id]?.status === 'uploading' 
                         ? 'opacity-50 cursor-not-allowed' 
                         : ''
@@ -530,18 +530,18 @@ const DataImport = () => {
 
                   {uploadStatus[dataType.id] && (
                     <Alert 
-                      className={`flex-1 ${
+                      className={`flex-1 backdrop-blur ${
                         uploadStatus[dataType.id].status === 'success' 
-                          ? 'bg-green-50 border-green-300' 
-                          : 'bg-red-50 border-red-300'
+                          ? 'bg-green-900/30 border-green-600/50' 
+                          : 'bg-red-900/30 border-red-600/50'
                       }`}
                     >
                       {uploadStatus[dataType.id].status === 'success' ? (
-                        <MdCheckCircle size={18} className="text-green-700" />
+                        <MdCheckCircle size={18} className="text-green-400" />
                       ) : (
-                        <MdWarning size={18} className="text-red-700" />
+                        <MdWarning size={18} className="text-red-400" />
                       )}
-                      <AlertDescription className="ml-2 font-medium">
+                      <AlertDescription className="ml-2 font-medium text-white">
                         {uploadStatus[dataType.id].message}
                       </AlertDescription>
                     </Alert>
