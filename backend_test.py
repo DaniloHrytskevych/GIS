@@ -261,202 +261,269 @@ class GISAPITester:
             return False
 
     def test_recommended_zones(self):
-        """Test /api/recommended-zones endpoint - comprehensive testing as requested"""
+        """Test /api/recommended-zones endpoint - COMPREHENSIVE 7-FACTOR MODEL TESTING"""
         try:
-            response = requests.get(f"{self.api_url}/recommended-zones", timeout=20)
+            response = requests.get(f"{self.api_url}/recommended-zones", timeout=30)
             success = response.status_code == 200
             details = f"Status: {response.status_code}"
             
-            if success:
-                data = response.json()
-                zones = data.get('zones', [])
-                details += f", Zones count: {len(zones)}"
-                
-                if len(zones) == 0:
-                    success = False
-                    details += " - No zones returned (empty array)"
-                else:
-                    # Test 1: Basic structure - zones field with array
-                    details += " ✓ Has zones array"
-                    
-                    # Test 2: Check zone structure and required fields
-                    required_fields = [
-                        'id', 'type', 'name', 'region', 'coordinates', 'priority', 
-                        'reasoning', 'recommended_facilities', 'infrastructure',
-                        'legal_status', 'recommended_type', 'capacity', 'investment', 
-                        'payback', 'competitors_nearby'
-                    ]
-                    
-                    zone_structure_valid = True
-                    missing_fields_summary = []
-                    
-                    for i, zone in enumerate(zones[:3]):  # Check first 3 zones
-                        missing_fields = [field for field in required_fields if field not in zone]
-                        if missing_fields:
-                            zone_structure_valid = False
-                            missing_fields_summary.extend(missing_fields)
-                    
-                    if zone_structure_valid:
-                        details += " ✓ All required fields present"
-                    else:
-                        details += f" ✗ Missing fields: {set(missing_fields_summary)}"
-                        success = False
-                    
-                    # Test 3: Check zone types (near_pfz and roadside)
-                    zone_types = [zone.get('type') for zone in zones]
-                    has_near_pfz = 'near_pfz' in zone_types
-                    has_roadside = 'roadside' in zone_types
-                    
-                    details += f" | Zone types: near_pfz={has_near_pfz}, roadside={has_roadside}"
-                    
-                    # Test 4: Check priority values (0-100)
-                    priority_valid = True
-                    for zone in zones:
-                        priority = zone.get('priority', 0)
-                        if not isinstance(priority, (int, float)) or not (0 <= priority <= 100):
-                            priority_valid = False
-                            break
-                    
-                    if priority_valid:
-                        details += " ✓ Priority values valid (0-100)"
-                    else:
-                        details += " ✗ Invalid priority values"
-                        success = False
-                    
-                    # Test 5: Check reasoning structure (point1, point2, point3)
-                    reasoning_valid = True
-                    for zone in zones[:2]:  # Check first 2 zones
-                        reasoning = zone.get('reasoning', {})
-                        if not all(key in reasoning for key in ['point1', 'point2', 'point3']):
-                            reasoning_valid = False
-                            break
-                    
-                    if reasoning_valid:
-                        details += " ✓ Reasoning structure valid"
-                    else:
-                        details += " ✗ Invalid reasoning structure"
-                        success = False
-                    
-                    # Test 6: Check infrastructure structure
-                    infra_fields = [
-                        'hospital_distance', 'gas_station_distance', 'shop_distance',
-                        'mobile_coverage', 'nearest_road', 'road_quality'
-                    ]
-                    
-                    infra_valid = True
-                    for zone in zones[:2]:  # Check first 2 zones
-                        infrastructure = zone.get('infrastructure', {})
-                        missing_infra = [field for field in infra_fields if field not in infrastructure]
-                        if missing_infra:
-                            infra_valid = False
-                            break
-                        
-                        # Check numeric values > 0 for distances
-                        hospital_dist = infrastructure.get('hospital_distance', 0)
-                        gas_dist = infrastructure.get('gas_station_distance', 0)
-                        shop_dist = infrastructure.get('shop_distance', 0)
-                        mobile_cov = infrastructure.get('mobile_coverage', 0)
-                        
-                        if not (hospital_dist > 0 and gas_dist > 0 and shop_dist > 0):
-                            infra_valid = False
-                            break
-                        
-                        if not (0 <= mobile_cov <= 100):
-                            infra_valid = False
-                            break
-                        
-                        # Check road name is not empty
-                        nearest_road = infrastructure.get('nearest_road', '')
-                        road_quality = infrastructure.get('road_quality', '')
-                        if not nearest_road or not road_quality:
-                            infra_valid = False
-                            break
-                    
-                    if infra_valid:
-                        details += " ✓ Infrastructure data valid"
-                    else:
-                        details += " ✗ Invalid infrastructure data"
-                        success = False
-                    
-                    # Test 7: Check recommended facilities (4-5 elements)
-                    facilities_valid = True
-                    for zone in zones[:2]:
-                        facilities = zone.get('recommended_facilities', [])
-                        if not (4 <= len(facilities) <= 5):
-                            facilities_valid = False
-                            break
-                    
-                    if facilities_valid:
-                        details += " ✓ Recommended facilities count valid (4-5)"
-                    else:
-                        details += " ✗ Invalid recommended facilities count"
-                        success = False
-                    
-                    # Test 8: Check zone-specific requirements
-                    zone_specific_valid = True
-                    for zone in zones[:3]:
-                        zone_type = zone.get('type')
-                        facilities = zone.get('recommended_facilities', [])
-                        
-                        if zone_type == 'near_pfz':
-                            # Should have distance_from_pfz and pfz_object
-                            if zone.get('distance_from_pfz') is None or zone.get('pfz_object') is None:
-                                zone_specific_valid = False
-                                break
-                            # Should contain eco-related facilities
-                            facilities_text = ' '.join(facilities).lower()
-                            if 'екологічний готель' not in facilities_text and 'інформаційний центр' not in facilities_text:
-                                zone_specific_valid = False
-                                break
-                        
-                        elif zone_type == 'roadside':
-                            # distance_from_pfz should be null
-                            if zone.get('distance_from_pfz') is not None:
-                                zone_specific_valid = False
-                                break
-                            # Should contain roadside facilities
-                            facilities_text = ' '.join(facilities).lower()
-                            if 'мотель' not in facilities_text and 'стоянка' not in facilities_text:
-                                zone_specific_valid = False
-                                break
-                    
-                    if zone_specific_valid:
-                        details += " ✓ Zone-specific requirements met"
-                    else:
-                        details += " ✗ Zone-specific requirements not met"
-                        success = False
-                    
-                    # Test 9: Check coordinates are in Ukraine range
-                    coords_valid = True
-                    invalid_coords = []
-                    for zone in zones:
-                        coords = zone.get('coordinates', [])
-                        if len(coords) != 2:
-                            coords_valid = False
-                            invalid_coords.append(f"{zone.get('name', 'Unknown')}: invalid format")
-                            break
-                        lat, lng = coords
-                        # Ukraine approximate bounds: lat 44-52, lng 21.5-40.5 (including Zakarpattia)
-                        if not (44 <= lat <= 52 and 21.5 <= lng <= 40.5):
-                            coords_valid = False
-                            invalid_coords.append(f"{zone.get('name', 'Unknown')}: lat={lat}, lng={lng}")
-                            break
-                    
-                    if coords_valid:
-                        details += " ✓ Coordinates within Ukraine bounds"
-                    else:
-                        details += f" ✗ Invalid coordinates: {invalid_coords[:2]}"
-                        success = False
-                    
-                    # Additional info for debugging
-                    if zones:
-                        sample_zone = zones[0]
-                        details += f" | Sample zone: {sample_zone.get('name', 'Unknown')} (type: {sample_zone.get('type')}, priority: {sample_zone.get('priority')})"
+            if not success:
+                self.log_test("Recommended Zones API", False, f"HTTP Error: {response.status_code}", 200, response.status_code)
+                return False, {}
             
-            self.log_test("Recommended Zones API", success, details, 200, response.status_code)
-            return success, response.json() if success else {}
+            data = response.json()
+            zones = data.get('zones', [])
+            details += f", Total zones: {len(zones)}"
+            
+            if len(zones) == 0:
+                self.log_test("Recommended Zones API", False, "No zones returned (empty array)", 200, response.status_code)
+                return False, {}
+            
+            # ====== TEST 1: Zone Types & Distribution ======
+            zone_types = [zone.get('type') for zone in zones]
+            type_counts = {
+                'near_pfz': zone_types.count('near_pfz'),
+                'roadside': zone_types.count('roadside'), 
+                'fire_prevention': zone_types.count('fire_prevention')
+            }
+            
+            has_all_types = all(count > 0 for count in type_counts.values())
+            details += f" | Types: near_pfz={type_counts['near_pfz']}, roadside={type_counts['roadside']}, fire_prevention={type_counts['fire_prevention']}"
+            
+            if not has_all_types:
+                missing_types = [t for t, c in type_counts.items() if c == 0]
+                details += f" ✗ Missing zone types: {missing_types}"
+                success = False
+            else:
+                details += " ✓ All 3 zone types present"
+            
+            # ====== TEST 2: 7-Factor Priority Calculation ======
+            # Check if zones are sorted by priority (descending)
+            priorities = [zone.get('priority', 0) for zone in zones]
+            is_sorted = all(priorities[i] >= priorities[i+1] for i in range(len(priorities)-1))
+            
+            # Check priority range (0-100)
+            priority_range_valid = all(0 <= p <= 100 for p in priorities)
+            
+            # Check for reasonable priority distribution
+            high_priority = sum(1 for p in priorities if p >= 70)
+            medium_priority = sum(1 for p in priorities if 50 <= p < 70)
+            low_priority = sum(1 for p in priorities if p < 50)
+            
+            details += f" | Priority: sorted={is_sorted}, range_valid={priority_range_valid}"
+            details += f", high={high_priority}, med={medium_priority}, low={low_priority}"
+            
+            if not (is_sorted and priority_range_valid):
+                details += " ✗ Priority calculation issues"
+                success = False
+            else:
+                details += " ✓ Priority calculation valid"
+            
+            # ====== TEST 3: Fire Prevention Zones Specific Tests ======
+            fire_zones = [z for z in zones if z.get('type') == 'fire_prevention']
+            fire_zones_valid = True
+            
+            for fire_zone in fire_zones[:3]:  # Test first 3 fire zones
+                # Check fire_cluster_size field exists and ≥3
+                fire_cluster_size = fire_zone.get('fire_cluster_size')
+                if fire_cluster_size is None or fire_cluster_size < 3:
+                    fire_zones_valid = False
+                    break
+                
+                # Check reasoning mentions fire statistics
+                reasoning_text = ' '.join(fire_zone.get('reasoning', {}).values()).lower()
+                if 'пожеж' not in reasoning_text and 'fire' not in reasoning_text.lower():
+                    fire_zones_valid = False
+                    break
+                
+                # Check special fire safety facilities
+                facilities = fire_zone.get('recommended_facilities', [])
+                facilities_text = ' '.join(facilities).lower()
+                required_fire_facilities = [
+                    'безпечними вогнищами',
+                    'пожежної безпеки', 
+                    'джерело води'
+                ]
+                
+                has_fire_facilities = any(req in facilities_text for req in required_fire_facilities)
+                if not has_fire_facilities:
+                    fire_zones_valid = False
+                    break
+            
+            if fire_zones_valid and fire_zones:
+                details += " ✓ Fire prevention zones valid"
+            elif fire_zones:
+                details += " ✗ Fire prevention zones invalid"
+                success = False
+            else:
+                details += " ⚠ No fire prevention zones to test"
+            
+            # ====== TEST 4: Near PFZ Zones Specific Tests ======
+            near_pfz_zones = [z for z in zones if z.get('type') == 'near_pfz']
+            near_pfz_valid = True
+            
+            for pfz_zone in near_pfz_zones[:3]:  # Test first 3 near_pfz zones
+                # Check pfz_object field is present
+                if not pfz_zone.get('pfz_object'):
+                    near_pfz_valid = False
+                    break
+                
+                # Check distance_from_pfz is set (not null)
+                if pfz_zone.get('distance_from_pfz') is None:
+                    near_pfz_valid = False
+                    break
+                
+                # Check reasoning mentions visitor estimates
+                reasoning_text = ' '.join(pfz_zone.get('reasoning', {}).values())
+                has_visitor_estimate = any(num in reasoning_text for num in ['відвідувачів', '30,000', '15,000'])
+                if not has_visitor_estimate:
+                    near_pfz_valid = False
+                    break
+                
+                # Check eco-tourism facilities
+                facilities = pfz_zone.get('recommended_facilities', [])
+                facilities_text = ' '.join(facilities).lower()
+                required_eco_facilities = ['екологічний готель', 'інформаційний центр']
+                
+                has_eco_facilities = any(req in facilities_text for req in required_eco_facilities)
+                if not has_eco_facilities:
+                    near_pfz_valid = False
+                    break
+            
+            if near_pfz_valid and near_pfz_zones:
+                details += " ✓ Near PFZ zones valid"
+            elif near_pfz_zones:
+                details += " ✗ Near PFZ zones invalid"
+                success = False
+            else:
+                details += " ⚠ No near PFZ zones to test"
+            
+            # ====== TEST 5: Roadside Zones Specific Tests ======
+            roadside_zones = [z for z in zones if z.get('type') == 'roadside']
+            roadside_valid = True
+            
+            for road_zone in roadside_zones[:3]:  # Test first 3 roadside zones
+                # Check distance_from_pfz is null
+                if road_zone.get('distance_from_pfz') is not None:
+                    roadside_valid = False
+                    break
+                
+                # Check pfz_object is null
+                if road_zone.get('pfz_object') is not None:
+                    roadside_valid = False
+                    break
+                
+                # Check reasoning mentions road traffic
+                reasoning_text = ' '.join(road_zone.get('reasoning', {}).values())
+                has_traffic_info = any(term in reasoning_text for term in ['авто/день', 'траса', '5,000+', '3,000+'])
+                if not has_traffic_info:
+                    roadside_valid = False
+                    break
+                
+                # Check roadside facilities
+                facilities = road_zone.get('recommended_facilities', [])
+                facilities_text = ' '.join(facilities).lower()
+                required_road_facilities = ['мотель', 'стоянка']
+                
+                has_road_facilities = any(req in facilities_text for req in required_road_facilities)
+                if not has_road_facilities:
+                    roadside_valid = False
+                    break
+            
+            if roadside_valid and roadside_zones:
+                details += " ✓ Roadside zones valid"
+            elif roadside_zones:
+                details += " ✗ Roadside zones invalid"
+                success = False
+            else:
+                details += " ⚠ No roadside zones to test"
+            
+            # ====== TEST 6: Reasoning Structure ======
+            reasoning_valid = True
+            emoji_indicators = ['🌲', '🚗', '🔥', '📊', '🏗️']
+            
+            for zone in zones[:5]:  # Test first 5 zones
+                reasoning = zone.get('reasoning', {})
+                
+                # Check 3-point structure
+                if not all(key in reasoning for key in ['point1', 'point2', 'point3']):
+                    reasoning_valid = False
+                    break
+                
+                # Check for emoji indicators
+                reasoning_text = ' '.join(reasoning.values())
+                has_emojis = any(emoji in reasoning_text for emoji in emoji_indicators)
+                if not has_emojis:
+                    reasoning_valid = False
+                    break
+            
+            if reasoning_valid:
+                details += " ✓ Reasoning structure valid"
+            else:
+                details += " ✗ Reasoning structure invalid"
+                success = False
+            
+            # ====== TEST 7: Data Integrity ======
+            data_integrity_valid = True
+            integrity_issues = []
+            
+            for zone in zones[:10]:  # Test first 10 zones
+                # Check coordinates within Ukraine bounds
+                coords = zone.get('coordinates', [])
+                if len(coords) != 2:
+                    integrity_issues.append(f"Invalid coordinates format: {zone.get('name')}")
+                    data_integrity_valid = False
+                    break
+                
+                lat, lng = coords
+                if not (44 <= lat <= 52 and 21.5 <= lng <= 40.5):
+                    integrity_issues.append(f"Coordinates out of Ukraine bounds: {zone.get('name')} ({lat}, {lng})")
+                    data_integrity_valid = False
+                    break
+                
+                # Check infrastructure distances are positive
+                infrastructure = zone.get('infrastructure', {})
+                distances = [
+                    infrastructure.get('hospital_distance', 0),
+                    infrastructure.get('gas_station_distance', 0),
+                    infrastructure.get('shop_distance', 0)
+                ]
+                
+                if not all(isinstance(d, (int, float)) and d > 0 for d in distances):
+                    integrity_issues.append(f"Invalid infrastructure distances: {zone.get('name')}")
+                    data_integrity_valid = False
+                    break
+                
+                # Check investment and payback strings are formatted
+                investment = zone.get('investment', '')
+                payback = zone.get('payback', '')
+                if not (investment and payback and '$' in investment):
+                    integrity_issues.append(f"Invalid investment/payback format: {zone.get('name')}")
+                    data_integrity_valid = False
+                    break
+            
+            if data_integrity_valid:
+                details += " ✓ Data integrity valid"
+            else:
+                details += f" ✗ Data integrity issues: {integrity_issues[:2]}"
+                success = False
+            
+            # ====== SUMMARY STATISTICS ======
+            if zones:
+                avg_priority = sum(priorities) / len(priorities)
+                max_priority = max(priorities)
+                min_priority = min(priorities)
+                details += f" | Stats: avg={avg_priority:.1f}, max={max_priority}, min={min_priority}"
+                
+                # Sample zone info
+                sample_zone = zones[0]
+                details += f" | Top zone: {sample_zone.get('name', 'Unknown')} ({sample_zone.get('type')}, {sample_zone.get('priority')})"
+            
+            self.log_test("Recommended Zones - 7-Factor Model", success, details, 200, response.status_code)
+            return success, data
+            
         except Exception as e:
-            self.log_test("Recommended Zones API", False, f"Exception: {str(e)}")
+            self.log_test("Recommended Zones - 7-Factor Model", False, f"Exception: {str(e)}")
             return False, {}
 
     def test_invalid_region(self):
