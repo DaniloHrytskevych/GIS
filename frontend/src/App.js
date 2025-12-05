@@ -57,6 +57,12 @@ const createStarIcon = (color) => {
 const UKRAINE_CENTER = [48.5, 31.0];
 const DEFAULT_ZOOM = 6;
 
+// Ukraine map bounds
+const UKRAINE_BOUNDS = [
+  [44.0, 22.0],  // Southwest corner
+  [52.5, 40.5]   // Northeast corner
+];
+
 const REGION_CENTERS = {
   'Київська область': [50.45, 30.52],
   'Львівська область': [49.84, 24.03],
