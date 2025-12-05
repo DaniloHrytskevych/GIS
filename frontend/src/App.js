@@ -785,11 +785,11 @@ function MapPage() {
                     point.geometry?.coordinates && (
                       <CircleMarker key={`pt-${idx}`} center={[point.geometry.coordinates[1], point.geometry.coordinates[0]]} radius={5}
                         pathOptions={{ fillColor: '#22c55e', color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.8 }}>
-                        <Popup>
-                          <div className="text-sm">
-                            <p className="font-semibold">{point.properties?.name || 'Рекреаційний пункт'}</p>
-                            <p className="text-slate-500">{point.properties?.region}</p>
-                            {point.properties?.capacity && <p>Місткість: {point.properties.capacity}</p>}
+                        <Popup className="dark-popup">
+                          <div className="text-sm bg-gradient-to-br from-slate-800 to-slate-900 text-white p-3 rounded-lg">
+                            <p className="font-semibold text-emerald-400">{point.properties?.name || 'Рекреаційний пункт'}</p>
+                            <p className="text-gray-300">{point.properties?.region}</p>
+                            {point.properties?.capacity && <p className="text-gray-300">Місткість: <span className="text-white font-medium">{point.properties.capacity}</span></p>}
                           </div>
                         </Popup>
                       </CircleMarker>
