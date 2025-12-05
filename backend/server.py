@@ -483,6 +483,14 @@ async def get_forest_fires():
     
     return FOREST_FIRES
 
+@api_router.get("/region-boundaries")
+async def get_region_boundaries():
+    """Get Ukraine region boundaries as GeoJSON"""
+    if not REGION_BOUNDARIES:
+        return {"type": "FeatureCollection", "features": []}
+    
+    return REGION_BOUNDARIES
+
 @api_router.get("/analyze/{region_name}")
 async def analyze_region(region_name: str):
     """Perform full analysis for a specific region"""
