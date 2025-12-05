@@ -150,14 +150,16 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="mb-4"><Trophy className="w-12 h-12 text-yellow-600" /></div>
-              <h3 className="text-xl font-bold mb-2">Результат</h3>
-              <p className="text-gray-600">
-                Рейтинг областей за потенціалом<br/>
-                Конкретні рекомендовані локації<br/>
-                Інвестиційні прогнози<br/>
-                Візуалізація на інтерактивній карті
+            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-green-600 hover:shadow-2xl transition-shadow">
+              <div className="mb-4 flex justify-center">
+                <div className="bg-green-100 p-4 rounded-full">
+                  <MdEmojiEvents className="w-12 h-12 text-green-700" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-center text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>Результати аналізу</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Рейтинг регіонів за рекреаційним потенціалом, карта рекомендованих зон розміщення об'єктів, 
+                інвестиційні прогнози та детальна геопросторова візуалізація
               </p>
             </div>
           </div>
