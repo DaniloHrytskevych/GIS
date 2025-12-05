@@ -1013,13 +1013,13 @@ function MapPage() {
                         ) : analysisResult ? (
                           <div className="space-y-4">
                             {/* Header */}
-                            <div className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 border">
-                              <h2 className="text-xl font-bold text-slate-800 mb-3">{analysisResult.region}</h2>
+                            <div className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-amber-600/30 backdrop-blur">
+                              <h2 className="text-xl font-bold text-white mb-3">{analysisResult.region}</h2>
                               <div className="inline-flex items-center justify-center w-20 h-20 rounded-full text-white text-2xl font-bold mb-2"
                                 style={{ backgroundColor: getScoreColor(analysisResult.total_score) }}>
                                 {analysisResult.total_score}
                               </div>
-                              <p className="text-sm text-slate-500">зі 100 балів</p>
+                              <p className="text-sm text-gray-300">зі 100 балів</p>
                               <Badge className="mt-2 text-white" style={{ backgroundColor: getCategoryColor(analysisResult.category) }}>
                                 {analysisResult.category}
                               </Badge>
