@@ -1508,16 +1508,16 @@ function MapPage() {
                                   <p className="font-medium text-white">{analysis.accessibility_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">Ін</p>
-                                  <p className="font-medium">{analysis.infrastructure_score}</p>
+                                  <p className="text-gray-400">Ін</p>
+                                  <p className="font-medium text-white">{analysis.infrastructure_score}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">🔥</p>
-                                  <p className="font-medium">{analysis.fire_score || 0}</p>
+                                  <p className="text-gray-400">🔥</p>
+                                  <p className="font-medium text-white">{analysis.fire_score || 0}</p>
                                 </div>
                                 <div className="text-center">
-                                  <p className="text-slate-400">Нас</p>
-                                  <p className="font-medium text-red-500">{analysis.saturation_penalty}</p>
+                                  <p className="text-gray-400">Нас</p>
+                                  <p className="font-medium text-red-400">{analysis.saturation_penalty}</p>
                                 </div>
                               </div>
                             </div>
