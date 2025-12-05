@@ -47,41 +47,66 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070')",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/50" />
+      <section className="relative h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full" style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(168, 85, 247, 0.1) 35px, rgba(168, 85, 247, 0.1) 70px)',
+          }} />
         </div>
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold text-center mb-4">
-            Геоінформаційна система аналізу
-            <br />
-            рекреаційного потенціалу
+          <div className="mb-6 flex items-center gap-3">
+            <GiForest className="text-6xl text-amber-500" />
+            <GiMountains className="text-7xl text-amber-600" />
+            <GiTreeBranch className="text-6xl text-amber-500" />
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-bold text-center mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+            ГЕОІНФОРМАЦІЙНА СИСТЕМА АНАЛІЗУ
           </h1>
-          <p className="text-xl md:text-2xl text-center mb-8 max-w-3xl">
-            Визначення оптимальних локацій для будівництва
-            рекреаційних об'єктів в Україні
-          </p>
-          <div className="flex gap-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-6 text-amber-400" style={{ fontFamily: 'Georgia, serif' }}>
+            РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ УКРАЇНИ
+          </h2>
+          
+          <div className="bg-slate-800/50 backdrop-blur-md px-8 py-4 rounded-lg border border-amber-600/30 mb-8">
+            <p className="text-lg md:text-xl text-center max-w-4xl text-gray-300">
+              Багатофакторна модель визначення оптимальних локацій для розміщення рекреаційних об'єктів 
+              на основі аналізу <span className="text-amber-400 font-bold">7 ключових факторів</span> геопросторових даних
+            </p>
+          </div>
+          
+          <div className="flex gap-4 mb-8">
             <button
               onClick={() => navigate('/map')}
-              className="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg text-lg font-semibold shadow-lg"
+              className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 px-8 py-4 rounded-lg text-lg font-bold shadow-2xl transform hover:scale-105 transition-all flex items-center gap-2"
             >
-              Почати аналіз
+              <TbMapSearch className="text-2xl" />
+              Розпочати аналіз
             </button>
             <button
               onClick={() => scrollTo('#logic')}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur px-8 py-4 rounded-lg text-lg font-semibold border border-white/30"
+              className="bg-slate-700/50 hover:bg-slate-700 backdrop-blur px-8 py-4 rounded-lg text-lg font-semibold border-2 border-amber-500/50 hover:border-amber-400 transition-all flex items-center gap-2"
             >
-              Логіка системи
+              <TbChartDots3 className="text-xl" />
+              Методологія
             </button>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-6 text-center max-w-2xl">
+            <div className="bg-slate-800/30 backdrop-blur px-4 py-3 rounded border border-amber-600/20">
+              <div className="text-3xl font-bold text-amber-400">24</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">Регіони України</div>
+            </div>
+            <div className="bg-slate-800/30 backdrop-blur px-4 py-3 rounded border border-amber-600/20">
+              <div className="text-3xl font-bold text-amber-400">7</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">Факторів аналізу</div>
+            </div>
+            <div className="bg-slate-800/30 backdrop-blur px-4 py-3 rounded border border-amber-600/20">
+              <div className="text-3xl font-bold text-amber-400">100+</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">Рекомендовані зони</div>
+            </div>
           </div>
         </div>
       </section>
