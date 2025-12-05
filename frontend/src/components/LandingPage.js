@@ -552,33 +552,69 @@ const LandingPage = () => {
           {/* Weight Justification */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {/* Demand 25% */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
-              <h4 className="text-xl font-bold mb-3 text-green-700">
-                Попит = 25% (Найвищий пріоритет)
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-green-600">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
+                  F₁
+                </div>
+                <div>
+                  <div className="text-green-700">Попит = 25%</div>
+                  <div className="text-xs text-gray-600 font-normal">Найвищий пріоритет</div>
+                </div>
               </h4>
-              <ul className="text-sm space-y-2 text-gray-700">
-                <li>✅ <strong>Економічна основа:</strong> Без попиту неможливий самоокупний бізнес</li>
-                <li>✅ <strong>Підтвердження:</strong> Дослідження показують вагу 0.31 для факторів попиту [UMass Research]</li>
-                <li>✅ <strong>Kentucky SCORP 2020:</strong> "Community demand is foundation of facility location"</li>
+              <ul className="text-sm space-y-2 text-gray-700 ml-10">
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Економічна основа:</strong> Без попиту неможливий самоокупний бізнес</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Підтвердження:</strong> Дослідження показують вагу 0.31 для факторів попиту [UMass Research]</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Kentucky SCORP 2020:</strong> "Community demand is foundation of facility location"</span>
+                </li>
               </ul>
             </div>
 
             {/* PFZ 20% */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
-              <h4 className="text-xl font-bold mb-3 text-blue-700">
-                ПЗФ = 20% (Туристичний атрактор)
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-emerald-600">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
+                  F₂
+                </div>
+                <div>
+                  <div className="text-emerald-700">ПЗФ = 20%</div>
+                  <div className="text-xs text-gray-600 font-normal">Туристичний атрактор</div>
+                </div>
               </h4>
-              <ul className="text-sm space-y-2 text-gray-700">
-                <li>✅ <strong>Унікальна привабливість:</strong> Природоохоронні території є ключовими атракторами</li>
-                <li>✅ <strong>Баланс:</strong> Важливість зберігання + туристична цінність</li>
-                <li>✅ <strong>Обмеження:</strong> Будівництво дозволено 2-10 км від меж ПЗФ</li>
+              <ul className="text-sm space-y-2 text-gray-700 ml-10">
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-emerald-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Унікальна привабливість:</strong> Природоохоронні території є ключовими атракторами</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-emerald-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Баланс:</strong> Важливість зберігання + туристична цінність</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-emerald-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Обмеження:</strong> Будівництво дозволено 2-10 км від меж ПЗФ</span>
+                </li>
               </ul>
             </div>
 
             {/* Infrastructure 10% */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
-              <h4 className="text-xl font-bold mb-3 text-purple-700">
-                Інфраструктура = 10% (Вторинна)
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-indigo-600">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
+                  F₅
+                </div>
+                <div>
+                  <div className="text-indigo-700">Інфраструктура = 10%</div>
+                  <div className="text-xs text-gray-600 font-normal">Вторинний фактор</div>
+                </div>
               </h4>
               <ul className="text-sm space-y-2 text-gray-700">
                 <li>✅ <strong>Може бути розвинута:</strong> Лікарні, заправки, готелі можна побудувати</li>
