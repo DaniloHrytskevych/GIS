@@ -125,8 +125,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Enhanced popup for recommended zones"
-    - "Landing Page comprehensive testing"
+    - "API endpoint /api/recommended-zones with 7-factor model"
+    - "Verify all 3 zone types: near_pfz, roadside, fire_prevention"
+    - "Validate priority calculation uses all 7 factors"
+    - "Check fire_prevention zones have fire_cluster_size"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
