@@ -864,6 +864,9 @@ class GISAPITester:
         # CRITICAL: Test 7-factor priority model verification
         self.test_seven_factor_priority_model()
         
+        # CRITICAL: Test FIXED fire coordinates verification
+        self.test_fire_coordinates_verification()
+        
         # Test error handling
         self.test_invalid_region()
         
