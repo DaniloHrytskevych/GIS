@@ -255,9 +255,12 @@ const LandingPage = () => {
               </h4>
 
               <div className="space-y-4 ml-4">
-                <div className="bg-gray-50 p-4 rounded">
-                  <p className="font-semibold mb-2">Формула попиту:</p>
-                  <code className="block bg-white p-3 rounded border text-sm">
+                <div className="bg-slate-50 p-4 rounded border-l-2 border-green-600">
+                  <p className="font-semibold mb-2 flex items-center gap-2">
+                    <MdPeople className="text-green-600" />
+                    Формула попиту:
+                  </p>
+                  <code className="block bg-slate-800 text-green-400 p-3 rounded text-sm font-mono">
                     Річний попит = Населення × 0.15 × 3 відвідування
                   </code>
                   <p className="text-sm text-gray-600 mt-2">
@@ -265,7 +268,7 @@ const LandingPage = () => {
                   </p>
                 </div>
 
-                <div className="bg-green-50 p-4 rounded border border-green-200">
+                <div className="bg-green-50 p-4 rounded border-l-2 border-green-600">
                   <p className="font-semibold mb-2">Розрахунок балів:</p>
                   <ul className="text-sm space-y-1 ml-4">
                     <li>• Співвідношення &lt; 0.6 (дефіцит &gt;40%): <strong>25 балів</strong></li>
