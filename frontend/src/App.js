@@ -210,14 +210,17 @@ function MapPage() {
     const shouldBuild = d?.investment?.should_build;
     
     pdfContent.innerHTML = `
-      <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #1e293b; margin: 0; font-size: 24px;">АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h1>
-        <h2 style="color: #475569; margin: 10px 0; font-size: 20px;">${analysisResult.region}</h2>
-        <div style="display: inline-block; width: 100px; height: 100px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 100px; font-size: 32px; font-weight: bold; margin: 20px 0;">
+      <!-- ТИТУЛЬНА СТОРІНКА -->
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #f59e0b; padding-bottom: 20px;">
+        <h1 style="color: #1e293b; margin: 0; font-size: 22px; font-weight: bold;">НАУКОВИЙ ЗВІТ</h1>
+        <h2 style="color: #f59e0b; margin: 8px 0; font-size: 18px;">АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h2>
+        <h3 style="color: #475569; margin: 8px 0; font-size: 16px;">${analysisResult.region}</h3>
+        <div style="display: inline-block; width: 80px; height: 80px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 80px; font-size: 28px; font-weight: bold; margin: 15px 0; border: 4px solid #f59e0b;">
           ${analysisResult.total_score}
         </div>
-        <p style="color: #64748b; margin: 5px 0;">зі 100 балів</p>
-        <span style="display: inline-block; padding: 6px 16px; border-radius: 20px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold;">${analysisResult.category}</span>
+        <p style="color: #64748b; margin: 5px 0; font-size: 11px;">зі 100 балів</p>
+        <span style="display: inline-block; padding: 5px 14px; border-radius: 15px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold; font-size: 11px;">${analysisResult.category}</span>
+        <p style="color: #94a3b8; margin-top: 15px; font-size: 10px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
       </div>
       
       <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ОЦІНКА ЗА ФАКТОРАМИ</h3>
