@@ -242,10 +242,48 @@ const DataImport = () => {
     return null;
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Navigation Bar */}
+      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 shadow-xl sticky top-0 z-50 border-b-2 border-amber-600">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center gap-3">
+              <GiMountains className="text-amber-500 text-3xl" />
+              <div>
+                <div className="text-xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                  ГІС АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ
+                </div>
+                <div className="text-xs text-amber-400">Система імпорту геопросторових даних</div>
+              </div>
+            </div>
+            <div className="flex gap-3 items-center">
+              <Button 
+                onClick={() => navigate('/')} 
+                className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-500/50"
+                size="sm"
+              >
+                <MdArrowBack className="mr-2" />
+                На головну
+              </Button>
+              <Button 
+                onClick={() => navigate('/map')} 
+                className="bg-gradient-to-r from-amber-600 to-amber-700 text-white hover:from-amber-700 hover:to-amber-800"
+                size="sm"
+              >
+                Аналіз на карті
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-8 border-b-2 border-amber-600">
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-8 border-b border-amber-600/30">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="flex items-center gap-4 mb-3">
             <TbDatabase className="text-5xl text-amber-500" />
