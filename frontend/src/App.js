@@ -701,10 +701,10 @@ function MapPage() {
         <div className="grid grid-cols-12 gap-3">
           {/* Left - Layers */}
           <aside className="col-span-12 lg:col-span-2">
-            <Card className="sticky top-20">
+            <Card className="sticky top-32 bg-slate-800/50 backdrop-blur border-2 border-amber-600/30 shadow-xl">
               <CardHeader className="py-3 px-4">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <MdLayers className="w-4 h-4" />
+                <CardTitle className="text-sm flex items-center gap-2 text-white">
+                  <MdLayers className="w-4 h-4 text-amber-400" />
                   Шари карти
                 </CardTitle>
               </CardHeader>
