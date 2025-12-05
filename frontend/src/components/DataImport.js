@@ -3,7 +3,9 @@ import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Button } from './ui/button';
 import { Alert, AlertDescription } from './ui/alert';
-import { Upload, FileJson, CheckCircle2, AlertCircle, RefreshCw, Database } from 'lucide-react';
+import { MdUploadFile, MdCheckCircle, MdWarning, MdRefresh, MdAnalytics, MdPeople, MdApartment, MdPark, MdLocalFireDepartment, MdDownload } from 'react-icons/md';
+import { TbDatabase, TbFileCode } from 'react-icons/tb';
+import { GiForest } from 'react-icons/gi';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
