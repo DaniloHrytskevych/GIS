@@ -363,10 +363,10 @@ const DataImport = () => {
 
 
       {/* Backup Section */}
-      <Card className="mb-6 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 shadow-lg">
+      <Card className="mb-6 bg-gradient-to-br from-amber-900/40 to-orange-900/40 border-2 border-amber-600 shadow-lg backdrop-blur">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
-            <MdDownload size={24} className="text-amber-700" />
+          <CardTitle className="flex items-center gap-2 text-white" style={{ fontFamily: 'Georgia, serif' }}>
+            <MdDownload size={24} className="text-amber-400" />
             Резервне копіювання даних
           </CardTitle>
           <CardDescription className="text-gray-700">
