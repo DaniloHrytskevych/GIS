@@ -1220,44 +1220,44 @@ function MapPage() {
                               </AccordionItem>
 
                               {/* INFRASTRUCTURE */}
-                              <AccordionItem value="infra">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="infra" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <MdApartment className="w-4 h-4 text-orange-500" />
+                                    <MdApartment className="w-4 h-4 text-orange-400" />
                                     <span>5. ІНФРАСТРУКТУРА</span>
-                                    <Badge variant="outline" className="ml-auto">{analysisResult.infrastructure_score}/10</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.infrastructure_score}/10</Badge>
                                     {getScoreIcon(analysisResult.infrastructure_score, 10)}
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-2 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="flex items-center gap-2 bg-red-50 rounded p-2">
-                                        <MdLocalHospital className="w-4 h-4 text-red-500" />
+                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-red-600/30 rounded p-2">
+                                        <MdLocalHospital className="w-4 h-4 text-red-400" />
                                         <div>
-                                          <p className="text-xs text-slate-500">Лікарні/100к</p>
-                                          <p className="font-semibold">{analysisResult.details.infrastructure.hospitals_per_100k}</p>
+                                          <p className="text-xs text-gray-400">Лікарні/100к</p>
+                                          <p className="font-semibold text-white">{analysisResult.details.infrastructure.hospitals_per_100k}</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-amber-50 rounded p-2">
-                                        <MdLocalGasStation className="w-4 h-4 text-amber-500" />
+                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-amber-600/30 rounded p-2">
+                                        <MdLocalGasStation className="w-4 h-4 text-amber-400" />
                                         <div>
-                                          <p className="text-xs text-slate-500">Заправки</p>
-                                          <p className="font-semibold">{analysisResult.details.infrastructure.gas_stations_per_100km2}/100км²</p>
+                                          <p className="text-xs text-gray-400">Заправки</p>
+                                          <p className="font-semibold text-white">{analysisResult.details.infrastructure.gas_stations_per_100km2}/100км²</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-blue-50 rounded p-2">
-                                        <MdWifi className="w-4 h-4 text-blue-500" />
+                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-blue-600/30 rounded p-2">
+                                        <MdWifi className="w-4 h-4 text-blue-400" />
                                         <div>
-                                          <p className="text-xs text-slate-500">Моб. зв&apos;язок</p>
-                                          <p className="font-semibold">{analysisResult.details.infrastructure.mobile_coverage_percent}%</p>
+                                          <p className="text-xs text-gray-400">Моб. зв&apos;язок</p>
+                                          <p className="font-semibold text-white">{analysisResult.details.infrastructure.mobile_coverage_percent}%</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-purple-50 rounded p-2">
-                                        <MdHotel className="w-4 h-4 text-purple-500" />
+                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-purple-600/30 rounded p-2">
+                                        <MdHotel className="w-4 h-4 text-purple-400" />
                                         <div>
-                                          <p className="text-xs text-slate-500">Готелі</p>
-                                          <p className="font-semibold">{analysisResult.details.infrastructure.hotels_total}</p>
+                                          <p className="text-xs text-gray-400">Готелі</p>
+                                          <p className="font-semibold text-white">{analysisResult.details.infrastructure.hotels_total}</p>
                                         </div>
                                       </div>
                                     </div>
