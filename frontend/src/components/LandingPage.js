@@ -486,7 +486,7 @@ const LandingPage = () => {
             <div className="mt-4 p-4 bg-white rounded-lg">
               <p className="text-sm text-gray-700">
                 <strong>Джерела:</strong> NW Fire Science Consortium (2020), Nature Journal (2024), 
-                Kentucky Forest Service. Дані по Україні: Реєстр пожеж 2024 (254 пожежі у Київській та Житомирській областях).
+                Kentucky Forest Service. Дані по Україні: Реєстр пожеж 2025 (2,175 пожеж у всіх 24 областях України - тестові дані для дослідження).
               </p>
             </div>
           </div>
