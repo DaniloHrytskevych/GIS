@@ -372,10 +372,15 @@ const LandingPage = () => {
             </div>
 
             {/* Factor 5 */}
-            <div className="bg-white border-2 border-gray-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded">5</span>
-                Антропогенна інфраструктура (0-10 балів)
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-indigo-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₅
+                </div>
+                <div>
+                  <div>Антропогенна інфраструктура</div>
+                  <div className="text-sm text-indigo-700 font-normal">Ваговий коефіцієнт: 0-10 балів (10%)</div>
+                </div>
               </h4>
 
               <div className="grid md:grid-cols-2 gap-4 ml-4">
