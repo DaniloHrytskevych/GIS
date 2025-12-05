@@ -232,29 +232,38 @@ const DataImport = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-6xl">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-          <Database size={32} className="text-blue-600" />
-          Імпорт Вхідних Даних
-        </h1>
-        <p className="text-slate-600">
-          Завантажте JSON/GeoJSON файли для оновлення даних системи. 
-          Існуючі дані будуть повністю замінені.
-        </p>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white py-8 border-b-2 border-amber-600">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="flex items-center gap-4 mb-3">
+            <TbDatabase className="text-5xl text-amber-500" />
+            <div>
+              <h1 className="text-3xl font-bold" style={{ fontFamily: 'Georgia, serif' }}>
+                ІМПОРТ ГЕОПРОСТОРОВИХ ДАНИХ
+              </h1>
+              <p className="text-amber-400 text-sm">Система керування базами даних ГІС</p>
+            </div>
+          </div>
+          <p className="text-gray-300 text-sm max-w-3xl">
+            Завантажте JSON/GeoJSON файли для оновлення вхідних даних. 
+            Строга валідація структури забезпечує цілісність системи аналізу.
+          </p>
+        </div>
       </div>
 
-      {/* Data Status Overview */}
-      {dataStatus && (
-        <Card className="mb-6 bg-blue-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CheckCircle2 size={20} className="text-green-600" />
-              Поточний стан даних
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
+      <div className="container mx-auto p-6 max-w-6xl">
+        {/* Data Status Overview */}
+        {dataStatus && (
+          <Card className="mb-6 bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-amber-600 shadow-xl">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                <MdCheckCircle size={24} className="text-green-400" />
+                Поточний стан бази даних
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-600">
                   {dataStatus.population_data?.regions_count || 0}
