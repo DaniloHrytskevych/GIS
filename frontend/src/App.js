@@ -730,28 +730,28 @@ function MapPage() {
                   <span className="text-xs">Скори областей</span>
                 </label>
                 
-                <Separator className="my-3" />
+                <Separator className="my-3 bg-amber-600/30" />
                 
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-slate-500 mb-2">Легенда</p>
-                  <div className="flex items-center gap-2">
+                  <p className="text-xs font-medium text-amber-400 mb-2">Легенда</p>
+                  <div className="flex items-center gap-2 text-gray-300">
                     <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
                     <span className="text-xs">Існуючий пункт</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-gray-300">
                     <div className="w-3 h-3 rounded-full bg-red-500 border-2 border-dashed border-red-300"></div>
                     <span className="text-xs">Критичний пріоритет</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-gray-300">
                     <div className="w-3 h-3 rounded-full bg-orange-500 border-2 border-dashed border-orange-300"></div>
                     <span className="text-xs">Високий пріоритет</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-amber-500 text-sm">★</span>
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <span className="text-amber-400 text-sm">★</span>
                     <span className="text-xs">НПП / Заповідник</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <MdElectricalServices className="w-3 h-3 text-orange-600" />
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <GiFireBowl className="w-3 h-3 text-orange-500" />
                     <span className="text-xs">Лісова пожежа</span>
                   </div>
                 </div>
