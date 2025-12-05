@@ -1342,24 +1342,24 @@ function MapPage() {
                             </Accordion>
 
                             {/* Conclusion */}
-                            <div className={`rounded-lg p-4 ${analysisResult.details.investment.should_build ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
+                            <div className={`rounded-lg p-4 ${analysisResult.details.investment.should_build ? 'bg-emerald-900/30 border border-emerald-600/50' : 'bg-red-900/30 border border-red-600/50'}`}>
                               <div className="flex items-center gap-2 mb-2">
                                 {analysisResult.details.investment.should_build ? (
-                                  <MdCheckCircle className="w-5 h-5 text-emerald-600" />
+                                  <MdCheckCircle className="w-5 h-5 text-emerald-400" />
                                 ) : (
-                                  <MdCancel className="w-5 h-5 text-red-600" />
+                                  <MdCancel className="w-5 h-5 text-red-400" />
                                 )}
-                                <span className={`font-bold ${analysisResult.details.investment.should_build ? 'text-emerald-700' : 'text-red-700'}`}>
+                                <span className={`font-bold ${analysisResult.details.investment.should_build ? 'text-emerald-300' : 'text-red-300'}`}>
                                   {analysisResult.details.investment.should_build ? 'РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : 'БУДІВНИЦТВО РИЗИКОВАНЕ'}
                                 </span>
                               </div>
-                              <p className="text-sm text-slate-600">{analysisResult.recommendation}</p>
+                              <p className="text-sm text-gray-200">{analysisResult.recommendation}</p>
                             </div>
 
                             {/* Points needed to cover deficit */}
                             {analysisResult.details.population.gap > 0 && (
-                              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                <h4 className="font-semibold flex items-center gap-2 mb-3 text-blue-800">
+                              <div className="bg-blue-900/30 border border-blue-600/50 rounded-lg p-4">
+                                <h4 className="font-semibold flex items-center gap-2 mb-3 text-blue-300">
                                   <TbTarget className="w-4 h-4" />
                                   Висновок: як покрити дефіцит
                                 </h4>
