@@ -297,6 +297,14 @@ async def get_pfz_objects():
     
     return {"objects": RECOMMENDED_LOCATIONS.get('pfz_objects', [])}
 
+@api_router.get("/forest-fires")
+async def get_forest_fires():
+    """Get all forest fire incidents with details"""
+    if not FOREST_FIRES:
+        return {"features": [], "metadata": {}}
+    
+    return FOREST_FIRES
+
 @api_router.get("/analyze/{region_name}")
 async def analyze_region(region_name: str):
     """Perform full analysis for a specific region"""
