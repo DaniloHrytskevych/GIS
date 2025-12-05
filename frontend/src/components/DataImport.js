@@ -64,6 +64,7 @@ const DataImport = () => {
 
   useEffect(() => {
     fetchDataStatus();
+    fetchBackupInfo();
   }, []);
 
   const fetchDataStatus = async () => {
