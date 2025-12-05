@@ -369,6 +369,145 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Methodology Section */}
+      <section id="methodology" className="py-20 bg-gradient-to-r from-green-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Науково-методологічне обґрунтування
+          </h2>
+          <p className="text-center text-gray-600 mb-12 text-lg">
+            Вагові коефіцієнти моделі базуються на міжнародній практиці та наукових дослідженнях
+          </p>
+
+          {/* AHP Method */}
+          <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
+            <h3 className="text-2xl font-bold mb-4 text-green-700">
+              Метод Analytic Hierarchy Process (AHP)
+            </h3>
+            <p className="text-gray-700 mb-4">
+              Для визначення вагових коефіцієнтів застосовано <strong>Analytic Hierarchy Process (AHP)</strong> - 
+              систематичний підхід до багатокритеріального прийняття рішень, широко визнаний у міжнародній 
+              практиці оцінки туристичного та рекреаційного потенціалу.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4 mt-4">
+              <div className="bg-green-50 p-4 rounded">
+                <p className="font-semibold text-green-700 mb-2">✅ Систематична інтеграція</p>
+                <p className="text-sm text-gray-600">Кількісних та якісних факторів</p>
+              </div>
+              <div className="bg-blue-50 p-4 rounded">
+                <p className="font-semibold text-blue-700 mb-2">✅ Парне порівняння</p>
+                <p className="text-sm text-gray-600">Експертами для визначення пріоритетів</p>
+              </div>
+              <div className="bg-purple-50 p-4 rounded">
+                <p className="font-semibold text-purple-700 mb-2">✅ Перевірка консистентності</p>
+                <p className="text-sm text-gray-600">Валідація експертних суджень</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Weight Justification */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {/* Demand 25% */}
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+              <h4 className="text-xl font-bold mb-3 text-green-700">
+                Попит = 25% (Найвищий пріоритет)
+              </h4>
+              <ul className="text-sm space-y-2 text-gray-700">
+                <li>✅ <strong>Економічна основа:</strong> Без попиту неможливий самоокупний бізнес</li>
+                <li>✅ <strong>Підтвердження:</strong> Дослідження показують вагу 0.31 для факторів попиту [UMass Research]</li>
+                <li>✅ <strong>Kentucky SCORP 2020:</strong> "Community demand is foundation of facility location"</li>
+              </ul>
+            </div>
+
+            {/* PFZ 20% */}
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <h4 className="text-xl font-bold mb-3 text-blue-700">
+                ПЗФ = 20% (Туристичний атрактор)
+              </h4>
+              <ul className="text-sm space-y-2 text-gray-700">
+                <li>✅ <strong>Унікальна привабливість:</strong> Природоохоронні території є ключовими атракторами</li>
+                <li>✅ <strong>Баланс:</strong> Важливість зберігання + туристична цінність</li>
+                <li>✅ <strong>Обмеження:</strong> Будівництво дозволено 2-10 км від меж ПЗФ</li>
+              </ul>
+            </div>
+
+            {/* Infrastructure 10% */}
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+              <h4 className="text-xl font-bold mb-3 text-purple-700">
+                Інфраструктура = 10% (Вторинна)
+              </h4>
+              <ul className="text-sm space-y-2 text-gray-700">
+                <li>✅ <strong>Може бути розвинута:</strong> Лікарні, заправки, готелі можна побудувати</li>
+                <li>✅ <strong>Laguna Hills Study:</strong> "Amenity gaps" важливіші за поточну інфраструктуру</li>
+                <li>✅ <strong>Вторинність:</strong> Інфраструктура є засобом, а не метою</li>
+              </ul>
+            </div>
+
+            {/* Forest Fires +5% */}
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
+              <h4 className="text-xl font-bold mb-3 text-orange-700">
+                Лісові пожежі = +5% (НОВИЙ ФАКТОР)
+              </h4>
+              <ul className="text-sm space-y-2 text-gray-700">
+                <li>🔥 <strong>Парадокс:</strong> Багато пожеж → потреба в облаштованих пунктах</li>
+                <li>✅ <strong>Дослідження США:</strong> 80% пожеж від рекреації - ПОЗА офіційними місцями</li>
+                <li>✅ <strong>Профілактика:</strong> Кільця для вогнищ знижують ризик на 40%</li>
+                <li>✅ <strong>Щільність:</strong> У радіусі 1 км від кемпінгів пожеж у 7 разів більше</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Fire Prevention Logic */}
+          <div className="bg-gradient-to-r from-orange-100 to-red-100 p-8 rounded-lg shadow-lg border-2 border-orange-300 mb-8">
+            <h3 className="text-2xl font-bold mb-4 text-orange-800 flex items-center gap-2">
+              <span className="text-3xl">🔥</span>
+              Логіка фактору лісових пожеж
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white p-4 rounded-lg">
+                <h4 className="font-bold text-red-700 mb-2">❌ Відсутність рекреаційних пунктів:</h4>
+                <ul className="text-sm space-y-1 text-gray-700">
+                  <li>→ Неконтрольоване розпалювання вогнищ</li>
+                  <li>→ Відсутність води для гасіння</li>
+                  <li>→ Відсутність протипожежних заходів</li>
+                  <li className="font-bold text-red-600">→ ЗБІЛЬШЕННЯ ризику пожеж</li>
+                </ul>
+              </div>
+              <div className="bg-white p-4 rounded-lg">
+                <h4 className="font-bold text-green-700 mb-2">✅ Наявність облаштованих пунктів:</h4>
+                <ul className="text-sm space-y-1 text-gray-700">
+                  <li>→ Контрольовані вогнища у кам'яних кільцях</li>
+                  <li>→ Доступ до води для гасіння</li>
+                  <li>→ Інформування про пожежну безпеку</li>
+                  <li className="font-bold text-green-600">→ ЗНИЖЕННЯ ризику на 40%</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-4 p-4 bg-white rounded-lg">
+              <p className="text-sm text-gray-700">
+                <strong>Джерела:</strong> NW Fire Science Consortium (2020), Nature Journal (2024), 
+                Kentucky Forest Service. Дані по Україні: Реєстр пожеж 2024 (254 пожежі у Київській та Житомирській областях).
+              </p>
+            </div>
+          </div>
+
+          {/* Scientific References */}
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-4 text-gray-800">
+              📚 Наукові джерела:
+            </h3>
+            <ul className="text-sm space-y-2 text-gray-700">
+              <li>• <strong>AHP методологія:</strong> PMC Journal (2022), Wiley Online Library (2022)</li>
+              <li>• <strong>Kentucky SCORP 2020-2025:</strong> State Comprehensive Outdoor Recreation Plan</li>
+              <li>• <strong>District of Columbia Recreation Plan (2020)</strong></li>
+              <li>• <strong>Wildfire Prevention Research:</strong> NW Fire Science Consortium, Nature Journal</li>
+              <li>• <strong>Laguna Hills Recreation Assessment:</strong> California Recreation Planning</li>
+              <li>• <strong>Ukraine Protected Areas Law:</strong> Закон України "Про природно-заповідний фонд"</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Data Sources Section */}
       <section id="data" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
