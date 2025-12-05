@@ -123,7 +123,7 @@ function MapPage() {
     regionScores: true,
     pfzObjects: true,
     forestFires: true,
-    regionBoundaries: true,
+    regionBoundaries: false,
   });
 
   useEffect(() => {
