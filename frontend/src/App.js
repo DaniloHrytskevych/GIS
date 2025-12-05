@@ -709,23 +709,23 @@ function MapPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-4 pb-4 space-y-2">
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
                   <Checkbox checked={layers.recreationalPoints} onCheckedChange={() => toggleLayer('recreationalPoints')} />
                   <span className="text-xs">Існуючі пункти</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
                   <Checkbox checked={layers.recommendedZones} onCheckedChange={() => toggleLayer('recommendedZones')} />
                   <span className="text-xs">Рекомендовані зони</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
                   <Checkbox checked={layers.pfzObjects} onCheckedChange={() => toggleLayer('pfzObjects')} />
                   <span className="text-xs">Об&apos;єкти ПЗФ</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
                   <Checkbox checked={layers.forestFires} onCheckedChange={() => toggleLayer('forestFires')} />
                   <span className="text-xs">Лісові пожежі (2025)</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
                   <Checkbox checked={layers.regionScores} onCheckedChange={() => toggleLayer('regionScores')} />
                   <span className="text-xs">Скори областей</span>
                 </label>
