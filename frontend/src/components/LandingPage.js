@@ -24,6 +24,7 @@ const LandingPage = () => {
             <div className="hidden md:flex gap-6">
               <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="hover:text-green-600 cursor-pointer">Про систему</a>
               <a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="hover:text-green-600 cursor-pointer">Логіка системи</a>
+              <a href="#methodology" onClick={(e) => { e.preventDefault(); scrollTo('#methodology'); }} className="hover:text-green-600 cursor-pointer">Методологія</a>
               <a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="hover:text-green-600 cursor-pointer">Джерела даних</a>
               <button onClick={() => navigate('/map')} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                 Відкрити карту
