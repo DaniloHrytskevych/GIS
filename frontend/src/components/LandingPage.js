@@ -299,7 +299,7 @@ const LandingPage = () => {
 
               <div className="grid md:grid-cols-2 gap-4 ml-4">
                 <div className="bg-green-50 p-4 rounded border border-green-200">
-                  <p className="font-semibold mb-2 flex items-center gap-2"><TreePine className="w-4 h-4" /> Лісистість (0-11 балів):</p>
+                  <p className="font-semibold mb-2 flex items-center gap-2"><GiForest className="w-4 h-4" /> Лісистість (0-11 балів):</p>
                   <ul className="text-sm space-y-1">
                     <li>• ≥40%: <strong>11 балів</strong></li>
                     <li>• 30-39%: <strong>9 балів</strong></li>
