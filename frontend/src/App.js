@@ -936,25 +936,40 @@ function MapPage() {
                             </div>
 
                             {/* Базова інформація */}
-                            <div className="space-y-1 text-sm mb-3 text-gray-300">
+                            <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-700/40 p-3 rounded-lg border border-slate-600/30">
                               <p>Тип: <strong className="text-white">{zone.recommended_type}</strong></p>
                               <p>Місткість: <strong className="text-white">{zone.capacity}</strong></p>
-                              <p>Інвестиції: <strong className="text-amber-400">{zone.investment}</strong></p>
-                              <p>Окупність: <strong className="text-white">{zone.payback}</strong></p>
-                              <p>Існуючих пунктів поблизу: <strong className="text-white">{zone.competitors_nearby}</strong></p>
+                              <p>💰 Інвестиції: <strong className="text-amber-300">{zone.investment}</strong></p>
+                              <p>⏱️ Окупність: <strong className="text-white">{zone.payback}</strong></p>
+                              <p>📍 Існуючих пунктів поблизу: <strong className="text-white">{zone.competitors_nearby}</strong></p>
                             </div>
 
                             {/* ІНФРАСТРУКТУРА ПОБЛИЗУ */}
-                            <div className="mt-3 border-t border-amber-600/30 pt-3">
-                              <h4 className="font-semibold mb-2 text-amber-400">🌍 Інфраструктура поблизу:</h4>
-                              <div className="grid grid-cols-2 gap-2 text-sm text-gray-300">
-                                <div>🏥 Лікарня: <span className="text-white">{zone.infrastructure.hospital_distance} км</span></div>
-                                <div>⛽ Заправка: <span className="text-white">{zone.infrastructure.gas_station_distance} км</span></div>
-                                <div>🏪 Супермаркет: <span className="text-white">{zone.infrastructure.shop_distance} км</span></div>
-                                <div>📡 Мобільний: <span className="text-white">{zone.infrastructure.mobile_coverage}%</span></div>
-                                <div className="col-span-2">
-                                  🚗 Дорога: <span className="text-white">{zone.infrastructure.nearest_road}</span>
-                                  <span className="text-gray-400"> ({zone.infrastructure.road_quality})</span>
+                            <div className="mt-3 pt-3 border-t border-slate-600/50">
+                              <h4 className="font-semibold mb-2 text-amber-300 flex items-center gap-1">
+                                <MdMap className="inline" size={16} /> Інфраструктура поблизу:
+                              </h4>
+                              <div className="grid grid-cols-2 gap-2 text-sm text-gray-200 bg-slate-700/40 p-2 rounded">
+                                <div className="flex items-center gap-1">
+                                  <MdLocalHospital className="text-red-400" size={14} />
+                                  <span>Лікарня: <span className="text-white font-medium">{zone.infrastructure.hospital_distance} км</span></span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <MdLocalGasStation className="text-blue-400" size={14} />
+                                  <span>Заправка: <span className="text-white font-medium">{zone.infrastructure.gas_station_distance} км</span></span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <MdRestaurant className="text-orange-400" size={14} />
+                                  <span>Магазин: <span className="text-white font-medium">{zone.infrastructure.shop_distance} км</span></span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <MdWifi className="text-green-400" size={14} />
+                                  <span>Мобільний: <span className="text-white font-medium">{zone.infrastructure.mobile_coverage}%</span></span>
+                                </div>
+                                <div className="col-span-2 flex items-center gap-1">
+                                  <FaCar className="text-gray-400" size={12} />
+                                  <span>Дорога: <span className="text-white font-medium">{zone.infrastructure.nearest_road}</span>
+                                  <span className="text-gray-400"> ({zone.infrastructure.road_quality})</span></span>
                                 </div>
                               </div>
                             </div>
