@@ -444,15 +444,23 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Factor 6 */}
-            <div className="bg-white border-2 border-red-200 p-6 rounded-lg">
-              <h4 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="bg-red-100 text-red-700 px-3 py-1 rounded">6</span>
-                Штраф за насиченість (0 до −15 балів)
+            {/* Factor 6 - Штраф */}
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-red-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  S
+                </div>
+                <div>
+                  <div>Штраф за насиченість</div>
+                  <div className="text-sm text-red-700 font-normal">Ваговий коефіцієнт: 0 до −15 балів</div>
+                </div>
               </h4>
 
-              <div className="bg-red-50 p-4 rounded border border-red-200 ml-4">
-                <p className="font-semibold mb-2">Штрафи:</p>
+              <div className="bg-red-50 p-4 rounded border-l-2 border-red-600 ml-4">
+                <p className="font-semibold mb-2 flex items-center gap-2">
+                  <MdWarning className="text-red-600" />
+                  Штрафні бали:
+                </p>
                 <ul className="text-sm space-y-1 ml-4">
                   <li>• Щільність &lt; 1.0: <strong>−2 бали</strong> (низька)</li>
                   <li>• Щільність 1.0-2.0: <strong>−5 балів</strong> (помірна)</li>
@@ -461,12 +469,39 @@ const LandingPage = () => {
                 </ul>
               </div>
             </div>
+            
+            {/* Factor 7 - Пожежна безпека */}
+            <div className="bg-gradient-to-br from-slate-50 to-white border-l-4 border-orange-600 p-6 rounded-lg shadow-lg">
+              <h4 className="text-xl font-bold mb-4 flex items-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
+                  F₆
+                </div>
+                <div>
+                  <div>Пожежна безпека (профілактика)</div>
+                  <div className="text-sm text-orange-700 font-normal">Ваговий коефіцієнт: 0-5 балів (5%)</div>
+                </div>
+              </h4>
+
+              <div className="bg-orange-50 p-4 rounded border-l-2 border-orange-600 ml-4">
+                <p className="font-semibold mb-2 flex items-center gap-2">
+                  <GiFireBowl className="text-orange-600" />
+                  Логіка профілактики:
+                </p>
+                <ul className="text-sm space-y-1 ml-4">
+                  <li>• Багато людських пожеж = потреба в облаштованих пунктах</li>
+                  <li>• ≥15 пожеж: <strong>+5 балів</strong> (критична потреба)</li>
+                  <li>• 10-14 пожеж: <strong>+3 бали</strong> (висока потреба)</li>
+                  <li>• 5-9 пожеж: <strong>+1 бал</strong> (помірна потреба)</li>
+                  <li>• &lt;5 пожеж: <strong>0 балів</strong></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Methodology Section */}
-      <section id="methodology" className="py-20 bg-gradient-to-r from-green-50 to-blue-50">
+      <section id="methodology" className="py-20 bg-slate-100">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
             Науково-методологічне обґрунтування
