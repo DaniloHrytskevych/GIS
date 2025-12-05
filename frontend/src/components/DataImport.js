@@ -305,7 +305,7 @@ const DataImport = () => {
           <p>✅ <strong>Строга валідація:</strong> Система перевірить структуру даних перед імпортом</p>
           <p>✅ <strong>Координати:</strong> Мають бути в межах України (lat: 44-52, lng: 21.5-40.5)</p>
           <p>✅ <strong>Регіони:</strong> Очікується рівно 24 регіони для населення, інфраструктури та ПЗФ</p>
-          <p>✅ <strong>GeoJSON:</strong> Тип має бути "FeatureCollection" з масивом "features"</p>
+          <p>✅ <strong>GeoJSON:</strong> Тип має бути &quot;FeatureCollection&quot; з масивом &quot;features&quot;</p>
           <p>⚠️ <strong>Увага:</strong> Імпорт повністю замінює існуючі дані. Рекомендуємо зробити резервну копію</p>
         </CardContent>
       </Card>
