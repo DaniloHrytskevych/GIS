@@ -729,6 +729,49 @@ function MapPage() {
                     )
                   ))}
 
+                  {/* Forest Fires */}
+                  {layers.forestFires && forestFires.filter(fire => !selectedRegion || fire.properties.region === selectedRegion).map((fire, idx) => {
+                    const isHuman = fire.properties.cause_type === "людський фактор";
+                    const fireIcon = L.divIcon({
+                      html: `<div style="color: ${isHuman ? '#ea580c' : '#f97316'}; font-size: 20px;">🔥</div>`,
+                      className: 'fire-marker',
+                      iconSize: [20, 20],
+                      iconAnchor: [10, 10]
+                    });
+                    
+                    return (
+                      <Marker key={`fire-${idx}`} position={[fire.geometry.coordinates[1], fire.geometry.coordinates[0]]} icon={fireIcon}>
+                        <Popup>
+                          <div className="text-sm min-w-[250px]">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Zap className={`w-4 h-4 ${isHuman ? 'text-orange-600' : 'text-orange-500'}`} />
+                              <p className="font-bold text-orange-600">Лісова пожежа</p>
+                            </div>
+                            <p className="text-xs font-semibold mb-2">{fire.properties.name}</p>
+                            
+                            <div className="space-y-1 text-xs mb-2">
+                              <p><span className="text-slate-500">Дата:</span> {fire.properties.date}</p>
+                              <p><span className="text-slate-500">Площа:</span> {fire.properties.area_ha} га</p>
+                              <p><span className="text-slate-500">Область:</span> {fire.properties.region}</p>
+                            </div>
+                            
+                            <div className={`p-2 rounded ${isHuman ? 'bg-orange-50 border border-orange-200' : 'bg-slate-50 border border-slate-200'}`}>
+                              <p className="text-xs font-semibold mb-1">Причина:</p>
+                              <p className={`text-xs ${isHuman ? 'text-orange-700 font-medium' : 'text-slate-600'}`}>
+                                {fire.properties.cause}
+                              </p>
+                              {isHuman && (
+                                <p className="text-xs text-orange-600 mt-2 font-medium">
+                                  ⚠️ Людський фактор - потреба в облаштованих пунктах!
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    );
+                  })}
+
                   {/* Recommended Zones */}
                   {layers.recommendedZones && recommendedZones.filter(zone => !selectedRegion || zone.region === selectedRegion).map((zone, idx) => {
                     const color = zone.priority >= 85 ? '#ef4444' : zone.priority >= 70 ? '#f97316' : '#eab308';
