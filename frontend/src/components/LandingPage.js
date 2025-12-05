@@ -774,6 +774,20 @@ const LandingPage = () => {
               <li>• <strong>Ukraine Protected Areas Law:</strong> Закон України "Про природно-заповідний фонд"</li>
             </ul>
           </div>
+          
+          {/* Scroll to Data Arrow */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => scrollTo('#data')}
+              className="inline-flex flex-col items-center text-slate-600 hover:text-slate-800 transition-colors animate-bounce"
+              aria-label="Перейти до джерел даних"
+            >
+              <span className="text-sm font-medium mb-1">Джерела даних</span>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
