@@ -1,82 +1,95 @@
 {
-  "timestamp": "2025-12-04T16:44:20.603782",
-  "total_tests": 12,
+  "timestamp": "2025-12-05T18:04:03.435200",
+  "total_tests": 13,
   "passed_tests": 12,
-  "failed_tests": 0,
-  "success_rate": 100.0,
+  "failed_tests": 1,
+  "success_rate": 92.3076923076923,
   "test_details": [
     {
       "test": "API Root",
       "success": true,
       "details": "Status: 200, Message: GIS Recreational Potential Analysis API",
-      "timestamp": "2025-12-04T16:44:20.161430"
+      "timestamp": "2025-12-05T18:04:02.747232"
     },
     {
       "test": "Population Data",
       "success": true,
       "details": "Status: 200, Population data regions: 24, Sample: Київська область - 1800000 people",
-      "timestamp": "2025-12-04T16:44:20.193489"
+      "timestamp": "2025-12-05T18:04:02.782052"
     },
     {
       "test": "Infrastructure Data",
       "success": true,
       "details": "Status: 200, Infrastructure data regions: 24, Sample: Київська область - accessibility: 9.5",
-      "timestamp": "2025-12-04T16:44:20.228425"
+      "timestamp": "2025-12-05T18:04:02.817728"
     },
     {
       "test": "Protected Areas Data",
       "success": true,
       "details": "Status: 200, Protected areas data regions: 24, Sample: Київська область - national parks: 3",
-      "timestamp": "2025-12-04T16:44:20.261509"
+      "timestamp": "2025-12-05T18:04:02.858072"
     },
     {
       "test": "Get Regions",
       "success": true,
       "details": "Status: 200, Regions count: 24, Sample: Київська область, Expected regions found: 3/3",
-      "timestamp": "2025-12-04T16:44:20.298755"
+      "timestamp": "2025-12-05T18:04:02.891249"
     },
     {
       "test": "Get Recreational Points",
       "success": true,
       "details": "Status: 200, Points count: 780, Sample: Зона відпочинку \"Криниченька\" in Житомирська область, Valid GeoJSON format",
-      "timestamp": "2025-12-04T16:44:20.368424"
+      "timestamp": "2025-12-05T18:04:02.968196"
     },
     {
       "test": "Analyze Region (Київська область)",
       "success": true,
-      "details": "Status: 200, Region: Київська область, Score: 76.1/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-04T16:44:20.411638"
+      "details": "Status: 200, Region: Київська область, Score: 81.1/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T18:04:03.009460"
     },
     {
       "test": "Analyze Region (Львівська область)",
       "success": true,
-      "details": "Status: 200, Region: Львівська область, Score: 78.0/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-04T16:44:20.445832"
+      "details": "Status: 200, Region: Львівська область, Score: 83.0/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T18:04:03.050496"
     },
     {
       "test": "Analyze Region (Одеська область)",
       "success": true,
-      "details": "Status: 200, Region: Одеська область, Score: 66.1/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-04T16:44:20.480914"
+      "details": "Status: 200, Region: Одеська область, Score: 71.1/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T18:04:03.089470"
     },
     {
       "test": "Analyze All Regions",
       "success": true,
-      "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Львівська область (78.0), Bottom: Черкаська область (27.8)",
-      "timestamp": "2025-12-04T16:44:20.521781"
+      "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Львівська область (83.0), Bottom: Черкаська область (32.8)",
+      "timestamp": "2025-12-05T18:04:03.163988"
     },
     {
-      "test": "Recommended Zones API",
+      "test": "Recommended Zones - 7-Factor Model",
       "success": true,
-      "details": "Status: 200, Zones count: 25 ✓ Has zones array ✓ All required fields present | Zone types: near_pfz=True, roadside=True ✓ Priority values valid (0-100) ✓ Reasoning structure valid ✓ Infrastructure data valid ✓ Recommended facilities count valid (4-5) ✓ Zone-specific requirements met ✓ Coordinates within Ukraine bounds | Sample zone: с. біля Яворівський НПП (type: near_pfz, priority: 88)",
-      "timestamp": "2025-12-04T16:44:20.569175"
+      "details": "Status: 200, Total zones: 89 | Types: near_pfz=33, roadside=34, fire_prevention=22 ✓ All 3 zone types present | Priority: sorted=True, range_valid=True, high=89, med=0, low=0 ✓ Priority calculation valid ✓ Fire prevention zones valid ✓ Near PFZ zones valid ✓ Roadside zones valid ✓ Reasoning structure valid ✓ Data integrity valid | Stats: avg=99.9, max=100, min=95 | Top zone: Біля: НПП \"Голосіївський\" (near_pfz, 100)",
+      "timestamp": "2025-12-05T18:04:03.276212"
+    },
+    {
+      "test": "7-Factor Priority Model Verification",
+      "success": false,
+      "details": "Analyzing 89 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.03) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 99.93939393939394, 'roadside': 100.0, 'fire_prevention': 99.68181818181819}",
+      "timestamp": "2025-12-05T18:04:03.398297"
     },
     {
       "test": "Invalid Region Handling",
       "success": true,
       "details": "Status: 404 - Correctly returns 404 for invalid region",
-      "timestamp": "2025-12-04T16:44:20.603261"
+      "timestamp": "2025-12-05T18:04:03.434430"
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "test": "7-Factor Priority Model Verification",
+      "error": "Analyzing 89 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.03) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 99.93939393939394, 'roadside': 100.0, 'fire_prevention': 99.68181818181819}",
+      "expected_status": 200,
+      "actual_status": null
+    }
+  ]
 }
