@@ -734,6 +734,10 @@ function MapPage() {
                   <Checkbox checked={layers.regionScores} onCheckedChange={() => toggleLayer('regionScores')} />
                   <span className="text-xs">Скори областей</span>
                 </label>
+                <label className="flex items-center gap-2 cursor-pointer text-gray-300 hover:text-white transition-colors">
+                  <Checkbox checked={layers.regionBoundaries} onCheckedChange={() => toggleLayer('regionBoundaries')} />
+                  <span className="text-xs">Межі областей</span>
+                </label>
                 
                 <Separator className="my-3 bg-amber-600/30" />
                 
