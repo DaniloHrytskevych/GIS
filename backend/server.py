@@ -232,6 +232,182 @@ def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infr
     
     return min(100, max(0, base_priority))
 
+def find_fire_clusters(region_name: str, min_cluster_size: int = 3, radius_km: float = 10.0):
+    """
+    Знайти кластери людських пожеж у регіоні
+    Кластер = ≥3 людські пожежі в радіусі 10 км
+    
+    Args:
+        region_name: Назва області
+        min_cluster_size: Мінімум пожеж для кластера
+        radius_km: Радіус пошуку (км)
+    
+    Returns:
+        List of clusters with center coordinates and fire count
+    """
+    if not FOREST_FIRES or 'features' not in FOREST_FIRES:
+        return []
+    
+    # Фільтруємо людські пожежі регіону
+    human_fires = [
+        f for f in FOREST_FIRES['features']
+        if f['properties']['region'] == region_name and 
+           f['properties']['cause_type'] == "людський фактор"
+    ]
+    
+    if len(human_fires) < min_cluster_size:
+        return []
+    
+    clusters = []
+    processed = set()
+    
+    for i, fire in enumerate(human_fires):
+        if i in processed:
+            continue
+        
+        fire_lat, fire_lng = fire['geometry']['coordinates'][1], fire['geometry']['coordinates'][0]
+        cluster_fires = [fire]
+        cluster_indices = [i]
+        
+        # Знайти всі пожежі в радіусі
+        for j, other_fire in enumerate(human_fires):
+            if j == i or j in processed:
+                continue
+            
+            other_lat, other_lng = other_fire['geometry']['coordinates'][1], other_fire['geometry']['coordinates'][0]
+            
+            # Розрахувати відстань
+            dlat = math.radians(other_lat - fire_lat)
+            dlng = math.radians(other_lng - fire_lng)
+            a = math.sin(dlat/2)**2 + math.cos(math.radians(fire_lat)) * math.cos(math.radians(other_lat)) * math.sin(dlng/2)**2
+            c = 2 * math.asin(math.sqrt(a))
+            distance = 6371 * c
+            
+            if distance <= radius_km:
+                cluster_fires.append(other_fire)
+                cluster_indices.append(j)
+        
+        # Якщо кластер достатньо великий
+        if len(cluster_fires) >= min_cluster_size:
+            # Розрахувати центр кластера
+            avg_lat = sum(f['geometry']['coordinates'][1] for f in cluster_fires) / len(cluster_fires)
+            avg_lng = sum(f['geometry']['coordinates'][0] for f in cluster_fires) / len(cluster_fires)
+            
+            clusters.append({
+                'center': [avg_lat, avg_lng],
+                'fire_count': len(cluster_fires),
+                'fires': cluster_fires
+            })
+            
+            # Позначити як оброблені
+            processed.update(cluster_indices)
+    
+    return clusters
+
+def calculate_comprehensive_priority(
+    zone_type: str,
+    region_analysis: dict,
+    fire_cluster_size: int = 0,
+    competitors: int = 0,
+    distance_from_pfz: float = 5.0,
+    pfz_name: str = ""
+):
+    """
+    ПОВНИЙ розрахунок пріоритету з УСІМА 7 факторами
+    
+    Типи зон:
+    - near_pfz: біля ПЗФ (туристичний атрактор)
+    - roadside: придорожна (транзитний потік)
+    - fire_prevention: профілактика пожеж (кластер людських пожеж)
+    
+    7 факторів:
+    1. Попит (0-25) - demand_score
+    2. ПЗФ (0-20) - pfz_score або road_traffic
+    3. Природа (0-15) - nature_score
+    4. Транспорт (0-15) - accessibility_score
+    5. Інфраструктура (0-10) - infrastructure_score
+    6. Пожежі (0-5) - fire_score
+    7. Насиченість (0 до -15) - competitors_penalty
+    """
+    base = 50
+    
+    # Фактор 1: ПОПИТ (0-25 балів)
+    demand_component = min(25, region_analysis.get('demand_score', 0))
+    
+    # Фактор 2: АТРАКТОР (0-20 балів) - залежить від типу зони
+    attractor_component = 0
+    if zone_type == "near_pfz":
+        # Близькість до ПЗФ
+        if 'НПП' in pfz_name or 'Національний' in pfz_name:
+            attractor_component = 20
+        elif 'заповідник' in pfz_name.lower():
+            attractor_component = 15
+        elif 'РЛП' in pfz_name:
+            attractor_component = 10
+        else:
+            attractor_component = 8
+        
+        # Штраф якщо занадто далеко
+        if distance_from_pfz > 10:
+            attractor_component *= 0.5
+    
+    elif zone_type == "roadside":
+        # Транспортний потік
+        attractor_component = 15  # Міжнародна траса
+    
+    elif zone_type == "fire_prevention":
+        # Розмір кластера пожеж
+        if fire_cluster_size >= 10:
+            attractor_component = 20
+        elif fire_cluster_size >= 7:
+            attractor_component = 15
+        elif fire_cluster_size >= 5:
+            attractor_component = 12
+        elif fire_cluster_size >= 3:
+            attractor_component = 10
+    
+    # Фактор 3: ПРИРОДА (0-15 балів)
+    nature_component = min(15, region_analysis.get('nature_score', 0))
+    
+    # Фактор 4: ТРАНСПОРТ (0-15 балів)
+    transport_component = min(15, region_analysis.get('accessibility_score', 0))
+    
+    # Фактор 5: ІНФРАСТРУКТУРА (0-10 балів)
+    infrastructure_component = min(10, region_analysis.get('infrastructure_score', 0))
+    
+    # Фактор 6: ПОЖЕЖІ (0-5 балів)
+    fire_component = min(5, region_analysis.get('fire_score', 0))
+    # Додатковий бонус для fire_prevention зон
+    if zone_type == "fire_prevention":
+        fire_component = min(5, fire_component + 2)
+    
+    # Фактор 7: НАСИЧЕНІСТЬ (0 до -15 балів)
+    saturation_penalty = 0
+    if competitors == 0:
+        saturation_penalty = 0  # Немає конкуренції - супер!
+    elif competitors <= 2:
+        saturation_penalty = -3
+    elif competitors <= 5:
+        saturation_penalty = -7
+    elif competitors <= 10:
+        saturation_penalty = -12
+    else:
+        saturation_penalty = -15
+    
+    # ЗАГАЛЬНИЙ ПРІОРИТЕТ
+    total_priority = (
+        base +
+        demand_component +
+        attractor_component +
+        nature_component +
+        transport_component +
+        infrastructure_component +
+        fire_component +
+        saturation_penalty
+    )
+    
+    return min(100, max(0, int(total_priority)))
+
 # Models
 class RegionAnalysis(BaseModel):
     model_config = ConfigDict(extra="ignore")
