@@ -140,13 +140,14 @@ function MapPage() {
 
   const loadInitialData = async () => {
     try {
-      const [regionsRes, pointsRes, allAnalysisRes, pfzRes, zonesRes, firesRes] = await Promise.all([
+      const [regionsRes, pointsRes, allAnalysisRes, pfzRes, zonesRes, firesRes, boundariesRes] = await Promise.all([
         axios.get(`${API}/regions`),
         axios.get(`${API}/recreational-points`),
         axios.get(`${API}/analyze-all`),
         axios.get(`${API}/pfz-objects`),
         axios.get(`${API}/recommended-zones`),
-        axios.get(`${API}/forest-fires`)
+        axios.get(`${API}/forest-fires`),
+        axios.get(`${API}/region-boundaries`)
       ]);
       
       setRegions(regionsRes.data.regions || []);
@@ -157,7 +158,9 @@ function MapPage() {
       console.log('Loaded recommended zones:', zones.length, zones);
       setRecommendedZones(zones);
       setForestFires(firesRes.data.features || []);
+      setRegionBoundaries(boundariesRes.data.features || []);
       console.log('Loaded forest fires:', firesRes.data.features?.length || 0);
+      console.log('Loaded region boundaries:', boundariesRes.data.features?.length || 0);
     } catch (error) {
       console.error('Error loading data:', error);
     }
