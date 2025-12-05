@@ -12,10 +12,12 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const DataImport = () => {
+  const navigate = useNavigate();
   const [dataStatus, setDataStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState({});
   const [backupInfo, setBackupInfo] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const dataTypes = [
     {
