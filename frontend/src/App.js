@@ -761,18 +761,23 @@ function MapPage() {
 
           {/* Center - Map */}
           <div className="col-span-12 lg:col-span-5">
-            <Card className="overflow-hidden">
-              <div className="h-[calc(100vh-120px)]">
+            <Card className="overflow-hidden bg-slate-800/50 backdrop-blur border-2 border-amber-600/30 shadow-xl">
+              <div className="h-[calc(100vh-180px)]">
                 <MapContainer 
                   center={UKRAINE_CENTER} 
                   zoom={DEFAULT_ZOOM} 
                   style={{ height: '100%', width: '100%' }} 
                   scrollWheelZoom={true}
-                  maxBounds={[[44.0, 22.0], [52.5, 40.5]]}
+                  maxBounds={UKRAINE_BOUNDS}
                   minZoom={6}
                   maxZoom={18}
+                  maxBoundsViscosity={1.0}
                 >
-                  <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <TileLayer 
+                    attribution='&copy; OpenStreetMap' 
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    noWrap={true}
+                  />
                   <MapController center={mapCenter} zoom={mapZoom} />
                   
                   {/* Existing points */}
