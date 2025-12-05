@@ -1,0 +1,70 @@
+{
+  "timestamp": "2025-12-05T19:45:10.187201",
+  "total_tests": 10,
+  "passed_tests": 10,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "test_details": [
+    {
+      "test": "Data Status Endpoint",
+      "success": true,
+      "details": "Status: 200, All 5 data types present, Counts: pop=24, infra=24, pfz=24, rec=780, fires=1875(649 human) ✓ All data loaded",
+      "timestamp": "2025-12-05T19:45:09.681049"
+    },
+    {
+      "test": "Population Import - Valid Data",
+      "success": true,
+      "details": "Valid data - Status: 200, Success: Population data imported successfully: 24 regions, Regions: 24",
+      "timestamp": "2025-12-05T19:45:09.737415"
+    },
+    {
+      "test": "Population Import - Invalid Data",
+      "success": true,
+      "details": "Invalid data (23 regions) - Status: 400, Correct validation error: Validation error: 1 validation error for PopulationDataSchema\nukraine_regions_data\n  Value error, Expected 24 regions, got 23 [type=value_error, input_value=[{'name': 'Тестова...as_water_bodies': True}], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error",
+      "timestamp": "2025-12-05T19:45:09.773672"
+    },
+    {
+      "test": "Infrastructure Import",
+      "success": true,
+      "details": "Status: 200, Success: Infrastructure data imported successfully: 24 regions, Regions: 24",
+      "timestamp": "2025-12-05T19:45:09.827710"
+    },
+    {
+      "test": "Protected Areas Import",
+      "success": true,
+      "details": "Status: 200, Success: Protected areas data imported successfully: 24 regions, Regions: 24",
+      "timestamp": "2025-12-05T19:45:09.873035"
+    },
+    {
+      "test": "Recreational Points Import - Valid",
+      "success": true,
+      "details": "Valid data - Status: 200, Success: Recreational points imported successfully: 5 points, Points: 5",
+      "timestamp": "2025-12-05T19:45:09.913507"
+    },
+    {
+      "test": "Recreational Points Import - Invalid Coords",
+      "success": true,
+      "details": "Invalid coordinates - Status: 400, Correct validation error: Validation error: 1 validation error for RecreationalPointsSchema\nfeatures.0.geometry.coordinates\n  Value error, Longitude 60.0 out of Ukraine bounds [type=value_error, input_value=[60.0, 70.0], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error",
+      "timestamp": "2025-12-05T19:45:09.948314"
+    },
+    {
+      "test": "Forest Fires Import - Valid",
+      "success": true,
+      "details": "Valid data - Status: 200, Success: Forest fires data imported successfully: 3 fires (1 human-caused), Fires: 3 (1 human)",
+      "timestamp": "2025-12-05T19:45:09.990821"
+    },
+    {
+      "test": "Forest Fires Import - Invalid Cause",
+      "success": true,
+      "details": "Invalid cause_type - Status: 400, Correct validation error: Validation error: 1 validation error for ForestFiresSchema\nfeatures.0.properties.cause_type\n  Value error, Invalid cause_type: невідома причина [type=value_error, input_value='невідома причина', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error",
+      "timestamp": "2025-12-05T19:45:10.031507"
+    },
+    {
+      "test": "Auto-Reload Functionality",
+      "success": true,
+      "details": "Initial fires: 3, After import: 3 (1 human) ✓ Data reloaded correctly, Zones API accessible after reload",
+      "timestamp": "2025-12-05T19:45:10.184600"
+    }
+  ],
+  "failures": []
+}
