@@ -204,7 +204,7 @@ function MapPage() {
     
     // Create a temporary div for PDF content
     const pdfContent = document.createElement('div');
-    pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif;';
+    pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif; font-size: 11px;';
     
     const d = analysisResult.details;
     const shouldBuild = d?.investment?.should_build;
