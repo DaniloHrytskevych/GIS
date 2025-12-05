@@ -101,9 +101,11 @@ const MapController = ({ center, zoom }) => {
 };
 
 function MapPage() {
+  const navigate = useNavigate();
   const [regions, setRegions] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [allAnalysis, setAllAnalysis] = useState([]);
   const [recreationalPoints, setRecreationalPoints] = useState([]);
   const [recommendedZones, setRecommendedZones] = useState([]);
