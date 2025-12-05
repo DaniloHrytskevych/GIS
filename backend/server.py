@@ -1200,6 +1200,195 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
         }
     }
 
+
+# ===== DATA IMPORT ENDPOINTS =====
+from fastapi import UploadFile, File
+from schemas import (
+    PopulationDataSchema,
+    InfrastructureDataSchema,
+    ProtectedAreasSchema,
+    RecreationalPointsSchema,
+    ForestFiresSchema
+)
+
+def reload_data():
+    """Reload all data from files into memory"""
+    global INFRASTRUCTURE_DATA, POPULATION_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS, FOREST_FIRES
+    INFRASTRUCTURE_DATA = load_json_file('ukraine_infrastructure.json')
+    POPULATION_DATA = load_json_file('ukraine_population_data.json')
+    PROTECTED_AREAS_DATA = load_json_file('ukraine_protected_areas.json')
+    RECREATIONAL_POINTS = load_json_file('recreational_points_web.geojson')
+    FOREST_FIRES = load_json_file('forest_fires.geojson')
+    logging.info("Data reloaded successfully")
+
+@api_router.get("/data-status")
+async def get_data_status():
+    """Get status of current loaded data"""
+    return {
+        "population_data": {
+            "loaded": POPULATION_DATA is not None,
+            "regions_count": len(POPULATION_DATA.get('ukraine_regions_data', [])) if POPULATION_DATA else 0
+        },
+        "infrastructure_data": {
+            "loaded": INFRASTRUCTURE_DATA is not None,
+            "regions_count": len(INFRASTRUCTURE_DATA.get('ukraine_infrastructure', {}).get('regions', [])) if INFRASTRUCTURE_DATA else 0
+        },
+        "protected_areas": {
+            "loaded": PROTECTED_AREAS_DATA is not None,
+            "regions_count": len(PROTECTED_AREAS_DATA.get('ukraine_protected_areas', {}).get('regions', [])) if PROTECTED_AREAS_DATA else 0
+        },
+        "recreational_points": {
+            "loaded": RECREATIONAL_POINTS is not None,
+            "points_count": len(RECREATIONAL_POINTS.get('features', [])) if RECREATIONAL_POINTS else 0
+        },
+        "forest_fires": {
+            "loaded": FOREST_FIRES is not None,
+            "total_fires": FOREST_FIRES.get('metadata', {}).get('total_fires', 0) if FOREST_FIRES else 0,
+            "human_caused": FOREST_FIRES.get('metadata', {}).get('human_caused', 0) if FOREST_FIRES else 0
+        }
+    }
+
+@api_router.post("/import/population-data")
+async def import_population_data(file: UploadFile = File(...)):
+    """Import population data (JSON)"""
+    try:
+        content = await file.read()
+        data = json.loads(content.decode('utf-8'))
+        
+        # Validate schema
+        validated_data = PopulationDataSchema(**data)
+        
+        # Save to file
+        output_file = DATA_DIR / 'ukraine_population_data.json'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(validated_data.model_dump(), f, ensure_ascii=False, indent=2)
+        
+        # Reload data
+        reload_data()
+        
+        return {
+            "success": True,
+            "message": f"Population data imported successfully: {len(validated_data.ukraine_regions_data)} regions",
+            "regions_count": len(validated_data.ukraine_regions_data)
+        }
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+
+@api_router.post("/import/infrastructure-data")
+async def import_infrastructure_data(file: UploadFile = File(...)):
+    """Import infrastructure data (JSON)"""
+    try:
+        content = await file.read()
+        data = json.loads(content.decode('utf-8'))
+        
+        # Validate schema
+        validated_data = InfrastructureDataSchema(**data)
+        
+        # Save to file
+        output_file = DATA_DIR / 'ukraine_infrastructure.json'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(validated_data.model_dump(), f, ensure_ascii=False, indent=2)
+        
+        # Reload data
+        reload_data()
+        
+        return {
+            "success": True,
+            "message": f"Infrastructure data imported successfully: {len(validated_data.ukraine_infrastructure['regions'])} regions",
+            "regions_count": len(validated_data.ukraine_infrastructure['regions'])
+        }
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+
+@api_router.post("/import/protected-areas")
+async def import_protected_areas(file: UploadFile = File(...)):
+    """Import protected areas data (JSON)"""
+    try:
+        content = await file.read()
+        data = json.loads(content.decode('utf-8'))
+        
+        # Validate schema
+        validated_data = ProtectedAreasSchema(**data)
+        
+        # Save to file
+        output_file = DATA_DIR / 'ukraine_protected_areas.json'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(validated_data.model_dump(), f, ensure_ascii=False, indent=2)
+        
+        # Reload data
+        reload_data()
+        
+        return {
+            "success": True,
+            "message": f"Protected areas data imported successfully: {len(validated_data.ukraine_protected_areas['regions'])} regions",
+            "regions_count": len(validated_data.ukraine_protected_areas['regions'])
+        }
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+
+@api_router.post("/import/recreational-points")
+async def import_recreational_points(file: UploadFile = File(...)):
+    """Import recreational points (GeoJSON)"""
+    try:
+        content = await file.read()
+        data = json.loads(content.decode('utf-8'))
+        
+        # Validate schema
+        validated_data = RecreationalPointsSchema(**data)
+        
+        # Save to file
+        output_file = DATA_DIR / 'recreational_points_web.geojson'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(validated_data.model_dump(), f, ensure_ascii=False, indent=2)
+        
+        # Reload data
+        reload_data()
+        
+        return {
+            "success": True,
+            "message": f"Recreational points imported successfully: {len(validated_data.features)} points",
+            "points_count": len(validated_data.features)
+        }
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+
+@api_router.post("/import/fires")
+async def import_fires(file: UploadFile = File(...)):
+    """Import forest fires data (GeoJSON)"""
+    try:
+        content = await file.read()
+        data = json.loads(content.decode('utf-8'))
+        
+        # Validate schema
+        validated_data = ForestFiresSchema(**data)
+        
+        # Save to file
+        output_file = DATA_DIR / 'forest_fires.geojson'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(validated_data.model_dump(), f, ensure_ascii=False, indent=2)
+        
+        # Reload data
+        reload_data()
+        
+        return {
+            "success": True,
+            "message": f"Forest fires data imported successfully: {validated_data.metadata.total_fires} fires ({validated_data.metadata.human_caused} human-caused)",
+            "total_fires": validated_data.metadata.total_fires,
+            "human_caused": validated_data.metadata.human_caused
+        }
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Validation error: {str(e)}")
+
 # Include router
 app.include_router(api_router)
 
