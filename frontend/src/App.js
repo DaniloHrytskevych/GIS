@@ -676,19 +676,19 @@ function MapPage() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button onClick={exportComparisonPDF} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
-                <MdDescription className="w-4 h-4 mr-2" />
-                Звіт
+              <Button onClick={exportComparisonPDF} className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white" size="sm">
+                <TbChartDots3 className="w-4 h-4 mr-2" />
+                Порівняння областей (PDF)
               </Button>
               {analysisResult && (
                 <>
                   <Button onClick={exportPDF} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
                     <MdDownload className="w-4 h-4 mr-2" />
-                    PDF
+                    Звіт про область (PDF)
                   </Button>
                   <Button onClick={exportJSON} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
                     <MdDescription className="w-4 h-4 mr-2" />
-                    JSON
+                    Дані (JSON)
                   </Button>
                 </>
               )}
