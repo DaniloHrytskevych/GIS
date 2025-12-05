@@ -182,7 +182,7 @@ def count_human_fires_nearby(coordinates: list, radius_km: float = 20.0):
         "score": round(fire_score, 1)
     }
 
-def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infrastructure_score: float, visitors_estimate: int):
+def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infrastructure_score: float, visitors_estimate: int, fire_score: float = 0):
     """
     Calculate priority for a recommended zone
     
@@ -192,6 +192,7 @@ def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infr
         competitors: Number of competitors nearby
         infrastructure_score: Infrastructure quality (0-10)
         visitors_estimate: Estimated annual visitors
+        fire_score: Fire risk score (0-5) - NEW FACTOR
     
     Returns:
         Priority score (0-100)
@@ -218,6 +219,10 @@ def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infr
     
     # Infrastructure bonus
     base_priority += min(10, infrastructure_score)
+    
+    # НОВИЙ ФАКТОР: Fire prevention bonus
+    # Більше людських пожеж = вища потреба в облаштованих пунктах
+    base_priority += fire_score
     
     # Visitors bonus
     if visitors_estimate > 50000:
