@@ -412,8 +412,8 @@ const DataImport = () => {
                     {backupInfo.files.map((file, idx) => (
                       <div key={idx} className="flex items-center justify-between bg-slate-800/50 p-2 rounded text-xs border border-amber-600/20">
                         <div className="flex-1">
-                          <div className="font-medium">{file.description}</div>
-                          <div className="text-slate-500">{file.size_mb} MB</div>
+                          <div className="font-medium text-white">{file.description}</div>
+                          <div className="text-gray-400">{file.size_mb} MB</div>
                         </div>
                         <button
                           onClick={() => {
@@ -426,7 +426,7 @@ const DataImport = () => {
                             };
                             handleDownloadSingle(typeMapping[file.filename]);
                           }}
-                          className="text-amber-600 hover:text-amber-800 underline"
+                          className="text-amber-400 hover:text-amber-300 underline"
                         >
                           Завантажити
                         </button>
