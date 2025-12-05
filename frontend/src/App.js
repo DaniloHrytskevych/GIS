@@ -842,7 +842,7 @@ function MapPage() {
                               <p><span className="text-gray-400">Область:</span> <span className="text-white">{fire.properties.region}</span></p>
                             </div>
                             
-                            <div className={`p-2 rounded backdrop-blur ${isHuman ? 'bg-orange-900/30 border border-orange-600/50' : 'bg-slate-700/50 border border-slate-600/30'}`}>
+                            <div className={`p-2 rounded backdrop-blur ${isHuman ? 'bg-orange-900/30 border border-orange-600/50' : 'bg-slate-800/90 border border-slate-600/30'}`}>
                               <p className="text-xs font-semibold mb-1 text-gray-300">Причина:</p>
                               <p className={`text-xs ${isHuman ? 'text-orange-300 font-medium' : 'text-gray-300'}`}>
                                 {fire.properties.cause}
@@ -912,7 +912,7 @@ function MapPage() {
                             )}
 
                             {/* ОБҐРУНТУВАННЯ */}
-                            <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
+                            <div className="mt-3 p-3 bg-slate-800 border border-slate-600/50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-amber-300">
                                 <TbChartDots3 className="inline" size={16} /> Обґрунтування:
                               </h4>
@@ -924,7 +924,7 @@ function MapPage() {
                             </div>
 
                             {/* РЕКОМЕНДОВАНА ІНФРАСТРУКТУРА */}
-                            <div className="mt-3 p-3 bg-slate-700/60 border border-slate-600/50 rounded-lg mb-3">
+                            <div className="mt-3 p-3 bg-slate-800 border border-slate-600/50 rounded-lg mb-3">
                               <h4 className="font-semibold mb-2 flex items-center gap-1 text-emerald-300">
                                 <MdApartment className="inline" size={16} /> Рекомендована інфраструктура:
                               </h4>
@@ -936,7 +936,7 @@ function MapPage() {
                             </div>
 
                             {/* Базова інформація */}
-                            <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-700/40 p-3 rounded-lg border border-slate-600/30">
+                            <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-800/80 p-3 rounded-lg border border-slate-600/30">
                               <p>Тип: <strong className="text-white">{zone.recommended_type}</strong></p>
                               <p>Місткість: <strong className="text-white">{zone.capacity}</strong></p>
                               <p className="flex items-center gap-1"><MdAttachMoney className="text-amber-400" size={14} />Інвестиції: <strong className="text-amber-300">{zone.investment}</strong></p>
@@ -949,7 +949,7 @@ function MapPage() {
                               <h4 className="font-semibold mb-2 text-amber-300 flex items-center gap-1">
                                 <MdMap className="inline" size={16} /> Інфраструктура поблизу:
                               </h4>
-                              <div className="grid grid-cols-2 gap-2 text-sm text-gray-200 bg-slate-700/40 p-2 rounded">
+                              <div className="grid grid-cols-2 gap-2 text-sm text-gray-200 bg-slate-800/80 p-2 rounded">
                                 <div className="flex items-center gap-1">
                                   <MdLocalHospital className="text-red-400" size={14} />
                                   <span>Лікарня: <span className="text-white font-medium">{zone.infrastructure.hospital_distance} км</span></span>
@@ -1010,7 +1010,7 @@ function MapPage() {
             <Card className="h-[calc(100vh-180px)] flex flex-col bg-slate-800/50 backdrop-blur border-2 border-amber-600/30 shadow-xl">
               <CardContent className="flex-1 overflow-hidden p-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-                  <TabsList className="grid w-full grid-cols-3 rounded-none border-b bg-slate-700/50 border-amber-600/30">
+                  <TabsList className="grid w-full grid-cols-3 rounded-none border-b bg-slate-800/90 border-amber-600/30">
                     <TabsTrigger value="analysis" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Аналіз</TabsTrigger>
                     <TabsTrigger value="locations" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Локації</TabsTrigger>
                     <TabsTrigger value="compare" className="text-gray-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">Порівняння</TabsTrigger>
@@ -1065,11 +1065,11 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-700/50 rounded p-2 border border-amber-600/20">
+                                      <div className="bg-slate-800/90 rounded p-2 border border-amber-600/20">
                                         <p className="text-xs text-gray-400">Населення</p>
                                         <p className="font-semibold text-white">{analysisResult.details.population.total?.toLocaleString()} осіб</p>
                                       </div>
-                                      <div className="bg-slate-700/50 rounded p-2 border border-amber-600/20">
+                                      <div className="bg-slate-800/90 rounded p-2 border border-amber-600/20">
                                         <p className="text-xs text-gray-400">Густота</p>
                                         <p className="font-semibold text-white">{analysisResult.details.population.density_per_km2} осіб/км²</p>
                                       </div>
@@ -1104,24 +1104,24 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-700/60 border border-emerald-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-emerald-600/30 rounded p-2">
                                         <p className="text-xs text-emerald-400">★ НПП</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.national_parks}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-green-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-green-600/30 rounded p-2">
                                         <p className="text-xs text-green-400">★ Заповідники</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.nature_reserves}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-teal-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-teal-600/30 rounded p-2">
                                         <p className="text-xs text-teal-400">★ РЛП</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.regional_landscape_parks}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-cyan-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-cyan-600/30 rounded p-2">
                                         <p className="text-xs text-cyan-400">★ Заказники</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.pfz.zakazniks}</p>
                                       </div>
                                     </div>
-                                    <div className="flex justify-between bg-slate-700/60 border border-amber-600/30 rounded p-2">
+                                    <div className="flex justify-between bg-slate-800 border border-amber-600/30 rounded p-2">
                                       <span className="text-gray-300">Під ПЗФ:</span>
                                       <span className="font-semibold text-white">{analysisResult.details.pfz.percent_of_region}% території</span>
                                     </div>
@@ -1149,14 +1149,14 @@ function MapPage() {
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
-                                    <div className="flex items-center justify-between bg-slate-700/60 border border-green-600/30 rounded p-3">
+                                    <div className="flex items-center justify-between bg-slate-800 border border-green-600/30 rounded p-3">
                                       <div className="flex items-center gap-2">
                                         <GiForest className="w-5 h-5 text-green-400" />
                                         <span className="text-gray-200">Лісове покриття</span>
                                       </div>
                                       <span className="font-bold text-white">{analysisResult.details.nature.forest_coverage_percent}%</span>
                                     </div>
-                                    <div className="flex items-center justify-between bg-slate-700/60 border border-blue-600/30 rounded p-3">
+                                    <div className="flex items-center justify-between bg-slate-800 border border-blue-600/30 rounded p-3">
                                       <div className="flex items-center gap-2">
                                         <GiWaterDrop className="w-5 h-5 text-blue-400" />
                                         <span className="text-gray-200">Водні об&apos;єкти</span>
@@ -1184,17 +1184,17 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-700/60 border border-indigo-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-indigo-600/30 rounded p-2">
                                         <p className="text-xs text-indigo-400">Рейтинг</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.accessibility_score}/10</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-purple-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-purple-600/30 rounded p-2">
                                         <p className="text-xs text-purple-400">Щільність доріг</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.highway_density} км</p>
                                       </div>
                                     </div>
                                     {analysisResult.details.transport.main_roads?.length > 0 && (
-                                      <div className="bg-slate-700/60 border border-indigo-600/30 rounded p-3">
+                                      <div className="bg-slate-800 border border-indigo-600/30 rounded p-3">
                                         <p className="text-xs text-indigo-300 mb-2 flex items-center gap-1"><FaCar size={12} /> Міжнародні траси:</p>
                                         {analysisResult.details.transport.main_roads.filter(r => r.type === 'міжнародна').slice(0, 4).map((road, i) => (
                                           <p key={i} className="text-gray-200">• {road.name} <span className="text-gray-400">({road.quality})</span></p>
@@ -1202,15 +1202,15 @@ function MapPage() {
                                       </div>
                                     )}
                                     <div className="grid grid-cols-3 gap-2 text-center">
-                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                         <p className="text-xs text-gray-400">Залізниці</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.railway_stations}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                         <p className="text-xs text-gray-400">Аеропорти</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.airports}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                         <p className="text-xs text-gray-400">Час до міста</p>
                                         <p className="font-semibold text-white">{analysisResult.details.transport.avg_travel_time_minutes} хв</p>
                                       </div>
@@ -1232,28 +1232,28 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-2 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-red-600/30 rounded p-2">
+                                      <div className="flex items-center gap-2 bg-slate-800 border border-red-600/30 rounded p-2">
                                         <MdLocalHospital className="w-4 h-4 text-red-400" />
                                         <div>
                                           <p className="text-xs text-gray-400">Лікарні/100к</p>
                                           <p className="font-semibold text-white">{analysisResult.details.infrastructure.hospitals_per_100k}</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-amber-600/30 rounded p-2">
+                                      <div className="flex items-center gap-2 bg-slate-800 border border-amber-600/30 rounded p-2">
                                         <MdLocalGasStation className="w-4 h-4 text-amber-400" />
                                         <div>
                                           <p className="text-xs text-gray-400">Заправки</p>
                                           <p className="font-semibold text-white">{analysisResult.details.infrastructure.gas_stations_per_100km2}/100км²</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-blue-600/30 rounded p-2">
+                                      <div className="flex items-center gap-2 bg-slate-800 border border-blue-600/30 rounded p-2">
                                         <MdWifi className="w-4 h-4 text-blue-400" />
                                         <div>
                                           <p className="text-xs text-gray-400">Моб. зв&apos;язок</p>
                                           <p className="font-semibold text-white">{analysisResult.details.infrastructure.mobile_coverage_percent}%</p>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 bg-slate-700/60 border border-purple-600/30 rounded p-2">
+                                      <div className="flex items-center gap-2 bg-slate-800 border border-purple-600/30 rounded p-2">
                                         <MdHotel className="w-4 h-4 text-purple-400" />
                                         <div>
                                           <p className="text-xs text-gray-400">Готелі</p>
@@ -1278,15 +1278,15 @@ function MapPage() {
                                   <AccordionContent>
                                     <div className="pl-6 space-y-3 text-sm">
                                       <div className="grid grid-cols-3 gap-2">
-                                        <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                        <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                           <p className="text-xs text-gray-400">Всього пожеж</p>
                                           <p className="font-semibold text-lg text-white">{analysisResult.details.fires.total_fires}</p>
                                         </div>
-                                        <div className="bg-slate-700/60 border border-orange-600/30 rounded p-2">
+                                        <div className="bg-slate-800 border border-orange-600/30 rounded p-2">
                                           <p className="text-xs text-orange-400 flex items-center gap-1"><GiFireBowl size={14} /> Від людей</p>
                                           <p className="font-semibold text-lg text-orange-300">{analysisResult.details.fires.human_caused_fires}</p>
                                         </div>
-                                        <div className="bg-slate-700/60 border border-green-600/30 rounded p-2">
+                                        <div className="bg-slate-800 border border-green-600/30 rounded p-2">
                                           <p className="text-xs text-green-400">Бонус</p>
                                           <p className="font-semibold text-lg text-green-300">+{analysisResult.fire_score}</p>
                                         </div>
@@ -1322,11 +1322,11 @@ function MapPage() {
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                         <p className="text-xs text-gray-400">Існуючих пунктів</p>
                                         <p className="font-semibold text-lg text-white">{analysisResult.details.saturation.existing_points}</p>
                                       </div>
-                                      <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                      <div className="bg-slate-800 border border-slate-600/30 rounded p-2">
                                         <p className="text-xs text-gray-400">Щільність</p>
                                         <p className="font-semibold text-white">{analysisResult.details.saturation.density_per_1000km2}/1000км²</p>
                                       </div>
@@ -1478,7 +1478,7 @@ function MapPage() {
                         <h3 className="font-semibold mb-3 text-white">Порівняння областей</h3>
                         <div className="space-y-2">
                           {allAnalysis.map((analysis, idx) => (
-                            <div key={idx} className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-700/50 transition-colors ${selectedRegion === analysis.region ? 'border-amber-500 bg-amber-900/30' : 'border-amber-600/20 bg-slate-800/30'}`}
+                            <div key={idx} className={`p-3 rounded-lg border cursor-pointer hover:bg-slate-800/90 transition-colors ${selectedRegion === analysis.region ? 'border-amber-500 bg-amber-900/30' : 'border-amber-600/20 bg-slate-800/30'}`}
                               onClick={() => handleRegionChange(analysis.region)}>
                               <div className="flex items-center justify-between mb-2">
                                 <div>
