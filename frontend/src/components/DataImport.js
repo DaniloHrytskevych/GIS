@@ -483,16 +483,16 @@ const DataImport = () => {
                     <Alert 
                       className={`flex-1 ${
                         uploadStatus[dataType.id].status === 'success' 
-                          ? 'bg-green-50 border-green-200' 
-                          : 'bg-red-50 border-red-200'
+                          ? 'bg-green-50 border-green-300' 
+                          : 'bg-red-50 border-red-300'
                       }`}
                     >
                       {uploadStatus[dataType.id].status === 'success' ? (
-                        <CheckCircle2 size={16} className="text-green-600" />
+                        <MdCheckCircle size={18} className="text-green-700" />
                       ) : (
-                        <AlertCircle size={16} className="text-red-600" />
+                        <MdWarning size={18} className="text-red-700" />
                       )}
-                      <AlertDescription className="ml-2">
+                      <AlertDescription className="ml-2 font-medium">
                         {uploadStatus[dataType.id].message}
                       </AlertDescription>
                     </Alert>
@@ -501,15 +501,16 @@ const DataImport = () => {
 
                 {/* Warning */}
                 {uploadStatus[dataType.id]?.status === 'uploading' && (
-                  <div className="text-xs text-amber-600 flex items-center gap-2">
-                    <AlertCircle size={14} />
-                    Після імпорту система автоматично перезавантажить дані
+                  <div className="text-xs text-amber-700 flex items-center gap-2 bg-amber-50 px-3 py-2 rounded border border-amber-200">
+                    <MdWarning size={16} />
+                    <span className="font-medium">Після імпорту система автоматично перезавантажить дані в пам'ять</span>
                   </div>
                 )}
               </div>
             </CardContent>
           </Card>
-        ))}
+        );
+        })}
       </div>
 
       {/* Help Section */}
