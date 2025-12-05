@@ -223,7 +223,59 @@ function MapPage() {
         <p style="color: #94a3b8; margin-top: 15px; font-size: 10px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
       </div>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ОЦІНКА ЗА ФАКТОРАМИ</h3>
+      <!-- МЕТОДОЛОГІЯ -->
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📐 МЕТОДОЛОГІЯ РОЗРАХУНКУ</h3>
+      <div style="background: #fef3c7; padding: 12px; border-left: 4px solid #f59e0b; margin-bottom: 15px; font-size: 10px;">
+        <p style="margin: 0 0 8px 0; font-weight: bold;">Загальна формула оцінки потенціалу:</p>
+        <p style="margin: 0; font-family: 'Courier New', monospace; background: white; padding: 8px; border-radius: 4px;">
+          <strong>TOTAL</strong> = Попит(0-25) + ПЗФ(0-20) + Природа(0-15) + Транспорт(0-15) + Інфраструктура(0-10) + Пожежі(0-5) - Насиченість(0-15)
+        </p>
+      </div>
+      
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px;">
+        <tr style="background: #1e293b; color: white;">
+          <th style="padding: 8px; text-align: left; border: 1px solid #475569;">Фактор</th>
+          <th style="padding: 8px; text-align: left; border: 1px solid #475569;">Формула розрахунку</th>
+          <th style="padding: 8px; text-align: center; border: 1px solid #475569; width: 60px;">Макс</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>1. Попит</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">населення × 0.15 - існуюча_пропозиція</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">25</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>2. ПЗФ</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">НПП×8 + Заповідники×6 + РЛП×3 + Заказники×1</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">20</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>3. Природа</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">ліси% × 0.15 + водойми(так/ні) × 5</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">15</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>4. Транспорт</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">щільність_доріг × 2 + залізниці × 3 + аеропорти × 5</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">15</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>5. Інфраструктура</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">лікарні/100к + заправки + готелі + мобільний%</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">10</td>
+        </tr>
+        <tr style="background: #f8fafc;">
+          <td style="padding: 6px; border: 1px solid #e2e8f0;"><strong>6. Пожежі</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px;">людських_пожеж ÷ 100 (більше = вища потреба)</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center;">5</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; color: #dc2626;"><strong>7. Штраф</strong></td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; font-family: 'Courier New', monospace; font-size: 9px; color: #dc2626;">-1 за кожні 50 пунктів/1000км²</td>
+          <td style="padding: 6px; border: 1px solid #e2e8f0; text-align: center; color: #dc2626;">-15</td>
+        </tr>
+      </table>
+      
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📊 ОЦІНКА ЗА ФАКТОРАМИ</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <tr style="background: #f8fafc;">
           <td style="padding: 12px; border: 1px solid #e2e8f0;">Попит від населення</td>
