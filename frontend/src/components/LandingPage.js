@@ -166,58 +166,67 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Logic Section */}
-      <section id="logic" className="py-20 bg-white">
+      {/* Methodology Section */}
+      <section id="logic" className="py-20 bg-slate-100">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">
-            Логіка інформаційної системи
-          </h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">
-            Математична модель та алгоритми розрахунку рекреаційного потенціалу
-          </p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Науково-методологічна база
+            </h2>
+            <div className="w-24 h-1 bg-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Багатофакторна модель оцінки рекреаційного потенціалу територій на основі геопросторового аналізу
+            </p>
+          </div>
 
           {/* Formula */}
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-lg mb-12 border-2 border-green-200">
-            <h3 className="text-2xl font-bold mb-4 text-center">
-              Формула рекреаційного потенціалу
-            </h3>
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-xl mb-12 shadow-2xl border-2 border-amber-600">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <TbChartDots3 className="text-amber-500 text-4xl" />
+              <h3 className="text-3xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                Модель розрахунку пріоритету зони
+              </h3>
+            </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-              <div className="text-center text-xl font-mono mb-4">
-                <strong>Потенціал =</strong>
+            <div className="bg-slate-700/50 backdrop-blur p-6 rounded-lg shadow-xl mb-6 border border-amber-600/30">
+              <div className="text-center text-2xl font-bold mb-6 text-amber-400" style={{ fontFamily: 'Courier New, monospace' }}>
+                P<sub className="text-sm">zone</sub> = Σ(F<sub className="text-sm">i</sub> × W<sub className="text-sm">i</sub>) − S<sub className="text-sm">penalty</sub>
               </div>
-              <div className="space-y-2 text-lg">
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span>+ Попит від населення</span>
-                  <span className="font-bold text-green-600">25%</span>
+              
+              <div className="space-y-3 text-base">
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-green-500">
+                  <span className="text-gray-200 font-medium">F₁: Попит населення</span>
+                  <span className="font-bold text-green-400 text-lg">0-25</span>
                 </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span>+ ПЗФ як туристичний атрактор</span>
-                  <span className="font-bold text-green-600">20%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-emerald-500">
+                  <span className="text-gray-200 font-medium">F₂: ПЗФ (атрактор)</span>
+                  <span className="font-bold text-emerald-400 text-lg">0-20</span>
                 </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span>+ Природні ресурси</span>
-                  <span className="font-bold text-blue-600">15%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-blue-500">
+                  <span className="text-gray-200 font-medium">F₃: Природні ресурси</span>
+                  <span className="font-bold text-blue-400 text-lg">0-15</span>
                 </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span>+ Транспортна доступність</span>
-                  <span className="font-bold text-blue-600">15%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-cyan-500">
+                  <span className="text-gray-200 font-medium">F₄: Транспортна доступність</span>
+                  <span className="font-bold text-cyan-400 text-lg">0-15</span>
                 </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span>+ Антропогенна інфраструктура</span>
-                  <span className="font-bold text-blue-600">10%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-indigo-500">
+                  <span className="text-gray-200 font-medium">F₅: Інфраструктура</span>
+                  <span className="font-bold text-indigo-400 text-lg">0-10</span>
                 </div>
-                <div className="flex justify-between items-center border-b pb-2 bg-orange-50">
-                  <span>+ Ризик лісових пожеж (профілактика)</span>
-                  <span className="font-bold text-orange-600">+5%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-orange-500">
+                  <span className="text-gray-200 font-medium">F₆: Пожежна безпека</span>
+                  <span className="font-bold text-orange-400 text-lg">0-5</span>
                 </div>
-                <div className="flex justify-between items-center border-t-2 border-red-200 pt-2">
-                  <span>− Насиченість існуючими пунктами</span>
-                  <span className="font-bold text-red-600">−15%</span>
+                <div className="flex justify-between items-center bg-slate-800/60 px-4 py-3 rounded border-l-4 border-red-500">
+                  <span className="text-gray-200 font-medium">S: Штраф насиченості</span>
+                  <span className="font-bold text-red-400 text-lg">0 до −15</span>
                 </div>
               </div>
-              <div className="text-center mt-4 pt-4 border-t-2 border-gray-300">
-                <span className="text-2xl font-bold">= 100 балів</span>
+              
+              <div className="text-center mt-6 pt-6 border-t-2 border-amber-600/50">
+                <span className="text-3xl font-bold text-amber-400" style={{ fontFamily: 'Courier New, monospace' }}>P<sub>max</sub> = 100</span>
+                <p className="text-gray-400 text-sm mt-2">максимальний пріоритет зони</p>
               </div>
             </div>
 
