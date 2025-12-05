@@ -692,26 +692,30 @@ const LandingPage = () => {
           </div>
 
           {/* Statistics */}
-          <div className="mt-12 bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-lg border-2 border-green-200">
-            <h3 className="text-2xl font-bold text-center mb-6">
-              Загальна статистика даних
+          <div className="mt-12 bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-xl shadow-2xl border-2 border-amber-600">
+            <h3 className="text-2xl font-bold text-center mb-6 text-white" style={{ fontFamily: 'Georgia, serif' }}>
+              Загальний обсяг даних
             </h3>
-            <div className="grid md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-4xl font-bold text-green-600">780</div>
-                <div className="text-gray-600">Рекреаційних пунктів</div>
+            <div className="grid md:grid-cols-5 gap-4 text-center">
+              <div className="bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-green-400">780</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Рекр. пунктів</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-blue-600">24</div>
-                <div className="text-gray-600">Області України</div>
+              <div className="bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-blue-400">24</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Регіони</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-yellow-600">8,512</div>
-                <div className="text-gray-600">Об'єктів ПЗФ</div>
+              <div className="bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-emerald-400">8,512</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Об'єктів ПЗФ</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-600">100+</div>
-                <div className="text-gray-600">Параметрів інфраструктури</div>
+              <div className="bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-purple-400">1,875</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Пожеж</div>
+              </div>
+              <div className="bg-slate-700/50 backdrop-blur p-4 rounded border border-amber-600/20">
+                <div className="text-3xl font-bold text-amber-400">2.1</div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">МБ даних</div>
               </div>
             </div>
           </div>
