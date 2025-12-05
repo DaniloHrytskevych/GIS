@@ -641,7 +641,7 @@ function MapPage() {
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <Checkbox checked={layers.forestFires} onCheckedChange={() => toggleLayer('forestFires')} />
-                  <span className="text-xs">Лісові пожежі (2024)</span>
+                  <span className="text-xs">Лісові пожежі (2025)</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <Checkbox checked={layers.regionScores} onCheckedChange={() => toggleLayer('regionScores')} />
