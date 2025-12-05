@@ -939,9 +939,9 @@ function MapPage() {
                             <div className="space-y-1 text-sm mb-3 text-gray-200 bg-slate-700/40 p-3 rounded-lg border border-slate-600/30">
                               <p>Тип: <strong className="text-white">{zone.recommended_type}</strong></p>
                               <p>Місткість: <strong className="text-white">{zone.capacity}</strong></p>
-                              <p>💰 Інвестиції: <strong className="text-amber-300">{zone.investment}</strong></p>
-                              <p>⏱️ Окупність: <strong className="text-white">{zone.payback}</strong></p>
-                              <p>📍 Існуючих пунктів поблизу: <strong className="text-white">{zone.competitors_nearby}</strong></p>
+                              <p className="flex items-center gap-1"><MdAttachMoney className="text-amber-400" size={14} />Інвестиції: <strong className="text-amber-300">{zone.investment}</strong></p>
+                              <p className="flex items-center gap-1"><MdSchedule className="text-blue-400" size={14} />Окупність: <strong className="text-white">{zone.payback}</strong></p>
+                              <p>• Існуючих пунктів поблизу: <strong className="text-white">{zone.competitors_nearby}</strong></p>
                             </div>
 
                             {/* ІНФРАСТРУКТУРА ПОБЛИЗУ */}
