@@ -1040,24 +1040,24 @@ function MapPage() {
                             {/* Factors Accordion */}
                             <Accordion type="multiple" defaultValue={['demand']} className="w-full">
                               {/* DEMAND */}
-                              <AccordionItem value="demand">
-                                <AccordionTrigger className="text-sm py-2">
+                              <AccordionItem value="demand" className="border-amber-600/30">
+                                <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                   <div className="flex items-center gap-2">
-                                    <MdPeople className="w-4 h-4 text-blue-500" />
+                                    <MdPeople className="w-4 h-4 text-blue-400" />
                                     <span>1. ПОПИТ ВІД НАСЕЛЕННЯ</span>
-                                    <Badge variant="outline" className="ml-auto">{analysisResult.demand_score}/25</Badge>
+                                    <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.demand_score}/25</Badge>
                                     {getScoreIcon(analysisResult.demand_score, 25)}
                                   </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
                                   <div className="pl-6 space-y-3 text-sm">
                                     <div className="grid grid-cols-2 gap-2">
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Населення</p>
-                                        <p className="font-semibold">{analysisResult.details.population.total?.toLocaleString()} осіб</p>
+                                      <div className="bg-slate-700/50 rounded p-2 border border-amber-600/20">
+                                        <p className="text-xs text-gray-400">Населення</p>
+                                        <p className="font-semibold text-white">{analysisResult.details.population.total?.toLocaleString()} осіб</p>
                                       </div>
-                                      <div className="bg-slate-50 rounded p-2">
-                                        <p className="text-xs text-slate-500">Густота</p>
+                                      <div className="bg-slate-700/50 rounded p-2 border border-amber-600/20">
+                                        <p className="text-xs text-gray-400">Густота</p>
                                         <p className="font-semibold">{analysisResult.details.population.density_per_km2} осіб/км²</p>
                                       </div>
                                     </div>
