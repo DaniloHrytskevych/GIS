@@ -85,6 +85,14 @@ const DataImport = () => {
   useEffect(() => {
     fetchDataStatus();
     fetchBackupInfo();
+    
+    // Scroll to top button handler
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const fetchDataStatus = async () => {
