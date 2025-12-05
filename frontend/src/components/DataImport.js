@@ -12,6 +12,7 @@ const DataImport = () => {
   const [dataStatus, setDataStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState({});
+  const [backupInfo, setBackupInfo] = useState(null);
 
   const dataTypes = [
     {
