@@ -380,37 +380,37 @@ const DataImport = () => {
               <div className="bg-slate-700/50 rounded-lg p-4 border border-amber-500/30 backdrop-blur">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-amber-600">
+                    <div className="text-lg font-bold text-amber-400">
                       {backupInfo.file_count}
                     </div>
-                    <div className="text-slate-600">Файлів</div>
+                    <div className="text-gray-300">Файлів</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-amber-600">
+                    <div className="text-lg font-bold text-amber-400">
                       {backupInfo.total_size_mb} MB
                     </div>
-                    <div className="text-slate-600">Загальний розмір</div>
+                    <div className="text-gray-300">Загальний розмір</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-amber-600">
+                    <div className="text-lg font-bold text-amber-400">
                       24
                     </div>
-                    <div className="text-slate-600">Регіонів</div>
+                    <div className="text-gray-300">Регіонів</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-amber-600">
+                    <div className="text-lg font-bold text-amber-400">
                       {dataStatus?.forest_fires?.total_fires || 0}
                     </div>
-                    <div className="text-slate-600">Пожеж</div>
+                    <div className="text-gray-300">Пожеж</div>
                   </div>
                 </div>
                 
                 {/* Individual Files */}
                 <div className="space-y-2">
-                  <div className="text-xs font-semibold text-slate-600 mb-2">Окремі файли:</div>
+                  <div className="text-xs font-semibold text-gray-300 mb-2">Окремі файли:</div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {backupInfo.files.map((file, idx) => (
-                      <div key={idx} className="flex items-center justify-between bg-slate-50 p-2 rounded text-xs">
+                      <div key={idx} className="flex items-center justify-between bg-slate-800/50 p-2 rounded text-xs border border-amber-600/20">
                         <div className="flex-1">
                           <div className="font-medium">{file.description}</div>
                           <div className="text-slate-500">{file.size_mb} MB</div>
