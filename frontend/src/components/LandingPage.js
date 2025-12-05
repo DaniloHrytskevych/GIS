@@ -112,27 +112,37 @@ const LandingPage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gray-50">
+      <section id="about" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            Про інформаційну систему
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Характеристики системи
+            </h2>
+            <div className="w-24 h-1 bg-amber-600 mx-auto"></div>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="mb-4"><Target className="w-12 h-12 text-green-600" /></div>
-              <h3 className="text-xl font-bold mb-2">Мета</h3>
-              <p className="text-gray-600">
-                Визначення оптимальних локацій для будівництва
-                рекреаційних об'єктів (готелів, кемпінгів, баз відпочинку)
-                на основі комплексного аналізу 6 факторів
+            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-amber-600 hover:shadow-2xl transition-shadow">
+              <div className="mb-4 flex justify-center">
+                <div className="bg-amber-100 p-4 rounded-full">
+                  <MdNaturePeople className="w-12 h-12 text-amber-700" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-center text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>Мета дослідження</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
+                Визначення оптимальних локацій для розміщення рекреаційних об'єктів 
+                на основі багатофакторного геопросторового аналізу та математичного моделювання
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="mb-4"><BarChart3 className="w-12 h-12 text-blue-600" /></div>
-              <h3 className="text-xl font-bold mb-2">Охоплення</h3>
-              <p className="text-gray-600">
+            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-blue-600 hover:shadow-2xl transition-shadow">
+              <div className="mb-4 flex justify-center">
+                <div className="bg-blue-100 p-4 rounded-full">
+                  <MdAnalytics className="w-12 h-12 text-blue-700" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-center text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>Територіальне охоплення</h3>
+              <p className="text-gray-600 text-center leading-relaxed">
                 24 області України<br/>
                 780 існуючих рекреаційних пунктів<br/>
                 12 національних природних парків<br/>
