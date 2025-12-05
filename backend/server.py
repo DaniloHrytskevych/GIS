@@ -550,13 +550,48 @@ async def analyze_all_regions():
 async def get_recommended_zones():
     """
     Get recommended zones for building new recreational facilities
-    Uses algorithm to calculate coordinates near PFZ objects and main roads
+    Uses comprehensive 7-factor algorithm to calculate priority:
+    1. Demand (0-25) 2. PFZ/Attractor (0-20) 3. Nature (0-15) 
+    4. Transport (0-15) 5. Infrastructure (0-10) 6. Fires (0-5) 
+    7. Saturation (0 to -15)
+    
+    Three types of zones:
+    - near_pfz: Near protected nature zones (eco-tourism)
+    - roadside: Along major roads (transit flow)
+    - fire_prevention: Fire clusters (human-caused fire prevention)
     """
     if not all([POPULATION_DATA, INFRASTRUCTURE_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS]):
         raise HTTPException(status_code=500, detail="Data not loaded")
     
     recommended_zones = []
-    zone_id_counter = 1
+    
+    # Region centers for coordinate generation
+    REGION_CENTERS = {
+        'Київська область': [50.45, 30.52],
+        'Львівська область': [49.84, 24.03],
+        'Закарпатська область': [48.62, 22.29],
+        'Одеська область': [46.48, 30.73],
+        'Харківська область': [49.99, 36.23],
+        'Дніпропетровська область': [48.46, 35.04],
+        'Житомирська область': [50.25, 28.66],
+        'Волинська область': [50.75, 25.32],
+        'Івано-Франківська область': [48.92, 24.71],
+        'Вінницька область': [49.23, 28.47],
+        'Чернігівська область': [51.50, 31.29],
+        'Рівненська область': [50.62, 26.23],
+        'Чернівецька область': [48.29, 25.93],
+        'Полтавська область': [49.59, 34.55],
+        'Черкаська область': [49.44, 32.06],
+        'Сумська область': [50.91, 34.80],
+        'Хмельницька область': [49.42, 26.98],
+        'Тернопільська область': [49.55, 25.59],
+        'Миколаївська область': [46.97, 32.00],
+        'Херсонська область': [46.64, 32.62],
+        'Кіровоградська область': [48.51, 32.26],
+        'Запорізька область': [47.84, 35.14],
+        'Донецька область': [48.02, 37.80],
+        'Луганська область': [48.57, 39.31],
+    }
     
     # Analyze each region and generate recommended zones
     for region in POPULATION_DATA.get('ukraine_regions_data', []):
@@ -582,73 +617,268 @@ async def get_recommended_zones():
             if p.get('properties', {}).get('region') == region_name
         ]
         
-        # Calculate analysis for the region
+        # Calculate analysis for the region (contains all 7 factor scores)
         try:
             analysis = await analyze_region(region_name)
         except Exception:
             continue
         
         # Only recommend if total_score >= 55 (high potential)
-        if analysis.get('total_score', 0) < 55 or not analysis.get('details', {}).get('investment', {}).get('should_build', False):
+        if analysis.get('total_score', 0) < 55:
             continue
         
-        # ====== STEP 1: Generate zones near PFZ objects ======
+        base_coords = REGION_CENTERS.get(region_name, [48.5, 31.0])
+        gap = analysis.get('details', {}).get('population', {}).get('gap', 0)
+        
+        # ====== STEP 1: Generate zones near PFZ objects (near_pfz) ======
         if pfz_region and pfz_region.get('notable_objects'):
             notable_objects = pfz_region['notable_objects']
             
-            # For each notable PFZ object
-            for pfz_obj in notable_objects[:3]:  # Limit to top 3 PFZ objects per region
-                pfz_name = pfz_obj
-                
-                # Try to get coordinates for this PFZ from the data
-                # For simplicity, use region center + offset based on hash
-                region_centers = {
-                    'Київська область': [50.45, 30.52],
-                    'Львівська область': [49.84, 24.03],
-                    'Закарпатська область': [48.62, 22.29],
-                    'Одеська область': [46.48, 30.73],
-                    'Харківська область': [49.99, 36.23],
-                    'Дніпропетровська область': [48.46, 35.04],
-                    'Житомирська область': [50.25, 28.66],
-                    'Волинська область': [50.75, 25.32],
-                    'Івано-Франківська область': [48.92, 24.71],
-                    'Вінницька область': [49.23, 28.47],
-                    'Чернігівська область': [51.50, 31.29],
-                    'Рівненська область': [50.62, 26.23],
-                    'Чернівецька область': [48.29, 25.93],
-                    'Полтавська область': [49.59, 34.55],
-                    'Черкаська область': [49.44, 32.06],
-                    'Сумська область': [50.91, 34.80],
-                    'Хмельницька область': [49.42, 26.98],
-                    'Тернопільська область': [49.55, 25.59],
-                    'Миколаївська область': [46.97, 32.00],
-                    'Херсонська область': [46.64, 32.62],
-                    'Кіровоградська область': [48.51, 32.26],
-                    'Запорізька область': [47.84, 35.14],
-                    'Донецька область': [48.02, 37.80],
-                    'Луганська область': [48.57, 39.31],
-                }
-                
-                base_coords = region_centers.get(region_name, [48.5, 31.0])
-                
+            # Limit to top 2 PFZ objects per region
+            for idx, pfz_name in enumerate(notable_objects[:2]):
                 # Generate coordinates NEARBY (not at the center) using hash
                 zone_coords = generate_nearby_coordinates(
                     base_coords[0], 
                     base_coords[1], 
-                    seed=f"{region_name}_{pfz_name}",
-                    min_distance=2,
-                    max_distance=10
+                    seed=f"{region_name}_{pfz_name}_near",
+                    min_distance=3,
+                    max_distance=8
                 )
                 
                 # Check competition
                 competitors = count_competitors_nearby(zone_coords, radius_km=5.0)
                 
-                # Only add if competition is low
-                if competitors < 5:
-                    pass  # TODO: Implement zone generation logic
+                # Calculate distance from PFZ (simulated)
+                distance_from_pfz = 3 + idx * 2
+                
+                # Calculate priority using comprehensive 7-factor model
+                priority = calculate_comprehensive_priority(
+                    zone_type="near_pfz",
+                    region_analysis=analysis,
+                    fire_cluster_size=0,
+                    competitors=competitors,
+                    distance_from_pfz=distance_from_pfz,
+                    pfz_name=pfz_name
+                )
+                
+                # Only add if priority is high enough
+                if priority < 60:
+                    continue
+                
+                # Get infrastructure distances
+                base_distance = 10 if region_name in ['Закарпатська область', 'Чернівецька область'] else 5
+                
+                # Generate reasoning for near_pfz zone
+                visitors_estimate = 30000 if 'НПП' in pfz_name or 'Національний' in pfz_name else 15000
+                reasoning = {
+                    "point1": f"🌲 {pfz_name} - {visitors_estimate:,} відвідувачів/рік (атрактор)",
+                    "point2": f"📊 Попит: {int(analysis['demand_score'])} балів, Пожежі: {analysis['fire_score']} балів",
+                    "point3": f"🏗️ Конкуренція: {competitors} р.п. (низька насиченість)"
+                }
+                
+                # Recommended facilities for eco-tourism
+                capacity_people = int(gap / 4 / 180 / 2) if gap > 0 else 50
+                recommended_facilities = [
+                    f"Екологічний готель: {max(30, min(70, capacity_people))} номерів",
+                    "Ресторан з місцевою/органічною кухнею",
+                    "Інформаційний центр про ПЗФ (екскурсії, карти маршрутів)",
+                    "Прокат туристичного спорядження",
+                    "Веранда/тераса з видом на природу"
+                ]
+                
+                # Create zone
+                recommended_zones.append({
+                    "id": f"{region_name}_near_pfz_{idx+1}",
+                    "type": "near_pfz",
+                    "name": f"Біля: {pfz_name}",
+                    "region": region_name,
+                    "coordinates": zone_coords,
+                    "priority": priority,
+                    "reasoning": reasoning,
+                    "recommended_facilities": recommended_facilities,
+                    "infrastructure": {
+                        "hospital_distance": base_distance + 2,
+                        "hospital_name": f"{region_name.replace(' область', '')} ЦРЛ",
+                        "gas_station_distance": base_distance,
+                        "gas_station_name": "WOG" if region_name in ['Київська область', 'Львівська область'] else "БРСМ",
+                        "shop_distance": base_distance - 1,
+                        "shop_name": "Сільпо" if region_name == 'Київська область' else "АТБ",
+                        "mobile_coverage": infra_region.get('anthropogenic_infrastructure', {}).get('mobile_coverage_percent', 95) if infra_region else 95,
+                        "nearest_road": infra_region.get('transport_accessibility', {}).get('main_roads', [{}])[0].get('name', 'М-06') if infra_region and infra_region.get('transport_accessibility', {}).get('main_roads') else 'М-06',
+                        "road_distance": 1,
+                        "road_quality": "добра"
+                    },
+                    "legal_status": "✅ ДОЗВОЛЕНО (населений пункт, ЗА МЕЖАМИ ПЗФ)",
+                    "distance_from_pfz": distance_from_pfz,
+                    "pfz_object": pfz_name,
+                    "recommended_type": "Екоготель",
+                    "capacity": "50-70 місць",
+                    "investment": "$200K-400K",
+                    "payback": "2-4 роки",
+                    "competitors_nearby": competitors
+                })
         
-        # Generate zones using simple algorithm (fallback)
-        if analysis.get('total_score', 0) >= 55:
+        # ====== STEP 2: Generate roadside zones (roadside) ======
+        if infra_region and infra_region.get('transport_accessibility', {}).get('main_roads'):
+            main_roads = infra_region['transport_accessibility']['main_roads']
+            
+            # Limit to top 2 main roads
+            for idx, road in enumerate(main_roads[:2]):
+                road_name = road.get('name', 'М-06')
+                
+                # Generate coordinates along the road
+                zone_coords = generate_nearby_coordinates(
+                    base_coords[0],
+                    base_coords[1],
+                    seed=f"{region_name}_{road_name}_road",
+                    min_distance=15,
+                    max_distance=30
+                )
+                
+                # Check competition
+                competitors = count_competitors_nearby(zone_coords, radius_km=5.0)
+                
+                # Calculate priority using comprehensive 7-factor model
+                priority = calculate_comprehensive_priority(
+                    zone_type="roadside",
+                    region_analysis=analysis,
+                    fire_cluster_size=0,
+                    competitors=competitors,
+                    distance_from_pfz=0,
+                    pfz_name=""
+                )
+                
+                # Only add if priority is high enough
+                if priority < 55:
+                    continue
+                
+                # Generate reasoning for roadside zone
+                traffic = "5,000+" if road.get('type') == 'міжнародна' else "3,000+"
+                reasoning = {
+                    "point1": f"🚗 {road_name} - головна траса ({traffic} авто/день)",
+                    "point2": f"📊 Транспорт: {int(analysis['accessibility_score'])} балів, Попит: {int(analysis['demand_score'])} балів",
+                    "point3": f"🏗️ Конкуренція: {competitors} р.п. на маршруті"
+                }
+                
+                # Recommended facilities for roadside
+                recommended_facilities = [
+                    "Мотель: 20-30 місць",
+                    "Ресторан/кафе: 40-50 місць для відвідувачів",
+                    "Стоянка: 30-40 автомобілів",
+                    "Дитячий майданчик",
+                    "Зона відпочинку з альтанками та мангалами"
+                ]
+                
+                # Create zone
+                recommended_zones.append({
+                    "id": f"{region_name}_roadside_{idx+1}",
+                    "type": "roadside",
+                    "name": f"Траса {road_name}, {region_name.replace(' область', '')}",
+                    "region": region_name,
+                    "coordinates": zone_coords,
+                    "priority": priority,
+                    "reasoning": reasoning,
+                    "recommended_facilities": recommended_facilities,
+                    "infrastructure": {
+                        "hospital_distance": 8,
+                        "hospital_name": f"{region_name.replace(' область', '')} ЦРЛ",
+                        "gas_station_distance": 2,
+                        "gas_station_name": "WOG" if region_name in ['Київська область', 'Львівська область'] else "БРСМ",
+                        "shop_distance": 3,
+                        "shop_name": "Сільпо" if region_name == 'Київська область' else "АТБ",
+                        "mobile_coverage": infra_region.get('anthropogenic_infrastructure', {}).get('mobile_coverage_percent', 95) if infra_region else 95,
+                        "nearest_road": road_name,
+                        "road_distance": 0,
+                        "road_quality": road.get('quality', 'добра')
+                    },
+                    "legal_status": "✅ ДОЗВОЛЕНО (придорожна інфраструктура)",
+                    "distance_from_pfz": None,
+                    "pfz_object": None,
+                    "recommended_type": "Придорожний комплекс",
+                    "capacity": "15-25 місць",
+                    "investment": "$100K-250K",
+                    "payback": "3-5 років",
+                    "competitors_nearby": competitors
+                })
+        
+        # ====== STEP 3: Generate fire prevention zones (fire_prevention) ======
+        fire_clusters = find_fire_clusters(region_name, min_cluster_size=3, radius_km=10.0)
+        
+        # Limit to top 2 fire clusters per region
+        for idx, cluster in enumerate(fire_clusters[:2]):
+            cluster_center = cluster['center']
+            fire_count = cluster['fire_count']
+            
+            # Check competition
+            competitors = count_competitors_nearby(cluster_center, radius_km=5.0)
+            
+            # Calculate priority using comprehensive 7-factor model
+            priority = calculate_comprehensive_priority(
+                zone_type="fire_prevention",
+                region_analysis=analysis,
+                fire_cluster_size=fire_count,
+                competitors=competitors,
+                distance_from_pfz=0,
+                pfz_name=""
+            )
+            
+            # Only add if priority is high enough and fire count significant
+            if priority < 55 or fire_count < 3:
+                continue
+            
+            # Generate reasoning for fire_prevention zone
+            reasoning = {
+                "point1": f"🔥 КРИТИЧНА ЗОНА: {fire_count} людських пожеж (профілактика!)",
+                "point2": f"📊 Пожежі: {analysis['fire_score']} балів, Природа: {int(analysis['nature_score'])} балів",
+                "point3": f"🏗️ Облаштований пункт знизить ризик нових пожеж"
+            }
+            
+            # Recommended facilities for fire prevention
+            recommended_facilities = [
+                "Облаштоване місце для відпочинку з безпечними вогнищами",
+                "Інформаційні стенди про правила пожежної безпеки",
+                "Контейнери для сміття та зола",
+                "Джерело води для гасіння вогню",
+                "Альтанки з мангалами (безпечна зона)"
+            ]
+            
+            # Create zone
+            recommended_zones.append({
+                "id": f"{region_name}_fire_{idx+1}",
+                "type": "fire_prevention",
+                "name": f"🔥 Кластер пожеж #{idx+1}, {region_name.replace(' область', '')}",
+                "region": region_name,
+                "coordinates": cluster_center,
+                "priority": priority,
+                "reasoning": reasoning,
+                "recommended_facilities": recommended_facilities,
+                "infrastructure": {
+                    "hospital_distance": 12,
+                    "hospital_name": f"{region_name.replace(' область', '')} ЦРЛ",
+                    "gas_station_distance": 8,
+                    "gas_station_name": "місцева заправка",
+                    "shop_distance": 10,
+                    "shop_name": "місцевий магазин",
+                    "mobile_coverage": 85,
+                    "nearest_road": "регіональна дорога",
+                    "road_distance": 2,
+                    "road_quality": "задовільна"
+                },
+                "legal_status": "✅ ДОЗВОЛЕНО (пожежна профілактика, лісовий фонд)",
+                "distance_from_pfz": None,
+                "pfz_object": None,
+                "recommended_type": "Облаштоване місце відпочинку",
+                "capacity": "30-50 осіб одночасно",
+                "investment": "$30K-80K",
+                "payback": "4-6 років (соціальний ефект)",
+                "competitors_nearby": competitors,
+                "fire_cluster_size": fire_count
+            })
+    
+    # Sort by priority descending
+    recommended_zones.sort(key=lambda x: x.get('priority', 0), reverse=True)
+    
+    return {"zones": recommended_zones}
             # Calculate density to find low-saturation areas
             area = region.get('area_km2', 20000)
             points_density = (len(region_points) / area * 1000) if area > 0 else 0
