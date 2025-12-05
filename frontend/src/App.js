@@ -1267,39 +1267,39 @@ function MapPage() {
 
                               {/* FOREST FIRES - NEW */}
                               {analysisResult.fire_score !== undefined && (
-                                <AccordionItem value="fires">
-                                  <AccordionTrigger className="text-sm py-2">
+                                <AccordionItem value="fires" className="border-amber-600/30">
+                                  <AccordionTrigger className="text-sm py-2 text-white hover:text-amber-400">
                                     <div className="flex items-center gap-2">
-                                      <MdElectricalServices className="w-4 h-4 text-orange-500" />
+                                      <GiFireBowl className="w-4 h-4 text-orange-400" />
                                       <span>6. РИЗИК ЛІСОВИХ ПОЖЕЖ (профілактика)</span>
-                                      <Badge variant="outline" className="ml-auto text-orange-600">{analysisResult.fire_score}/5</Badge>
+                                      <Badge variant="outline" className="ml-auto border-amber-600/50 text-amber-400">{analysisResult.fire_score}/5</Badge>
                                     </div>
                                   </AccordionTrigger>
                                   <AccordionContent>
                                     <div className="pl-6 space-y-3 text-sm">
                                       <div className="grid grid-cols-3 gap-2">
-                                        <div className="bg-slate-50 rounded p-2">
-                                          <p className="text-xs text-slate-500">Всього пожеж</p>
-                                          <p className="font-semibold text-lg">{analysisResult.details.fires.total_fires}</p>
+                                        <div className="bg-slate-700/60 border border-slate-600/30 rounded p-2">
+                                          <p className="text-xs text-gray-400">Всього пожеж</p>
+                                          <p className="font-semibold text-lg text-white">{analysisResult.details.fires.total_fires}</p>
                                         </div>
-                                        <div className="bg-orange-50 rounded p-2">
-                                          <p className="text-xs text-slate-500">Від людей</p>
-                                          <p className="font-semibold text-lg text-orange-600">{analysisResult.details.fires.human_caused_fires}</p>
+                                        <div className="bg-slate-700/60 border border-orange-600/30 rounded p-2">
+                                          <p className="text-xs text-orange-400">🔥 Від людей</p>
+                                          <p className="font-semibold text-lg text-orange-300">{analysisResult.details.fires.human_caused_fires}</p>
                                         </div>
-                                        <div className="bg-green-50 rounded p-2">
-                                          <p className="text-xs text-slate-500">Бонус</p>
-                                          <p className="font-semibold text-lg text-green-600">+{analysisResult.fire_score}</p>
+                                        <div className="bg-slate-700/60 border border-green-600/30 rounded p-2">
+                                          <p className="text-xs text-green-400">Бонус</p>
+                                          <p className="font-semibold text-lg text-green-300">+{analysisResult.fire_score}</p>
                                         </div>
                                       </div>
-                                      <div className="bg-orange-50 border border-orange-200 rounded p-3">
-                                        <p className="font-semibold text-orange-800 mb-2 flex items-center gap-2">
-                                          <MdElectricalServices className="w-4 h-4" />
+                                      <div className="bg-orange-900/30 border border-orange-600/50 rounded p-3">
+                                        <p className="font-semibold text-orange-300 mb-2 flex items-center gap-2">
+                                          <GiFireBowl className="w-4 h-4" />
                                           Логіка профілактики:
                                         </p>
-                                        <p className="text-xs text-orange-700">
+                                        <p className="text-xs text-orange-200">
                                           {analysisResult.details.fires.interpretation}
                                         </p>
-                                        <ul className="text-xs text-orange-700 mt-2 space-y-1">
+                                        <ul className="text-xs text-orange-200 mt-2 space-y-1">
                                           <li>✅ Облаштовані пункти знижують ризик на 40%</li>
                                           <li>✅ Контрольовані вогнища у кам&apos;яних кільцях</li>
                                           <li>✅ Доступ до води для гасіння</li>
