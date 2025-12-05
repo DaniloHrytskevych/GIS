@@ -800,15 +800,15 @@ function MapPage() {
                   {layers.pfzObjects && filteredPfzObjects.map((obj, idx) => (
                     obj.coordinates && (
                       <Marker key={`pfz-${idx}`} position={obj.coordinates} icon={createStarIcon('#f59e0b')}>
-                        <Popup>
-                          <div className="text-sm min-w-[220px]">
-                            <p className="font-bold text-amber-600">{obj.name}</p>
-                            <p className="text-xs text-slate-500 mb-2">{obj.type} • {obj.region}</p>
+                        <Popup className="dark-popup">
+                          <div className="text-sm min-w-[220px] bg-gradient-to-br from-slate-800 to-slate-900 text-white p-3 rounded-lg">
+                            <p className="font-bold text-amber-400">{obj.name}</p>
+                            <p className="text-xs text-gray-400 mb-2">{obj.type} • {obj.region}</p>
                             <div className="space-y-1 text-xs">
-                              <p><span className="text-slate-500">Площа:</span> {obj.area_ha?.toLocaleString()} га</p>
-                              <p><span className="text-slate-500">Рік створення:</span> {obj.year_created}</p>
-                              <p><span className="text-slate-500">Відвідуваність:</span> ~{obj.visitors_per_year?.toLocaleString()} осіб/рік</p>
-                              {obj.warning && <p className="text-red-500 font-medium mt-2">{obj.warning}</p>}
+                              <p><span className="text-gray-400">Площа:</span> <span className="text-white">{obj.area_ha?.toLocaleString()} га</span></p>
+                              <p><span className="text-gray-400">Рік створення:</span> <span className="text-white">{obj.year_created}</span></p>
+                              <p><span className="text-gray-400">Відвідуваність:</span> <span className="text-white">~{obj.visitors_per_year?.toLocaleString()} осіб/рік</span></p>
+                              {obj.warning && <p className="text-red-400 font-medium mt-2">{obj.warning}</p>}
                             </div>
                           </div>
                         </Popup>
