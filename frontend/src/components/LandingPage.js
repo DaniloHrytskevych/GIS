@@ -616,32 +616,62 @@ const LandingPage = () => {
                   <div className="text-xs text-gray-600 font-normal">Вторинний фактор</div>
                 </div>
               </h4>
-              <ul className="text-sm space-y-2 text-gray-700">
-                <li>✅ <strong>Може бути розвинута:</strong> Лікарні, заправки, готелі можна побудувати</li>
-                <li>✅ <strong>Laguna Hills Study:</strong> "Amenity gaps" важливіші за поточну інфраструктуру</li>
-                <li>✅ <strong>Вторинність:</strong> Інфраструктура є засобом, а не метою</li>
+              <ul className="text-sm space-y-2 text-gray-700 ml-10">
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-indigo-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Може бути розвинута:</strong> Лікарні, заправки, готелі можна побудувати</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-indigo-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Laguna Hills Study:</strong> "Amenity gaps" важливіші за поточну інфраструктуру</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-indigo-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Вторинність:</strong> Інфраструктура є засобом, а не метою</span>
+                </li>
               </ul>
             </div>
 
             {/* Forest Fires +5% */}
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-500">
-              <h4 className="text-xl font-bold mb-3 text-orange-700">
-                Лісові пожежі = +5% (НОВИЙ ФАКТОР)
+            <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg shadow-xl border-l-4 border-orange-600">
+              <h4 className="text-xl font-bold mb-3 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+                <div className="bg-orange-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
+                  F₆
+                </div>
+                <div>
+                  <div className="text-orange-700">Лісові пожежі = +5%</div>
+                  <div className="text-xs text-gray-600 font-normal">Профілактика</div>
+                </div>
               </h4>
-              <ul className="text-sm space-y-2 text-gray-700">
-                <li>🔥 <strong>Парадокс:</strong> Багато пожеж → потреба в облаштованих пунктах</li>
-                <li>✅ <strong>Дослідження США:</strong> 80% пожеж від рекреації - ПОЗА офіційними місцями</li>
-                <li>✅ <strong>Профілактика:</strong> Кільця для вогнищ знижують ризик на 40%</li>
-                <li>✅ <strong>Щільність:</strong> У радіусі 1 км від кемпінгів пожеж у 7 разів більше</li>
+              <ul className="text-sm space-y-2 text-gray-700 ml-10">
+                <li className="flex items-start gap-2">
+                  <GiFireBowl className="text-orange-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Парадокс:</strong> Багато пожеж → потреба в облаштованих пунктах</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-orange-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Дослідження США:</strong> 80% пожеж від рекреації - ПОЗА офіційними місцями</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-orange-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Профілактика:</strong> Кільця для вогнищ знижують ризик на 40%</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MdCheckCircle className="text-orange-600 flex-shrink-0 mt-0.5" size={16} />
+                  <span><strong>Щільність:</strong> У радіусі 1 км від кемпінгів пожеж у 7 разів більше</span>
+                </li>
               </ul>
             </div>
           </div>
 
           {/* Fire Prevention Logic */}
-          <div className="bg-gradient-to-r from-orange-100 to-red-100 p-8 rounded-lg shadow-lg border-2 border-orange-300 mb-8">
-            <h3 className="text-2xl font-bold mb-4 text-orange-800 flex items-center gap-2">
-              <span className="text-3xl">🔥</span>
-              Логіка фактору лісових пожеж
+          <div className="bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-lg shadow-xl border-l-4 border-orange-600 mb-8">
+            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2" style={{ fontFamily: 'Georgia, serif' }}>
+              <GiFireBowl className="text-orange-700" size={32} />
+              <div>
+                <div className="text-orange-800">Логіка фактору лісових пожеж</div>
+                <div className="text-sm text-gray-600 font-normal">Превентивний підхід до пожежної безпеки</div>
+              </div>
             </h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white p-4 rounded-lg">
