@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, BarChart3, Download, Target, Award, TreePine, Droplets, Car, Hospital, Fuel, Radio, Building, Zap, Trees, Trophy } from 'lucide-react';
+import { MdLandscape, MdAnalytics, MdDownload, MdNaturePeople, MdTerrain, MdDirectionsCar, MdLocalHospital, MdLocalGasStation, MdWifi, MdApartment, MdElectricalServices, MdPark, MdEmojiEvents } from 'react-icons/md';
+import { GiForest, GiTreeBranch, GiWaterDrop, GiFireBowl, GiMountains } from 'react-icons/gi';
+import { TbMapSearch, TbChartDots3, TbDatabase } from 'react-icons/tb';
 
 const LandingPage = () => {
   const navigate = useNavigate();
