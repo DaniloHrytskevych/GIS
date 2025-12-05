@@ -611,10 +611,49 @@ function MapPage() {
     return <MdCancel className="w-4 h-4 text-red-500" />;
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-slate-50" data-testid="app-container">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" data-testid="app-container">
+      {/* Navigation Bar */}
+      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 shadow-xl sticky top-0 z-50 border-b-2 border-amber-600">
+        <div className="max-w-screen-2xl mx-auto px-4">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center gap-3">
+              <GiMountains className="text-amber-500 text-3xl" />
+              <div>
+                <div className="text-xl font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                  ГІС АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ
+                </div>
+                <div className="text-xs text-amber-400">Інтерактивна карта та геопросторовий аналіз</div>
+              </div>
+            </div>
+            <div className="flex gap-3 items-center">
+              <Button 
+                onClick={() => navigate('/')} 
+                className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-500/50"
+                size="sm"
+              >
+                <MdArrowBack className="mr-2" />
+                На головну
+              </Button>
+              <Button 
+                onClick={() => navigate('/import')} 
+                className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-500/50"
+                size="sm"
+              >
+                <TbDatabase className="mr-2" />
+                Імпорт даних
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50" data-testid="header">
+      <header className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-amber-600/30 sticky top-16 z-40" data-testid="header">
         <div className="max-w-screen-2xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
