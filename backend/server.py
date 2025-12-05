@@ -42,16 +42,18 @@ PROTECTED_AREAS_DATA = None
 RECREATIONAL_POINTS = None
 RECOMMENDED_LOCATIONS = None
 FOREST_FIRES = None
+REGION_BOUNDARIES = None
 
 @app.on_event("startup")
 async def load_data():
-    global INFRASTRUCTURE_DATA, POPULATION_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS, RECOMMENDED_LOCATIONS, FOREST_FIRES
+    global INFRASTRUCTURE_DATA, POPULATION_DATA, PROTECTED_AREAS_DATA, RECREATIONAL_POINTS, RECOMMENDED_LOCATIONS, FOREST_FIRES, REGION_BOUNDARIES
     INFRASTRUCTURE_DATA = load_json_file('ukraine_infrastructure.json')
     POPULATION_DATA = load_json_file('ukraine_population_data.json')
     PROTECTED_AREAS_DATA = load_json_file('ukraine_protected_areas.json')
     RECREATIONAL_POINTS = load_json_file('recreational_points_web.geojson')
     RECOMMENDED_LOCATIONS = load_json_file('recommended_locations.json')
     FOREST_FIRES = load_json_file('forest_fires.geojson')
+    REGION_BOUNDARIES = load_json_file('ukraine_regions_boundaries.geojson')
     logging.info("Data loaded successfully")
 
 # Helper functions for zone generation
