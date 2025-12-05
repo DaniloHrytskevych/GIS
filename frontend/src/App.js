@@ -1195,9 +1195,9 @@ function MapPage() {
                                     </div>
                                     {analysisResult.details.transport.main_roads?.length > 0 && (
                                       <div className="bg-slate-700/60 border border-indigo-600/30 rounded p-3">
-                                        <p className="text-xs text-indigo-300 mb-2">🚗 Міжнародні траси:</p>
+                                        <p className="text-xs text-indigo-300 mb-2 flex items-center gap-1"><FaCar size={12} /> Міжнародні траси:</p>
                                         {analysisResult.details.transport.main_roads.filter(r => r.type === 'міжнародна').slice(0, 4).map((road, i) => (
-                                          <p key={i} className="text-gray-200">✓ {road.name} <span className="text-gray-400">({road.quality})</span></p>
+                                          <p key={i} className="text-gray-200">• {road.name} <span className="text-gray-400">({road.quality})</span></p>
                                         ))}
                                       </div>
                                     )}
