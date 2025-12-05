@@ -661,6 +661,7 @@ const LandingPage = () => {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }} className="hover:text-white cursor-pointer">Про систему</a></li>
                 <li><a href="#logic" onClick={(e) => { e.preventDefault(); scrollTo('#logic'); }} className="hover:text-white cursor-pointer">Логіка</a></li>
+                <li><a href="#methodology" onClick={(e) => { e.preventDefault(); scrollTo('#methodology'); }} className="hover:text-white cursor-pointer">Методологія</a></li>
                 <li><a href="#data" onClick={(e) => { e.preventDefault(); scrollTo('#data'); }} className="hover:text-white cursor-pointer">Дані</a></li>
                 <li><button onClick={() => navigate('/map')} className="hover:text-white cursor-pointer">Карта</button></li>
               </ul>
