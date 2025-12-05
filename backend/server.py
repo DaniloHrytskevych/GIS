@@ -126,6 +126,62 @@ def count_competitors_nearby(coordinates: list, radius_km: float = 5.0):
     
     return count
 
+def count_human_fires_nearby(coordinates: list, radius_km: float = 20.0):
+    """
+    Count human-caused fires near given coordinates
+    КРИТИЧНА ЛОГІКА: Багато людських пожеж = потреба в рекреаційних пунктах
+    
+    Args:
+        coordinates: [lat, lng]
+        radius_km: Search radius in km (default 20km)
+    
+    Returns:
+        dict with total fires, human fires, and fire score
+    """
+    if not FOREST_FIRES or 'features' not in FOREST_FIRES:
+        return {"total": 0, "human": 0, "score": 0}
+    
+    lat, lng = coordinates
+    total_fires = 0
+    human_fires = 0
+    
+    for feature in FOREST_FIRES['features']:
+        if 'geometry' not in feature or 'coordinates' not in feature['geometry']:
+            continue
+        
+        fire_lng, fire_lat = feature['geometry']['coordinates']
+        
+        # Calculate distance using Haversine formula
+        dlat = math.radians(fire_lat - lat)
+        dlng = math.radians(fire_lng - lng)
+        a = math.sin(dlat/2)**2 + math.cos(math.radians(lat)) * math.cos(math.radians(fire_lat)) * math.sin(dlng/2)**2
+        c = 2 * math.asin(math.sqrt(a))
+        distance = 6371 * c  # Earth radius in km
+        
+        if distance <= radius_km:
+            total_fires += 1
+            if feature['properties'].get('cause_type') == "людський фактор":
+                human_fires += 1
+    
+    # Calculate fire score (0-5 points)
+    # Logic: More human fires = higher need for recreational facilities
+    if human_fires == 0:
+        fire_score = 0
+    elif human_fires == 1:
+        fire_score = 1  # Single incident - low priority
+    elif human_fires <= 3:
+        fire_score = 2  # Multiple incidents - medium priority
+    elif human_fires <= 5:
+        fire_score = 3  # Many incidents - high priority
+    else:
+        fire_score = min(5, 3 + (human_fires - 5) * 0.5)  # Very high priority
+    
+    return {
+        "total": total_fires,
+        "human": human_fires,
+        "score": round(fire_score, 1)
+    }
+
 def calculate_zone_priority(pfz_name: str, pfz_type: str, competitors: int, infrastructure_score: float, visitors_estimate: int):
     """
     Calculate priority for a recommended zone
