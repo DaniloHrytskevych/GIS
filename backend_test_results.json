@@ -1,99 +1,111 @@
 {
-  "timestamp": "2025-12-05T19:16:51.372679",
+  "timestamp": "2025-12-05T19:45:15.180068",
   "total_tests": 14,
-  "passed_tests": 13,
-  "failed_tests": 1,
-  "success_rate": 92.85714285714286,
+  "passed_tests": 11,
+  "failed_tests": 3,
+  "success_rate": 78.57142857142857,
   "test_details": [
     {
       "test": "API Root",
       "success": true,
       "details": "Status: 200, Message: GIS Recreational Potential Analysis API",
-      "timestamp": "2025-12-05T19:16:50.518678"
+      "timestamp": "2025-12-05T19:45:14.681812"
     },
     {
       "test": "Population Data",
       "success": true,
-      "details": "Status: 200, Population data regions: 24, Sample: Київська область - 1800000 people",
-      "timestamp": "2025-12-05T19:16:50.556717"
+      "details": "Status: 200, Population data regions: 24, Sample: Тестова область 1 - 1000000 people",
+      "timestamp": "2025-12-05T19:45:14.716680"
     },
     {
       "test": "Infrastructure Data",
       "success": true,
-      "details": "Status: 200, Infrastructure data regions: 24, Sample: Київська область - accessibility: 9.5",
-      "timestamp": "2025-12-05T19:16:50.595938"
+      "details": "Status: 200, Infrastructure data regions: 24, Sample: Тестова область 1 - accessibility: 7.5",
+      "timestamp": "2025-12-05T19:45:14.748579"
     },
     {
       "test": "Protected Areas Data",
       "success": true,
-      "details": "Status: 200, Protected areas data regions: 24, Sample: Київська область - national parks: 3",
-      "timestamp": "2025-12-05T19:16:50.629323"
+      "details": "Status: 200, Protected areas data regions: 24, Sample: Тестова область 1 - national parks: 1",
+      "timestamp": "2025-12-05T19:45:14.785880"
     },
     {
       "test": "Get Regions",
       "success": true,
-      "details": "Status: 200, Regions count: 24, Sample: Київська область, Expected regions found: 3/3",
-      "timestamp": "2025-12-05T19:16:50.661634"
+      "details": "Status: 200, Regions count: 24, Sample: Тестова область 1, Expected regions found: 0/3",
+      "timestamp": "2025-12-05T19:45:14.821553"
     },
     {
       "test": "Get Recreational Points",
       "success": true,
-      "details": "Status: 200, Points count: 780, Sample: Зона відпочинку \"Криниченька\" in Житомирська область, Valid GeoJSON format",
-      "timestamp": "2025-12-05T19:16:50.726122"
+      "details": "Status: 200, Points count: 5, Sample: Тестовий рекреаційний пункт 1 in Тестова область 1, Valid GeoJSON format",
+      "timestamp": "2025-12-05T19:45:14.853732"
     },
     {
-      "test": "Analyze Region (Київська область)",
+      "test": "Analyze Region (Тестова область 1)",
       "success": true,
-      "details": "Status: 200, Region: Київська область, Score: 81.1/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-05T19:16:50.774303"
+      "details": "Status: 200, Region: Тестова область 1, Score: 61.4/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T19:45:14.887057"
     },
     {
-      "test": "Analyze Region (Львівська область)",
+      "test": "Analyze Region (Тестова область 2)",
       "success": true,
-      "details": "Status: 200, Region: Львівська область, Score: 83.0/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-05T19:16:50.812494"
+      "details": "Status: 200, Region: Тестова область 2, Score: 59.3/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T19:45:14.924270"
     },
     {
-      "test": "Analyze Region (Одеська область)",
+      "test": "Analyze Region (Тестова область 3)",
       "success": true,
-      "details": "Status: 200, Region: Одеська область, Score: 66.1/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-05T19:16:50.851333"
+      "details": "Status: 200, Region: Тестова область 3, Score: 64.6/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
+      "timestamp": "2025-12-05T19:45:14.956100"
     },
     {
       "test": "Analyze All Regions",
       "success": true,
-      "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Львівська область (83.0), Bottom: Черкаська область (32.8)",
-      "timestamp": "2025-12-05T19:16:50.919172"
+      "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Тестова область 23 (72.1), Bottom: Тестова область 2 (59.3)",
+      "timestamp": "2025-12-05T19:45:14.991714"
     },
     {
       "test": "Recommended Zones - 7-Factor Model",
-      "success": true,
-      "details": "Status: 200, Total zones: 101 | Types: near_pfz=33, roadside=34, fire_prevention=34 ✓ All 3 zone types present | Priority: sorted=True, range_valid=True, high=101, med=0, low=0 ✓ Priority calculation valid ✓ Fire prevention zones valid ✓ Near PFZ zones valid ✓ Roadside zones valid ✓ Reasoning structure valid ✓ Data integrity valid | Stats: avg=100.0, max=100, min=97 | Top zone: Біля: НПП \"Голосіївський\" (near_pfz, 100)",
-      "timestamp": "2025-12-05T19:16:51.027783"
+      "success": false,
+      "details": "Status: 200, Total zones: 72 | Types: near_pfz=48, roadside=24, fire_prevention=0 ✗ Missing zone types: ['fire_prevention'] | Priority: sorted=True, range_valid=True, high=72, med=0, low=0 ✓ Priority calculation valid ⚠ No fire prevention zones to test ✓ Near PFZ zones valid ✓ Roadside zones valid ✓ Reasoning structure valid ✓ Data integrity valid | Stats: avg=100.0, max=100, min=100 | Top zone: Біля: Тестовий НПП 1 (near_pfz, 100)",
+      "timestamp": "2025-12-05T19:45:15.031022"
     },
     {
       "test": "7-Factor Priority Model Verification",
       "success": false,
-      "details": "Analyzing 101 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.03) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 99.93939393939394, 'roadside': 100.0, 'fire_prevention': 99.91176470588235}",
-      "timestamp": "2025-12-05T19:16:51.143469"
+      "details": "Analyzing 72 zones for 7-factor model compliance | Factor coverage: 5/7 factors found | Factor mentions: {'demand': 10, 'pfz_attractor': 6, 'nature': 0, 'transport': 3, 'infrastructure': 0, 'fires': 7, 'saturation': 10} ✗ Missing factors in reasoning: ['nature', 'infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.01) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 100.0, 'roadside': 100.0}",
+      "timestamp": "2025-12-05T19:45:15.072400"
     },
     {
       "test": "CRITICAL: Fire Coordinates Verification",
-      "success": true,
-      "details": "Forest fires: 1875 total, 649 human-caused | Fire prevention zones: 34 ✓ Fire prevention zones count acceptable | Total zones: 101 ✓ Total zones count acceptable | Distribution: {'near_pfz': 33, 'roadside': 34, 'fire_prevention': 34} | Kyiv fire zones: 2 ✓ Kyiv fire zones coordinates look valid (not in water) ✓ Sample regional coordinates look reasonable ✓ Total fires count acceptable (1875) ✓ Human fires count acceptable (649) ✓ Metadata mentions realistic forest coordinates",
-      "timestamp": "2025-12-05T19:16:51.341531"
+      "success": false,
+      "details": "Forest fires: 3 total, 1 human-caused | Fire prevention zones: 0 ✗ Expected ~34 fire prevention zones, got 0 | Total zones: 72 ✗ Expected ~101 total zones, got 72 | Distribution: {'near_pfz': 48, 'roadside': 24} | Kyiv fire zones: 0 ✓ Kyiv fire zones coordinates look valid (not in water) ✓ Sample regional coordinates look reasonable ✗ Expected ~1875 total fires, got 3 ✗ Expected ~649 human fires, got 1 ⚠ Metadata doesn't mention realistic coordinates",
+      "timestamp": "2025-12-05T19:45:15.147804"
     },
     {
       "test": "Invalid Region Handling",
       "success": true,
       "details": "Status: 404 - Correctly returns 404 for invalid region",
-      "timestamp": "2025-12-05T19:16:51.372094"
+      "timestamp": "2025-12-05T19:45:15.179460"
     }
   ],
   "failures": [
     {
+      "test": "Recommended Zones - 7-Factor Model",
+      "error": "Status: 200, Total zones: 72 | Types: near_pfz=48, roadside=24, fire_prevention=0 ✗ Missing zone types: ['fire_prevention'] | Priority: sorted=True, range_valid=True, high=72, med=0, low=0 ✓ Priority calculation valid ⚠ No fire prevention zones to test ✓ Near PFZ zones valid ✓ Roadside zones valid ✓ Reasoning structure valid ✓ Data integrity valid | Stats: avg=100.0, max=100, min=100 | Top zone: Біля: Тестовий НПП 1 (near_pfz, 100)",
+      "expected_status": 200,
+      "actual_status": 200
+    },
+    {
       "test": "7-Factor Priority Model Verification",
-      "error": "Analyzing 101 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.03) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 99.93939393939394, 'roadside': 100.0, 'fire_prevention': 99.91176470588235}",
+      "error": "Analyzing 72 zones for 7-factor model compliance | Factor coverage: 5/7 factors found | Factor mentions: {'demand': 10, 'pfz_attractor': 6, 'nature': 0, 'transport': 3, 'infrastructure': 0, 'fires': 7, 'saturation': 10} ✗ Missing factors in reasoning: ['nature', 'infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.01) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 100.0, 'roadside': 100.0}",
+      "expected_status": 200,
+      "actual_status": null
+    },
+    {
+      "test": "CRITICAL: Fire Coordinates Verification",
+      "error": "Forest fires: 3 total, 1 human-caused | Fire prevention zones: 0 ✗ Expected ~34 fire prevention zones, got 0 | Total zones: 72 ✗ Expected ~101 total zones, got 72 | Distribution: {'near_pfz': 48, 'roadside': 24} | Kyiv fire zones: 0 ✓ Kyiv fire zones coordinates look valid (not in water) ✓ Sample regional coordinates look reasonable ✗ Expected ~1875 total fires, got 3 ✗ Expected ~649 human fires, got 1 ⚠ Metadata doesn't mention realistic coordinates",
       "expected_status": 200,
       "actual_status": null
     }
