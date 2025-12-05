@@ -1519,6 +1519,17 @@ function MapPage() {
           </aside>
         </div>
       </main>
+      
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white p-4 rounded-full shadow-2xl transition-all z-50 animate-bounce"
+          aria-label="Scroll to top"
+        >
+          <MdArrowUpward size={24} />
+        </button>
+      )}
     </div>
   );
 }
