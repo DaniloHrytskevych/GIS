@@ -564,7 +564,7 @@ function MapPage() {
       
       <!-- ФАКТОР 6: ПОЖЕЖІ (ДЕТАЛЬНО) -->
       <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin-bottom: 15px; font-size: 10px;">
-        <h4 style="margin: 0 0 10px 0; color: #f59e0b; font-size: 12px;">🔥 ФАКТОР 6: ПРОФІЛАКТИКА ПОЖЕЖ (Бонус: +5%, максимум 5 балів)</h4>
+        <h4 style="margin: 0 0 10px 0; color: #f59e0b; font-size: 12px;">ФАКТОР 6: ПРОФІЛАКТИКА ПОЖЕЖ (Бонус: +5%, максимум 5 балів)</h4>
         
         <div style="background: #fee2e2; padding: 8px; border-radius: 3px; margin: 8px 0; font-size: 9px;">
           <strong>⚠️ ПАРАДОКСАЛЬНА ЛОГІКА:</strong> БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях
