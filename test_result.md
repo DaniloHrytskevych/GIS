@@ -107,11 +107,11 @@ user_problem_statement: "Реалізація системи імпорту вх
 backend:
   - task: "API endpoint /api/recommended-zones with 7-factor model"
     implemented: true
-    working: true
+    working: "NA"
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: true
           agent: "main"
