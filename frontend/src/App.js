@@ -468,7 +468,7 @@ function MapPage() {
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #1e40af;">▶ Крок 3: Дефіцит/Профіцит</strong><br/>
+          <strong style="color: #1e40af;">Крок 3: Дефіцит/Профіцит</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Формула:</strong> Gap = Попит - Пропозиція<br/>
             <strong>Розрахунок:</strong> ${((d?.population?.total || 0) * 0.15 * 3).toLocaleString()} - ${((d?.saturation?.existing_points || 0) * 50 * 180 * 2).toLocaleString()}
