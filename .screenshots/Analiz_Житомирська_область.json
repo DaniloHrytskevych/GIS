@@ -2,7 +2,7 @@
   "metadata": {
     "report_title": "Науковий звіт: Аналіз рекреаційного потенціалу України",
     "report_version": "1.0",
-    "generated_at": "2025-12-07T11:08:27.797Z",
+    "generated_at": "2025-12-07T11:15:24.497Z",
     "methodology": "Analytic Hierarchy Process (AHP) - 7-factor weighted model",
     "scientific_basis": {
       "primary_method": "Analytic Hierarchy Process (AHP)",
@@ -107,7 +107,7 @@
     }
   },
   "region": "Житомирська область",
-  "analysis_date": "2025-12-07T11:08:27.797Z",
+  "analysis_date": "2025-12-07T11:15:24.497Z",
   "total_potential": {
     "score": 52.4,
     "category": "СЕРЕДНІЙ",
