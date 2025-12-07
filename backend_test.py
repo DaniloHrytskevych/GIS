@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 class GISAPITester:
-    def __init__(self, base_url="https://ukr-text-test.preview.emergentagent.com"):
+    def __init__(self, base_url="https://launch-portal-5.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0
