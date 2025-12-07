@@ -629,7 +629,7 @@ function MapPage() {
       <h3 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">ІНВЕСТИЦІЙНИЙ ПРОГНОЗ</h3>
       <div style="background: ${shouldBuild ? '#d1fae5' : '#fee2e2'}; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
         <p style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: ${shouldBuild ? '#065f46' : '#991b1b'};">
-          ${shouldBuild ? '✓ РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : '✗ БУДІВНИЦТВО РИЗИКОВАНЕ'}
+          ${shouldBuild ? 'РЕКОМЕНДУЄТЬСЯ БУДУВАТИ' : 'БУДІВНИЦТВО РИЗИКОВАНЕ'}
         </p>
         <p style="margin: 0; color: #475569;">${analysisResult.recommendation}</p>
       </div>
