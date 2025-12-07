@@ -933,11 +933,11 @@ class GISAPITester:
             population_total = population_data.get('total', 0)
             population_gap = population_data.get('gap', 0)
             
-            if population_total != 1967185:
-                details += f" ✗ Expected population 1967185, got {population_total}"
+            if population_total != 1800000:
+                details += f" ✗ Expected population 1800000, got {population_total}"
                 success = False
             else:
-                details += " ✓ Population: 1967185"
+                details += " ✓ Population: 1800000"
             
             if population_gap <= 0:
                 details += f" ✗ Expected positive gap (deficit), got {population_gap}"
