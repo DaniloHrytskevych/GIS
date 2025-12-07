@@ -134,12 +134,18 @@ const DataImport = () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
+      console.log('✅ Backup downloaded successfully:', link.download);
       
       // Save backup timestamp to localStorage
       localStorage.setItem('lastBackupTime', new Date().toISOString());
       
     } catch (error) {
-      console.error('Error downloading backup:', error);
+      console.error('❌ Error downloading backup:', error);
+      console.error('❌ Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       alert('Помилка завантаження бекапу: ' + (error.response?.data?.detail || error.message));
     }
   };
