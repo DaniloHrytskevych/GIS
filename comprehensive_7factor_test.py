@@ -16,7 +16,7 @@ def test_comprehensive_7_factor_model():
     
     # Fetch data
     try:
-        response = requests.get("https://pdf-pagination.preview.emergentagent.com/api/recommended-zones", timeout=30)
+        response = requests.get("https://map-placement-1.preview.emergentagent.com/api/recommended-zones", timeout=30)
         if response.status_code != 200:
             print(f"❌ API Error: {response.status_code}")
             return False
