@@ -127,20 +127,17 @@ const DataImport = () => {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
       const filename = `gis_data_backup_${timestamp}.zip`;
       
-      // Try file-saver first, fallback to new window if sandboxed
-      try {
-        saveAs(response.data, filename);
-        console.log('✅ Backup downloaded successfully:', filename);
-      } catch (sandboxError) {
-        console.warn('⚠️ Sandbox download blocked, opening in new window...');
-        // Fallback: Open blob URL in new window
-        const blobUrl = URL.createObjectURL(response.data);
-        const newWindow = window.open(blobUrl, '_blank');
-        if (!newWindow) {
-          alert('⚠️ Завантаження заблоковано браузером. Будь ласка, дозвольте спливаючі вікна або зверніться до підтримки Emergent для вирішення проблеми з sandbox iframe.');
-        }
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-      }
+      // SIMPLE download method
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      console.log('✅ Backup downloaded successfully:', filename);
       
       // Save backup timestamp to localStorage
       localStorage.setItem('lastBackupTime', new Date().toISOString());
