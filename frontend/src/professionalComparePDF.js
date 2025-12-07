@@ -4,6 +4,9 @@
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import 'jspdf-customfonts';
+import 'jspdf-customfonts/dist/DejaVuSans-normal';
+import 'jspdf-customfonts/dist/DejaVuSans-bold';
 
 export const exportProfessionalComparePDF = async (compareResults) => {
   if (!compareResults || compareResults.length === 0) {
@@ -17,7 +20,10 @@ export const exportProfessionalComparePDF = async (compareResults) => {
     const pdf = new jsPDF('p', 'mm', 'a4');
     const sorted = [...compareResults].sort((a, b) => b.total_score - a.total_score);
     
-    pdf.setFont('helvetica', 'normal');
+    // DejaVu Sans підтримує кирилицю
+    pdf.addFont('DejaVuSans-normal.ttf', 'DejaVuSans', 'normal');
+    pdf.addFont('DejaVuSans-bold.ttf', 'DejaVuSans', 'bold');
+    pdf.setFont('DejaVuSans', 'normal');
     
     generateCompareTitlePage(pdf, sorted);
     
@@ -60,11 +66,11 @@ function generateCompareTitlePage(pdf, sorted) {
   const avgScore = (sorted.reduce((sum, r) => sum + r.total_score, 0) / sorted.length).toFixed(1);
   
   pdf.setFontSize(16);
-  pdf.setFont('helvetica', 'bold');
+  pdf.setFont('DejaVuSans', 'bold');
   pdf.text('НАУКОВИЙ ЗВІТ', pageWidth / 2, 40, { align: 'center' });
   
   pdf.setFontSize(14);
-  pdf.setFont('helvetica', 'normal');
+  pdf.setFont('DejaVuSans', 'normal');
   pdf.text('Порівняльний аналіз рекреаційного потенціалу', pageWidth / 2, 55, { align: 'center' });
   pdf.text('адміністративних областей України', pageWidth / 2, 63, { align: 'center' });
   
@@ -79,7 +85,7 @@ function generateCompareTitlePage(pdf, sorted) {
       ['Регіонів з високим потенціалом (>70):', sorted.filter(r => r.total_score >= 70).length]
     ],
     theme: 'grid',
-    styles: { font: 'helvetica', fontSize: 11 },
+    styles: { font: 'DejaVuSans', fontSize: 11 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', halign: 'center' },
     columnStyles: {
       0: { fontStyle: 'bold', cellWidth: 100 },
@@ -89,7 +95,7 @@ function generateCompareTitlePage(pdf, sorted) {
   });
   
   pdf.setFontSize(11);
-  pdf.setFont('helvetica', 'normal');
+  pdf.setFont('DejaVuSans', 'normal');
   const footerY = pdf.internal.pageSize.getHeight() - 40;
   pdf.text(`Дата формування: ${new Date().toLocaleDateString('uk-UA')}`, pageWidth / 2, footerY, { align: 'center' });
   pdf.text('Методологія: 7-факторна модель AHP, версія 1.0', pageWidth / 2, footerY + 7, { align: 'center' });
@@ -97,7 +103,7 @@ function generateCompareTitlePage(pdf, sorted) {
 
 function generateRankingTable(pdf, sorted) {
   pdf.setFontSize(14);
-  pdf.setFont('helvetica', 'bold');
+  pdf.setFont('DejaVuSans', 'bold');
   pdf.text('1. РЕЙТИНГ ОБЛАСТЕЙ ЗА РЕКРЕАЦІЙНИМ ПОТЕНЦІАЛОМ', 20, 20);
   
   const bodyData = sorted.map((result, index) => [
@@ -113,7 +119,7 @@ function generateRankingTable(pdf, sorted) {
     head: [['Ранг', 'Область', 'Бал', 'Категорія', 'Рекомендація']],
     body: bodyData,
     theme: 'grid',
-    styles: { font: 'helvetica', fontSize: 10 },
+    styles: { font: 'DejaVuSans', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { halign: 'center', cellWidth: 20, fontStyle: 'bold' },
@@ -130,7 +136,7 @@ function generateRankingTable(pdf, sorted) {
   if (lastY > 240) {
     pdf.addPage();
     pdf.setFontSize(13);
-    pdf.setFont('helvetica', 'bold');
+    pdf.setFont('DejaVuSans', 'bold');
     pdf.text('1.1. Розподіл регіонів за категоріями потенціалу', 20, 20);
     
     autoTable(pdf, {
@@ -142,7 +148,7 @@ function generateRankingTable(pdf, sorted) {
         ['Низький потенціал (<50 балів)', sorted.filter(r => r.total_score < 50).length, `${((sorted.filter(r => r.total_score < 50).length / sorted.length) * 100).toFixed(1)}%`]
       ],
       theme: 'grid',
-      styles: { font: 'helvetica', fontSize: 10 },
+      styles: { font: 'DejaVuSans', fontSize: 10 },
       headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
       columnStyles: {
         0: { cellWidth: 90 },
@@ -152,7 +158,7 @@ function generateRankingTable(pdf, sorted) {
     });
   } else {
     pdf.setFontSize(13);
-    pdf.setFont('helvetica', 'bold');
+    pdf.setFont('DejaVuSans', 'bold');
     pdf.text('1.1. Розподіл регіонів за категоріями потенціалу', 20, lastY + 12);
     
     autoTable(pdf, {
@@ -164,7 +170,7 @@ function generateRankingTable(pdf, sorted) {
         ['Низький потенціал (<50 балів)', sorted.filter(r => r.total_score < 50).length, `${((sorted.filter(r => r.total_score < 50).length / sorted.length) * 100).toFixed(1)}%`]
       ],
       theme: 'grid',
-      styles: { font: 'helvetica', fontSize: 10 },
+      styles: { font: 'DejaVuSans', fontSize: 10 },
       headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
       columnStyles: {
         0: { cellWidth: 90 },
@@ -177,7 +183,7 @@ function generateRankingTable(pdf, sorted) {
 
 function generateFactorComparison(pdf, sorted) {
   pdf.setFontSize(14);
-  pdf.setFont('helvetica', 'bold');
+  pdf.setFont('DejaVuSans', 'bold');
   pdf.text('2. ПОРІВНЯЛЬНИЙ АНАЛІЗ ЗА ФАКТОРАМИ', 20, 20);
   
   const factors = [
@@ -208,11 +214,11 @@ function generateFactorComparison(pdf, sorted) {
     }
     
     pdf.setFontSize(13);
-    pdf.setFont('helvetica', 'bold');
+    pdf.setFont('DejaVuSans', 'bold');
     pdf.text(`2.${idx + 1}. ${factor.name}`, 20, yPos);
     yPos += 6;
     
-    pdf.setFont('helvetica', 'normal');
+    pdf.setFont('DejaVuSans', 'normal');
     pdf.setFontSize(10);
     pdf.text(`Діапазон: ${factor.isNegative ? '' : '0-'}${factor.max} балів | Лідер: ${leader.region} (${leader[factor.key]}) | Середнє: ${avgValue}`, 20, yPos);
     yPos += 5;
@@ -229,7 +235,7 @@ function generateFactorComparison(pdf, sorted) {
       head: [['Ранг', 'Область', 'Бал', '% від макс.']],
       body: top5Data,
       theme: 'grid',
-      styles: { font: 'helvetica', fontSize: 9 },
+      styles: { font: 'DejaVuSans', fontSize: 9 },
       headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
       columnStyles: {
         0: { halign: 'center', cellWidth: 20 },
@@ -246,7 +252,7 @@ function generateFactorComparison(pdf, sorted) {
 
 function generateDetailedStatistics(pdf, sorted) {
   pdf.setFontSize(14);
-  pdf.setFont('helvetica', 'bold');
+  pdf.setFont('DejaVuSans', 'bold');
   pdf.text('3. ДЕТАЛЬНА СТАТИСТИКА ПО ОБЛАСТЯХ', 20, 20);
   
   const bodyData = sorted.map(result => [
@@ -266,7 +272,7 @@ function generateDetailedStatistics(pdf, sorted) {
     head: [['Область', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'ВСЬОГО']],
     body: bodyData,
     theme: 'grid',
-    styles: { font: 'helvetica', fontSize: 9 },
+    styles: { font: 'DejaVuSans', fontSize: 9 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 50 },
@@ -287,13 +293,13 @@ function generateDetailedStatistics(pdf, sorted) {
   if (statsY > 240) {
     pdf.addPage();
     pdf.setFontSize(13);
-    pdf.setFont('helvetica', 'bold');
+    pdf.setFont('DejaVuSans', 'bold');
     pdf.text('3.1. Статистичні показники по факторах', 20, 20);
     
     generateStatTable(pdf, sorted, 28);
   } else {
     pdf.setFontSize(13);
-    pdf.setFont('helvetica', 'bold');
+    pdf.setFont('DejaVuSans', 'bold');
     pdf.text('3.1. Статистичні показники по факторах', 20, statsY + 12);
     
     generateStatTable(pdf, sorted, statsY + 20);
@@ -336,7 +342,7 @@ function generateStatTable(pdf, sorted, startY) {
     head: [['Фактор', 'Мінімум', 'Максимум', 'Середнє', 'Станд. відхилення']],
     body: bodyData,
     theme: 'grid',
-    styles: { font: 'helvetica', fontSize: 10 },
+    styles: { font: 'DejaVuSans', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 60 },
@@ -350,10 +356,10 @@ function generateStatTable(pdf, sorted, startY) {
 
 function generateConclusions(pdf, sorted, yPos) {
   pdf.setFontSize(13);
-  pdf.setFont('helvetica', 'bold');
+  pdf.setFont('DejaVuSans', 'bold');
   pdf.text('3.2. Висновки', 20, yPos);
   
-  pdf.setFont('helvetica', 'normal');
+  pdf.setFont('DejaVuSans', 'normal');
   pdf.setFontSize(10);
   
   const conclusions = [
