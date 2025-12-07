@@ -939,12 +939,17 @@ const LandingPage = () => {
           </div>
 
           {/* Scientific References */}
-          <div className="bg-white p-6 rounded-lg shadow-lg mt-12">
-            <h3 className="text-xl font-bold mb-4 text-gray-800">
-              📚 Наукові джерела:
-            </h3>
+          <div className="mt-12 bg-white p-6 rounded-lg shadow-xl border-t-4 border-slate-800">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-slate-800 p-2 rounded-full">
+                <TbDatabase className="text-amber-500 text-xl" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>
+                Наукові джерела
+              </h3>
+            </div>
             <ul className="text-sm space-y-2 text-gray-700">
-              <li>• <strong>Saaty, T.L. (1980):</strong> The Analytic Hierarchy Process. McGraw-Hill. (Consistency Ratio: 0.16% &lt; 10% ✓)</li>
+              <li>• <strong>Saaty, T.L. (1980):</strong> The Analytic Hierarchy Process. McGraw-Hill. (Consistency Ratio: 0.16% &lt; 10%)</li>
               <li>• <strong>AHP методологія:</strong> PMC Journal (2022), Wiley Online Library (2022)</li>
               <li>• <strong>Kentucky SCORP 2020-2025:</strong> State Comprehensive Outdoor Recreation Plan</li>
               <li>• <strong>District of Columbia Recreation Plan (2020)</strong></li>
