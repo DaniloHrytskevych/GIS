@@ -677,9 +677,10 @@ function generateFactorDetails(analysisResult, d) {
     <div class="step-box">
       <h4>Компоненти:</h4>
       <ul>
-        <li>Щільність доріг: ${d?.transport?.road_density || 0} км/км²</li>
-        <li>Залізниця: ${d?.transport?.has_railway ? 'Так (+2 бали)' : 'Ні'}</li>
-        <li>Аеропорт: ${d?.transport?.has_airport ? 'Так (+3 бали)' : 'Ні'}</li>
+        <li>Щільність доріг: ${d?.transport?.highway_density || 0} км на 1000 км²</li>
+        <li>Міжнародні траси: ${d?.transport?.international_roads_count || 0}</li>
+        <li>Залізничні станції: ${d?.transport?.railway_stations || 0}</li>
+        <li>Аеропорти: ${d?.transport?.airports || 0}</li>
       </ul>
       <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.accessibility_score}/15 балів</div>
     </div>
