@@ -731,14 +731,14 @@ function MapPage() {
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
       pdf.save(`Аналіз_${analysisResult.region}.pdf`);
       console.log('✅ PDF saved successfully');
-    // } catch (error) {
-    //   console.error('❌ PDF export error:', error);
-    //   alert('Помилка експорту PDF: ' + error.message);
-    // } finally {
-    //   if (pdfContent && pdfContent.parentNode) {
-    //     document.body.removeChild(pdfContent);
-    //   }
-    // }
+    } catch (error) {
+      console.error('❌ PDF export error:', error);
+      alert('Помилка експорту PDF: ' + error.message);
+    } finally {
+      if (pdfContent && pdfContent.parentNode) {
+        document.body.removeChild(pdfContent);
+      }
+    }
   };
 
   const exportJSON = () => {
