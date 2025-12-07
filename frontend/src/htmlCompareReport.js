@@ -497,7 +497,7 @@ function generateTopRegionsByFactor(sortedRegions) {
           <tr ${i === 0 ? 'style="background: #fef3c7; font-weight: bold;"' : ''}>
             <td style="text-align: center;">${i + 1}</td>
             <td>${r.region}</td>
-            <td style="text-align: center; font-weight: bold;">${r.transport_score}/15</td>
+            <td style="text-align: center; font-weight: bold;">${r.accessibility_score}/15</td>
           </tr>
         `).join('')}
       </tbody>
