@@ -112,9 +112,10 @@ function generatePDFPages(analysisResult, d) {
     ${generatePage2()}
     ${generatePage3(d)}
     ${generatePage4(analysisResult, d)}
-    ${generatePage5(analysisResult)}
-    ${generatePage6(analysisResult, d)}
-    ${generatePage7()}
+    ${generatePage5(analysisResult, d)}
+    ${generatePage6Table(analysisResult)}
+    ${generatePage7(analysisResult, d)}
+    ${generatePage8()}
   `;
 }
 
@@ -366,24 +367,99 @@ function generatePage4(analysisResult, d) {
       <p><strong>Результат:</strong> Фактор 2 = <strong>${analysisResult.pfz_score}/20</strong> балів</p>
       
       <h3>3.3. Фактор 3: Природа (0-15 балів)</h3>
+      
+      <h4>Компонент А: Лісове покриття</h4>
       <div class="formula-box">
-        Ліси = ${d?.nature?.forest_coverage_percent || 0}% × 0,275 = ${((d?.nature?.forest_coverage_percent || 0) * 0.275).toFixed(2)}<br/>
-        Водойми = ${d?.nature?.has_water_bodies ? '4 бали' : '0 балів'}
+        Бал = Лісистість(%) × 0,275<br/>
+        ${d?.nature?.forest_coverage_percent || 0}% × 0,275 = ${((d?.nature?.forest_coverage_percent || 0) * 0.275).toFixed(2)} балів
       </div>
+      
+      <h4>Компонент Б: Водні об'єкти</h4>
+      <p style="font-size: 11px; margin: 5px 0;">
+        Водойми = ${d?.nature?.has_water_bodies ? '<strong>4 бали</strong>' : '0 балів'}<br/>
+        <em>Обґрунтування: Водойми розширюють можливості рекреації (риболовля, плавання, водні види спорту)</em>
+      </p>
+      
       <p><strong>Результат:</strong> Фактор 3 = <strong>${analysisResult.nature_score}/15</strong> балів</p>
       
-      <h3>3.4. Інші фактори</h3>
-      <ul>
-        <li><strong>Фактор 4 (Транспорт):</strong> ${analysisResult.accessibility_score}/15 балів</li>
-        <li><strong>Фактор 5 (Інфраструктура):</strong> ${analysisResult.infrastructure_score}/10 балів</li>
-        <li><strong>Фактор 6 (Пожежі, бонус):</strong> +${analysisResult.fire_score || 0}/5 балів</li>
-        <li><strong>Фактор 7 (Штраф насиченості):</strong> ${analysisResult.saturation_penalty}/0 балів</li>
-      </ul>
+      <h3>3.4. Фактор 4: Транспортна доступність (0-15 балів)</h3>
+      <p style="font-size: 11px; margin: 5px 0;">
+        <strong>Формула (композитна оцінка):</strong>
+      </p>
+      <div class="formula-box">
+        Бал = Base(0-10) + Міжнародні_траси×0,8 (макс 3) + Аеропорт(0-1) + Щільність_доріг(0-1)
+      </div>
+      <p style="font-size: 11px;">
+        <strong>Вхідні дані:</strong><br/>
+        • Щільність доріг: ${d?.transport?.highway_density || 0} км/100км²<br/>
+        • Залізничні станції: ${d?.transport?.railway_stations || 0} од.<br/>
+        • Аеропорти: ${d?.transport?.airports || 0} од.<br/>
+        <em>Обґрунтування: Транспортна доступність - критичний бар'єр для рекреації (DC SCORP 2020)</em>
+      </p>
+      <p><strong>Результат:</strong> Фактор 4 = <strong>${analysisResult.accessibility_score}/15</strong> балів</p>
+      
+      <h3>3.5. Фактор 5: Інфраструктура (0-10 балів)</h3>
+      <p style="font-size: 11px; margin: 5px 0;">
+        <strong>Формула (композитна оцінка):</strong>
+      </p>
+      <div class="formula-box">
+        Бал = Медицина(0-3) + АЗС(0-2) + Мобільний_зв'язок(0-2) + Готелі(0-2) + Електрифікація(0-1)
+      </div>
+      <p style="font-size: 11px;">
+        <strong>Вхідні дані:</strong><br/>
+        • Лікарні на 100 тис.: ${d?.infrastructure?.hospitals_per_100k?.toFixed(1) || 0}<br/>
+        • АЗС на 100 км²: ${d?.infrastructure?.gas_stations_per_100km2?.toFixed(2) || 0}<br/>
+        • Покриття зв'язком: ${d?.infrastructure?.mobile_coverage_percent || 0}%<br/>
+        • Готелі: ${d?.infrastructure?.hotels_total || 0} од.<br/>
+        <em>Обґрунтування: Інфраструктура - вторинний фактор, може бути розвинута (Laguna Hills 2021)</em>
+      </p>
+      <p><strong>Результат:</strong> Фактор 5 = <strong>${analysisResult.infrastructure_score}/10</strong> балів</p>
     </div>
   `;
 }
 
-function generatePage5(analysisResult) {
+function generatePage5(analysisResult, d) {
+  return `
+    <div class="pdf-page">
+      <h2>3. ПОКРОКОВІ РОЗРАХУНКИ (продовження)</h2>
+      
+      <h3>3.6. Фактор 6: Профілактика пожеж (0-5 балів, бонус)</h3>
+      <p style="font-size: 11px; margin: 5px 0;">
+        <strong>Парадоксальна логіка:</strong> Більше людських пожеж = вища потреба в облаштованих місцях
+      </p>
+      <p style="font-size: 11px;">
+        <strong>Шкала оцінювання:</strong><br/>
+        • ≥15 людських пожеж: 5 балів (критична потреба)<br/>
+        • 10-14 людських пожеж: 3 бали (висока потреба)<br/>
+        • 5-9 людських пожеж: 1 бал (помірна потреба)<br/>
+        • &lt;5 людських пожеж: 0 балів
+      </p>
+      <p style="font-size: 11px;">
+        <strong>Дані:</strong> Людських пожеж у регіоні: <strong>${d?.fires?.human_caused_fires || 0}</strong><br/>
+        <em>Обґрунтування: Облаштовані вогнища знижують ризик на 40% (NW Fire Science 2020)</em>
+      </p>
+      <p><strong>Результат:</strong> Фактор 6 (бонус) = <strong>+${analysisResult.fire_score || 0}/5</strong> балів</p>
+      
+      <h3>3.7. Фактор 7: Штраф за насиченість (0 до -15 балів)</h3>
+      <p style="font-size: 11px; margin: 5px 0;">
+        <strong>Прогресивна шкала штрафів:</strong>
+      </p>
+      <ul style="font-size: 11px;">
+        <li>Щільність &lt;1,0 пункт/1000км²: -2 бали</li>
+        <li>Щільність 1,0-2,0 пункти/1000км²: -5 балів</li>
+        <li>Щільність 2,0-3,0 пункти/1000км²: -10 балів</li>
+        <li>Щільність &gt;3,0 пункти/1000км²: -15 балів</li>
+      </ul>
+      <p style="font-size: 11px;">
+        <strong>Дані:</strong> Щільність = <strong>${d?.saturation?.density_per_1000km2?.toFixed(2) || 0}</strong> пунктів/1000км²<br/>
+        <em>Обґрунтування: Висока насиченість = менше місця для нових об'єктів (Kentucky Market Analysis)</em>
+      </p>
+      <p><strong>Результат:</strong> Фактор 7 (штраф) = <strong>${analysisResult.saturation_penalty}/0</strong> балів</p>
+    </div>
+  `;
+}
+
+function generatePage6Table(analysisResult) {
   return `
     <div class="pdf-page">
       <h2>4. ПІДСУМКОВА ТАБЛИЦЯ РЕЗУЛЬТАТІВ</h2>
@@ -456,8 +532,14 @@ function generatePage5(analysisResult) {
   `;
 }
 
-function generatePage6(analysisResult, d) {
+function generatePage7(analysisResult, d) {
   const shouldBuild = d?.investment?.should_build;
+  const gap = d?.population?.gap || 0;
+  const pointsNeeded = gap > 0 ? Math.ceil(gap / (50 * 180 * 2)) : 0;
+  
+  // Отримуємо рекомендовані зони (якщо є)
+  const recommendedZones = analysisResult.recommended_zones || [];
+  
   return `
     <div class="pdf-page">
       <h2>5. ВИСНОВКИ ТА РЕКОМЕНДАЦІЇ</h2>
@@ -491,14 +573,51 @@ function generatePage6(analysisResult, d) {
         </tr>
         <tr>
           <td>Дефіцит/Профіцит</td>
-          <td style="text-align: right; font-weight: bold;">${d?.population?.gap > 0 ? '+' : ''}${(d?.population?.gap || 0).toLocaleString()}</td>
+          <td style="text-align: right; font-weight: bold;">${gap > 0 ? '+' : ''}${gap.toLocaleString()}</td>
+        </tr>
+        <tr style="background: #f0f0f0;">
+          <td style="font-weight: bold;">Потрібно нових рекреаційних пунктів</td>
+          <td style="text-align: right; font-weight: bold; font-size: 14px;">${pointsNeeded}</td>
         </tr>
       </table>
+      
+      ${pointsNeeded > 0 ? `
+        <h3>5.3. Рекомендації щодо будівництва</h3>
+        <p style="font-size: 12px;">
+          Для покриття дефіциту рекреаційних послуг в області <strong>${analysisResult.region}</strong> 
+          рекомендується будівництво <strong>${pointsNeeded} нових рекреаційних пунктів</strong> 
+          із стандартною місткістю 50 відвідувачів кожен.
+        </p>
+        
+        ${recommendedZones.length > 0 ? `
+          <h4>Рекомендовані зони для будівництва:</h4>
+          <ol style="font-size: 11px; line-height: 1.6;">
+            ${recommendedZones.slice(0, 5).map(zone => `
+              <li>
+                <strong>${zone.location || 'Зона ' + zone.rank}</strong>
+                ${zone.score ? ` (потенціал: ${zone.score} балів)` : ''}
+                ${zone.reason ? `<br/><em style="font-size: 10px;">${zone.reason}</em>` : ''}
+              </li>
+            `).join('')}
+          </ol>
+        ` : `
+          <p style="font-size: 11px; font-style: italic;">
+            Примітка: Для визначення конкретних локацій рекомендується провести детальний ГІС-аналіз 
+            з урахуванням близькості до ПЗФ, транспортної доступності та екологічних обмежень.
+          </p>
+        `}
+      ` : `
+        <h3>5.3. Висновок</h3>
+        <p>
+          Область має достатню пропозицію рекреаційних послуг. Нові об'єкти не рекомендуються через 
+          відсутність дефіциту попиту.
+        </p>
+      `}
     </div>
   `;
 }
 
-function generatePage7() {
+function generatePage8() {
   return `
     <div class="pdf-page">
       <h2>6. БІБЛІОГРАФІЧНИЙ СПИСОК</h2>

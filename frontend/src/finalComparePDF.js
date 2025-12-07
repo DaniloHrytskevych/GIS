@@ -107,8 +107,10 @@ function generateComparePDFPages(sorted) {
 
     ${generateComparePage1(sorted, topRegion, bottomRegion, avgScore)}
     ${generateComparePage2(sorted)}
-    ${generateComparePage3(sorted)}
-    ${generateComparePage4(sorted, avgScore)}
+    ${generateComparePage3Part1(sorted)}
+    ${generateComparePage3Part2(sorted)}
+    ${generateComparePage4(sorted)}
+    ${generateComparePage5(sorted, avgScore)}
   `;
 }
 
@@ -208,19 +210,12 @@ function generateComparePage2(sorted) {
   `;
 }
 
-function generateComparePage3(sorted) {
-  // Розбиваємо фактори на дві сторінки для уникнення розривів
+function generateComparePage3Part1(sorted) {
   const factorsPage1 = [
     { key: 'demand_score', name: 'Попит населення', max: 25 },
     { key: 'pfz_score', name: 'ПЗФ атрактор', max: 20 },
     { key: 'nature_score', name: 'Природні ресурси', max: 15 },
     { key: 'accessibility_score', name: 'Транспортна доступність', max: 15 }
-  ];
-  
-  const factorsPage2 = [
-    { key: 'infrastructure_score', name: 'Інфраструктура', max: 10 },
-    { key: 'fire_score', name: 'Профілактика пожеж', max: 5 },
-    { key: 'saturation_penalty', name: 'Штраф насиченості', max: 0, isNegative: true }
   ];
   
   return `
@@ -256,7 +251,17 @@ function generateComparePage3(sorted) {
         `;
       }).join('')}
     </div>
-    
+  `;
+}
+
+function generateComparePage3Part2(sorted) {
+  const factorsPage2 = [
+    { key: 'infrastructure_score', name: 'Інфраструктура', max: 10 },
+    { key: 'fire_score', name: 'Профілактика пожеж', max: 5 },
+    { key: 'saturation_penalty', name: 'Штраф насиченості', max: 0, isNegative: true }
+  ];
+  
+  return `
     <div class="pdf-page">
       <h2>2. ПОРІВНЯННЯ ЗА ФАКТОРАМИ (продовження)</h2>
       
@@ -292,7 +297,42 @@ function generateComparePage3(sorted) {
   `;
 }
 
-function generateComparePage4(sorted, avgScore) {
+function generateComparePage4(sorted) {
+  return `
+    <div class="pdf-page">
+      <h2>3. ДЕТАЛЬНА СТАТИСТИКА</h2>
+      
+      <table style="font-size: 10px;">
+        <tr>
+          <th style="width: 30%;">Область</th>
+          <th style="text-align: center; width: 8%;">F1</th>
+          <th style="text-align: center; width: 8%;">F2</th>
+          <th style="text-align: center; width: 8%;">F3</th>
+          <th style="text-align: center; width: 8%;">F4</th>
+          <th style="text-align: center; width: 8%;">F5</th>
+          <th style="text-align: center; width: 8%;">F6</th>
+          <th style="text-align: center; width: 8%;">F7</th>
+          <th style="text-align: center; width: 14%; font-weight: bold;">ВСЬОГО</th>
+        </tr>
+        ${sorted.map(result => `
+          <tr>
+            <td style="font-size: 10px;">${result.region}</td>
+            <td style="text-align: center;">${result.demand_score}</td>
+            <td style="text-align: center;">${result.pfz_score}</td>
+            <td style="text-align: center;">${result.nature_score}</td>
+            <td style="text-align: center;">${result.accessibility_score}</td>
+            <td style="text-align: center;">${result.infrastructure_score}</td>
+            <td style="text-align: center;">+${result.fire_score || 0}</td>
+            <td style="text-align: center;">${result.saturation_penalty}</td>
+            <td style="text-align: center; font-weight: bold; font-size: 11px;">${result.total_score}</td>
+          </tr>
+        `).join('')}
+      </table>
+    </div>
+  `;
+}
+
+function generateComparePage5(sorted, avgScore) {
   // Розраховуємо потребу в пунктах для кожної області
   const regionsNeedingPoints = sorted.map(r => {
     const gap = r.details?.population?.gap || 0;
