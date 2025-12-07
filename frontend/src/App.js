@@ -1901,10 +1901,10 @@ function MapPage() {
                   {layers.forestFires && forestFires.filter(fire => !selectedRegion || fire.properties.region === selectedRegion).map((fire, idx) => {
                     const isHuman = fire.properties.cause_type === "людський фактор";
                     const fireIcon = L.divIcon({
-                      html: `<div style="color: ${isHuman ? '#ea580c' : '#f97316'}; font-size: 20px;">🔥</div>`,
+                      html: `<div style="background-color: ${isHuman ? '#ea580c' : '#f97316'}; width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
                       className: 'fire-marker',
-                      iconSize: [20, 20],
-                      iconAnchor: [10, 10]
+                      iconSize: [10, 10],
+                      iconAnchor: [5, 5]
                     });
                     
                     return (
