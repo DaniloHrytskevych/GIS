@@ -677,7 +677,16 @@ function generateFactorDetails(analysisResult, d) {
     <p><strong>Отримано:</strong> ${analysisResult.accessibility_score} балів</p>
     
     <div class="step-box">
-      <h4>Компоненти:</h4>
+      <h4>Формула розрахунку:</h4>
+      <code>Бали = min(Щільність_доріг / 30, 10) + Залізниці_бонус + Аеропорт_бонус</code>
+      <p style="margin-top: 8px;"><strong>Де:</strong></p>
+      <ul style="font-size: 11pt;">
+        <li>Щільність доріг нормалізується до 10 балів (300+ км/1000км² = 10 балів)</li>
+        <li>Залізничні станції: +2 бали при наявності</li>
+        <li>Аеропорт: +3 бали при наявності</li>
+      </ul>
+      
+      <h4 style="margin-top: 15px;">Компоненти:</h4>
       <ul>
         <li>Щільність доріг: ${d?.transport?.highway_density || 0} км на 1000 км²</li>
         <li>Міжнародні траси: ${d?.transport?.international_roads_count || 0}</li>
