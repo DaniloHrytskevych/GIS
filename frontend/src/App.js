@@ -225,11 +225,11 @@ function MapPage() {
         <h1 style="color: #1e293b; margin: 0; font-size: 22px; font-weight: bold;">НАУКОВИЙ ЗВІТ</h1>
         <h2 style="color: #f59e0b; margin: 8px 0; font-size: 18px;">АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h2>
         <h3 style="color: #475569; margin: 8px 0; font-size: 16px;">${analysisResult.region}</h3>
-        <div style="display: inline-block; width: 80px; height: 80px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 80px; font-size: 28px; font-weight: bold; margin: 15px 0; border: 4px solid #f59e0b;">
+        <div style="display: inline-block; width: 80px; height: 80px; border-radius: 50%; background: ${scoreColor}; color: white; line-height: 80px; font-size: 28px; font-weight: bold; margin: 15px 0; border: 4px solid #f59e0b;">
           ${analysisResult.total_score}
         </div>
         <p style="color: #64748b; margin: 5px 0; font-size: 11px;">зі 100 балів</p>
-        <span style="display: inline-block; padding: 5px 14px; border-radius: 15px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold; font-size: 11px;">${analysisResult.category}</span>
+        <span style="display: inline-block; padding: 5px 14px; border-radius: 15px; background: ${categoryColor}; color: white; font-weight: bold; font-size: 11px;">${analysisResult.category}</span>
         <p style="color: #94a3b8; margin-top: 15px; font-size: 10px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
       </div>
       
