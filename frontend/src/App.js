@@ -1280,6 +1280,12 @@ function MapPage() {
   const exportComparisonPDF = async () => {
     if (allAnalysis.length === 0) return;
     
+    // Використовуємо новий розширений порівняльний експорт
+    await exportEnhancedComparePDF(allAnalysis, getScoreColor, getCategoryColor);
+    return;
+    
+    /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
+    
     const pdfContent = document.createElement('div');
     pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 900px; padding: 30px; background: white; font-family: Arial, sans-serif;';
     
