@@ -875,60 +875,7 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg shadow-xl border-2 border-amber-600">
-              <h4 className="text-2xl font-bold mb-4 text-amber-400 text-center">Формула оцінки локації</h4>
-              
-              <div className="bg-slate-700/50 p-5 rounded-lg mb-4">
-                <div className="text-center text-base font-mono text-green-400 mb-4">
-                  Priority = 50 (базова) + Попит(0-25) + Атрактор(0-20) + Природа(0-15) + Транспорт(0-15) + Інфраструктура(0-10) + Пожежі(0-5) - Насиченість(0-15)
-                </div>
-                
-                <div className="bg-amber-50 p-4 rounded text-gray-800">
-                  <p className="font-bold mb-2">🔑 Ключова відмінність від області:</p>
-                  <p className="text-sm mb-2">Для областей: Попит, ПЗФ, Природа... (загальні показники)</p>
-                  <p className="text-sm font-semibold text-amber-900">Для локацій: ТІ САМІ фактори + СПЕЦИФІКА МІСЦЯ</p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-3 text-sm mt-4">
-                  <div className="bg-slate-800 p-3 rounded border-l-2 border-green-500">
-                    <p className="text-green-400 font-bold mb-1">Що змінюється:</p>
-                    <p className="text-gray-300">• Атрактор (20 балів):</p>
-                    <p className="text-gray-400 text-xs ml-3">- Кластер пожеж: 10-20 балів</p>
-                    <p className="text-gray-400 text-xs ml-3">- Біля НПП: 20 балів</p>
-                    <p className="text-gray-400 text-xs ml-3">- Біля РЛП: 10 балів</p>
-                    <p className="text-gray-400 text-xs ml-3">- Траса: 15 балів</p>
-                  </div>
-                  
-                  <div className="bg-slate-800 p-3 rounded border-l-2 border-blue-500">
-                    <p className="text-blue-400 font-bold mb-1">Що залишається:</p>
-                    <p className="text-gray-300">• Попит області (25)</p>
-                    <p className="text-gray-300">• Природа області (15)</p>
-                    <p className="text-gray-300">• Транспорт області (15)</p>
-                    <p className="text-gray-300">• Інфраструктура (10)</p>
-                    <p className="text-gray-300">• Пожежі (5)</p>
-                    <p className="text-gray-300">• Конкуренція (-15)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-amber-50 p-5 rounded-lg text-gray-800">
-                <p className="font-bold mb-2">📊 Приклад: "Кластер пожеж #1, Київська"</p>
-                <div className="bg-white p-3 rounded font-mono text-sm space-y-1">
-                  <p>= 50 (базова)</p>
-                  <p className="text-green-600">+ 25 (Попит Київської: 25/25)</p>
-                  <p className="text-orange-600">+ 20 (Кластер 10+ пожеж)</p>
-                  <p className="text-blue-600">+ 10 (Природа Київської: 10/15)</p>
-                  <p className="text-cyan-600">+ 14 (Транспорт Київської: 14/15)</p>
-                  <p className="text-purple-600">+ 8 (Інфраструктура: 8/10)</p>
-                  <p className="text-pink-600">+ 5 (Пожежі: 5/5 - додатковий бонус)</p>
-                  <p className="text-red-600">- 0 (немає конкурентів поблизу)</p>
-                  <p className="font-bold text-green-700 border-t-2 border-green-600 pt-1">= 132 → обмежено до 100 балів ✓</p>
-                </div>
-                <p className="text-xs text-gray-600 mt-2">* Максимальний бал обмежений 100. Тому "Кластер пожеж #1" = 100 балів</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-5 rounded-lg shadow-lg mt-6">
+            <div className="bg-white p-5 rounded-lg shadow-lg">
               <h5 className="font-bold text-lg mb-3 flex items-center gap-2">
                 <span className="text-2xl">🗺️</span>
                 Як читати карту?
