@@ -2213,9 +2213,9 @@ function MapPage() {
                                     </div>
                                     {analysisResult.details.pfz.notable_objects?.length > 0 && (
                                       <div className="bg-amber-900/30 border border-amber-600/50 rounded p-3">
-                                        <p className="text-xs text-amber-300 mb-2">★ Відомі об&apos;єкти:</p>
+                                        <p className="text-xs text-amber-300 mb-2">Відомі об&apos;єкти:</p>
                                         {analysisResult.details.pfz.notable_objects.map((obj, i) => (
-                                          <p key={i} className="text-emerald-300">★ {obj}</p>
+                                          <p key={i} className="text-emerald-300">• {obj}</p>
                                         ))}
                                       </div>
                                     )}
