@@ -742,7 +742,14 @@ function MapPage() {
   };
 
   const exportJSON = () => {
-    if (!analysisResult) return;
+    console.log('🔍 exportJSON called');
+    if (!analysisResult) {
+      console.error('❌ No analysisResult for JSON export');
+      return;
+    }
+    
+    try {
+      console.log('✅ Starting JSON export...');
     
     const d = analysisResult.details;
     const topZones = recommendedZones
