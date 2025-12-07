@@ -663,7 +663,9 @@ function generateFactorDetails(analysisResult, d) {
       <h4>Розрахунок:</h4>
       <code>Бали = Лісистість(%) × 0.275 + Водні об'єкти</code>
       <p><strong>Підставлення:</strong></p>
-      <code>${d?.nature?.forest_coverage || 0}% × 0.275 + ${d?.nature?.has_water_bodies ? '4 бали' : '0 балів'} = ${analysisResult.nature_score} балів</code>
+      <code>${d?.nature?.forest_coverage_percent || 0}% × 0.275 + ${d?.nature?.has_water_bodies ? '4 бали' : '0 балів'} = ${analysisResult.nature_score} балів</code>
+      <p style="margin-top: 8px;"><strong>Обґрунтування коефіцієнта 0.275:</strong></p>
+      <p style="font-size: 11pt;">Коефіцієнт 0.275 розраховано так, щоб максимальна лісистість (100%) давала 11 балів, а водні об'єкти додають 4 бали, разом = 15 балів (максимум для цього фактора).</p>
       <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.nature_score}/15 балів</div>
     </div>
   </div>
