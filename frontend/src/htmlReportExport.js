@@ -452,11 +452,11 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Загальна кількість лісових пожеж</td>
-          <td style="text-align: right;">${d?.fire_risk?.total_fires || 0}</td>
+          <td style="text-align: right;">${d?.fires?.total_fires || 0}</td>
         </tr>
         <tr>
           <td>Пожежі через людський фактор</td>
-          <td style="text-align: right;">${d?.fire_risk?.human_caused_fires || 0}</td>
+          <td style="text-align: right;">${d?.fires?.human_caused_fires || 0}</td>
         </tr>
         <tr>
           <td>Існуючі рекреаційні пункти</td>
