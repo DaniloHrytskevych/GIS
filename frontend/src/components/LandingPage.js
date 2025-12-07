@@ -760,8 +760,162 @@ const LandingPage = () => {
             </div>
           </div>
 
+          {/* Zone Identification Algorithm - NEW BLOCK */}
+          <div className="mt-16 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 p-8 rounded-xl shadow-2xl">
+            <h3 className="text-3xl font-bold text-center mb-6 flex items-center justify-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
+              <TbMapSearch className="text-amber-600 text-4xl" />
+              <span>Алгоритм визначення оптимальних локацій на карті</span>
+            </h3>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+              <p className="text-lg text-gray-700 mb-4">
+                <strong>Система працює на ДВОХ рівнях:</strong>
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-5 rounded-lg border-2 border-blue-500">
+                  <h4 className="font-bold text-xl mb-3 text-blue-800 flex items-center gap-2">
+                    <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Регіональний рівень
+                  </h4>
+                  <ul className="text-sm space-y-2 text-gray-700">
+                    <li><strong>Об'єкт:</strong> 24 області України</li>
+                    <li><strong>Формула:</strong> 7 факторів (попит + ПЗФ + природа + транспорт + інфраструктура + пожежі - насиченість)</li>
+                    <li><strong>Результат:</strong> Бал 0-100 для кожної області</li>
+                    <li className="bg-blue-100 p-2 rounded"><strong>Приклад:</strong> Київська область = 78.5 балів</li>
+                  </ul>
+                </div>
+                
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-lg border-2 border-green-500">
+                  <h4 className="font-bold text-xl mb-3 text-green-800 flex items-center gap-2">
+                    <span className="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    Локальний рівень
+                  </h4>
+                  <ul className="text-sm space-y-2 text-gray-700">
+                    <li><strong>Об'єкт:</strong> Конкретні території на карті</li>
+                    <li><strong>Формула:</strong> Priority = Base + Бонуси - Штрафи</li>
+                    <li><strong>Результат:</strong> Точки з пріоритетами 0-100</li>
+                    <li className="bg-green-100 p-2 rounded"><strong>Приклад:</strong> Зона біля НПП "Синевир" = 78 балів</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
+              <h4 className="text-2xl font-bold mb-4 text-gray-800">3 типи зон на карті:</h4>
+              
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-green-50 to-green-100 p-5 rounded-lg border-l-4 border-green-600">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-green-600 text-white px-4 py-2 rounded-full font-bold">
+                      60-100 балів
+                    </div>
+                    <h5 className="text-xl font-bold text-green-800">Near PFZ (поблизу ПЗФ)</h5>
+                  </div>
+                  <p className="text-gray-700 mb-2"><strong>Опис:</strong> Локації в радіусі 5-15 км від об'єктів ПЗФ</p>
+                  <p className="text-gray-700 mb-2"><strong>Логіка:</strong> Туристи хочуть бути близько до національних парків</p>
+                  <p className="text-sm text-gray-600"><strong>Приклади:</strong> Біля НПП "Карпатський", РЛП "Гуцульщина"</p>
+                </div>
+
+                <div className="bg-gradient-to-r from-yellow-50 to-amber-100 p-5 rounded-lg border-l-4 border-amber-600">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-amber-600 text-white px-4 py-2 rounded-full font-bold">
+                      50-80 балів
+                    </div>
+                    <h5 className="text-xl font-bold text-amber-800">Roadside (вздовж доріг)</h5>
+                  </div>
+                  <p className="text-gray-700 mb-2"><strong>Опис:</strong> Локації вздовж міжнародних трас (М01-М29, Е40, Е50)</p>
+                  <p className="text-gray-700 mb-2"><strong>Логіка:</strong> Транзитні туристи потребують зупинок і відпочинку</p>
+                  <p className="text-sm text-gray-600"><strong>Приклади:</strong> Траса Київ-Чоп (М06), Львів-Краковець (М10)</p>
+                </div>
+
+                <div className="bg-gradient-to-r from-orange-50 to-red-100 p-5 rounded-lg border-l-4 border-orange-600">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-orange-600 text-white px-4 py-2 rounded-full font-bold">
+                      40-70 балів
+                    </div>
+                    <h5 className="text-xl font-bold text-orange-800">Fire Prevention (профілактика пожеж)</h5>
+                  </div>
+                  <p className="text-gray-700 mb-2"><strong>Опис:</strong> Локації в пожежонебезпечних лісових масивах</p>
+                  <p className="text-gray-700 mb-2"><strong>Логіка:</strong> Облаштовані місця → зменшення хаотичних пожеж на 40%</p>
+                  <p className="text-sm text-gray-600"><strong>Приклади:</strong> Житомирська область (95 пожеж/рік), Київська (33 людські пожежі)</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg shadow-xl border-2 border-amber-600">
+              <h4 className="text-2xl font-bold mb-4 text-amber-400 text-center">Формула пріоритету зони</h4>
+              
+              <div className="bg-slate-700/50 p-5 rounded-lg mb-4">
+                <div className="text-center text-xl font-mono text-green-400 mb-4">
+                  Priority = Base_Type + PFZ_Bonus + Infrastructure + Fire_Prevention - Competition
+                </div>
+                
+                <div className="grid md:grid-cols-3 gap-3 text-sm">
+                  <div className="bg-slate-800 p-3 rounded border-l-2 border-green-500">
+                    <p className="text-green-400 font-bold mb-1">Base_Type:</p>
+                    <p className="text-gray-300">near_pfz: 60</p>
+                    <p className="text-gray-300">roadside: 50</p>
+                    <p className="text-gray-300">fire_prevent: 40</p>
+                  </div>
+                  
+                  <div className="bg-slate-800 p-3 rounded border-l-2 border-blue-500">
+                    <p className="text-blue-400 font-bold mb-1">Бонуси:</p>
+                    <p className="text-gray-300">PFZ: 0-20</p>
+                    <p className="text-gray-300">Infrastructure: 0-10</p>
+                    <p className="text-gray-300">Fire: 0-10</p>
+                  </div>
+                  
+                  <div className="bg-slate-800 p-3 rounded border-l-2 border-red-500">
+                    <p className="text-red-400 font-bold mb-1">Штрафи:</p>
+                    <p className="text-gray-300">Competition: 0-30</p>
+                    <p className="text-gray-400 text-xs">-10 за кожен об'єкт</p>
+                    <p className="text-gray-400 text-xs">в радіусі 10 км</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-amber-50 p-5 rounded-lg text-gray-800">
+                <p className="font-bold mb-2">📊 Приклад розрахунку:</p>
+                <p className="mb-2"><strong>Зона A</strong> (near_pfz біля НПП "Синевир")</p>
+                <div className="bg-white p-3 rounded font-mono text-sm space-y-1">
+                  <p>= 60 (базовий near_pfz)</p>
+                  <p className="text-green-600">+ 20 (< 5 км від НПП)</p>
+                  <p className="text-blue-600">+ 8 (добра інфраструктура)</p>
+                  <p className="text-orange-600">+ 0 (немає проблеми пожеж)</p>
+                  <p className="text-red-600">- 10 (1 конкурент в радіусі)</p>
+                  <p className="font-bold text-green-700 border-t-2 border-green-600 pt-1">= 78 балів (ВИСОКИЙ пріоритет) ✓</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg shadow-lg mt-6">
+              <h5 className="font-bold text-lg mb-3 flex items-center gap-2">
+                <span className="text-2xl">🗺️</span>
+                Візуалізація на карті:
+              </h5>
+              <div className="grid grid-cols-3 gap-4 text-center text-sm">
+                <div className="bg-green-100 p-3 rounded border-2 border-green-600">
+                  <div className="text-3xl mb-1">🟢</div>
+                  <p className="font-bold text-green-800">70-100 балів</p>
+                  <p className="text-xs text-gray-600">Найкращі локації</p>
+                </div>
+                <div className="bg-yellow-100 p-3 rounded border-2 border-yellow-600">
+                  <div className="text-3xl mb-1">🟡</div>
+                  <p className="font-bold text-yellow-800">50-69 балів</p>
+                  <p className="text-xs text-gray-600">Хороші локації</p>
+                </div>
+                <div className="bg-red-100 p-3 rounded border-2 border-red-600">
+                  <div className="text-3xl mb-1">🔴</div>
+                  <p className="font-bold text-red-800">0-49 балів</p>
+                  <p className="text-xs text-gray-600">Менш привабливі</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Scientific References */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg mt-12">
             <h3 className="text-xl font-bold mb-4 text-gray-800">
               📚 Наукові джерела:
             </h3>
