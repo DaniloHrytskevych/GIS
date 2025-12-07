@@ -126,17 +126,18 @@ const DataImport = () => {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
       const filename = `gis_data_backup_${timestamp}.zip`;
       
-      // SIMPLE download method
+      // НАЙПРОСТІШИЙ метод завантаження
       const url = URL.createObjectURL(response.data);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      console.log('✅ Backup downloaded successfully:', filename);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        console.log('✅ Backup downloaded successfully:', filename);
+      }, 100);
       
       // Save backup timestamp to localStorage
       localStorage.setItem('lastBackupTime', new Date().toISOString());
