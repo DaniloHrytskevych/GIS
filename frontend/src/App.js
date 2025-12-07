@@ -495,7 +495,7 @@ function MapPage() {
         <h4 style="margin: 0 0 10px 0; color: #16a34a; font-size: 12px;">ФАКТОР 2: ПЗФ ЯК АТРАКТОР (Вага: 20%, максимум 20 балів)</h4>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #16a34a;">▶ Крок 1: Зважений підрахунок ПЗФ</strong><br/>
+          <strong style="color: #16a34a;">Крок 1: Зважений підрахунок ПЗФ</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Формула:</strong> Score = НПП×2.0 + Заповідн.×1.5 + РЛП×1.0 + Заказн.×0.3<br/>
             <strong>Обґрунтування вагів:</strong> НПП мають найвищу туристичну цінність (Wiley AHP 2022)<br/>
