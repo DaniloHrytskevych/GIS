@@ -710,7 +710,7 @@ function generateFactorDetails(analysisResult, d) {
     <div class="step-box">
       <h4>Парадоксальна логіка (NW Fire Science 2020):</h4>
       <p>80% рекреаційних пожеж відбуваються ПОЗА офіційними зонами відпочинку</p>
-      <p><strong>Пожежі через людський фактор:</strong> ${d?.fire_risk?.human_caused_fires || 0}</p>
+      <p><strong>Пожежі через людський фактор:</strong> ${d?.fires?.human_caused_fires || 0}</p>
       <p><strong>Шкала:</strong></p>
       <ul>
         <li>≥15 пожеж: <strong>5 балів</strong> (висока необхідність облаштування)</li>
