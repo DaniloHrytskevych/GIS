@@ -1527,7 +1527,7 @@ function MapPage() {
       <h3 style="color: #1e293b; font-size: 14px; margin: 20px 0 10px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">ЗАГАЛЬНІ ВИСНОВКИ</h3>
       
       <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
-        <h4 style="margin: 0 0 10px 0; color: #166534; font-size: 13px;">✓ РЕКОМЕНДОВАНО ДЛЯ БУДІВНИЦТВА (${topRegions.length} областей)</h4>
+        <h4 style="margin: 0 0 10px 0; color: #166534; font-size: 13px;">РЕКОМЕНДОВАНО ДЛЯ БУДІВНИЦТВА (${topRegions.length} областей)</h4>
         <p style="margin: 0; font-size: 12px; color: #15803d;">
           ${topRegions.map(r => r.region.replace(' область', '')).join(', ') || 'Немає'}
         </p>
