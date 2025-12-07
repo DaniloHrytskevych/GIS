@@ -534,7 +534,7 @@ function MapPage() {
         <h4 style="margin: 0 0 10px 0; color: #059669; font-size: 12px;">🌳 ФАКТОР 3: ПРИРОДНІ РЕСУРСИ (Вага: 15%, максимум 15 балів)</h4>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #059669;">▶ Компонент A: Лісове покриття (0-11)</strong><br/>
+          <strong style="color: #059669;">Компонент A: Лісове покриття (0-11)</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Формула:</strong> Ліси = Лісистість% × 0.275<br/>
             <strong>Вхідні дані:</strong> ${d?.nature?.forest_coverage_percent || 0}%<br/>
