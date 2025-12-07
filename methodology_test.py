@@ -16,7 +16,7 @@ import json
 from datetime import datetime
 
 class MethodologyTester:
-    def __init__(self, base_url="https://calc-data-export.preview.emergentagent.com"):
+    def __init__(self, base_url="https://pdf-pagination.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0
