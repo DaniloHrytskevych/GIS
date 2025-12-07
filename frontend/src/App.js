@@ -1177,11 +1177,6 @@ function MapPage() {
           justification: "Висока концентрація існуючих об'єктів → менше місця для нових → нижчий потенціал (Kentucky Market Analysis)"
         }
       },
-      total_potential: {
-        score: analysisResult.total_score,
-        category: analysisResult.category,
-        recommendation: analysisResult.recommendation
-      },
       factors: {
         demand: {
           score: analysisResult.demand_score,
