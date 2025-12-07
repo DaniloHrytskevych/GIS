@@ -507,8 +507,8 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Фактор 6: Пожежі</td>
-          <td style="text-align: center; font-weight: bold;">${analysisResult.fire_risk_score}/5</td>
-          <td style="text-align: center;">${((analysisResult.fire_risk_score/5)*100).toFixed(1)}%</td>
+          <td style="text-align: center; font-weight: bold;">${analysisResult.fire_score}/5</td>
+          <td style="text-align: center;">${((analysisResult.fire_score/5)*100).toFixed(1)}%</td>
         </tr>
         <tr>
           <td>Фактор 7: Насиченість (штраф)</td>
