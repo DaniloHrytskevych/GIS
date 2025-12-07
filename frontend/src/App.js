@@ -22,7 +22,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { simpleExportJSON, simpleExportPDF, simpleDownloadFromServer } from './simpleExport';
 import { exportProfessionalPDF } from './professionalPDFExport';
-import { exportAcademicComparePDF } from './academicComparePDF';
+import { exportProfessionalComparePDF } from './professionalComparePDF';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
 import DataImport from './components/DataImport';
@@ -1275,8 +1275,8 @@ function MapPage() {
   const exportComparisonPDF = async () => {
     if (allAnalysis.length === 0) return;
     
-    // Використовуємо новий академічний порівняльний експорт
-    await exportAcademicComparePDF(allAnalysis, getScoreColor, getCategoryColor);
+    // Використовуємо новий професійний порівняльний експорт
+    await exportProfessionalComparePDF(allAnalysis);
     return;
     
     /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
