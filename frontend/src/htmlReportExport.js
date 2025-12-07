@@ -672,7 +672,7 @@ function generateFactorDetails(analysisResult, d) {
   <h2 class="major-section">6. ФАКТОР 4: ТРАНСПОРТНА ДОСТУПНІСТЬ</h2>
   <div class="section">
     <p><strong>Максимальна вага:</strong> 15 балів (15% від загального)</p>
-    <p><strong>Отримано:</strong> ${analysisResult.transport_score} балів</p>
+    <p><strong>Отримано:</strong> ${analysisResult.accessibility_score} балів</p>
     
     <div class="step-box">
       <h4>Компоненти:</h4>
