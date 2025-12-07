@@ -817,7 +817,7 @@ function MapPage() {
             developer: "Thomas L. Saaty (1980)",
             method: "Матриця попарних порівнянь 7×7 за шкалою Сааті (1-9)",
             calculation: "Геометричне середнє + нормалізація ваг",
-            consistency_check: "CR = 0.16% < 10% ✓ (відмінна узгодженість)",
+            consistency_check: "CR = 0.16% < 10% (відмінна узгодженість)",
             weight_derivation: "Ваги 25-20-15-15-10-5-15 отримані через AHP з експертним фінальним коригуванням"
           },
           references: [
