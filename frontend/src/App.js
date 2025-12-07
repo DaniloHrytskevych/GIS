@@ -547,7 +547,7 @@ function MapPage() {
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #059669;">▶ Компонент Б: Водні об'єкти (0-4)</strong><br/>
+          <strong style="color: #059669;">Компонент Б: Водні об'єкти (0-4)</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Вхідні дані:</strong> ${d?.nature?.has_water_bodies ? '✅ Наявні' : '❌ Відсутні'}<br/>
             <strong>Обґрунтування:</strong> Водойми → риболовля, плавання, водні види спорту
