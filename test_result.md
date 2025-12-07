@@ -200,11 +200,11 @@ frontend:
           comment: "✅ COMPREHENSIVE LANDING PAGE TESTING COMPLETED - All user requirements verified: 1) Landing page loads correctly on root '/' with proper hero section containing background image and title 'Геоінформаційна система аналізу рекреаційного потенціалу', 2) Sticky navigation present and functional, 3) 'Про систему' section contains exactly 3 cards as required, 4) 'Логіка системи' section displays mathematical formulas correctly, 5) 'Джерела даних' section shows data sources (note: displays 8 items instead of expected 4 - minor UI discrepancy), 6) CTA button 'Відкрити інтерактивну карту' present and functional, 7) Footer complete and properly styled, 8) Navigation to /map works flawlessly via 'Почати аналіз' button. All core landing page functionality operational and meets user specifications."
   - task: "Export functionality for reports (PDF and JSON)"
     implemented: true
-    working: true
-    file: "/app/frontend/src/App.js, /app/frontend/public/index.html"
+    working: "NA"
+    file: "/app/frontend/src/App.js, /app/frontend/src/enhancedPDFExport.js, /app/frontend/src/enhancedComparePDF.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: true
           agent: "testing"
