@@ -165,18 +165,16 @@ def count_human_fires_nearby(coordinates: list, radius_km: float = 20.0):
             if feature['properties'].get('cause_type') == "людський фактор":
                 human_fires += 1
     
-    # Calculate fire score (0-5 points)
+    # Calculate fire score (0-5 points) - відповідно до методології Landing Page
     # Logic: More human fires = higher need for recreational facilities
-    if human_fires == 0:
-        fire_score = 0
-    elif human_fires == 1:
-        fire_score = 1  # Single incident - low priority
-    elif human_fires <= 3:
-        fire_score = 2  # Multiple incidents - medium priority
-    elif human_fires <= 5:
-        fire_score = 3  # Many incidents - high priority
+    if human_fires >= 15:
+        fire_score = 5  # Критична потреба
+    elif human_fires >= 10:
+        fire_score = 3  # Висока потреба
+    elif human_fires >= 5:
+        fire_score = 1  # Помірна потреба
     else:
-        fire_score = min(5, 3 + (human_fires - 5) * 0.5)  # Very high priority
+        fire_score = 0  # Немає потреби
     
     return {
         "total": total_fires,
@@ -929,27 +927,26 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
     supply_demand_ratio = annual_supply / annual_demand if annual_demand > 0 else 0
     gap = annual_demand - annual_supply
     
-    if supply_demand_ratio < 0.3:
+    # Відповідно до методології на Landing Page
+    if supply_demand_ratio < 0.6:  # дефіцит >40%
         demand_score = 25
-    elif supply_demand_ratio < 0.5:
-        demand_score = 21
-    elif supply_demand_ratio < 0.7:
-        demand_score = 17
-    elif supply_demand_ratio < 1.0:
+    elif supply_demand_ratio < 0.8:  # дефіцит 20-40%
+        demand_score = 20
+    elif supply_demand_ratio < 1.0:  # баланс
+        demand_score = 15
+    elif supply_demand_ratio < 1.5:  # надлишок 0-50%
         demand_score = 10
-    elif supply_demand_ratio < 1.5:
-        demand_score = 4
-    else:
+    else:  # надлишок >50%
         demand_score = 0
     
-    # 2. PFZ SCORE (20 points)
+    # 2. PFZ SCORE (20 points) - відповідно до методології Landing Page
     pfz = pfz_data.get('protected_areas', {})
     pfz_score = 0
-    pfz_score += min(pfz.get('national_parks', 0) * 2.5, 7)
-    pfz_score += min(pfz.get('nature_reserves', 0) * 2.0, 5)
-    pfz_score += min(pfz.get('regional_landscape_parks', 0) * 0.4, 4)
-    pfz_score += min(pfz.get('zakazniks', 0) * 0.02, 2)
-    pfz_score += min(pfz.get('monuments_of_nature', 0) * 0.02, 1)
+    pfz_score += min(pfz.get('national_parks', 0) * 2.0, 8)  # НПП ×2.0
+    pfz_score += min(pfz.get('nature_reserves', 0) * 1.5, 6)  # Заповідники ×1.5
+    pfz_score += min(pfz.get('regional_landscape_parks', 0) * 1.0, 4)  # РЛП ×1.0
+    pfz_score += min(pfz.get('zakazniks', 0) * 0.1, 1.5)  # Заказники ×0.1
+    pfz_score += min(pfz.get('monuments_of_nature', 0) * 0.05, 0.5)  # Пам'ятки ×0.05
     
     percent_of_region = pfz.get('percent_of_region', 0)
     if percent_of_region > 10:
@@ -963,7 +960,7 @@ def calculate_full_potential(region_name, population_data, pfz_data, infra_data,
     
     # 3. NATURE SCORE (15 points)
     forest_coverage = population_data.get('forest_coverage_percent', 10)
-    forest_score = min(forest_coverage * 0.28, 11)
+    forest_score = min(forest_coverage * 0.275, 11)  # 0.275 = нормалізація до 11 балів при 40%
     water_score = 4 if population_data.get('has_water_bodies', False) else 0
     nature_score = forest_score + water_score
     
