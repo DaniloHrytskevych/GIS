@@ -199,19 +199,6 @@ function MapPage() {
     setMapZoom(12);
   };
 
-  // Helper functions for PDF export colors
-  const getScoreColor = (score) => {
-    if (score >= 70) return '#16a34a'; // green
-    if (score >= 55) return '#f59e0b'; // amber
-    return '#dc2626'; // red
-  };
-  
-  const getCategoryColor = (category) => {
-    if (category === 'Високий потенціал') return '#16a34a';
-    if (category === 'Середній потенціал') return '#f59e0b';
-    return '#dc2626';
-  };
-
   const exportPDF = async () => {
     if (!analysisResult) return;
     
