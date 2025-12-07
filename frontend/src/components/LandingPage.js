@@ -879,16 +879,19 @@ const LandingPage = () => {
               </div>
 
               <div className="bg-amber-50 p-5 rounded-lg text-gray-800">
-                <p className="font-bold mb-2">📊 Приклад розрахунку:</p>
-                <p className="mb-2"><strong>Зона A</strong> (near_pfz біля НПП "Синевир")</p>
+                <p className="font-bold mb-2">📊 Приклад: "Кластер пожеж #1, Київська"</p>
                 <div className="bg-white p-3 rounded font-mono text-sm space-y-1">
-                  <p>= 60 (базовий near_pfz)</p>
-                  <p className="text-green-600">+ 20 (&lt; 5 км від НПП)</p>
-                  <p className="text-blue-600">+ 8 (добра інфраструктура)</p>
-                  <p className="text-orange-600">+ 0 (немає проблеми пожеж)</p>
-                  <p className="text-red-600">- 10 (1 конкурент в радіусі)</p>
-                  <p className="font-bold text-green-700 border-t-2 border-green-600 pt-1">= 78 балів (ВИСОКИЙ пріоритет) ✓</p>
+                  <p>= 50 (базова)</p>
+                  <p className="text-green-600">+ 25 (Попит Київської: 25/25)</p>
+                  <p className="text-orange-600">+ 20 (Кластер 10+ пожеж)</p>
+                  <p className="text-blue-600">+ 10 (Природа Київської: 10/15)</p>
+                  <p className="text-cyan-600">+ 14 (Транспорт Київської: 14/15)</p>
+                  <p className="text-purple-600">+ 8 (Інфраструктура: 8/10)</p>
+                  <p className="text-pink-600">+ 5 (Пожежі: 5/5 - додатковий бонус)</p>
+                  <p className="text-red-600">- 0 (немає конкурентів поблизу)</p>
+                  <p className="font-bold text-green-700 border-t-2 border-green-600 pt-1">= 132 → обмежено до 100 балів ✓</p>
                 </div>
+                <p className="text-xs text-gray-600 mt-2">* Максимальний бал обмежений 100. Тому "Кластер пожеж #1" = 100 балів</p>
               </div>
             </div>
 
