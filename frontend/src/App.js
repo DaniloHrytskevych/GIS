@@ -404,23 +404,156 @@ function MapPage() {
         </tr>
       </table>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">🧮 ПРИКЛАД ПОКРОКОВОГО РОЗРАХУНКУ</h3>
-      <div style="background: #f1f5f9; padding: 12px; border-left: 4px solid #3b82f6; margin-bottom: 15px; font-size: 10px;">
-        <p style="margin: 0 0 8px 0; font-weight: bold;">Фактор 1: ПОПИТ ВІД НАСЕЛЕННЯ (максимум 25 балів)</p>
-        <ol style="margin: 0; padding-left: 20px; line-height: 1.6;">
-          <li><strong>Крок 1:</strong> Річний попит = населення × 0.15<br/>
-              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.total?.toLocaleString() || 0} × 0.15 = ${d?.population?.annual_demand?.toLocaleString() || 0} відвідувань</code>
-          </li>
-          <li><strong>Крок 2:</strong> Існуюча пропозиція<br/>
-              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.annual_supply?.toLocaleString() || 0} місць на рік</code>
-          </li>
-          <li><strong>Крок 3:</strong> Дефіцит/Профіцит<br/>
-              <code style="background: white; padding: 2px 6px; border-radius: 3px;">${d?.population?.annual_demand?.toLocaleString() || 0} - ${d?.population?.annual_supply?.toLocaleString() || 0} = ${Math.abs(d?.population?.gap || 0).toLocaleString()} (${d?.population?.gap_status || 'N/A'})</code>
-          </li>
-          <li><strong>Крок 4:</strong> Нормалізація до шкали 0-25<br/>
-              <code style="background: white; padding: 2px 6px; border-radius: 3px;">Результат = <strong>${analysisResult.demand_score} балів</strong></code>
-          </li>
-        </ol>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">🧮 ПОКРОКОВІ МАТЕМАТИЧНІ РОЗРАХУНКИ</h3>
+      
+      <!-- ФАКТОР 1: ПОПИТ (ДЕТАЛЬНО) -->
+      <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin-bottom: 15px; font-size: 10px;">
+        <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 12px;">📊 ФАКТОР 1: ПОПИТ ВІД НАСЕЛЕННЯ (Вага: 25%, максимум 25 балів)</h4>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #1e40af;">▶ Крок 1: Розрахунок річного попиту</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Формула:</strong> Попит = Населення × 0.15 × 3 відв./рік<br/>
+            <strong>Підставлення:</strong> ${d?.population?.total?.toLocaleString() || 0} × 0.15 × 3<br/>
+            <strong>Обґрунтування 0.15:</strong> 15% населення - потенційні відвідувачі (Kentucky SCORP 2020)<br/>
+            <strong>Обґрунтування 3 відв.:</strong> Середня кількість візитів/рік (DC SCORP)
+          </div>
+          <div style="background: #dbeafe; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+            <strong>Результат:</strong> ${((d?.population?.total || 0) * 0.15 * 3).toLocaleString()} відвідувань/рік
+          </div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #1e40af;">▶ Крок 2: Існуюча пропозиція</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Формула:</strong> Пропозиція = Пункти × 50 місць × 180 днів × 2 зміни<br/>
+            <strong>Існуючі пункти:</strong> ${d?.saturation?.existing_points || 0} об'єктів<br/>
+            <strong>Середня місткість:</strong> 50 місць (стандарт)<br/>
+            <strong>Сезон:</strong> 180 днів, 2 зміни/день
+          </div>
+          <div style="background: #dbeafe; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+            <strong>Результат:</strong> ${((d?.saturation?.existing_points || 0) * 50 * 180 * 2).toLocaleString()} місць/рік
+          </div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #1e40af;">▶ Крок 3: Дефіцит/Профіцит</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Формула:</strong> Gap = Попит - Пропозиція<br/>
+            <strong>Розрахунок:</strong> ${((d?.population?.total || 0) * 0.15 * 3).toLocaleString()} - ${((d?.saturation?.existing_points || 0) * 50 * 180 * 2).toLocaleString()}
+          </div>
+          <div style="background: ${d?.population?.gap > 0 ? '#fee2e2' : '#dcfce7'}; padding: 5px 10px; border-radius: 3px; display: inline-block; color: ${d?.population?.gap > 0 ? '#991b1b' : '#14532d'};">
+            <strong>Результат:</strong> ${d?.population?.gap > 0 ? '+' : ''}${(d?.population?.gap || 0).toLocaleString()} — ${d?.population?.gap_status || 'N/A'}
+          </div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #1e40af;">▶ Крок 4: Нормалізація до 0-25</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Метод:</strong> Логарифмічна нормалізація з урахуванням дефіциту<br/>
+            <strong>Логіка:</strong> Більший дефіцит → вищий бал (вища потреба)
+          </div>
+          <div style="background: #16a34a; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
+            ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.demand_score}/25
+          </div>
+        </div>
+      </div>
+      
+      <!-- ФАКТОР 2: ПЗФ (ДЕТАЛЬНО) -->
+      <div style="background: #f0fdf4; padding: 15px; border-left: 4px solid #16a34a; margin-bottom: 15px; font-size: 10px;">
+        <h4 style="margin: 0 0 10px 0; color: #16a34a; font-size: 12px;">🌲 ФАКТОР 2: ПЗФ ЯК АТРАКТОР (Вага: 20%, максимум 20 балів)</h4>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #16a34a;">▶ Крок 1: Зважений підрахунок ПЗФ</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Формула:</strong> Score = НПП×2.0 + Заповідн.×1.5 + РЛП×1.0 + Заказн.×0.3<br/>
+            <strong>Обґрунтування вагів:</strong> НПП мають найвищу туристичну цінність (Wiley AHP 2022)<br/>
+            <strong>Вхідні дані:</strong><br/>
+            • НПП: ${d?.pfz?.national_parks || 0} × 2.0 = ${((d?.pfz?.national_parks || 0) * 2).toFixed(1)}<br/>
+            • Заповідники: ${d?.pfz?.nature_reserves || 0} × 1.5 = ${((d?.pfz?.nature_reserves || 0) * 1.5).toFixed(1)}<br/>
+            • РЛП: ${d?.pfz?.regional_landscape_parks || 0} × 1.0 = ${((d?.pfz?.regional_landscape_parks || 0) * 1.0).toFixed(1)}<br/>
+            • Заказники: ${d?.pfz?.zakazniks || 0} × 0.3 = ${((d?.pfz?.zakazniks || 0) * 0.3).toFixed(1)}
+          </div>
+          <div style="background: #dcfce7; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+            <strong>Сума:</strong> ${((d?.pfz?.national_parks || 0) * 2 + (d?.pfz?.nature_reserves || 0) * 1.5 + (d?.pfz?.regional_landscape_parks || 0) * 1.0 + (d?.pfz?.zakazniks || 0) * 0.3).toFixed(2)}
+          </div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #16a34a;">▶ Крок 2: Коригування за площею</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Площа під ПЗФ:</strong> ${d?.pfz?.percent_of_region || 0}% території<br/>
+            <strong>Логіка:</strong> Більша площа = вища туристична привабливість
+          </div>
+        </div>
+        
+        <div style="background: #16a34a; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
+          ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.pfz_score}/20
+        </div>
+        
+        ${d?.pfz?.notable_objects && d.pfz.notable_objects.length > 0 ? `
+        <div style="background: #f0fdf4; padding: 8px; border-radius: 3px; margin-top: 10px; border: 1px solid #86efac; font-size: 9px;">
+          <strong style="color: #166534;">🏞️ Визначні об'єкти:</strong> ${d.pfz.notable_objects.join(', ')}
+        </div>
+        ` : ''}
+      </div>
+      
+      <!-- ФАКТОР 3: ПРИРОДА (ДЕТАЛЬНО) -->
+      <div style="background: #ecfdf5; padding: 15px; border-left: 4px solid #059669; margin-bottom: 15px; font-size: 10px;">
+        <h4 style="margin: 0 0 10px 0; color: #059669; font-size: 12px;">🌳 ФАКТОР 3: ПРИРОДНІ РЕСУРСИ (Вага: 15%, максимум 15 балів)</h4>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #059669;">▶ Компонент A: Лісове покриття (0-11)</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Формула:</strong> Ліси = Лісистість% × 0.275<br/>
+            <strong>Вхідні дані:</strong> ${d?.nature?.forest_coverage_percent || 0}%<br/>
+            <strong>Розрахунок:</strong> ${d?.nature?.forest_coverage_percent || 0} × 0.275 = ${((d?.nature?.forest_coverage_percent || 0) * 0.275).toFixed(2)}<br/>
+            <strong>Обґрунтування:</strong> Ліси = естетична цінність + різноманітність активностей
+          </div>
+          <div style="background: #d1fae5; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+            <strong>Бал:</strong> ${Math.min(11, ((d?.nature?.forest_coverage_percent || 0) * 0.275)).toFixed(1)}/11
+          </div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #059669;">▶ Компонент Б: Водні об'єкти (0-4)</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Вхідні дані:</strong> ${d?.nature?.has_water_bodies ? '✅ Наявні' : '❌ Відсутні'}<br/>
+            <strong>Обґрунтування:</strong> Водойми → риболовля, плавання, водні види спорту
+          </div>
+          <div style="background: #d1fae5; padding: 5px 10px; border-radius: 3px; display: inline-block;">
+            <strong>Бал:</strong> ${d?.nature?.has_water_bodies ? '4/4' : '0/4'}
+          </div>
+        </div>
+        
+        <div style="background: #059669; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
+          ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.nature_score}/15
+        </div>
+      </div>
+      
+      <!-- ФАКТОР 6: ПОЖЕЖІ (ДЕТАЛЬНО) -->
+      <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin-bottom: 15px; font-size: 10px;">
+        <h4 style="margin: 0 0 10px 0; color: #f59e0b; font-size: 12px;">🔥 ФАКТОР 6: ПРОФІЛАКТИКА ПОЖЕЖ (Бонус: +5%, максимум 5 балів)</h4>
+        
+        <div style="background: #fee2e2; padding: 8px; border-radius: 3px; margin: 8px 0; font-size: 9px;">
+          <strong>⚠️ ПАРАДОКСАЛЬНА ЛОГІКА:</strong> БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях
+        </div>
+        
+        <div style="margin: 10px 0;">
+          <strong style="color: #f59e0b;">▶ Наукове обґрунтування</strong><br/>
+          <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
+            <strong>Дослідження NW Fire Science 2020:</strong><br/>
+            • 80% рекреаційних пожеж — ПОЗА офіційними місцями<br/>
+            • Облаштовані вогнища → зниження ризику на 40%<br/>
+            <strong>Дані регіону:</strong><br/>
+            • Всього пожеж: ${d?.fires?.total_fires || 0}<br/>
+            • Людський фактор: ${d?.fires?.human_caused_fires || 0} (${d?.fires?.total_fires > 0 ? ((d?.fires?.human_caused_fires / d?.fires?.total_fires) * 100).toFixed(1) : 0}%)
+          </div>
+        </div>
+        
+        <div style="background: #f59e0b; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
+          ✅ БОНУС: +${analysisResult.fire_score || 0}/5
+        </div>
       </div>
       
       <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 15px; font-size: 14px;">🔥 ПОЖЕЖНА БЕЗПЕКА</h3>
