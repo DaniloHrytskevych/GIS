@@ -125,7 +125,7 @@ function generateRankingTable(pdf, sorted) {
   });
   
   // Розподіл за категоріями
-  const lastY = pdf.previousAutoTable.finalY;
+  const lastY = pdf.lastAutoTable ? pdf.lastAutoTable.finalY : 100;
   
   if (lastY > 240) {
     pdf.addPage();
@@ -224,7 +224,7 @@ function generateFactorComparison(pdf, sorted) {
       factor.isNegative ? '—' : `${((result[factor.key] / factor.max) * 100).toFixed(0)}%`
     ]);
     
-    autoTable(pdf, {
+    const factorTable = autoTable(pdf, {
       startY: yPos,
       head: [['Ранг', 'Область', 'Бал', '% від макс.']],
       body: top5Data,
@@ -240,7 +240,7 @@ function generateFactorComparison(pdf, sorted) {
       margin: { left: 20, right: 20 }
     });
     
-    yPos = pdf.previousAutoTable.finalY + 8;
+    yPos = factorTable.finalY + 8;
   });
 }
 
@@ -282,9 +282,9 @@ function generateDetailedStatistics(pdf, sorted) {
   });
   
   // Статистичні показники
-  const lastY = pdf.previousAutoTable.finalY;
+  const statsY = pdf.lastAutoTable ? pdf.lastAutoTable.finalY : 100;
   
-  if (lastY > 240) {
+  if (statsY > 240) {
     pdf.addPage();
     pdf.setFontSize(13);
     pdf.setFont('times', 'bold');
@@ -294,13 +294,13 @@ function generateDetailedStatistics(pdf, sorted) {
   } else {
     pdf.setFontSize(13);
     pdf.setFont('times', 'bold');
-    pdf.text('3.1. Статистичні показники по факторах', 20, lastY + 12);
+    pdf.text('3.1. Статистичні показники по факторах', 20, statsY + 12);
     
-    generateStatTable(pdf, sorted, lastY + 20);
+    generateStatTable(pdf, sorted, statsY + 20);
   }
   
   // Висновки
-  const conclusionsY = pdf.previousAutoTable.finalY + 12;
+  const conclusionsY = pdf.lastAutoTable ? pdf.lastAutoTable.finalY + 12 : 100;
   
   if (conclusionsY > 240) {
     pdf.addPage();
