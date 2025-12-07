@@ -257,8 +257,8 @@ const LandingPage = () => {
               </div>
               
               <div className="text-center mt-6 pt-6 border-t-2 border-amber-600/50">
-                <span className="text-3xl font-bold text-amber-400" style={{ fontFamily: 'Courier New, monospace' }}>P<sub>max</sub> = 100</span>
-                <p className="text-gray-400 text-sm mt-2">максимальний пріоритет зони</p>
+                <span className="text-3xl font-bold text-amber-400" style={{ fontFamily: 'Courier New, monospace' }}>P<sub>max</sub> = 90</span>
+                <p className="text-gray-400 text-sm mt-2">максимальний пріоритет зони (75-90 з врахуванням насиченості)</p>
               </div>
             </div>
 
