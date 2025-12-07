@@ -562,7 +562,7 @@ async def get_methodology():
             "status": "✓ УЗГОДЖЕНА" if bool(is_consistent) else "✗ НЕ УЗГОДЖЕНА"
         },
         "ahp_weights": {
-            "calculated": weights,
+            "calculated": weights_dict,
             "description": "Ваги розраховані методом геометричного середнього"
         },
         "target_weights": {
