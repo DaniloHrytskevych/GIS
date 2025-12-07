@@ -306,7 +306,7 @@ function MapPage() {
         </tr>
       </table>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📊 ОЦІНКА ЗА ФАКТОРАМИ</h3>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">ОЦІНКА ЗА ФАКТОРАМИ</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <tr style="background: #f8fafc;">
           <td style="padding: 12px; border: 1px solid #e2e8f0;">Попит від населення</td>
