@@ -1467,7 +1467,19 @@ function MapPage() {
       const imgX = (pdfWidth - imgWidth * ratio) / 2;
       
       pdf.addImage(imgData, 'PNG', imgX, 10, imgWidth * ratio, imgHeight * ratio);
-      pdf.save('Порівняльний_аналіз_областей.pdf');
+      
+      // ПРОСТИЙ ЕКСПОРТ
+      const pdfBlob = pdf.output('blob');
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Порівняльний_аналіз_областей.pdf';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
     } catch (error) {
       console.error('PDF export error:', error);
       alert('Помилка експорту PDF');
