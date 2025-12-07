@@ -22,6 +22,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { simpleExportJSON, simpleExportPDF, simpleDownloadFromServer } from './simpleExport';
 import { exportEnhancedPDF } from './enhancedPDFExport';
+import { exportEnhancedComparePDF } from './enhancedComparePDF';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
 import DataImport from './components/DataImport';
