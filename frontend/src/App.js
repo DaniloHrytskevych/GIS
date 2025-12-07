@@ -1966,7 +1966,7 @@ function MapPage() {
                             <h4 className="text-xl font-bold mb-1 text-white">{zone.name}</h4>
                             {zone.type === "near_pfz" && zone.pfz_object && (
                               <p className="text-sm text-gray-300 mb-3">
-                                <span className="text-amber-400">★</span> Біля: {zone.pfz_object}
+                                <span className="text-amber-400">•</span> Біля: {zone.pfz_object}
                               </p>
                             )}
 
