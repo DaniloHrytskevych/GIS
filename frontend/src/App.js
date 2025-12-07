@@ -699,7 +699,7 @@ function MapPage() {
       </div>
       
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">📚 ДЖЕРЕЛА ДАНИХ</h3>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">ДЖЕРЕЛА ДАНИХ</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9px;">
         <tr style="background: #1e293b; color: white;">
           <th style="padding: 5px; text-align: left; border: 1px solid #475569; width: 30%;">Категорія</th>
@@ -1558,7 +1558,7 @@ function MapPage() {
         </div>
       </div>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">📚 ДЖЕРЕЛА ДАНИХ</h3>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 6px; margin-top: 15px; font-size: 12px;">ДЖЕРЕЛА ДАНИХ</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 9px;">
         <tr style="background: #1e293b; color: white;">
           <th style="padding: 5px; text-align: left; border: 1px solid #475569; width: 30%;">Категорія</th>
