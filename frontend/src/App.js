@@ -558,7 +558,7 @@ function MapPage() {
         </div>
         
         <div style="background: #059669; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
-          ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.nature_score}/15
+          ФІНАЛЬНИЙ БАЛ: ${analysisResult.nature_score}/15
         </div>
       </div>
       
