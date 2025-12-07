@@ -511,7 +511,7 @@ function MapPage() {
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #16a34a;">▶ Крок 2: Коригування за площею</strong><br/>
+          <strong style="color: #16a34a;">Крок 2: Коригування за площею</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Площа під ПЗФ:</strong> ${d?.pfz?.percent_of_region || 0}% території<br/>
             <strong>Логіка:</strong> Більша площа = вища туристична привабливість
