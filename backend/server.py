@@ -724,9 +724,9 @@ async def get_recommended_zones():
                 # Generate reasoning for near_pfz zone
                 visitors_estimate = 30000 if 'НПП' in pfz_name or 'Національний' in pfz_name else 15000
                 reasoning = {
-                    "point1": f"🌲 {pfz_name} - {visitors_estimate:,} відвідувачів/рік (атрактор)",
-                    "point2": f"📊 Попит: {int(analysis['demand_score'])} балів, Пожежі: {analysis['fire_score']} балів",
-                    "point3": f"🏗️ Конкуренція: {competitors} р.п. (низька насиченість)"
+                    "point1": f"{pfz_name} - {visitors_estimate:,} відвідувачів/рік (атрактор)",
+                    "point2": f"Попит: {int(analysis['demand_score'])} балів, Пожежі: {analysis['fire_score']} балів",
+                    "point3": f"Конкуренція: {competitors} р.п. (низька насиченість)"
                 }
                 
                 # Recommended facilities for eco-tourism
