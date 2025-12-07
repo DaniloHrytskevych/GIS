@@ -920,6 +920,7 @@ const LandingPage = () => {
               📚 Наукові джерела:
             </h3>
             <ul className="text-sm space-y-2 text-gray-700">
+              <li>• <strong>Saaty, T.L. (1980):</strong> The Analytic Hierarchy Process. McGraw-Hill. (Consistency Ratio: 0.16% < 10% ✓)</li>
               <li>• <strong>AHP методологія:</strong> PMC Journal (2022), Wiley Online Library (2022)</li>
               <li>• <strong>Kentucky SCORP 2020-2025:</strong> State Comprehensive Outdoor Recreation Plan</li>
               <li>• <strong>District of Columbia Recreation Plan (2020)</strong></li>
