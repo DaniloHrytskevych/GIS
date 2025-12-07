@@ -681,7 +681,7 @@ function generateFactorDetails(analysisResult, d) {
         <li>Залізниця: ${d?.transport?.has_railway ? 'Так (+2 бали)' : 'Ні'}</li>
         <li>Аеропорт: ${d?.transport?.has_airport ? 'Так (+3 бали)' : 'Ні'}</li>
       </ul>
-      <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.transport_score}/15 балів</div>
+      <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.accessibility_score}/15 балів</div>
     </div>
   </div>
 
