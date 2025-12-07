@@ -175,9 +175,12 @@ const DataImport = () => {
         }
       }
       
-      // НАЙПРОСТІШИЙ метод завантаження
-      const url = URL.createObjectURL(response.data);
+      // CHROME-COMPATIBLE метод завантаження
+      const mimeType = filename.endsWith('.json') ? 'application/json' : 'application/geo+json';
+      const blob = new Blob([response.data], { type: mimeType });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
+      a.style.display = 'none';
       a.href = url;
       a.download = filename;
       document.body.appendChild(a);
@@ -186,7 +189,7 @@ const DataImport = () => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         console.log('✅ File downloaded successfully:', filename);
-      }, 100);
+      }, 250);
       
     } catch (error) {
       console.error('Error downloading file:', error);
