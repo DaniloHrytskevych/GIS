@@ -761,115 +761,115 @@ const LandingPage = () => {
           </div>
 
           {/* Zone Identification Algorithm */}
-          <div className="mt-16 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 p-8 rounded-xl shadow-2xl">
-            <h3 className="text-3xl font-bold text-center mb-6 flex items-center justify-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
-              <TbMapSearch className="text-amber-600 text-4xl" />
-              <span>Як система ставить точки на карті?</span>
-            </h3>
+          <div className="mt-16 bg-white p-8 rounded-xl shadow-xl border-t-4 border-amber-600">
+            <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <TbMapSearch className="text-amber-600 text-4xl" />
+                <h3 className="text-3xl font-bold" style={{ fontFamily: 'Georgia, serif' }}>
+                  Як система ставить точки на карті?
+                </h3>
+              </div>
+              <div className="w-24 h-1 bg-amber-600 mx-auto"></div>
+            </div>
             
             {/* Радіус зони будівництва */}
-            <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-5 rounded-lg shadow-xl mb-6">
+            <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg shadow-xl mb-8 border-2 border-amber-600">
               <div className="flex items-center gap-4">
-                <div className="bg-white/20 p-4 rounded-full">
-                  <span className="text-4xl">🎯</span>
+                <div className="bg-amber-600 p-3 rounded-full">
+                  <TbMapSearch className="text-white text-3xl" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-2xl font-bold mb-2">Радіус зони будівництва: ±5 км</h4>
-                  <p className="text-amber-50">
-                    Кожен маркер на карті — це центр рекомендованої зони. В радіусі <strong>5 км</strong> від цієї точки 
+                  <h4 className="text-xl font-bold mb-2 text-white">Радіус зони будівництва: ±5 км</h4>
+                  <p className="text-gray-300 text-sm">
+                    Кожен маркер на карті — це центр рекомендованої зони. В радіусі <strong className="text-amber-400">5 км</strong> від цієї точки 
                     можна шукати конкретне місце для будівництва рекреаційного об'єкта.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-              <h4 className="text-xl font-bold mb-4 text-gray-800">Алгоритм роботи системи:</h4>
+            <div className="space-y-6 mb-8">
+              <div className="border-l-4 border-amber-600 pl-6 bg-slate-50 p-4 rounded-r-lg">
+                <p className="font-bold text-slate-800 mb-2 text-lg">1. Оцінка області (7 факторів AHP)</p>
+                <p className="text-sm text-gray-600">Приклад: Київська область = 78.5 балів</p>
+              </div>
               
-              <div className="space-y-4">
-                <div className="border-l-4 border-amber-600 pl-4">
-                  <p className="font-bold text-gray-800 mb-1">1. Оцінка області (7 факторів AHP)</p>
-                  <p className="text-sm text-gray-600">Приклад: Київська область = 78.5 балів</p>
-                </div>
-                
-                <div className="border-l-4 border-amber-600 pl-4">
-                  <p className="font-bold text-gray-800 mb-2">2. Пошук локацій у 3 категоріях:</p>
-                  <div className="space-y-2 ml-4">
-                    <p className="text-sm text-gray-700">🔥 Кластери пожеж (≥3 пожежі в радіусі 10 км)</p>
-                    <p className="text-sm text-gray-700">🏞️ Біля ПЗФ (ТОП-2 НПП/РЛП на відстані 3-8 км)</p>
-                    <p className="text-sm text-gray-700">🛣️ Вздовж трас (кожні 50-100 км на М01-М29, Е40, Е50)</p>
+              <div className="border-l-4 border-amber-600 pl-6 bg-slate-50 p-4 rounded-r-lg">
+                <p className="font-bold text-slate-800 mb-3 text-lg">2. Пошук локацій у 3 категоріях:</p>
+                <div className="space-y-2 ml-4 text-sm text-gray-700">
+                  <div className="flex items-center gap-2">
+                    <GiFireBowl className="text-red-600 text-lg flex-shrink-0" />
+                    <span>Кластери пожеж (≥3 пожежі в радіусі 10 км)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPark className="text-green-600 text-lg flex-shrink-0" />
+                    <span>Біля ПЗФ (ТОП-2 НПП/РЛП на відстані 3-8 км)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaCar className="text-blue-600 text-lg flex-shrink-0" />
+                    <span>Вздовж трас (кожні 50-100 км на М01-М29, Е40, Е50)</span>
                   </div>
                 </div>
-                
-                <div className="border-l-4 border-amber-600 pl-4">
-                  <p className="font-bold text-gray-800 mb-2">3. Розрахунок пріоритету (0-100 балів):</p>
-                  <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-3 rounded-lg border border-amber-600">
-                    <p className="text-xs font-mono text-green-400 text-center">
-                      = 50 + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Насиченість(15)
-                    </p>
-                  </div>
+              </div>
+              
+              <div className="border-l-4 border-amber-600 pl-6 bg-slate-50 p-4 rounded-r-lg">
+                <p className="font-bold text-slate-800 mb-3 text-lg">3. Розрахунок пріоритету (0-100 балів):</p>
+                <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-4 rounded-lg border border-amber-600">
+                  <p className="text-xs font-mono text-green-400 text-center">
+                    P = 50 + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Насиченість(15)
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-              <h4 className="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                <span className="text-amber-600">📍</span>
-                3 категорії точок на карті
-              </h4>
-              
-              <div className="space-y-4">
-                <div className="bg-gradient-to-r from-red-50 to-orange-100 p-4 rounded-lg border-l-4 border-red-600">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">🔥</span>
-                    <div className="flex-1">
-                      <h5 className="font-bold text-red-800 mb-1">Кластери пожеж</h5>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Джерела:</strong> 1,875 людських пожеж у лісах → скупчення ≥3 в радіусі 10 км
-                      </p>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Наука:</strong> 80% рекреаційних пожеж поза офіційними місцями (NW Fire Science)
-                      </p>
-                      <p className="text-sm font-semibold text-red-900 bg-white p-2 rounded">
-                        ✅ Облаштоване місце з вогнищами → -40% пожеж
-                      </p>
-                    </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-red-600">
+                <div className="mb-4 flex justify-center">
+                  <div className="bg-red-100 p-3 rounded-full">
+                    <GiFireBowl className="w-10 h-10 text-red-700" />
                   </div>
                 </div>
-
-                <div className="bg-gradient-to-r from-green-50 to-emerald-100 p-4 rounded-lg border-l-4 border-green-600">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">🏞️</span>
-                    <div className="flex-1">
-                      <h5 className="font-bold text-green-800 mb-1">Біля природоохоронних об'єктів</h5>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Джерела:</strong> ТОП-2 НПП/РЛП за відвідуваністю → точки 3-8 км від парку
-                      </p>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Приклад:</strong> НПП "Карпатський" (30,000 відвідувачів/рік)
-                      </p>
-                      <p className="text-sm font-semibold text-green-900 bg-white p-2 rounded">
-                        ✅ Еко-готель, інформаційний центр, екостежка
-                      </p>
-                    </div>
+                <h5 className="font-bold text-center text-slate-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>Кластери пожеж</h5>
+                <div className="text-sm text-gray-600 space-y-2">
+                  <p><strong>Джерела:</strong> 1,875 людських пожеж у лісах</p>
+                  <p><strong>Алгоритм:</strong> Скупчення ≥3 в радіусі 10 км</p>
+                  <p><strong>Наука:</strong> 80% рекреаційних пожеж поза офіційними місцями</p>
+                  <div className="bg-red-50 p-3 rounded border-l-4 border-red-600 mt-3">
+                    <p className="text-xs font-semibold text-red-900">Облаштоване місце з вогнищами → зниження пожеж на 40%</p>
                   </div>
                 </div>
+              </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-100 p-4 rounded-lg border-l-4 border-blue-600">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">🛣️</span>
-                    <div className="flex-1">
-                      <h5 className="font-bold text-blue-800 mb-1">Вздовж міжнародних трас</h5>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Джерела:</strong> Траси М01-М29, Е40, Е50 → точки кожні 50-100 км
-                      </p>
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>Приклад:</strong> М06 Київ-Чоп (5,000+ авто/день)
-                      </p>
-                      <p className="text-sm font-semibold text-blue-900 bg-white p-2 rounded">
-                        ✅ Мотель, кемпінг, стоянка з послугами
-                      </p>
-                    </div>
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-600">
+                <div className="mb-4 flex justify-center">
+                  <div className="bg-green-100 p-3 rounded-full">
+                    <MdPark className="w-10 h-10 text-green-700" />
+                  </div>
+                </div>
+                <h5 className="font-bold text-center text-slate-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>Біля природоохоронних об'єктів</h5>
+                <div className="text-sm text-gray-600 space-y-2">
+                  <p><strong>Джерела:</strong> ТОП-2 НПП/РЛП за відвідуваністю</p>
+                  <p><strong>Алгоритм:</strong> Точки на відстані 3-8 км від парку</p>
+                  <p><strong>Приклад:</strong> НПП "Карпатський" (30,000 відвідувачів/рік)</p>
+                  <div className="bg-green-50 p-3 rounded border-l-4 border-green-600 mt-3">
+                    <p className="text-xs font-semibold text-green-900">Еко-готель, інформаційний центр, екостежка</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-600">
+                <div className="mb-4 flex justify-center">
+                  <div className="bg-blue-100 p-3 rounded-full">
+                    <FaCar className="w-10 h-10 text-blue-700" />
+                  </div>
+                </div>
+                <h5 className="font-bold text-center text-slate-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>Вздовж міжнародних трас</h5>
+                <div className="text-sm text-gray-600 space-y-2">
+                  <p><strong>Джерела:</strong> Траси М01-М29, Е40, Е50</p>
+                  <p><strong>Алгоритм:</strong> Точки кожні 50-100 км вздовж траси</p>
+                  <p><strong>Приклад:</strong> М06 Київ-Чоп (5,000+ авто/день)</p>
+                  <div className="bg-blue-50 p-3 rounded border-l-4 border-blue-600 mt-3">
+                    <p className="text-xs font-semibold text-blue-900">Мотель, кемпінг, стоянка з послугами</p>
                   </div>
                 </div>
               </div>
