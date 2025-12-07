@@ -87,18 +87,31 @@ function generateEnhancedPDFContent(analysisResult, d, scoreColor, categoryColor
 
     <!-- СТОРІНКА 1: ТИТУЛЬНА -->
     <div class="text-center mb-4">
-      <h1 style="color: #1e293b; margin-top: 0;">НАУКОВИЙ ЗВІТ</h1>
-      <h2 style="color: #f59e0b; border: none;">АНАЛІЗ РЕКРЕАЦІЙНОГО ПОТЕНЦІАЛУ</h2>
-      <h3 style="color: #475569;">${analysisResult.region}</h3>
+      <h1 style="margin-top: 40px;">НАУКОВИЙ ЗВІТ</h1>
+      <h2 style="border: none; font-size: 14px; margin: 10px 0;">Аналіз рекреаційного потенціалу території</h2>
+      <p style="font-size: 13px; font-weight: bold; margin: 20px 0;">${analysisResult.region}</p>
       
-      <div style="margin: 30px auto; width: 120px; height: 120px; border-radius: 50%; background: ${scoreColor}; color: white; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold; border: 6px solid #f59e0b;">
-        ${analysisResult.total_score}
-      </div>
-      <p style="font-size: 16px; color: #64748b; margin: 8px 0;">зі 100 балів</p>
-      <span style="display: inline-block; padding: 10px 20px; border-radius: 20px; background: ${categoryColor}; color: white; font-weight: bold; font-size: 16px;">${analysisResult.category}</span>
+      <table style="width: 60%; margin: 30px auto; border: 2px solid #000000;">
+        <tr>
+          <td style="text-align: center; padding: 15px; font-weight: bold; font-size: 14px;">
+            Інтегральний показник потенціалу
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center; padding: 20px; font-size: 24px; font-weight: bold;">
+            ${analysisResult.total_score} / 100 балів
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center; padding: 10px; font-weight: bold;">
+            Категорія: ${analysisResult.category}
+          </td>
+        </tr>
+      </table>
       
-      <p style="color: #94a3b8; margin-top: 30px; font-size: 13px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
-      <p style="color: #94a3b8; font-size: 12px;">Версія методології: 1.0 | Analytic Hierarchy Process (AHP)</p>
+      <p style="margin-top: 50px; font-size: 11px;">Дата формування звіту: ${new Date().toLocaleDateString('uk-UA')}</p>
+      <p style="font-size: 11px;">Методологія: Analytic Hierarchy Process (AHP), версія 1.0</p>
+      <p style="font-size: 11px;">7-факторна модель багатокритеріального аналізу</p>
     </div>
     
     <div class="page-break"></div>
