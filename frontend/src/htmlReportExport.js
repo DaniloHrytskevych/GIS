@@ -349,7 +349,7 @@ function generateHTMLReport(analysisResult, d) {
           <td>4. Транспортна доступність</td>
           <td style="text-align: center;">15</td>
           <td style="text-align: center;">15%</td>
-          <td style="text-align: center; font-weight: bold;">${analysisResult.transport_score}</td>
+          <td style="text-align: center; font-weight: bold;">${analysisResult.accessibility_score}</td>
         </tr>
         <tr>
           <td>5. Антропогенна інфраструктура</td>
