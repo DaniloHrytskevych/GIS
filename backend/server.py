@@ -881,9 +881,9 @@ async def get_recommended_zones():
             
             # Generate reasoning for fire_prevention zone
             reasoning = {
-                "point1": f"🔥 КРИТИЧНА ЗОНА: {fire_count} людських пожеж (профілактика!)",
-                "point2": f"📊 Пожежі: {analysis['fire_score']} балів, Природа: {int(analysis['nature_score'])} балів",
-                "point3": "🏗️ Облаштований пункт знизить ризик нових пожеж"
+                "point1": f"КРИТИЧНА ЗОНА: {fire_count} людських пожеж (профілактика!)",
+                "point2": f"Пожежі: {analysis['fire_score']} балів, Природа: {int(analysis['nature_score'])} балів",
+                "point3": "Облаштований пункт знизить ризик нових пожеж"
             }
             
             # Recommended facilities for fire prevention
