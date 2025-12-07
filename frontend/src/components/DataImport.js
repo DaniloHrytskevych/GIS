@@ -123,19 +123,13 @@ const DataImport = () => {
       });
       console.log('✅ Backup response received:', response.data.size, 'bytes');
       
-      // Create download link
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      
       // Generate filename with timestamp
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-      link.setAttribute('download', `gis_data_backup_${timestamp}.zip`);
+      const filename = `gis_data_backup_${timestamp}.zip`;
       
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      console.log('✅ Backup downloaded successfully:', link.download);
+      // Use file-saver for reliable cross-browser downloads
+      saveAs(response.data, filename);
+      console.log('✅ Backup downloaded successfully:', filename);
       
       // Save backup timestamp to localStorage
       localStorage.setItem('lastBackupTime', new Date().toISOString());
