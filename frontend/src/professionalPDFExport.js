@@ -18,8 +18,8 @@ export const exportProfessionalPDF = async (analysisResult, getScoreColor, getCa
     const pdf = new jsPDF('p', 'mm', 'a4');
     const d = analysisResult.details;
     
-    // Налаштування шрифтів
-    pdf.setFont('times', 'normal');
+    // Налаштування шрифтів - використовуємо helvetica для кирилиці
+    pdf.setFont('helvetica', 'normal');
     
     let currentPage = 1;
     
