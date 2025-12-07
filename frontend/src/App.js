@@ -1609,7 +1609,7 @@ function MapPage() {
               </Select>
               <Button onClick={exportComparisonPDF} className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white" size="sm">
                 <TbChartDots3 className="w-4 h-4 mr-2" />
-                Порівняння областей (PDF)
+                Порівняльний звіт (HTML)
               </Button>
               {analysisResult && (
                 <>
