@@ -23,6 +23,8 @@ import html2canvas from 'html2canvas';
 import { simpleExportJSON, simpleExportPDF, simpleDownloadFromServer } from './simpleExport';
 import { exportFinalPDF } from './finalPDFExport';
 import { exportFinalComparePDF } from './finalComparePDF';
+import { openHTMLReport } from './htmlReportExport';
+import { openHTMLCompare } from './htmlCompareReport';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
 import DataImport from './components/DataImport';
