@@ -151,10 +151,13 @@ const DataImport = () => {
   };
 
   const handleDownloadSingle = async (dataType) => {
+    console.log('🔍 handleDownloadSingle called for:', dataType);
     try {
+      console.log('📥 Requesting single file:', `${API}/backup/download/${dataType}`);
       const response = await axios.get(`${API}/backup/download/${dataType}`, {
         responseType: 'blob'
       });
+      console.log('✅ Single file response received:', response.data.size, 'bytes');
       
       // Get filename from Content-Disposition header
       const contentDisposition = response.headers['content-disposition'];
