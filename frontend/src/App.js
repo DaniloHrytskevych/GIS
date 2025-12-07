@@ -206,7 +206,8 @@ function MapPage() {
       return;
     }
     
-    try {
+    // Temporarily removed try block for debugging
+    // try {
       // Pre-calculate colors safely
       const scoreColor = getScoreColor(analysisResult.total_score);
       const categoryColor = getCategoryColor(analysisResult.category);
