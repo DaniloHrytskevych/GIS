@@ -329,8 +329,6 @@ def calculate_comprehensive_priority(
     6. Пожежі (0-5) - fire_score
     7. Насиченість (0 до -15) - competitors_penalty
     """
-    base = 50
-    
     # Фактор 1: ПОПИТ (0-25 балів)
     demand_component = min(25, region_analysis.get('demand_score', 0))
     
