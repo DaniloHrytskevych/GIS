@@ -201,7 +201,7 @@ frontend:
   - task: "Export functionality for reports (PDF and JSON)"
     implemented: true
     working: true
-    file: "/app/frontend/src/App.js"
+    file: "/app/frontend/src/App.js, /app/frontend/public/index.html"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
