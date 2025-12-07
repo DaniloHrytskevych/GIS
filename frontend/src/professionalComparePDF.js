@@ -3,7 +3,7 @@
  */
 
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export const exportProfessionalComparePDF = async (compareResults) => {
   if (!compareResults || compareResults.length === 0) {
@@ -68,7 +68,7 @@ function generateCompareTitlePage(pdf, sorted) {
   pdf.text('Порівняльний аналіз рекреаційного потенціалу', pageWidth / 2, 55, { align: 'center' });
   pdf.text('адміністративних областей України', pageWidth / 2, 63, { align: 'center' });
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 85,
     head: [['УЗАГАЛЬНЕНІ РЕЗУЛЬТАТИ АНАЛІЗУ']],
     body: [
@@ -108,7 +108,7 @@ function generateRankingTable(pdf, sorted) {
     result.total_score >= 70 ? 'Рекомендується' : result.total_score >= 50 ? 'З обережністю' : 'Не рекомендується'
   ]);
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 30,
     head: [['Ранг', 'Область', 'Бал', 'Категорія', 'Рекомендація']],
     body: bodyData,
@@ -125,7 +125,7 @@ function generateRankingTable(pdf, sorted) {
   });
   
   // Розподіл за категоріями
-  const lastY = pdf.lastAutoTable.finalY;
+  const lastY = pdf.previousAutoTable.finalY;
   
   if (lastY > 240) {
     pdf.addPage();
@@ -133,7 +133,7 @@ function generateRankingTable(pdf, sorted) {
     pdf.setFont('times', 'bold');
     pdf.text('1.1. Розподіл регіонів за категоріями потенціалу', 20, 20);
     
-    pdf.autoTable({
+    autoTable(pdf, {
       startY: 28,
       head: [['Категорія', 'Кількість регіонів', 'Частка, %']],
       body: [
@@ -155,7 +155,7 @@ function generateRankingTable(pdf, sorted) {
     pdf.setFont('times', 'bold');
     pdf.text('1.1. Розподіл регіонів за категоріями потенціалу', 20, lastY + 12);
     
-    pdf.autoTable({
+    autoTable(pdf, {
       startY: lastY + 20,
       head: [['Категорія', 'Кількість регіонів', 'Частка, %']],
       body: [
@@ -224,7 +224,7 @@ function generateFactorComparison(pdf, sorted) {
       factor.isNegative ? '—' : `${((result[factor.key] / factor.max) * 100).toFixed(0)}%`
     ]);
     
-    pdf.autoTable({
+    autoTable(pdf, {
       startY: yPos,
       head: [['Ранг', 'Область', 'Бал', '% від макс.']],
       body: top5Data,
@@ -240,7 +240,7 @@ function generateFactorComparison(pdf, sorted) {
       margin: { left: 20, right: 20 }
     });
     
-    yPos = pdf.lastAutoTable.finalY + 8;
+    yPos = pdf.previousAutoTable.finalY + 8;
   });
 }
 
@@ -261,7 +261,7 @@ function generateDetailedStatistics(pdf, sorted) {
     result.total_score
   ]);
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 28,
     head: [['Область', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'ВСЬОГО']],
     body: bodyData,
@@ -282,7 +282,7 @@ function generateDetailedStatistics(pdf, sorted) {
   });
   
   // Статистичні показники
-  const lastY = pdf.lastAutoTable.finalY;
+  const lastY = pdf.previousAutoTable.finalY;
   
   if (lastY > 240) {
     pdf.addPage();
@@ -300,7 +300,7 @@ function generateDetailedStatistics(pdf, sorted) {
   }
   
   // Висновки
-  const conclusionsY = pdf.lastAutoTable.finalY + 12;
+  const conclusionsY = pdf.previousAutoTable.finalY + 12;
   
   if (conclusionsY > 240) {
     pdf.addPage();
@@ -331,7 +331,7 @@ function generateStatTable(pdf, sorted, startY) {
     return [factor.name, min, max, avg, stdDev];
   });
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: startY,
     head: [['Фактор', 'Мінімум', 'Максимум', 'Середнє', 'Станд. відхилення']],
     body: bodyData,

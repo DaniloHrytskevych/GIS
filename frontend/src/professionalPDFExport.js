@@ -235,7 +235,7 @@ function generateInputData(pdf, analysisResult, d) {
   // 2.2. ПЗФ
   pdf.setFontSize(13);
   pdf.setFont('times', 'bold');
-  const pfzY = pdf.lastAutoTable.finalY + 10;
+  const pfzY = pdf.previousAutoTable.finalY + 10;
   pdf.text('2.2. Природно-заповідний фонд', 20, pfzY);
   
   autoTable(pdf, {
@@ -301,7 +301,7 @@ function generateInputData(pdf, analysisResult, d) {
   ];
   
   tables.forEach(table => {
-    const lastY = pdf.lastAutoTable.finalY;
+    const lastY = pdf.previousAutoTable.finalY;
     
     // Перевірка чи достатньо місця на сторінці
     if (lastY > 240) {
