@@ -1615,7 +1615,7 @@ function MapPage() {
                 <>
                   <Button onClick={exportPDF} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
                     <MdDownload className="w-4 h-4 mr-2" />
-                    Звіт про область (PDF)
+                    Звіт про область (HTML)
                   </Button>
                   <Button onClick={exportJSON} className="bg-slate-700 hover:bg-slate-600 text-white border border-amber-600/50" size="sm">
                     <MdDescription className="w-4 h-4 mr-2" />
