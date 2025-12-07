@@ -348,9 +348,9 @@ function generateCompareHTML(sortedRegions) {
             <td style="text-align: center;">${region.demand_score}</td>
             <td style="text-align: center;">${region.pfz_score}</td>
             <td style="text-align: center;">${region.nature_score}</td>
-            <td style="text-align: center;">${region.transport_score}</td>
+            <td style="text-align: center;">${region.accessibility_score}</td>
             <td style="text-align: center;">${region.infrastructure_score}</td>
-            <td style="text-align: center;">${region.fire_risk_score}</td>
+            <td style="text-align: center;">${region.fire_score}</td>
             <td style="text-align: center;">${region.saturation_penalty}</td>
             <td style="text-align: center; font-weight: bold; font-size: 11pt;">
               ${region.total_score.toFixed(1)}
