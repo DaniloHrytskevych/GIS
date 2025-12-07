@@ -492,7 +492,7 @@ function MapPage() {
       
       <!-- ФАКТОР 2: ПЗФ (ДЕТАЛЬНО) -->
       <div style="background: #f0fdf4; padding: 15px; border-left: 4px solid #16a34a; margin-bottom: 15px; font-size: 10px;">
-        <h4 style="margin: 0 0 10px 0; color: #16a34a; font-size: 12px;">🌲 ФАКТОР 2: ПЗФ ЯК АТРАКТОР (Вага: 20%, максимум 20 балів)</h4>
+        <h4 style="margin: 0 0 10px 0; color: #16a34a; font-size: 12px;">ФАКТОР 2: ПЗФ ЯК АТРАКТОР (Вага: 20%, максимум 20 балів)</h4>
         
         <div style="margin: 10px 0;">
           <strong style="color: #16a34a;">▶ Крок 1: Зважений підрахунок ПЗФ</strong><br/>
