@@ -1241,41 +1241,17 @@ function MapPage() {
     const blob = new Blob([dataStr], { type: 'application/json' });
     const filename = `Analiz_${analysisResult.region.replace(/ /g, '_')}.json`;
       
-      // Try file-saver first, fallback to new window if sandboxed
-      try {
-        saveAs(blob, filename);
-        console.log('✅ JSON exported successfully:', filename);
-      } catch (sandboxError) {
-        console.warn('⚠️ Sandbox download blocked, trying fallback...');
-        // Fallback: Open in new window for sandboxed environments
-        const dataUrl = URL.createObjectURL(blob);
-        const newWindow = window.open(dataUrl, '_blank');
-        if (!newWindow) {
-          // If popup blocked, show modal with download link
-          const downloadLink = document.createElement('a');
-          downloadLink.href = dataUrl;
-          downloadLink.download = filename;
-          downloadLink.textContent = 'Натисніть для завантаження JSON';
-          downloadLink.style.cssText = 'display: block; padding: 20px; background: #f59e0b; color: white; text-align: center; font-size: 18px; text-decoration: none; border-radius: 8px; margin: 20px;';
-          
-          const modalDiv = document.createElement('div');
-          modalDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 10000;';
-          modalDiv.innerHTML = '<p style="margin-bottom: 20px; color: #1e293b; font-size: 16px;">⚠️ Автоматичне завантаження заблоковано. Натисніть кнопку нижче:</p>';
-          modalDiv.appendChild(downloadLink);
-          
-          const overlay = document.createElement('div');
-          overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;';
-          overlay.onclick = () => {
-            document.body.removeChild(overlay);
-            document.body.removeChild(modalDiv);
-            URL.revokeObjectURL(dataUrl);
-          };
-          
-          document.body.appendChild(overlay);
-          document.body.appendChild(modalDiv);
-        }
-        console.log('✅ JSON export fallback used');
-      }
+      // SIMPLE download method - create link and click it
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      console.log('✅ JSON exported successfully:', filename);
     } catch (error) {
       console.error('❌ JSON export error:', error);
       alert('Помилка експорту JSON: ' + error.message);
