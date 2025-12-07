@@ -150,7 +150,8 @@ function MapPage() {
         axios.get(`${API}/region-boundaries`)
       ]);
       
-      setRegions(regionsRes.data.regions || []);
+      const loadedRegions = regionsRes.data.regions || [];
+      setRegions(loadedRegions);
       setRecreationalPoints(pointsRes.data.features || []);
       setAllAnalysis(allAnalysisRes.data.results || []);
       setPfzObjects(pfzRes.data.objects || []);
@@ -161,6 +162,14 @@ function MapPage() {
       setRegionBoundaries(boundariesRes.data.features || []);
       console.log('Loaded forest fires:', firesRes.data.features?.length || 0);
       console.log('Loaded region boundaries:', boundariesRes.data.features?.length || 0);
+      
+      // Автоматично завантажити аналіз для першого регіону (Київська область)
+      if (loadedRegions.length > 0) {
+        const defaultRegion = loadedRegions[0]; // "Київська область"
+        setSelectedRegion(defaultRegion);
+        await analyzeRegion(defaultRegion);
+        console.log('✅ Auto-loaded analysis for:', defaultRegion);
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     }
