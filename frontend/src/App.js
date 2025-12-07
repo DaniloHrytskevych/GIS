@@ -439,7 +439,7 @@ function MapPage() {
       
       <!-- ФАКТОР 1: ПОПИТ (ДЕТАЛЬНО) -->
       <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin-bottom: 15px; font-size: 10px;">
-        <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 12px;">📊 ФАКТОР 1: ПОПИТ ВІД НАСЕЛЕННЯ (Вага: 25%, максимум 25 балів)</h4>
+        <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 12px;">ФАКТОР 1: ПОПИТ ВІД НАСЕЛЕННЯ (Вага: 25%, максимум 25 балів)</h4>
         
         <div style="margin: 10px 0;">
           <strong style="color: #1e40af;">▶ Крок 1: Розрахунок річного попиту</strong><br/>
