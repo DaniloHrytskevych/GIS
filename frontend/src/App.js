@@ -715,30 +715,21 @@ function MapPage() {
     
     document.body.appendChild(pdfContent);
     
-    try {
-      const canvas = await html2canvas(pdfContent, { scale: 2, useCORS: true });
-      const imgData = canvas.toDataURL('image/png');
-      
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 10;
-      
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-      pdf.save(`Аналіз_${analysisResult.region}.pdf`);
-      console.log('✅ PDF saved successfully');
-    } catch (error) {
-      console.error('❌ PDF export error:', error);
-      alert('Помилка експорту PDF: ' + error.message);
-    } finally {
-      if (pdfContent && pdfContent.parentNode) {
-        document.body.removeChild(pdfContent);
-      }
-    }
+    const canvas = await html2canvas(pdfContent, { scale: 2, useCORS: true });
+    const imgData = canvas.toDataURL('image/png');
+    
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = canvas.width;
+    const imgHeight = canvas.height;
+    const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+    const imgX = (pdfWidth - imgWidth * ratio) / 2;
+    const imgY = 10;
+    
+    pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+    pdf.save(`Аналіз_${analysisResult.region}.pdf`);
+    console.log('✅ PDF saved successfully');
   };
 
   const exportJSON = () => {
