@@ -224,7 +224,7 @@ function generateFactorComparison(pdf, sorted) {
       factor.isNegative ? '—' : `${((result[factor.key] / factor.max) * 100).toFixed(0)}%`
     ]);
     
-    const factorTable = autoTable(pdf, {
+    autoTable(pdf, {
       startY: yPos,
       head: [['Ранг', 'Область', 'Бал', '% від макс.']],
       body: top5Data,
@@ -240,7 +240,7 @@ function generateFactorComparison(pdf, sorted) {
       margin: { left: 20, right: 20 }
     });
     
-    yPos = factorTable.finalY + 8;
+    yPos = (pdf.lastAutoTable && pdf.lastAutoTable.finalY) ? pdf.lastAutoTable.finalY + 8 : yPos + 50;
   });
 }
 
