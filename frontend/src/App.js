@@ -646,7 +646,7 @@ function MapPage() {
       
       
       <!-- ДЖЕРЕЛА ДАНИХ -->
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">📚 ДЖЕРЕЛА ДАНИХ</h3>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 20px; font-size: 14px;">ДЖЕРЕЛА ДАНИХ</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px;">
         <tr style="background: #1e293b; color: white;">
           <th style="padding: 6px; text-align: left; border: 1px solid #475569; width: 30%;">Категорія даних</th>
