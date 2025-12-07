@@ -536,6 +536,54 @@ async def analyze_region(region_name: str):
     
     return analysis
 
+@api_router.get("/methodology")
+async def get_methodology():
+    """
+    Get detailed AHP methodology and weight calculations
+    Returns scientific justification for all weights
+    """
+    from ahp_calculator import get_ahp_weights, verify_ahp_consistency, ahp_calculator
+    
+    weights = get_ahp_weights()
+    ci, cr, is_consistent = verify_ahp_consistency()
+    
+    return {
+        "method": "Analytic Hierarchy Process (AHP)",
+        "reference": "Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.",
+        "consistency": {
+            "ci": round(ci, 4),
+            "cr": round(cr, 4),
+            "percentage": f"{cr*100:.2f}%",
+            "is_consistent": is_consistent,
+            "threshold": "CR < 0.1 (10%)",
+            "status": "✓ УЗГОДЖЕНА" if is_consistent else "✗ НЕ УЗГОДЖЕНА"
+        },
+        "ahp_weights": {
+            "calculated": weights,
+            "description": "Ваги розраховані методом геометричного середнього"
+        },
+        "target_weights": {
+            "demand": {"weight": 0.25, "max_score": 25, "justification": "Економічна доцільність - найвищий пріоритет (Kentucky SCORP 2020)"},
+            "pfz": {"weight": 0.20, "max_score": 20, "justification": "ПЗФ = головний туристичний атрактор (Wiley AHP 2022)"},
+            "nature": {"weight": 0.15, "max_score": 15, "justification": "Естетична цінність + різноманітність активностей"},
+            "transport": {"weight": 0.15, "max_score": 15, "justification": "Доступність - 2-га причина неучасті у рекреації (DC SCORP 2020)"},
+            "infrastructure": {"weight": 0.10, "max_score": 10, "justification": "Можна побудувати (вторинний фактор)"},
+            "fire_prevention": {"weight": 0.05, "max_score": 5, "justification": "Бонус за безпеку (NW Fire Science 2020)"},
+            "saturation": {"weight": -0.15, "max_score": -15, "justification": "Штраф за перенасичення ринку"}
+        },
+        "pairwise_matrix": ahp_calculator.pairwise_matrix.tolist(),
+        "criteria_names": ahp_calculator.criteria_names,
+        "scientific_references": [
+            "Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.",
+            "Kentucky SCORP 2020-2025 - Demand Analysis Methodology",
+            "District of Columbia SCORP 2020 - Access Barriers Study",
+            "Wiley (2022) - AHP for Ecotourism Site Selection",
+            "SCIRP (2018) - GIS-AHP Tourist Resort Location",
+            "NW Fire Science (2020) - Human-caused Wildfire Patterns",
+            "Laguna Hills (2021) - Recreation Facility Assessment"
+        ]
+    }
+
 @api_router.get("/analyze-all")
 async def analyze_all_regions():
     """Analyze all regions and return comparison table"""
