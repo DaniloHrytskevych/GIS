@@ -56,15 +56,22 @@ yarn add file-saver @types/file-saver
 ```html
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self'; 
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.emergent.sh https://us.i.posthog.com https://*.i.posthog.com; 
-  style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; 
-  img-src 'self' data: https: blob:; 
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.emergent.sh https://us.i.posthog.com https://*.i.posthog.com https://cdnjs.cloudflare.com; 
+  style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+  img-src 'self' data: https: blob: https://cdnjs.cloudflare.com; 
   font-src 'self' data: https://fonts.gstatic.com; 
   connect-src 'self' https://us.i.posthog.com https://*.i.posthog.com; 
   frame-src 'none'; 
   object-src 'none';
 " />
 ```
+
+**Дозволені домени:**
+- `cdnjs.cloudflare.com` - Leaflet іконки карти та стилі
+- `fonts.googleapis.com` - CSS файли Google Fonts
+- `fonts.gstatic.com` - файли шрифтів
+- `assets.emergent.sh` - Emergent скрипти
+- `us.i.posthog.com` та `*.i.posthog.com` - PostHog аналітика
 
 **Результат:** ✅ Немає CSP помилок в консолі браузера, всі функції працюють
 
