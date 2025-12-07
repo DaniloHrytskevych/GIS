@@ -1993,7 +1993,7 @@ function MapPage() {
                             {/* Відстань до ПЗФ */}
                             {zone.type === "near_pfz" && zone.distance_from_pfz && (
                               <p className="text-sm mb-3 text-gray-300">
-                                <span className="text-amber-400">★</span> Відстань до ПЗФ: <strong className="text-white">{zone.distance_from_pfz} км</strong>
+                                <span className="text-amber-400">•</span> Відстань до ПЗФ: <strong className="text-white">{zone.distance_from_pfz} км</strong>
                               </p>
                             )}
 
