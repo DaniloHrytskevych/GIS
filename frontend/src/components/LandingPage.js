@@ -219,10 +219,10 @@ const LandingPage = () => {
 
             <div className="bg-slate-700/50 backdrop-blur p-6 rounded-lg shadow-xl mb-6 border border-amber-600/30">
               <div className="text-center text-xl font-bold mb-6 text-amber-400" style={{ fontFamily: 'Courier New, monospace' }}>
-                P<sub className="text-sm">zone</sub> = 50 + F₁ + F₂ + F₃ + F₄ + F₅ + F₆ + S<sub className="text-sm">penalty</sub>
+                P<sub className="text-sm">zone</sub> = F₁ + F₂ + F₃ + F₄ + F₅ + F₆ + S<sub className="text-sm">penalty</sub>
               </div>
               <p className="text-center text-sm text-gray-400 mb-4">
-                де базова оцінка = 50 балів, кожен фактор додає свою частку
+                Інтегральний показник рекреаційного потенціалу (сума 7 факторів)
               </p>
               
               <div className="space-y-3 text-base">
