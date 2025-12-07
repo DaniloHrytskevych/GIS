@@ -740,7 +740,18 @@ function MapPage() {
       const imgY = 10;
       
       pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-      pdf.save(`Аналіз_${analysisResult.region}.pdf`);
+      
+      // Manual download instead of pdf.save()
+      const pdfBlob = pdf.output('blob');
+      const url = URL.createObjectURL(pdfBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `Аналіз_${analysisResult.region}.pdf`;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
       console.log('✅ PDF saved successfully');
     } catch (error) {
       console.error('❌ PDF export error:', error);
