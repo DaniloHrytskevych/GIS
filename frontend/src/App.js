@@ -442,7 +442,7 @@ function MapPage() {
         <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 12px;">ФАКТОР 1: ПОПИТ ВІД НАСЕЛЕННЯ (Вага: 25%, максимум 25 балів)</h4>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #1e40af;">▶ Крок 1: Розрахунок річного попиту</strong><br/>
+          <strong style="color: #1e40af;">Крок 1: Розрахунок річного попиту</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Формула:</strong> Попит = Населення × 0.15 × 3 відв./рік<br/>
             <strong>Підставлення:</strong> ${d?.population?.total?.toLocaleString() || 0} × 0.15 × 3<br/>
