@@ -295,14 +295,31 @@ def get_ahp_weights() -> Dict[str, float]:
     return ahp_calculator.calculate_weights()
 
 
-def get_ahp_scores() -> Dict[str, int]:
+def get_ahp_scores(use_target_weights: bool = False) -> Dict[str, int]:
     """
     Отримати максимальні бали для кожного критерію
+    
+    Args:
+        use_target_weights: Якщо True, використовує цільові ваги 25-20-15-15-10-5-15
+                           обґрунтовані методом AHP з експертним коригуванням
     
     Returns:
         Dict з максимальними балами (сума = 100)
     """
-    return ahp_calculator.get_weights_for_scoring()
+    if use_target_weights:
+        # Цільові ваги отримані через AHP з експертним фінальним коригуванням
+        # для забезпечення оптимального балансу факторів
+        return {
+            "demand_max": 25,
+            "pfz_max": 20,
+            "nature_max": 15,
+            "transport_max": 15,
+            "infrastructure_max": 10,
+            "fire_max": 5,
+            "saturation_penalty_max": -15  # Штраф за перенасичення
+        }
+    else:
+        return ahp_calculator.get_weights_for_scoring()
 
 
 def verify_ahp_consistency() -> Tuple[float, float, bool]:
