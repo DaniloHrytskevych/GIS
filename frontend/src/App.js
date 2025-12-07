@@ -206,6 +206,7 @@ function MapPage() {
       return;
     }
     
+    let pdfContent = null;
     try {
       // Pre-calculate colors safely
       const scoreColor = getScoreColor(analysisResult.total_score);
@@ -213,7 +214,7 @@ function MapPage() {
       console.log('✅ Colors calculated:', scoreColor, categoryColor);
       
       // Create a temporary div for PDF content
-      const pdfContent = document.createElement('div');
+      pdfContent = document.createElement('div');
       pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif; font-size: 11px;';
       
       const d = analysisResult.details;
