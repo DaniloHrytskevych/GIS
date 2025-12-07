@@ -21,6 +21,7 @@ import { FaCar } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { simpleExportJSON, simpleExportPDF, simpleDownloadFromServer } from './simpleExport';
+import { exportEnhancedPDF } from './enhancedPDFExport';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
 import DataImport from './components/DataImport';
@@ -210,12 +211,17 @@ function MapPage() {
   };
 
   const exportPDF = async () => {
-    console.log('🔍 exportPDF called');
+    console.log('🔍 exportPDF called - using ENHANCED PDF');
     if (!analysisResult) {
       console.error('❌ No analysisResult');
       return;
     }
     
+    // Використовуємо новий розширений експорт
+    await exportEnhancedPDF(analysisResult, getScoreColor, getCategoryColor);
+    return;
+    
+    /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
     let pdfContent = null;
     try {
       // Pre-calculate colors safely
