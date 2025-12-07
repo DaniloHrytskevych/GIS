@@ -898,24 +898,22 @@ const LandingPage = () => {
             <div className="bg-white p-5 rounded-lg shadow-lg mt-6">
               <h5 className="font-bold text-lg mb-3 flex items-center gap-2">
                 <span className="text-2xl">🗺️</span>
-                Візуалізація на карті:
+                На карті:
               </h5>
-              <div className="grid grid-cols-3 gap-4 text-center text-sm">
-                <div className="bg-green-100 p-3 rounded border-2 border-green-600">
-                  <div className="text-3xl mb-1">🟢</div>
-                  <p className="font-bold text-green-800">70-100 балів</p>
-                  <p className="text-xs text-gray-600">Найкращі локації</p>
+              <div className="bg-gray-100 p-4 rounded">
+                <p className="text-sm text-gray-800 mb-2">
+                  <strong>Всі рекомендовані локації позначені однаково:</strong>
+                </p>
+                <div className="flex items-center gap-3 bg-white p-3 rounded border-2 border-red-400">
+                  <div className="w-8 h-8 border-2 border-red-600 border-dashed rounded-full bg-red-200 flex-shrink-0"></div>
+                  <div>
+                    <p className="font-bold text-red-800">Червоне коло в пунктирній лінії</p>
+                    <p className="text-xs text-gray-600">Натисніть на маркер щоб побачити бал пріоритету (0-100)</p>
+                  </div>
                 </div>
-                <div className="bg-yellow-100 p-3 rounded border-2 border-yellow-600">
-                  <div className="text-3xl mb-1">🟡</div>
-                  <p className="font-bold text-yellow-800">50-69 балів</p>
-                  <p className="text-xs text-gray-600">Хороші локації</p>
-                </div>
-                <div className="bg-red-100 p-3 rounded border-2 border-red-600">
-                  <div className="text-3xl mb-1">🔴</div>
-                  <p className="font-bold text-red-800">0-49 балів</p>
-                  <p className="text-xs text-gray-600">Менш привабливі</p>
-                </div>
+                <p className="text-xs text-gray-600 mt-3">
+                  💡 Чим вищий бал - тим привабливіше місце для інвестицій. Локації з балом 90-100 = найкращі варіанти.
+                </p>
               </div>
             </div>
           </div>
