@@ -167,7 +167,6 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Backend methodology verification - Фактор 1-7 calculations match Landing Page"
     - "Enhanced PDF export - multi-page structure with 14px font"
     - "Enhanced comparison PDF - 4-5 pages with rankings"
   stuck_tasks: []
