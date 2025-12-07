@@ -705,7 +705,7 @@ function generateFactorDetails(analysisResult, d) {
   <h2 class="major-section">8. ФАКТОР 6: ПОЖЕЖОНЕБЕЗПЕЧНІСТЬ</h2>
   <div class="section">
     <p><strong>Максимальна вага:</strong> 5 балів (5% від загального)</p>
-    <p><strong>Отримано:</strong> ${analysisResult.fire_risk_score} балів</p>
+    <p><strong>Отримано:</strong> ${analysisResult.fire_score} балів</p>
     
     <div class="step-box">
       <h4>Парадоксальна логіка (NW Fire Science 2020):</h4>
