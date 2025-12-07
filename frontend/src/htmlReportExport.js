@@ -694,8 +694,8 @@ function generateFactorDetails(analysisResult, d) {
     <div class="step-box">
       <h4>Компоненти:</h4>
       <ul>
-        <li>Заправки: ${d?.infrastructure?.gas_stations_per_1000km2 || 0} на 1000 км²</li>
-        <li>Лікарні: ${d?.infrastructure?.hospitals_per_1000km2 || 0} на 1000 км²</li>
+        <li>Заправки: ${d?.infrastructure?.gas_stations_per_100km2 ? (d.infrastructure.gas_stations_per_100km2 * 10).toFixed(1) : 0} на 1000 км²</li>
+        <li>Лікарні: ${d?.infrastructure?.hospitals_per_100k ? d.infrastructure.hospitals_per_100k.toFixed(1) : 0} на 100k населення</li>
       </ul>
       <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.infrastructure_score}/10 балів</div>
     </div>
