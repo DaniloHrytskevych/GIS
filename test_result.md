@@ -152,7 +152,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Backend methodology verification - Фактор 1-7 calculations match Landing Page"
+    - "Enhanced PDF export - multi-page structure with 14px font"
+    - "Enhanced comparison PDF - 4-5 pages with rankings"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
