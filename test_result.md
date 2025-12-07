@@ -153,7 +153,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Export functionality for reports (PDF and JSON)"
+    - "Export functionality for reports (PDF and JSON) - AUTO-LOAD FIX"
+    - "Backup download functionality (ZIP and individual files)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
