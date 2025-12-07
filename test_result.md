@@ -153,11 +153,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Data Import API with strict validation"
-    - "Data Import UI page"
-    - "Test all 5 import endpoints with valid and invalid data"
-    - "Verify strict validation and error messages"
-    - "Check data-status endpoint and auto-reload"
+    - "Export functionality for reports (PDF and JSON)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
