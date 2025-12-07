@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-12-07T16:02:58.738074",
-  "methodology_verification": "FAIL",
+  "timestamp": "2025-12-07T16:03:23.397073",
+  "methodology_verification": "PASS",
   "total_tests": 7,
-  "passed_tests": 6,
-  "failed_tests": 1,
-  "success_rate": 85.71428571428571,
+  "passed_tests": 7,
+  "failed_tests": 0,
+  "success_rate": 100.0,
   "test_details": [
     {
       "test": "Kyiv Region API Access",
@@ -12,7 +12,7 @@
       "details": "Score: 78.5/100",
       "expected": null,
       "actual": null,
-      "timestamp": "2025-12-07T16:02:58.696655"
+      "timestamp": "2025-12-07T16:03:23.356382"
     },
     {
       "test": "Factor 1 (Demand) - Threshold Logic",
@@ -20,7 +20,7 @@
       "details": "Ratio: 0.280, Score: 25, Expected: 25",
       "expected": 25,
       "actual": 25,
-      "timestamp": "2025-12-07T16:02:58.697176"
+      "timestamp": "2025-12-07T16:03:23.356814"
     },
     {
       "test": "Factor 2 (PFZ) - Coefficient Corrections",
@@ -28,7 +28,7 @@
       "details": "НПП:3, Заповідники:2, РЛП:15, Заказники:78 | Score: 16.0, Expected: 15.5",
       "expected": "15.5",
       "actual": 16.0,
-      "timestamp": "2025-12-07T16:02:58.697192"
+      "timestamp": "2025-12-07T16:03:23.356829"
     },
     {
       "test": "Factor 3 (Nature) - Forest Coefficient 0.275",
@@ -36,7 +36,7 @@
       "details": "Forest: 22% × 0.275 = 6.05, Water: 4 | Score: 10.1, Expected: 10.1",
       "expected": "10.1",
       "actual": 10.1,
-      "timestamp": "2025-12-07T16:02:58.697202"
+      "timestamp": "2025-12-07T16:03:23.356839"
     },
     {
       "test": "Factor 6 (Fires) - Progressive Scoring Logic",
@@ -44,15 +44,15 @@
       "details": "Human fires: 33, Score: 5, Expected: 5",
       "expected": 5,
       "actual": 5,
-      "timestamp": "2025-12-07T16:02:58.697209"
+      "timestamp": "2025-12-07T16:03:23.356845"
     },
     {
       "test": "Total Score Calculation",
-      "success": false,
-      "details": "Factors sum: 25+16.0+10.1+14.5+8.0+5+0 = 100.0 | Total: 78.5",
-      "expected": "100.0",
+      "success": true,
+      "details": "Factors sum: 25+16.0+10.1+14.5+8.0+5+0 = 78.6 | Total: 78.5",
+      "expected": "78.6",
       "actual": 78.5,
-      "timestamp": "2025-12-07T16:02:58.697222"
+      "timestamp": "2025-12-07T16:03:23.356855"
     },
     {
       "test": "JSON Export Methodology Compliance",
@@ -60,15 +60,8 @@
       "details": "All factors: True, Detailed breakdown: True, Scores in range: True",
       "expected": null,
       "actual": null,
-      "timestamp": "2025-12-07T16:02:58.737591"
+      "timestamp": "2025-12-07T16:03:23.396620"
     }
   ],
-  "failures": [
-    {
-      "test": "Total Score Calculation",
-      "error": "Factors sum: 25+16.0+10.1+14.5+8.0+5+0 = 100.0 | Total: 78.5",
-      "expected": "100.0",
-      "actual": 78.5
-    }
-  ]
+  "failures": []
 }
