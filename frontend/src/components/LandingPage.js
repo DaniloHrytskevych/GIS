@@ -816,10 +816,10 @@ const LandingPage = () => {
               </div>
               
               <div className="border-l-4 border-amber-600 pl-6 bg-slate-50 p-4 rounded-r-lg">
-                <p className="font-bold text-slate-800 mb-3 text-lg">3. Розрахунок пріоритету (0-100 балів):</p>
+                <p className="font-bold text-slate-800 mb-3 text-lg">3. Розрахунок пріоритету (0-90 балів):</p>
                 <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-4 rounded-lg border border-amber-600">
                   <p className="text-xs font-mono text-green-400 text-center">
-                    P = 50 + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Насиченість(15)
+                    P = Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Насиченість(15)
                   </p>
                 </div>
               </div>
