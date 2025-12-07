@@ -925,15 +925,15 @@ const LandingPage = () => {
                   <div className="space-y-2 text-xs text-gray-600">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-green-600"></div>
-                      <span><strong>95-100 балів:</strong> Найвищий пріоритет (кластери пожеж, ТОП НПП)</span>
+                      <span><strong>85-90 балів:</strong> Найвищий пріоритет (кластери пожеж, ТОП НПП)</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-orange-600"></div>
-                      <span><strong>85-94 бали:</strong> Високий потенціал (біля РЛП, великі траси)</span>
+                      <span><strong>75-84 бали:</strong> Високий потенціал (біля РЛП, великі траси)</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-amber-600"></div>
-                      <span><strong>70-84 бали:</strong> Середній потенціал (віддалені локації)</span>
+                      <span><strong>60-74 бали:</strong> Середній потенціал (віддалені локації)</span>
                     </div>
                   </div>
                 </div>
