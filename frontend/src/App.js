@@ -1276,10 +1276,13 @@ function MapPage() {
 
   // Export comparison report for all regions
   const exportComparisonPDF = async () => {
-    if (allAnalysis.length === 0) return;
+    if (allAnalysis.length === 0) {
+      alert('Немає даних для порівняння. Дані завантажуються...');
+      return;
+    }
     
-    // Використовуємо фінальний експорт з html2canvas
-    await exportFinalComparePDF(allAnalysis);
+    // Використовуємо HTML-звіт для порівняння (без проблем з розривами)
+    openHTMLCompare(allAnalysis);
     return;
     
     /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
