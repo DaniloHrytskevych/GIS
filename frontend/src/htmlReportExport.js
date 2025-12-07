@@ -400,7 +400,7 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Лісистість території</td>
-          <td style="text-align: right;">${d?.nature?.forest_coverage || 'N/A'}%</td>
+          <td style="text-align: right;">${d?.nature?.forest_coverage_percent || 'N/A'}%</td>
         </tr>
         <tr>
           <td>Наявність водних об'єктів</td>
