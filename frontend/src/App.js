@@ -214,14 +214,15 @@ function MapPage() {
   };
 
   const exportPDF = async () => {
-    console.log('🔍 exportPDF called - using FINAL PDF with cyrillic support');
+    console.log('🔍 exportPDF called - opening HTML report');
     if (!analysisResult) {
       console.error('❌ No analysisResult');
+      alert('Немає даних для експорту. Спочатку виберіть регіон.');
       return;
     }
     
-    // Використовуємо фінальний експорт з html2canvas (підтримка кирилиці)
-    await exportFinalPDF(analysisResult);
+    // Використовуємо HTML-звіт (без проблем з розривами сторінок)
+    openHTMLReport(analysisResult);
     return;
     
     /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
