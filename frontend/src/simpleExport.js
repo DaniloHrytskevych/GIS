@@ -2,21 +2,25 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-// Проста функція завантаження blob
+// CHROME-COMPATIBLE функція завантаження blob
 export const downloadBlob = (blob, filename) => {
   console.log('📥 Starting download:', filename);
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
+  a.style.display = 'none';
   a.href = url;
   a.download = filename;
-  a.style.display = 'none';
   document.body.appendChild(a);
+  
+  // Chrome needs click immediately after appendChild
   a.click();
+  
+  // Chrome needs longer timeout before cleanup
   setTimeout(() => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     console.log('✅ Download completed:', filename);
-  }, 100);
+  }, 250);
 };
 
 // Експорт JSON
