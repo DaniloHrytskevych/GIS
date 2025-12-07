@@ -21,8 +21,8 @@ import { FaCar } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { simpleExportJSON, simpleExportPDF, simpleDownloadFromServer } from './simpleExport';
-import { exportProfessionalPDF } from './professionalPDFExport';
-import { exportProfessionalComparePDF } from './professionalComparePDF';
+import { exportFinalPDF } from './finalPDFExport';
+import { exportFinalComparePDF } from './finalComparePDF';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell } from 'recharts';
 import LandingPage from './components/LandingPage';
 import DataImport from './components/DataImport';
@@ -212,14 +212,14 @@ function MapPage() {
   };
 
   const exportPDF = async () => {
-    console.log('🔍 exportPDF called - using PROFESSIONAL PDF');
+    console.log('🔍 exportPDF called - using FINAL PDF with cyrillic support');
     if (!analysisResult) {
       console.error('❌ No analysisResult');
       return;
     }
     
-    // Використовуємо новий професійний експорт з правильними розривами
-    await exportProfessionalPDF(analysisResult, getScoreColor, getCategoryColor);
+    // Використовуємо фінальний експорт з html2canvas (підтримка кирилиці)
+    await exportFinalPDF(analysisResult);
     return;
     
     /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
@@ -1275,8 +1275,8 @@ function MapPage() {
   const exportComparisonPDF = async () => {
     if (allAnalysis.length === 0) return;
     
-    // Використовуємо новий професійний порівняльний експорт
-    await exportProfessionalComparePDF(allAnalysis);
+    // Використовуємо фінальний експорт з html2canvas
+    await exportFinalComparePDF(allAnalysis);
     return;
     
     /* СТАРИЙ КОД - ЗАЛИШЕНО ДЛЯ РЕЗЕРВУ
