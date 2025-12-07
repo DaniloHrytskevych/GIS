@@ -1123,6 +1123,23 @@ class GISAPITester:
         # Test basic connectivity
         self.test_api_root()
         
+        # ====== AHP SYNCHRONIZATION TESTS (HIGH PRIORITY) ======
+        print("\n🎯 AHP SYNCHRONIZATION VERIFICATION")
+        print("-" * 40)
+        
+        # Test AHP methodology endpoint
+        self.test_ahp_methodology_api()
+        
+        # Test Kyiv region with specific expected values
+        self.test_kyiv_region_analysis_detailed()
+        
+        # Test mathematical consistency
+        self.test_mathematical_consistency()
+        
+        # ====== STANDARD API TESTS ======
+        print("\n📊 STANDARD API VERIFICATION")
+        print("-" * 40)
+        
         # Test data endpoints
         self.test_population_data()
         self.test_infrastructure_data()
