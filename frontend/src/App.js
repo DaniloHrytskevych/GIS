@@ -583,11 +583,11 @@ function MapPage() {
         </div>
         
         <div style="background: #f59e0b; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
-          ✅ БОНУС: +${analysisResult.fire_score || 0}/5
+          БОНУС: +${analysisResult.fire_score || 0}/5
         </div>
       </div>
       
-      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 15px; font-size: 14px;">🔥 ПОЖЕЖНА БЕЗПЕКА</h3>
+      <h3 style="color: #1e293b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; margin-top: 15px; font-size: 14px;">ПОЖЕЖНА БЕЗПЕКА</h3>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <tr>
           <td style="padding: 10px; border: 1px solid #e2e8f0;">Всього пожеж у регіоні</td>
