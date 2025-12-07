@@ -843,33 +843,37 @@ const LandingPage = () => {
             </div>
 
             <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg shadow-xl border-2 border-amber-600">
-              <h4 className="text-2xl font-bold mb-4 text-amber-400 text-center">Формула пріоритету зони</h4>
+              <h4 className="text-2xl font-bold mb-4 text-amber-400 text-center">Формула оцінки локації</h4>
               
               <div className="bg-slate-700/50 p-5 rounded-lg mb-4">
-                <div className="text-center text-xl font-mono text-green-400 mb-4">
-                  Priority = Base_Type + PFZ_Bonus + Infrastructure + Fire_Prevention - Competition
+                <div className="text-center text-base font-mono text-green-400 mb-4">
+                  Priority = 50 (базова) + Попит(0-25) + Атрактор(0-20) + Природа(0-15) + Транспорт(0-15) + Інфраструктура(0-10) + Пожежі(0-5) - Насиченість(0-15)
                 </div>
                 
-                <div className="grid md:grid-cols-3 gap-3 text-sm">
+                <div className="bg-amber-50 p-4 rounded text-gray-800">
+                  <p className="font-bold mb-2">🔑 Ключова відмінність від області:</p>
+                  <p className="text-sm mb-2">Для областей: Попит, ПЗФ, Природа... (загальні показники)</p>
+                  <p className="text-sm font-semibold text-amber-900">Для локацій: ТІ САМІ фактори + СПЕЦИФІКА МІСЦЯ</p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-3 text-sm mt-4">
                   <div className="bg-slate-800 p-3 rounded border-l-2 border-green-500">
-                    <p className="text-green-400 font-bold mb-1">Base_Type:</p>
-                    <p className="text-gray-300">near_pfz: 60</p>
-                    <p className="text-gray-300">roadside: 50</p>
-                    <p className="text-gray-300">fire_prevent: 40</p>
+                    <p className="text-green-400 font-bold mb-1">Що змінюється:</p>
+                    <p className="text-gray-300">• Атрактор (20 балів):</p>
+                    <p className="text-gray-400 text-xs ml-3">- Кластер пожеж: 10-20 балів</p>
+                    <p className="text-gray-400 text-xs ml-3">- Біля НПП: 20 балів</p>
+                    <p className="text-gray-400 text-xs ml-3">- Біля РЛП: 10 балів</p>
+                    <p className="text-gray-400 text-xs ml-3">- Траса: 15 балів</p>
                   </div>
                   
                   <div className="bg-slate-800 p-3 rounded border-l-2 border-blue-500">
-                    <p className="text-blue-400 font-bold mb-1">Бонуси:</p>
-                    <p className="text-gray-300">PFZ: 0-20</p>
-                    <p className="text-gray-300">Infrastructure: 0-10</p>
-                    <p className="text-gray-300">Fire: 0-10</p>
-                  </div>
-                  
-                  <div className="bg-slate-800 p-3 rounded border-l-2 border-red-500">
-                    <p className="text-red-400 font-bold mb-1">Штрафи:</p>
-                    <p className="text-gray-300">Competition: 0-30</p>
-                    <p className="text-gray-400 text-xs">-10 за кожен об'єкт</p>
-                    <p className="text-gray-400 text-xs">в радіусі 10 км</p>
+                    <p className="text-blue-400 font-bold mb-1">Що залишається:</p>
+                    <p className="text-gray-300">• Попит області (25)</p>
+                    <p className="text-gray-300">• Природа області (15)</p>
+                    <p className="text-gray-300">• Транспорт області (15)</p>
+                    <p className="text-gray-300">• Інфраструктура (10)</p>
+                    <p className="text-gray-300">• Пожежі (5)</p>
+                    <p className="text-gray-300">• Конкуренція (-15)</p>
                   </div>
                 </div>
               </div>
