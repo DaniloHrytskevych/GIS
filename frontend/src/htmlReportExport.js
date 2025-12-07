@@ -750,10 +750,21 @@ function generateFactorDetails(analysisResult, d) {
     <p><strong>Отримано:</strong> ${analysisResult.saturation_penalty} балів</p>
     
     <div class="step-box">
-      <h4>Розрахунок:</h4>
+      <h4>Формула розрахунку:</h4>
+      <code>Штраф = -min(Щільність_об'єктів × 15, 15)</code>
+      <p style="margin-top: 8px;"><strong>Логіка штрафів:</strong></p>
+      <ul style="font-size: 11pt;">
+        <li>Щільність &lt; 1 об'єкт на 1000 км²: <strong>0 балів</strong> (штрафу немає)</li>
+        <li>Щільність 1-2 об'єкти: <strong>-3 до -5 балів</strong></li>
+        <li>Щільність 2-3 об'єкти: <strong>-6 до -10 балів</strong></li>
+        <li>Щільність &gt;3 об'єкти: <strong>-15 балів</strong> (максимальний штраф)</li>
+      </ul>
+      <p style="font-size: 11pt; margin-top: 8px;">Мета: уникнути перенасичення території та забезпечити збалансований розвиток</p>
+      
+      <h4 style="margin-top: 15px;">Дані:</h4>
       <p><strong>Існуючі рекреаційні пункти:</strong> ${d?.saturation?.existing_points || 0}</p>
       <p><strong>Щільність:</strong> ${d?.saturation?.density_per_1000km2 || 0} на 1000 км²</p>
-      <p>Штраф застосовується при високій щільності об'єктів для уникнення перенасичення</p>
+      <p><strong>Статус:</strong> ${d?.saturation?.density_status || 'N/A'}</p>
       <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.saturation_penalty} балів</div>
     </div>
   </div>
