@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-12-07T16:02:58.738074",
+  "methodology_verification": "FAIL",
+  "total_tests": 7,
+  "passed_tests": 6,
+  "failed_tests": 1,
+  "success_rate": 85.71428571428571,
+  "test_details": [
+    {
+      "test": "Kyiv Region API Access",
+      "success": true,
+      "details": "Score: 78.5/100",
+      "expected": null,
+      "actual": null,
+      "timestamp": "2025-12-07T16:02:58.696655"
+    },
+    {
+      "test": "Factor 1 (Demand) - Threshold Logic",
+      "success": true,
+      "details": "Ratio: 0.280, Score: 25, Expected: 25",
+      "expected": 25,
+      "actual": 25,
+      "timestamp": "2025-12-07T16:02:58.697176"
+    },
+    {
+      "test": "Factor 2 (PFZ) - Coefficient Corrections",
+      "success": true,
+      "details": "НПП:3, Заповідники:2, РЛП:15, Заказники:78 | Score: 16.0, Expected: 15.5",
+      "expected": "15.5",
+      "actual": 16.0,
+      "timestamp": "2025-12-07T16:02:58.697192"
+    },
+    {
+      "test": "Factor 3 (Nature) - Forest Coefficient 0.275",
+      "success": true,
+      "details": "Forest: 22% × 0.275 = 6.05, Water: 4 | Score: 10.1, Expected: 10.1",
+      "expected": "10.1",
+      "actual": 10.1,
+      "timestamp": "2025-12-07T16:02:58.697202"
+    },
+    {
+      "test": "Factor 6 (Fires) - Progressive Scoring Logic",
+      "success": true,
+      "details": "Human fires: 33, Score: 5, Expected: 5",
+      "expected": 5,
+      "actual": 5,
+      "timestamp": "2025-12-07T16:02:58.697209"
+    },
+    {
+      "test": "Total Score Calculation",
+      "success": false,
+      "details": "Factors sum: 25+16.0+10.1+14.5+8.0+5+0 = 100.0 | Total: 78.5",
+      "expected": "100.0",
+      "actual": 78.5,
+      "timestamp": "2025-12-07T16:02:58.697222"
+    },
+    {
+      "test": "JSON Export Methodology Compliance",
+      "success": true,
+      "details": "All factors: True, Detailed breakdown: True, Scores in range: True",
+      "expected": null,
+      "actual": null,
+      "timestamp": "2025-12-07T16:02:58.737591"
+    }
+  ],
+  "failures": [
+    {
+      "test": "Total Score Calculation",
+      "error": "Factors sum: 25+16.0+10.1+14.5+8.0+5+0 = 100.0 | Total: 78.5",
+      "expected": "100.0",
+      "actual": 78.5
+    }
+  ]
+}
