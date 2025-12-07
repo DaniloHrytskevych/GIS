@@ -444,11 +444,11 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Кількість заправок на 1000 км²</td>
-          <td style="text-align: right;">${d?.infrastructure?.gas_stations_per_1000km2 || 0}</td>
+          <td style="text-align: right;">${d?.infrastructure?.gas_stations_per_100km2 ? (d.infrastructure.gas_stations_per_100km2 * 10).toFixed(1) : 0}</td>
         </tr>
         <tr>
-          <td>Кількість лікарень на 1000 км²</td>
-          <td style="text-align: right;">${d?.infrastructure?.hospitals_per_1000km2 || 0}</td>
+          <td>Кількість лікарень на 100k населення</td>
+          <td style="text-align: right;">${d?.infrastructure?.hospitals_per_100k ? d.infrastructure.hospitals_per_100k.toFixed(1) : 0}</td>
         </tr>
         <tr>
           <td>Загальна кількість лісових пожеж</td>
