@@ -880,7 +880,7 @@ const LandingPage = () => {
                 <p className="mb-2"><strong>Зона A</strong> (near_pfz біля НПП "Синевир")</p>
                 <div className="bg-white p-3 rounded font-mono text-sm space-y-1">
                   <p>= 60 (базовий near_pfz)</p>
-                  <p className="text-green-600">+ 20 (< 5 км від НПП)</p>
+                  <p className="text-green-600">+ 20 (&lt; 5 км від НПП)</p>
                   <p className="text-blue-600">+ 8 (добра інфраструктура)</p>
                   <p className="text-orange-600">+ 0 (немає проблеми пожеж)</p>
                   <p className="text-red-600">- 10 (1 конкурент в радіусі)</p>
