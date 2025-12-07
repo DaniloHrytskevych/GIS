@@ -547,16 +547,19 @@ async def get_methodology():
     weights = get_ahp_weights()
     ci, cr, is_consistent = verify_ahp_consistency()
     
+    # Конвертуємо numpy типи в Python типи
+    weights_dict = {k: float(v) for k, v in weights.items()}
+    
     return {
         "method": "Analytic Hierarchy Process (AHP)",
         "reference": "Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.",
         "consistency": {
-            "ci": round(ci, 4),
-            "cr": round(cr, 4),
-            "percentage": f"{cr*100:.2f}%",
-            "is_consistent": is_consistent,
+            "ci": float(ci),
+            "cr": float(cr),
+            "percentage": f"{float(cr)*100:.2f}%",
+            "is_consistent": bool(is_consistent),
             "threshold": "CR < 0.1 (10%)",
-            "status": "✓ УЗГОДЖЕНА" if is_consistent else "✗ НЕ УЗГОДЖЕНА"
+            "status": "✓ УЗГОДЖЕНА" if bool(is_consistent) else "✗ НЕ УЗГОДЖЕНА"
         },
         "ahp_weights": {
             "calculated": weights,
