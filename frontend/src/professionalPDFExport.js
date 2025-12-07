@@ -177,7 +177,7 @@ function generateMethodology(pdf) {
   });
   
   // Таблиця факторів
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: yPos + 10,
     head: [['№', 'Фактор', 'Вага, %', 'Діапазон', 'Обґрунтування']],
     body: [
@@ -213,7 +213,7 @@ function generateInputData(pdf, analysisResult, d) {
   pdf.setFontSize(13);
   pdf.text('2.1. Демографічні показники', 20, startY);
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: startY + 5,
     head: [['Показник', 'Значення']],
     body: [
@@ -238,7 +238,7 @@ function generateInputData(pdf, analysisResult, d) {
   const pfzY = pdf.lastAutoTable.finalY + 10;
   pdf.text('2.2. Природно-заповідний фонд', 20, pfzY);
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: pfzY + 5,
     head: [['Категорія ПЗФ', 'Кількість']],
     body: [
@@ -310,7 +310,7 @@ function generateInputData(pdf, analysisResult, d) {
       pdf.setFont('times', 'bold');
       pdf.text(table.title, 20, 20);
       
-      pdf.autoTable({
+      autoTable(pdf, {
         startY: 25,
         head: [['Показник', 'Значення']],
         body: table.data,
@@ -327,7 +327,7 @@ function generateInputData(pdf, analysisResult, d) {
       pdf.setFont('times', 'bold');
       pdf.text(table.title, 20, lastY + 10);
       
-      pdf.autoTable({
+      autoTable(pdf, {
         startY: lastY + 15,
         head: [['Показник', 'Значення']],
         body: table.data,
@@ -641,7 +641,7 @@ function generateSummary(pdf, analysisResult) {
   pdf.setFont('times', 'bold');
   pdf.text('4. ПІДСУМКОВА ТАБЛИЦЯ РЕЗУЛЬТАТІВ', 20, 20);
   
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 30,
     head: [['№', 'Фактор', 'Отримано', 'Максимум', 'Виконання, %']],
     body: [
@@ -703,7 +703,7 @@ function generateConclusions(pdf, analysisResult, d) {
   pdf.text(recText, 20, 95);
   
   // Таблиця попиту
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 115,
     head: [['Показник', 'Значення']],
     body: [
