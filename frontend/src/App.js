@@ -911,48 +911,217 @@ function MapPage() {
           source: "Мінкультури України (2024)"
         }
       },
-      calculation_steps: [
-        {
-          factor: "demand",
-          step: 1,
-          description: "Розрахунок річного попиту",
-          formula: "population * 0.15",
-          values: {
-            population: d?.population?.total,
-            coefficient: 0.15
-          },
-          result: d?.population?.annual_demand
+      detailed_calculation_steps: {
+        demand: {
+          factor_name: "Попит від населення",
+          max_score: 25,
+          weight_percent: 25,
+          steps: [
+            {
+              step: 1,
+              title: "Розрахунок річного попиту на рекреацію",
+              formula: "annual_demand = population × 0.15 × 3",
+              input_values: {
+                population: d?.population?.total,
+                participation_coefficient: 0.15,
+                visits_per_year: 3
+              },
+              calculation: `${d?.population?.total} × 0.15 × 3`,
+              result: (d?.population?.total || 0) * 0.15 * 3,
+              unit: "відвідувань/рік",
+              justification: "15% населення - потенційні рекреанти (Kentucky SCORP 2020), 3 візити - середній показник активності"
+            },
+            {
+              step: 2,
+              title: "Розрахунок існуючої пропозиції",
+              formula: "annual_supply = points × 50 × 180 × 2",
+              input_values: {
+                existing_points: d?.saturation?.existing_points || 0,
+                capacity_per_point: 50,
+                season_days: 180,
+                shifts_per_day: 2
+              },
+              calculation: `${d?.saturation?.existing_points || 0} × 50 × 180 × 2`,
+              result: (d?.saturation?.existing_points || 0) * 50 * 180 * 2,
+              unit: "місць/рік",
+              justification: "50 місць - стандартна місткість, 180 днів - тривалість сезону, 2 зміни/день"
+            },
+            {
+              step: 3,
+              title: "Визначення дефіциту або профіциту",
+              formula: "gap = demand - supply",
+              input_values: {
+                demand: (d?.population?.total || 0) * 0.15 * 3,
+                supply: (d?.saturation?.existing_points || 0) * 50 * 180 * 2
+              },
+              calculation: `${(d?.population?.total || 0) * 0.15 * 3} - ${(d?.saturation?.existing_points || 0) * 50 * 180 * 2}`,
+              result: d?.population?.gap || 0,
+              status: d?.population?.gap_status,
+              unit: "відвідувань (дефіцит/профіцит)",
+              interpretation: d?.population?.gap > 0 ? "Дефіцит = потреба в нових об'єктах" : "Профіцит = ринок насичений"
+            },
+            {
+              step: 4,
+              title: "Нормалізація до шкали 0-25 балів",
+              formula: "score = f(gap, population) normalized to [0, 25]",
+              method: "Логарифмічна нормалізація з урахуванням розміру дефіциту",
+              logic: "Більший дефіцит → вищий бал → вища економічна доцільність",
+              result: analysisResult.demand_score,
+              unit: "балів",
+              max: 25
+            }
+          ],
+          final_score: analysisResult.demand_score,
+          percentage: ((analysisResult.demand_score / 25) * 100).toFixed(1)
         },
-        {
-          factor: "demand",
-          step: 2,
-          description: "Існуюча пропозиція",
-          formula: "existing_capacity",
-          values: {
-            supply: d?.population?.annual_supply
-          },
-          result: d?.population?.annual_supply
+        pfz: {
+          factor_name: "ПЗФ як туристичний атрактор",
+          max_score: 20,
+          weight_percent: 20,
+          steps: [
+            {
+              step: 1,
+              title: "Підрахунок ПЗФ за категоріями з ваговими коефіцієнтами",
+              formula: "score = НПП×2.0 + Заповідники×1.5 + РЛП×1.0 + Заказники×0.3",
+              input_values: {
+                national_parks: d?.pfz?.national_parks || 0,
+                nature_reserves: d?.pfz?.nature_reserves || 0,
+                regional_parks: d?.pfz?.regional_landscape_parks || 0,
+                zakazniks: d?.pfz?.zakazniks || 0
+              },
+              weighted_scores: {
+                npp: `${d?.pfz?.national_parks || 0} × 2.0 = ${(d?.pfz?.national_parks || 0) * 2}`,
+                reserves: `${d?.pfz?.nature_reserves || 0} × 1.5 = ${(d?.pfz?.nature_reserves || 0) * 1.5}`,
+                rlp: `${d?.pfz?.regional_landscape_parks || 0} × 1.0 = ${(d?.pfz?.regional_landscape_parks || 0) * 1.0}`,
+                zakazniks: `${d?.pfz?.zakazniks || 0} × 0.3 = ${(d?.pfz?.zakazniks || 0) * 0.3}`
+              },
+              sum: ((d?.pfz?.national_parks || 0) * 2 + (d?.pfz?.nature_reserves || 0) * 1.5 + (d?.pfz?.regional_landscape_parks || 0) * 1.0 + (d?.pfz?.zakazniks || 0) * 0.3).toFixed(2),
+              justification: "НПП мають найвищу туристичну цінність та міжнародну впізнаваність (Wiley AHP 2022)"
+            },
+            {
+              step: 2,
+              title: "Коригування за площею ПЗФ",
+              formula: "adjustment = 1 + (pfz_area_percent / 100) × 0.2",
+              input_values: {
+                pfz_percent: d?.pfz?.percent_of_region || 0
+              },
+              logic: "Більша площа під ПЗФ = вища туристична привабливість регіону",
+              result: 1 + ((d?.pfz?.percent_of_region || 0) / 100) * 0.2
+            },
+            {
+              step: 3,
+              title: "Нормалізація до шкали 0-20 балів",
+              method: "Нелінійна нормалізація з обмеженням",
+              result: analysisResult.pfz_score,
+              max: 20
+            }
+          ],
+          notable_objects: d?.pfz?.notable_objects || [],
+          final_score: analysisResult.pfz_score,
+          percentage: ((analysisResult.pfz_score / 20) * 100).toFixed(1)
         },
-        {
-          factor: "demand",
-          step: 3,
-          description: "Дефіцит/Профіцит",
-          formula: "demand - supply",
-          values: {
-            demand: d?.population?.annual_demand,
-            supply: d?.population?.annual_supply
+        nature: {
+          factor_name: "Природні ресурси",
+          max_score: 15,
+          weight_percent: 15,
+          components: {
+            forests: {
+              title: "Лісове покриття",
+              formula: "forests_score = forest_percent × 0.275",
+              input: d?.nature?.forest_coverage_percent || 0,
+              calculation: `${d?.nature?.forest_coverage_percent || 0}% × 0.275`,
+              result: Math.min(11, ((d?.nature?.forest_coverage_percent || 0) * 0.275)).toFixed(2),
+              max: 11,
+              justification: "Ліси = естетична цінність + різноманітність активностей (піші прогулянки, велосипед)"
+            },
+            water: {
+              title: "Водні об'єкти",
+              formula: "water_score = 4 (if present) or 0 (if absent)",
+              input: d?.nature?.has_water_bodies,
+              result: d?.nature?.has_water_bodies ? 4 : 0,
+              max: 4,
+              justification: "Водойми → риболовля, плавання, водні види спорту, пляжний відпочинок"
+            }
           },
-          result: d?.population?.gap,
-          status: d?.population?.gap_status
+          final_score: analysisResult.nature_score,
+          percentage: ((analysisResult.nature_score / 15) * 100).toFixed(1)
         },
-        {
-          factor: "demand",
-          step: 4,
-          description: "Нормалізація до шкали 0-25",
-          formula: "normalized_score",
-          result: analysisResult.demand_score
+        transport: {
+          factor_name: "Транспортна доступність",
+          max_score: 15,
+          weight_percent: 15,
+          components: {
+            roads: { max: 8, description: "Щільність доріг" },
+            m_roads: { max: 3, description: "Міжнародні траси" },
+            railways: { max: 2, description: "Залізничні станції" },
+            airports: { max: 2, description: "Аеропорти" }
+          },
+          input_data: {
+            highway_density: d?.transport?.highway_density,
+            railway_stations: d?.transport?.railway_stations,
+            airports: d?.transport?.airports
+          },
+          final_score: analysisResult.accessibility_score,
+          percentage: ((analysisResult.accessibility_score / 15) * 100).toFixed(1),
+          justification: "'Відсутність транспорту' - 2-га причина неучасті у рекреації після вартості (DC SCORP 2020)"
+        },
+        infrastructure: {
+          factor_name: "Інфраструктура",
+          max_score: 10,
+          weight_percent: 10,
+          components: {
+            hospitals: { max: 3, priority: 1 },
+            gas_stations: { max: 2, priority: 2 },
+            mobile_coverage: { max: 2, priority: 2 },
+            internet: { max: 1, priority: 3 },
+            hotels: { max: 1, priority: 3 },
+            electricity: { max: 1, priority: 3 }
+          },
+          final_score: analysisResult.infrastructure_score,
+          percentage: ((analysisResult.infrastructure_score / 10) * 100).toFixed(1),
+          note: "Інфраструктуру можна ПОБУДУВАТИ - це вторинний фактор (Laguna Hills 2021)"
+        },
+        fire_prevention: {
+          factor_name: "Профілактика лісових пожеж",
+          max_score: 5,
+          weight_percent: 5,
+          paradoxical_logic: "БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях відпочинку",
+          input_data: {
+            total_fires: d?.fires?.total_fires || 0,
+            human_caused: d?.fires?.human_caused_fires || 0,
+            human_percent: d?.fires?.total_fires > 0 ? ((d?.fires?.human_caused_fires / d?.fires?.total_fires) * 100).toFixed(1) : 0
+          },
+          scientific_basis: {
+            source: "NW Fire Science 'Human and Climatic Influences on Wildfires' 2020",
+            key_findings: [
+              "80% рекреаційних пожеж відбуваються ПОЗА офіційними місцями відпочинку",
+              "Облаштовані вогнища з каменю + доступ до води = зниження ризику на 40%",
+              "Щільність пожеж у радіусі 1 км від кемпінгів у 7 РАЗІВ ВИЩА"
+            ]
+          },
+          final_score: analysisResult.fire_score || 0,
+          percentage: (((analysisResult.fire_score || 0) / 5) * 100).toFixed(1)
+        },
+        saturation: {
+          factor_name: "Штраф за насиченість ринку",
+          max_penalty: -15,
+          weight_percent: -15,
+          input_data: {
+            existing_points: d?.saturation?.existing_points || 0,
+            density_per_1000km2: d?.saturation?.density_per_1000km2,
+            status: d?.saturation?.density_status
+          },
+          penalty_scale: {
+            low: { range: "<1.0 р.п./1000км²", penalty: -2, status: "Низька насиченість" },
+            moderate: { range: "1.0-2.0", penalty: -5, status: "Помірна насиченість" },
+            high: { range: "2.0-3.0", penalty: -10, status: "Висока насиченість" },
+            critical: { range: ">3.0", penalty: -15, status: "Критична перенасиченість" }
+          },
+          final_penalty: analysisResult.saturation_penalty,
+          percentage: ((Math.abs(analysisResult.saturation_penalty) / 15) * 100).toFixed(1),
+          justification: "Висока концентрація існуючих об'єктів → менше місця для нових → нижчий потенціал (Kentucky Market Analysis)"
         }
-      ],
+      },
       total_potential: {
         score: analysisResult.total_score,
         category: analysisResult.category,
