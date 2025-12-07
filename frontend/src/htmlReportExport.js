@@ -704,7 +704,16 @@ function generateFactorDetails(analysisResult, d) {
     <p><strong>Отримано:</strong> ${analysisResult.infrastructure_score} балів</p>
     
     <div class="step-box">
-      <h4>Компоненти:</h4>
+      <h4>Формула розрахунку:</h4>
+      <code>Бали = min(Заправки / 2, 5) + min(Лікарні, 5)</code>
+      <p style="margin-top: 8px;"><strong>Обґрунтування:</strong></p>
+      <ul style="font-size: 11pt;">
+        <li>Заправки: до 5 балів (10+ заправок на 1000 км² = максимум)</li>
+        <li>Лікарні: до 5 балів (5+ лікарень на 100k населення = максимум)</li>
+        <li>Разом максимум: 10 балів</li>
+      </ul>
+      
+      <h4 style="margin-top: 15px;">Компоненти:</h4>
       <ul>
         <li>Заправки: ${d?.infrastructure?.gas_stations_per_100km2 ? (d.infrastructure.gas_stations_per_100km2 * 10).toFixed(1) : 0} на 1000 км²</li>
         <li>Лікарні: ${d?.infrastructure?.hospitals_per_100k ? d.infrastructure.hospitals_per_100k.toFixed(1) : 0} на 100k населення</li>
