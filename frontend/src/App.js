@@ -772,6 +772,7 @@ function MapPage() {
         console.log('✅ Cleanup completed');
       }
     }
+    */ // END OF OLD CODE
   };
 
   const exportJSON = () => {
