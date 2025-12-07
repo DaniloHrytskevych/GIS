@@ -4,7 +4,7 @@
  */
 
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export const exportProfessionalPDF = async (analysisResult, getScoreColor, getCategoryColor) => {
   if (!analysisResult) {
@@ -92,7 +92,7 @@ function generateTitlePage(pdf, analysisResult) {
   pdf.text(`Об'єкт дослідження: ${analysisResult.region}`, pageWidth / 2, 85, { align: 'center' });
   
   // Таблиця з результатами
-  pdf.autoTable({
+  autoTable(pdf, {
     startY: 105,
     head: [['РЕЗУЛЬТАТИ ІНТЕГРАЛЬНОЇ ОЦІНКИ']],
     body: [
