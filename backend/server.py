@@ -808,9 +808,9 @@ async def get_recommended_zones():
                 # Generate reasoning for roadside zone
                 traffic = "5,000+" if road.get('type') == 'міжнародна' else "3,000+"
                 reasoning = {
-                    "point1": f"🚗 {road_name} - головна траса ({traffic} авто/день)",
-                    "point2": f"📊 Транспорт: {int(analysis['accessibility_score'])} балів, Попит: {int(analysis['demand_score'])} балів",
-                    "point3": f"🏗️ Конкуренція: {competitors} р.п. на маршруті"
+                    "point1": f"{road_name} - головна траса ({traffic} авто/день)",
+                    "point2": f"Транспорт: {int(analysis['accessibility_score'])} балів, Попит: {int(analysis['demand_score'])} балів",
+                    "point3": f"Конкуренція: {competitors} р.п. на маршруті"
                 }
                 
                 # Recommended facilities for roadside
