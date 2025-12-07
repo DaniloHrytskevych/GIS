@@ -756,13 +756,16 @@ function generateFactorDetails(analysisResult, d) {
     
     <div class="step-box">
       <h4>Формула розрахунку:</h4>
-      <code>Штраф = -min(Щільність_об'єктів × 15, 15)</code>
-      <p style="margin-top: 8px;"><strong>Логіка штрафів:</strong></p>
+      <code>Штраф залежить від щільності існуючих об'єктів на 1000 км²</code>
+      <p style="margin-top: 8px;"><strong>7-рівнева шкала штрафів:</strong></p>
       <ul style="font-size: 11pt;">
-        <li>Щільність &lt; 1 об'єкт на 1000 км²: <strong>0 балів</strong> (штрафу немає)</li>
-        <li>Щільність 1-2 об'єкти: <strong>-3 до -5 балів</strong></li>
-        <li>Щільність 2-3 об'єкти: <strong>-6 до -10 балів</strong></li>
-        <li>Щільність &gt;3 об'єкти: <strong>-15 балів</strong> (максимальний штраф)</li>
+        <li>&gt;6.0 об'єктів/1000км²: <strong>-15 балів</strong> (критичне перенасичення)</li>
+        <li>4.0-6.0: <strong>-10 балів</strong> (високе)</li>
+        <li>3.0-4.0: <strong>-7 балів</strong> (помірно-високе)</li>
+        <li>2.0-3.0: <strong>-5 балів</strong> (помірне)</li>
+        <li>1.0-2.0: <strong>-3 бали</strong> (низько-помірне)</li>
+        <li>0.5-1.0: <strong>-2 бали</strong> (низьке)</li>
+        <li>&lt;0.5: <strong>0 балів</strong> (мінімальна конкуренція)</li>
       </ul>
       <p style="font-size: 11pt; margin-top: 8px;">Мета: уникнути перенасичення території та забезпечити збалансований розвиток</p>
       
