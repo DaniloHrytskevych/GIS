@@ -497,8 +497,8 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Фактор 4: Транспорт</td>
-          <td style="text-align: center; font-weight: bold;">${analysisResult.transport_score}/15</td>
-          <td style="text-align: center;">${((analysisResult.transport_score/15)*100).toFixed(1)}%</td>
+          <td style="text-align: center; font-weight: bold;">${analysisResult.accessibility_score}/15</td>
+          <td style="text-align: center;">${((analysisResult.accessibility_score/15)*100).toFixed(1)}%</td>
         </tr>
         <tr>
           <td>Фактор 5: Інфраструктура</td>
