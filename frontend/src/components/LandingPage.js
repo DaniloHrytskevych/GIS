@@ -767,31 +767,65 @@ const LandingPage = () => {
               <span>Як система ставить точки на карті?</span>
             </h3>
             
+            {/* Радіус зони будівництва */}
+            <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-5 rounded-lg shadow-xl mb-6">
+              <div className="flex items-center gap-4">
+                <div className="bg-white/20 p-4 rounded-full">
+                  <span className="text-4xl">🎯</span>
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-2xl font-bold mb-2">Радіус зони будівництва: 5 км</h4>
+                  <p className="text-amber-50">
+                    Кожна точка на карті — це центр рекомендованої зони. В радіусі <strong>±5 км</strong> від цієї точки 
+                    можна шукати конкретне місце для будівництва рекреаційного об'єкта.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 bg-white/10 p-4 rounded-lg border-2 border-white/30">
+                <p className="text-sm text-white">
+                  <strong>🔍 Як це працює:</strong> Система аналізує конкуренцію (існуючі рекреаційні пункти) в радіусі 5 км. 
+                  Якщо в цій зоні вже багато об'єктів — пріоритет точки знижується через фактор "Насиченість".
+                </p>
+              </div>
+            </div>
+
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
               <h4 className="text-xl font-bold mb-4 text-gray-800">Крок 1: Оцінка області (7 факторів AHP)</h4>
-              <p className="text-gray-700 mb-2">Спочатку система оцінює всю область: Київська = 78.5 балів</p>
+              <p className="text-gray-700 mb-2">Спочатку система оцінює всю область за загальними показниками</p>
+              <div className="bg-amber-50 border-l-4 border-amber-600 p-3 mt-2">
+                <p className="text-sm font-semibold text-amber-900">Приклад: Київська область = 78.5 балів (високий потенціал)</p>
+              </div>
               
-              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 2: Пошук місць у 3 категоріях</h4>
+              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 2: Пошук локацій у 3 категоріях</h4>
+              <p className="text-sm text-gray-600 mb-3">Система аналізує геопросторові дані та шукає перспективні місця:</p>
               <div className="space-y-3">
-                <div className="bg-red-50 p-3 rounded border-l-4 border-red-600">
-                  <p className="font-bold text-red-800">🔥 Кластери пожеж</p>
-                  <p className="text-sm text-gray-700">Шукає місця де 3+ пожежі в радіусі <strong>10 км</strong> → ставить точку в центрі кластера</p>
+                <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-600">
+                  <p className="font-bold text-red-800 mb-1">🔥 Кластери пожеж</p>
+                  <p className="text-sm text-gray-700 mb-2">Знаходить місця де зафіксовано <strong>3+ людські пожежі в радіусі 10 км</strong></p>
+                  <p className="text-xs text-gray-600">→ Ставить точку в центрі кластера як зону для облаштування безпечного місця відпочинку</p>
                 </div>
-                <div className="bg-green-50 p-3 rounded border-l-4 border-green-600">
-                  <p className="font-bold text-green-800">🏞️ Біля ПЗФ</p>
-                  <p className="text-sm text-gray-700">Бере ТОП-2 НПП/РЛП → ставить точку на відстані <strong>3-8 км</strong> від об'єкта</p>
+                <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-600">
+                  <p className="font-bold text-green-800 mb-1">🏞️ Біля природоохоронних об'єктів</p>
+                  <p className="text-sm text-gray-700 mb-2">Вибирає ТОП-2 НПП/РЛП в області за відвідуваністю</p>
+                  <p className="text-xs text-gray-600">→ Ставить точки на відстані <strong>3-8 км від центру об'єкта</strong> (зона туристичної привабливості)</p>
                 </div>
-                <div className="bg-blue-50 p-3 rounded border-l-4 border-blue-600">
-                  <p className="font-bold text-blue-800">🛣️ Вздовж трас</p>
-                  <p className="text-sm text-gray-700">Бере міжнародні траси → ставить точки кожні <strong>50-100 км</strong> вздовж дороги</p>
+                <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600">
+                  <p className="font-bold text-blue-800 mb-1">🛣️ Вздовж міжнародних трас</p>
+                  <p className="text-sm text-gray-700 mb-2">Аналізує траси М01-М29, Е40, Е50 з великим трафіком</p>
+                  <p className="text-xs text-gray-600">→ Розміщує точки з інтервалом <strong>50-100 км</strong> для транзитних туристів</p>
                 </div>
               </div>
               
-              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 3: Оцінка кожної точки</h4>
-              <p className="text-gray-700 mb-2">Використовує <strong>ТІ САМІ 7 факторів області</strong> + специфіку місця</p>
-              <div className="bg-gray-100 p-3 rounded mt-2">
-                <p className="text-sm font-mono">Бал = 50 + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Конкуренція(15)</p>
+              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 3: Оцінка пріоритету кожної точки</h4>
+              <p className="text-gray-700 mb-2">Кожна локація отримує бал від 0 до 100 за формулою:</p>
+              <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-4 rounded-lg mt-2 border-2 border-amber-600">
+                <p className="text-sm font-mono text-green-400 text-center">
+                  Пріоритет = 50 (база) + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфраструктура(10) + Пожежі(5) - Насиченість(15)
+                </p>
               </div>
+              <p className="text-xs text-gray-600 mt-2">
+                <strong>Зверніть увагу:</strong> Насиченість рахується в радіусі <strong>5 км</strong> — це і є зона будівництва
+              </p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
