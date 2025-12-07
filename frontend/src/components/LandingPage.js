@@ -764,7 +764,7 @@ const LandingPage = () => {
           <div className="mt-16 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 p-8 rounded-xl shadow-2xl">
             <h3 className="text-3xl font-bold text-center mb-6 flex items-center justify-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
               <TbMapSearch className="text-amber-600 text-4xl" />
-              <span>Алгоритм визначення оптимальних локацій на карті</span>
+              <span>Як система визначає оптимальні місця для будівництва?</span>
             </h3>
             
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
