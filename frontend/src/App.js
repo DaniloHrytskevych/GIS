@@ -485,7 +485,7 @@ function MapPage() {
             <strong>Логіка:</strong> Більший дефіцит → вищий бал (вища потреба)
           </div>
           <div style="background: #16a34a; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
-            ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.demand_score}/25
+            ФІНАЛЬНИЙ БАЛ: ${analysisResult.demand_score}/25
           </div>
         </div>
       </div>
