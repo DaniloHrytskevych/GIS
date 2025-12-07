@@ -567,11 +567,11 @@ function MapPage() {
         <h4 style="margin: 0 0 10px 0; color: #f59e0b; font-size: 12px;">ФАКТОР 6: ПРОФІЛАКТИКА ПОЖЕЖ (Бонус: +5%, максимум 5 балів)</h4>
         
         <div style="background: #fee2e2; padding: 8px; border-radius: 3px; margin: 8px 0; font-size: 9px;">
-          <strong>⚠️ ПАРАДОКСАЛЬНА ЛОГІКА:</strong> БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях
+          <strong>ПАРАДОКСАЛЬНА ЛОГІКА:</strong> БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #f59e0b;">▶ Наукове обґрунтування</strong><br/>
+          <strong style="color: #f59e0b;">Наукове обґрунтування</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Дослідження NW Fire Science 2020:</strong><br/>
             • 80% рекреаційних пожеж — ПОЗА офіційними місцями<br/>
