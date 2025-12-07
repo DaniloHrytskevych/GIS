@@ -829,35 +829,69 @@ const LandingPage = () => {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-              <h4 className="text-2xl font-bold mb-4 text-gray-800">3 джерела локацій:</h4>
-              <p className="text-sm text-gray-600 mb-4">Система шукає місця у 3 категоріях, але всі вони оцінюються за ОДНАКОВОЮ формулою (7 факторів AHP)</p>
+              <h4 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                <span className="text-amber-600">📍</span>
+                Що означає кожна категорія точок?
+              </h4>
+              <div className="bg-amber-50 border-l-4 border-amber-600 p-4 mb-4">
+                <p className="text-sm text-gray-700">
+                  <strong>Важливо:</strong> Всі 3 категорії оцінюються за ОДНАКОВОЮ формулою (7 факторів AHP). 
+                  Різниця лише у джерелі виявлення проблеми та специфіці атрактора.
+                </p>
+              </div>
               
               <div className="space-y-4">
-                <div className="bg-gradient-to-r from-red-50 to-orange-100 p-5 rounded-lg border-l-4 border-red-600">
-                  <h5 className="text-xl font-bold text-red-800 mb-3">🔥 Кластери пожеж (пріоритет)</h5>
-                  <p className="text-gray-700 mb-2"><strong>Що це:</strong> Місця де 3+ людські пожежі в радіусі 10 км</p>
-                  <p className="text-gray-700 mb-2"><strong>Чому важливо:</strong> 80% рекреаційних пожеж відбуваються ПОЗА офіційними місцями</p>
-                  <p className="text-gray-700 mb-2"><strong>Рішення:</strong> Облаштовані місця з вогнищами → -40% пожеж</p>
-                  <div className="bg-red-100 p-3 rounded mt-2">
-                    <p className="text-sm font-semibold text-red-900">✅ Приклад: "Кластер пожеж #1, Київська" - 10+ пожеж → може отримати 100 балів</p>
+                <div className="bg-gradient-to-r from-red-50 to-orange-100 p-5 rounded-lg border-2 border-red-400">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-red-600 text-white p-2 rounded-lg text-2xl">🔥</div>
+                    <div className="flex-1">
+                      <h5 className="text-xl font-bold text-red-800 mb-2">Кластери пожеж (найвищий пріоритет)</h5>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-gray-700"><strong>Джерело даних:</strong> Статистика людських пожеж у лісових масивах (1,875 пожеж за період)</p>
+                        <p className="text-gray-700"><strong>Алгоритм:</strong> Шукає скупчення ≥3 пожеж в радіусі 10 км</p>
+                        <p className="text-gray-700"><strong>Зона будівництва:</strong> ±5 км від центру кластера</p>
+                        <p className="text-gray-700"><strong>Наукове обґрунтування:</strong> 80% рекреаційних пожеж відбуваються ПОЗА офіційними місцями (NW Fire Science Consortium)</p>
+                        <div className="bg-white p-3 rounded mt-2 border-l-4 border-red-600">
+                          <p className="font-semibold text-red-900">✅ Рішення: Облаштоване місце з безпечними вогнищами → зниження пожеж на 40%</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-green-50 to-emerald-100 p-5 rounded-lg border-l-4 border-green-600">
-                  <h5 className="text-xl font-bold text-green-800 mb-3">🏞️ Біля ПЗФ</h5>
-                  <p className="text-gray-700 mb-2"><strong>Що це:</strong> Локації в радіусі 5-15 км від НПП, РЛП, заповідників</p>
-                  <p className="text-gray-700 mb-2"><strong>Чому важливо:</strong> Туристи хочуть бути близько до парків</p>
-                  <div className="bg-green-100 p-3 rounded mt-2">
-                    <p className="text-sm font-semibold text-green-900">✅ Приклад: Біля НПП "Карпатський" - висока туристична привабливість</p>
+                <div className="bg-gradient-to-r from-green-50 to-emerald-100 p-5 rounded-lg border-2 border-green-400">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-green-600 text-white p-2 rounded-lg text-2xl">🏞️</div>
+                    <div className="flex-1">
+                      <h5 className="text-xl font-bold text-green-800 mb-2">Біля природоохоронних об'єктів</h5>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-gray-700"><strong>Джерело даних:</strong> Реєстр ПЗФ України (24 області, 600+ об'єктів)</p>
+                        <p className="text-gray-700"><strong>Алгоритм:</strong> ТОП-2 НПП/РЛП за відвідуваністю → точки на відстані 3-8 км</p>
+                        <p className="text-gray-700"><strong>Зона будівництва:</strong> ±5 км від рекомендованої точки (не від центру парку!)</p>
+                        <p className="text-gray-700"><strong>Приклад:</strong> НПП "Карпатський" (30,000 відвідувачів/рік) → еко-готель на відстані 5 км від парку</p>
+                        <div className="bg-white p-3 rounded mt-2 border-l-4 border-green-600">
+                          <p className="font-semibold text-green-900">✅ Рекомендований об'єкт: Екологічний готель, інформаційний центр, екостежка</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-100 p-5 rounded-lg border-l-4 border-blue-600">
-                  <h5 className="text-xl font-bold text-blue-800 mb-3">🛣️ Вздовж доріг</h5>
-                  <p className="text-gray-700 mb-2"><strong>Що це:</strong> Локації вздовж міжнародних трас (М01-М29, Е40, Е50)</p>
-                  <p className="text-gray-700 mb-2"><strong>Чому важливо:</strong> Транзитні туристи потребують зупинок</p>
-                  <div className="bg-blue-100 p-3 rounded mt-2">
-                    <p className="text-sm font-semibold text-blue-900">✅ Приклад: Траса Київ-Чоп (М06) - великий транзитний потік</p>
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-100 p-5 rounded-lg border-2 border-blue-400">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-blue-600 text-white p-2 rounded-lg text-2xl">🛣️</div>
+                    <div className="flex-1">
+                      <h5 className="text-xl font-bold text-blue-800 mb-2">Вздовж міжнародних трас</h5>
+                      <div className="space-y-2 text-sm">
+                        <p className="text-gray-700"><strong>Джерело даних:</strong> Карта доріг України (М01-М29, Е40, Е50, Е95)</p>
+                        <p className="text-gray-700"><strong>Алгоритм:</strong> Точки кожні 50-100 км вздовж трас з високим трафіком</p>
+                        <p className="text-gray-700"><strong>Зона будівництва:</strong> ±5 км від траси (придорожня територія)</p>
+                        <p className="text-gray-700"><strong>Приклад:</strong> Траса М06 Київ-Чоп (5,000+ авто/день) → мотель з паркінгом</p>
+                        <div className="bg-white p-3 rounded mt-2 border-l-4 border-blue-600">
+                          <p className="font-semibold text-blue-900">✅ Рекомендований об'єкт: Мотель, кемпінг, стоянка з послугами</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
