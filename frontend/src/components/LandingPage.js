@@ -760,50 +760,37 @@ const LandingPage = () => {
             </div>
           </div>
 
-          {/* Zone Identification Algorithm - NEW BLOCK */}
+          {/* Zone Identification Algorithm */}
           <div className="mt-16 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-600 p-8 rounded-xl shadow-2xl">
             <h3 className="text-3xl font-bold text-center mb-6 flex items-center justify-center gap-3" style={{ fontFamily: 'Georgia, serif' }}>
               <TbMapSearch className="text-amber-600 text-4xl" />
-              <span>Як система визначає оптимальні місця для будівництва?</span>
+              <span>Як система ставить точки на карті?</span>
             </h3>
             
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-              <p className="text-lg text-gray-700 mb-4">
-                <strong>Система працює у 2 етапи:</strong>
-              </p>
+              <h4 className="text-xl font-bold mb-4 text-gray-800">Крок 1: Оцінка області (7 факторів AHP)</h4>
+              <p className="text-gray-700 mb-2">Спочатку система оцінює всю область: Київська = 78.5 балів</p>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-5 rounded-lg border-2 border-blue-500">
-                  <h4 className="font-bold text-xl mb-3 text-blue-800 flex items-center gap-2">
-                    <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                    Оцінка області
-                  </h4>
-                  <ul className="text-sm space-y-2 text-gray-700">
-                    <li><strong>Об'єкт:</strong> Область (н-д, Київська)</li>
-                    <li><strong>Формула:</strong> 7 факторів AHP</li>
-                    <li><strong>Результат:</strong> Бал 0-100</li>
-                    <li className="bg-blue-100 p-2 rounded"><strong>Приклад:</strong> Київська = 78.5</li>
-                  </ul>
+              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 2: Пошук місць у 3 категоріях</h4>
+              <div className="space-y-3">
+                <div className="bg-red-50 p-3 rounded border-l-4 border-red-600">
+                  <p className="font-bold text-red-800">🔥 Кластери пожеж</p>
+                  <p className="text-sm text-gray-700">Шукає місця де 3+ пожежі в радіусі <strong>10 км</strong> → ставить точку в центрі кластера</p>
                 </div>
-                
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-lg border-2 border-green-500">
-                  <h4 className="font-bold text-xl mb-3 text-green-800 flex items-center gap-2">
-                    <span className="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                    Пошук конкретних локацій
-                  </h4>
-                  <ul className="text-sm space-y-2 text-gray-700">
-                    <li><strong>Де шукаємо:</strong> Кластери пожеж, біля ПЗФ, вздовж доріг</li>
-                    <li><strong>Формула:</strong> ТІ САМІ 7 факторів + специфіка локації</li>
-                    <li><strong>Результат:</strong> Точки 0-100 балів</li>
-                    <li className="bg-green-100 p-2 rounded"><strong>Приклад:</strong> Кластер пожеж #1 = 100</li>
-                  </ul>
+                <div className="bg-green-50 p-3 rounded border-l-4 border-green-600">
+                  <p className="font-bold text-green-800">🏞️ Біля ПЗФ</p>
+                  <p className="text-sm text-gray-700">Бере ТОП-2 НПП/РЛП → ставить точку на відстані <strong>3-8 км</strong> від об'єкта</p>
+                </div>
+                <div className="bg-blue-50 p-3 rounded border-l-4 border-blue-600">
+                  <p className="font-bold text-blue-800">🛣️ Вздовж трас</p>
+                  <p className="text-sm text-gray-700">Бере міжнародні траси → ставить точки кожні <strong>50-100 км</strong> вздовж дороги</p>
                 </div>
               </div>
               
-              <div className="mt-4 bg-amber-100 border-l-4 border-amber-600 p-4">
-                <p className="text-sm font-semibold text-amber-900">
-                  ⚠️ Усі локації позначені однаково: <span className="inline-block w-4 h-4 border-2 border-red-600 border-dashed rounded-full bg-red-200 mx-1"></span> червоне коло в пунктирній лінії
-                </p>
+              <h4 className="text-xl font-bold mb-4 mt-6 text-gray-800">Крок 3: Оцінка кожної точки</h4>
+              <p className="text-gray-700 mb-2">Використовує <strong>ТІ САМІ 7 факторів області</strong> + специфіку місця</p>
+              <div className="bg-gray-100 p-3 rounded mt-2">
+                <p className="text-sm font-mono">Бал = 50 + Попит(25) + Атрактор(20) + Природа(15) + Транспорт(15) + Інфра(10) + Пожежі(5) - Конкуренція(15)</p>
               </div>
             </div>
 
