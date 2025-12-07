@@ -479,7 +479,7 @@ function MapPage() {
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #1e40af;">▶ Крок 4: Нормалізація до 0-25</strong><br/>
+          <strong style="color: #1e40af;">Крок 4: Нормалізація до 0-25</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Метод:</strong> Логарифмічна нормалізація з урахуванням дефіциту<br/>
             <strong>Логіка:</strong> Більший дефіцит → вищий бал (вища потреба)
