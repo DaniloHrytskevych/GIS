@@ -875,22 +875,19 @@ const LandingPage = () => {
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-lg shadow-lg">
-              <h5 className="font-bold text-lg mb-3 flex items-center gap-2">
-                <span className="text-2xl">🗺️</span>
+            <div className="mt-8 bg-slate-50 p-6 rounded-lg border-l-4 border-amber-600">
+              <h5 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2">
+                <TbMapSearch className="text-amber-600 text-xl" />
                 Як читати карту?
               </h5>
               <div className="space-y-4">
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg border-2 border-gray-300">
-                  <p className="text-sm text-gray-800 mb-3">
-                    <strong>Позначення рекомендованих зон:</strong>
-                  </p>
-                  <div className="flex items-start gap-3 bg-white p-4 rounded-lg border-2 border-red-400">
-                    <div className="w-10 h-10 border-2 border-red-600 border-dashed rounded-full bg-red-200 flex-shrink-0"></div>
+                <div className="bg-white p-4 rounded-lg shadow border-l-4 border-red-600">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 border-2 border-red-600 border-dashed rounded-full bg-red-100 flex-shrink-0"></div>
                     <div className="flex-1">
-                      <p className="font-bold text-red-800 mb-1">Пунктирне коло на карті</p>
-                      <p className="text-sm text-gray-700">Центр рекомендованої зони. Натисніть на маркер щоб побачити:</p>
-                      <ul className="text-xs text-gray-600 mt-2 space-y-1 ml-4">
+                      <p className="font-bold text-slate-800 mb-2">Позначення рекомендованих зон</p>
+                      <p className="text-sm text-gray-600 mb-2">Центр рекомендованої зони. Натисніть на маркер щоб побачити:</p>
+                      <ul className="text-xs text-gray-600 space-y-1 ml-4">
                         <li>• Бал пріоритету (0-100)</li>
                         <li>• 3 ключові фактори успіху</li>
                         <li>• Рекомендовану інфраструктуру</li>
@@ -900,33 +897,41 @@ const LandingPage = () => {
                   </div>
                 </div>
 
-                <div className="bg-amber-50 border-2 border-amber-400 p-4 rounded-lg">
+                <div className="bg-white p-4 rounded-lg shadow border-l-4 border-amber-600">
                   <div className="flex items-start gap-3">
-                    <span className="text-3xl">🎯</span>
+                    <div className="bg-amber-600 p-2 rounded-full flex-shrink-0">
+                      <TbMapSearch className="text-white text-xl" />
+                    </div>
                     <div className="flex-1">
-                      <p className="font-bold text-amber-900 mb-2">Зона будівництва: ±5 км навколо маркера</p>
-                      <p className="text-sm text-gray-700">
-                        Маркер показує ЦЕНТР зони. В радіусі 5 км від цієї точки можна обирати конкретне місце 
-                        для будівництва з урахуванням:
+                      <p className="font-bold text-slate-800 mb-2">Зона будівництва: ±5 км навколо маркера</p>
+                      <p className="text-sm text-gray-600 mb-2">
+                        Маркер показує ЦЕНТР зони. В радіусі 5 км від цієї точки можна обирати конкретне місце для будівництва:
                       </p>
-                      <ul className="text-xs text-gray-600 mt-2 space-y-1 ml-4">
-                        <li>• Доступності землі</li>
-                        <li>• Наявності комунікацій</li>
-                        <li>• Природних умов</li>
-                        <li>• Логістики та доріг</li>
+                      <ul className="text-xs text-gray-600 space-y-1 ml-4">
+                        <li>• Доступність землі</li>
+                        <li>• Наявність комунікацій</li>
+                        <li>• Природні умови</li>
+                        <li>• Логістика та дороги</li>
                       </ul>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-green-50 border-l-4 border-green-600 p-4">
-                  <p className="text-sm text-gray-700">
-                    <strong>💡 Система оцінки:</strong>
-                  </p>
-                  <div className="mt-2 space-y-1 text-xs">
-                    <p className="text-green-800"><strong>95-100 балів:</strong> Найвищий пріоритет (кластери пожеж, ТОП НПП)</p>
-                    <p className="text-orange-800"><strong>85-94 бали:</strong> Високий потенціал (біля РЛП, великі траси)</p>
-                    <p className="text-amber-800"><strong>70-84 бали:</strong> Середній потенціал (віддалені локації)</p>
+                <div className="bg-white p-4 rounded-lg shadow border-l-4 border-green-600">
+                  <p className="text-sm text-slate-800 font-bold mb-2">Система оцінки пріоритету:</p>
+                  <div className="space-y-2 text-xs text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-green-600"></div>
+                      <span><strong>95-100 балів:</strong> Найвищий пріоритет (кластери пожеж, ТОП НПП)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-orange-600"></div>
+                      <span><strong>85-94 бали:</strong> Високий потенціал (біля РЛП, великі траси)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-amber-600"></div>
+                      <span><strong>70-84 бали:</strong> Середній потенціал (віддалені локації)</span>
+                    </div>
                   </div>
                 </div>
               </div>
