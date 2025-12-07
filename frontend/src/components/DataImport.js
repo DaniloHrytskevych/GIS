@@ -114,10 +114,13 @@ const DataImport = () => {
   };
 
   const handleDownloadBackup = async () => {
+    console.log('🔍 handleDownloadBackup called');
     try {
+      console.log('📥 Requesting backup from:', `${API}/backup/download-all`);
       const response = await axios.get(`${API}/backup/download-all`, {
         responseType: 'blob'
       });
+      console.log('✅ Backup response received:', response.data.size, 'bytes');
       
       // Create download link
       const url = window.URL.createObjectURL(new Blob([response.data]));
