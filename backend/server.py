@@ -394,7 +394,6 @@ def calculate_comprehensive_priority(
     
     # ЗАГАЛЬНИЙ ПРІОРИТЕТ
     total_priority = (
-        base +
         demand_component +
         attractor_component +
         nature_component +
@@ -404,7 +403,7 @@ def calculate_comprehensive_priority(
         saturation_penalty
     )
     
-    return min(100, max(0, int(total_priority)))
+    return min(90, max(0, int(total_priority)))
 
 # Models
 class RegionAnalysis(BaseModel):
