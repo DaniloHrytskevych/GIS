@@ -1986,7 +1986,7 @@ function MapPage() {
                             {/* Статус */}
                             <div className="p-2 bg-emerald-900/40 border border-emerald-500/50 rounded mb-3">
                               <p className="text-sm font-medium text-emerald-200">
-                                ✓ {zone.legal_status}
+                                {zone.legal_status}
                               </p>
                             </div>
 
