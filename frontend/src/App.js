@@ -2381,9 +2381,9 @@ function MapPage() {
                                           {analysisResult.details.fires.interpretation}
                                         </p>
                                         <ul className="text-xs text-orange-200 mt-2 space-y-1">
-                                          <li>✅ Облаштовані пункти знижують ризик на 40%</li>
-                                          <li>✅ Контрольовані вогнища у кам&apos;яних кільцях</li>
-                                          <li>✅ Доступ до води для гасіння</li>
+                                          <li>• Облаштовані пункти знижують ризик на 40%</li>
+                                          <li>• Контрольовані вогнища у кам&apos;яних кільцях</li>
+                                          <li>• Доступ до води для гасіння</li>
                                         </ul>
                                       </div>
                                     </div>
