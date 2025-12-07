@@ -1504,6 +1504,7 @@ function MapPage() {
     } finally {
       document.body.removeChild(pdfContent);
     }
+    */ // END OF OLD CODE
   };
 
   const filteredPoints = selectedRegion 
