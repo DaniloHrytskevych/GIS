@@ -203,6 +203,17 @@ frontend:
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE LANDING PAGE TESTING COMPLETED - All user requirements verified: 1) Landing page loads correctly on root '/' with proper hero section containing background image and title 'Геоінформаційна система аналізу рекреаційного потенціалу', 2) Sticky navigation present and functional, 3) 'Про систему' section contains exactly 3 cards as required, 4) 'Логіка системи' section displays mathematical formulas correctly, 5) 'Джерела даних' section shows data sources (note: displays 8 items instead of expected 4 - minor UI discrepancy), 6) CTA button 'Відкрити інтерактивну карту' present and functional, 7) Footer complete and properly styled, 8) Navigation to /map works flawlessly via 'Почати аналіз' button. All core landing page functionality operational and meets user specifications."
+  - task: "Export functionality for reports (PDF and JSON)"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ COMPREHENSIVE EXPORT FUNCTIONALITY TESTING COMPLETED - ALL USER REQUIREMENTS VERIFIED: 1) Interactive map loads correctly at /map with proper region selection (Zhytomyr region selected with score 52.4) ✓, 2) Export buttons found and functional: 'Порівняння областей (PDF)', 'Звіт про область (PDF)', and 'Дані (JSON)' located in top navigation ✓, 3) PDF Export Test: Successfully downloads 'Аналіз_Житомирська область.pdf' (43.7MB) with comprehensive mathematical calculations ✓, 4) JSON Export Test: Successfully downloads 'Analiz_Житомирська_область.json' (20.5KB) with complete scientific documentation ✓. DETAILED CONTENT VERIFICATION: PDF contains ПОКРОКОВІ МАТЕМАТИЧНІ РОЗРАХУНКИ section with: Фактор 1 (ПОПИТ) - 4 detailed calculation steps with Kentucky SCORP 2020 references, Фактор 2 (ПЗФ) - weight justifications from Wiley AHP 2022 with rationale for НПП×2.0, Заповідники×1.5, РЛП×1.0, Заказники×0.3, Фактор 3 (ПРИРОДА) - 2 components (forests calculation: 42% × 0.275 + water bodies: 4 points), Фактор 6 (ПОЖЕЖІ) - paradoxical logic explanation from NW Fire Science 2020 (80% recreational fires occur OUTSIDE official sites), dark-gray-amber information system styling throughout. JSON contains: scientific_basis section with all required references (Kentucky SCORP 2020-2025, Wiley AHP 2022, NW Fire Science 2020), formulas_detailed section with complete mathematical formulas, detailed_calculation_steps with step-by-step calculations for all 7 factors, each factor has proper structure with steps[], final_score, percentage, justification fields. ALL CRITICAL REQUIREMENTS MET - Export functionality is fully operational and production-ready with comprehensive scientific documentation."
 
 agent_communication:
     - agent: "main"
