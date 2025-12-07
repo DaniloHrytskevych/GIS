@@ -213,7 +213,7 @@ function generateInputData(pdf, analysisResult, d) {
   pdf.setFontSize(13);
   pdf.text('2.1. Демографічні показники', 20, startY);
   
-  autoTable(pdf, {
+  const demoTable = autoTable(pdf, {
     startY: startY + 5,
     head: [['Показник', 'Значення']],
     body: [
@@ -235,10 +235,10 @@ function generateInputData(pdf, analysisResult, d) {
   // 2.2. ПЗФ
   pdf.setFontSize(13);
   pdf.setFont('times', 'bold');
-  const pfzY = pdf.previousAutoTable.finalY + 10;
+  const pfzY = demoTable.finalY + 10;
   pdf.text('2.2. Природно-заповідний фонд', 20, pfzY);
   
-  autoTable(pdf, {
+  const pfzTable = autoTable(pdf, {
     startY: pfzY + 5,
     head: [['Категорія ПЗФ', 'Кількість']],
     body: [
@@ -259,6 +259,7 @@ function generateInputData(pdf, analysisResult, d) {
   });
   
   // 2.3-2.7 інші дані (скорочено для економії місця)
+  let lastTableY = pfzTable.finalY;
   const tables = [
     {
       title: '2.3. Природні ресурси',
@@ -301,16 +302,14 @@ function generateInputData(pdf, analysisResult, d) {
   ];
   
   tables.forEach(table => {
-    const lastY = pdf.previousAutoTable.finalY;
-    
     // Перевірка чи достатньо місця на сторінці
-    if (lastY > 240) {
+    if (lastTableY > 240) {
       pdf.addPage();
       pdf.setFontSize(13);
       pdf.setFont('times', 'bold');
       pdf.text(table.title, 20, 20);
       
-      autoTable(pdf, {
+      const newTable = autoTable(pdf, {
         startY: 25,
         head: [['Показник', 'Значення']],
         body: table.data,
@@ -322,13 +321,14 @@ function generateInputData(pdf, analysisResult, d) {
           1: { halign: 'right', cellWidth: 70, fontStyle: table.title.includes('2.6') ? 'bold' : 'normal' }
         }
       });
+      lastTableY = newTable.finalY;
     } else {
       pdf.setFontSize(13);
       pdf.setFont('times', 'bold');
-      pdf.text(table.title, 20, lastY + 10);
+      pdf.text(table.title, 20, lastTableY + 10);
       
-      autoTable(pdf, {
-        startY: lastY + 15,
+      const newTable = autoTable(pdf, {
+        startY: lastTableY + 15,
         head: [['Показник', 'Значення']],
         body: table.data,
         theme: 'grid',
@@ -339,6 +339,7 @@ function generateInputData(pdf, analysisResult, d) {
           1: { halign: 'right', cellWidth: 70, fontStyle: table.title.includes('2.6') ? 'bold' : 'normal' }
         }
       });
+      lastTableY = newTable.finalY;
     }
   });
 }
