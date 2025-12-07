@@ -519,12 +519,12 @@ function MapPage() {
         </div>
         
         <div style="background: #16a34a; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; display: inline-block;">
-          ✅ ФІНАЛЬНИЙ БАЛ: ${analysisResult.pfz_score}/20
+          ФІНАЛЬНИЙ БАЛ: ${analysisResult.pfz_score}/20
         </div>
         
         ${d?.pfz?.notable_objects && d.pfz.notable_objects.length > 0 ? `
         <div style="background: #f0fdf4; padding: 8px; border-radius: 3px; margin-top: 10px; border: 1px solid #86efac; font-size: 9px;">
-          <strong style="color: #166534;">🏞️ Визначні об'єкти:</strong> ${d.pfz.notable_objects.join(', ')}
+          <strong style="color: #166534;">Визначні об'єкти:</strong> ${d.pfz.notable_objects.join(', ')}
         </div>
         ` : ''}
       </div>
