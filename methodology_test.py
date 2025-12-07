@@ -269,7 +269,7 @@ class MethodologyTester:
 
     def test_total_score_calculation(self, analysis_data):
         """
-        Test that total score matches sum of all factors
+        Test that total score matches sum of all factors (no base score)
         """
         try:
             # Get individual factor scores
@@ -283,8 +283,8 @@ class MethodologyTester:
             
             total_score = analysis_data.get('total_score', 0)
             
-            # Calculate expected total (base 50 + all factors)
-            expected_total = 50 + demand_score + pfz_score + nature_score + accessibility_score + infrastructure_score + fire_score + saturation_penalty
+            # Calculate expected total (direct sum of all factors, no base)
+            expected_total = demand_score + pfz_score + nature_score + accessibility_score + infrastructure_score + fire_score + saturation_penalty
             expected_total = max(0, min(100, expected_total))  # Clamp to 0-100
             
             # Allow tolerance for rounding
