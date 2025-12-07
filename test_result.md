@@ -167,8 +167,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Enhanced PDF export - multi-page structure with 14px font"
-    - "Enhanced comparison PDF - 4-5 pages with rankings"
+    - "HTML report export - individual region report"
+    - "HTML compare export - all regions comparison"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
