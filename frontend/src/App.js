@@ -1227,13 +1227,18 @@ function MapPage() {
     const dataStr = JSON.stringify(exportData, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Analiz_${analysisResult.region.replace(/ /g, '_')}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `Analiz_${analysisResult.region.replace(/ /g, '_')}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      console.log('✅ JSON exported successfully');
+    } catch (error) {
+      console.error('❌ JSON export error:', error);
+      alert('Помилка експорту JSON: ' + error.message);
+    }
   };
 
   // Calculate how many points needed to cover deficit
