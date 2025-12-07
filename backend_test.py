@@ -804,6 +804,298 @@ class GISAPITester:
             self.log_test("CRITICAL: Fire Coordinates Verification", False, f"Exception: {str(e)}")
             return False
 
+    def test_ahp_methodology_api(self):
+        """Test /api/methodology endpoint for AHP synchronization"""
+        try:
+            response = requests.get(f"{self.api_url}/methodology", timeout=15)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            
+            if not success:
+                self.log_test("AHP Methodology API", False, f"HTTP Error: {response.status_code}", 200, response.status_code)
+                return False, {}
+            
+            data = response.json()
+            
+            # ====== TEST 1: Consistency Check ======
+            consistency = data.get('consistency', {})
+            cr = consistency.get('cr', 1.0)
+            is_consistent = consistency.get('is_consistent', False)
+            cr_percentage = consistency.get('percentage', '100%')
+            
+            details += f" | CR: {cr_percentage}"
+            
+            # Check CR < 10% (0.1) and is_consistent = true
+            if cr > 0.1 or not is_consistent:
+                details += f" ✗ Consistency failed: CR={cr_percentage}, consistent={is_consistent}"
+                success = False
+            else:
+                details += f" ✓ Consistency valid: CR={cr_percentage} < 10%"
+            
+            # ====== TEST 2: AHP Weights Check ======
+            ahp_weights = data.get('ahp_weights', {}).get('calculated', {})
+            if len(ahp_weights) != 7:
+                details += f" ✗ Expected 7 AHP weights, got {len(ahp_weights)}"
+                success = False
+            else:
+                details += f" ✓ AHP weights: 7 criteria present"
+            
+            # ====== TEST 3: Target Weights Check ======
+            target_weights = data.get('target_weights', {})
+            expected_weights = {
+                'demand': 0.25,
+                'pfz': 0.20,
+                'nature': 0.15,
+                'transport': 0.15,
+                'infrastructure': 0.10,
+                'fire_prevention': 0.05,
+                'saturation': -0.15
+            }
+            
+            weight_errors = []
+            for factor, expected_weight in expected_weights.items():
+                actual_weight = target_weights.get(factor, {}).get('weight', 0)
+                if abs(actual_weight - expected_weight) > 0.01:  # Allow small floating point differences
+                    weight_errors.append(f"{factor}: expected {expected_weight}, got {actual_weight}")
+            
+            if weight_errors:
+                details += f" ✗ Weight errors: {weight_errors[:3]}"
+                success = False
+            else:
+                details += " ✓ Target weights: 25-20-15-15-10-5-15 correct"
+            
+            # ====== TEST 4: Pairwise Matrix Check ======
+            pairwise_matrix = data.get('pairwise_matrix', [])
+            if len(pairwise_matrix) != 7 or any(len(row) != 7 for row in pairwise_matrix):
+                details += f" ✗ Expected 7×7 pairwise matrix, got {len(pairwise_matrix)}×{len(pairwise_matrix[0]) if pairwise_matrix else 0}"
+                success = False
+            else:
+                details += " ✓ Pairwise matrix: 7×7 structure correct"
+            
+            self.log_test("AHP Methodology API", success, details, 200, response.status_code)
+            return success, data
+            
+        except Exception as e:
+            self.log_test("AHP Methodology API", False, f"Exception: {str(e)}")
+            return False, {}
+
+    def test_kyiv_region_analysis_detailed(self):
+        """Test /api/analyze/Київська область with specific expected values"""
+        try:
+            encoded_region = requests.utils.quote("Київська область")
+            response = requests.get(f"{self.api_url}/analyze/{encoded_region}", timeout=15)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            
+            if not success:
+                self.log_test("Kyiv Region Analysis Detailed", False, f"HTTP Error: {response.status_code}", 200, response.status_code)
+                return False, {}
+            
+            data = response.json()
+            
+            # ====== TEST 1: Expected Scores ======
+            expected_scores = {
+                'total_score': 78.5,
+                'demand_score': 25,
+                'pfz_score': 16.0,
+                'nature_score': 10.1,
+                'accessibility_score': 14.5,
+                'infrastructure_score': 8.0,
+                'fire_score': 5,
+                'saturation_penalty': 0
+            }
+            
+            score_errors = []
+            for field, expected_value in expected_scores.items():
+                actual_value = data.get(field, 0)
+                if abs(actual_value - expected_value) > 0.1:  # Allow small differences
+                    score_errors.append(f"{field}: expected {expected_value}, got {actual_value}")
+            
+            if score_errors:
+                details += f" ✗ Score mismatches: {score_errors[:3]}"
+                success = False
+            else:
+                details += " ✓ All scores match expected values"
+            
+            # ====== TEST 2: Category Check ======
+            category = data.get('category', '')
+            if category != "ДУЖЕ ВИСОКИЙ":
+                details += f" ✗ Expected category 'ДУЖЕ ВИСОКИЙ', got '{category}'"
+                success = False
+            else:
+                details += " ✓ Category: ДУЖЕ ВИСОКИЙ"
+            
+            # ====== TEST 3: Details Verification ======
+            details_data = data.get('details', {})
+            
+            # Population details
+            population_data = details_data.get('population', {})
+            population_total = population_data.get('total', 0)
+            population_gap = population_data.get('gap', 0)
+            
+            if population_total != 1967185:
+                details += f" ✗ Expected population 1967185, got {population_total}"
+                success = False
+            else:
+                details += " ✓ Population: 1967185"
+            
+            if population_gap <= 0:
+                details += f" ✗ Expected positive gap (deficit), got {population_gap}"
+                success = False
+            else:
+                details += f" ✓ Gap: {population_gap} (deficit)"
+            
+            # Nature details
+            nature_data = details_data.get('nature', {})
+            forest_coverage = nature_data.get('forest_coverage_percent', 0)
+            
+            if forest_coverage != 22:
+                details += f" ✗ Expected forest coverage 22%, got {forest_coverage}%"
+                success = False
+            else:
+                details += " ✓ Forest coverage: 22%"
+            
+            # Transport details
+            transport_data = details_data.get('transport', {})
+            highway_density = transport_data.get('highway_density', 0)
+            railway_stations = transport_data.get('railway_stations', 0)
+            airports = transport_data.get('airports', 0)
+            
+            expected_transport = {
+                'highway_density': 285,
+                'railway_stations': 45,
+                'airports': 1
+            }
+            
+            transport_errors = []
+            for field, expected_val in expected_transport.items():
+                actual_val = transport_data.get(field, 0)
+                if actual_val != expected_val:
+                    transport_errors.append(f"{field}: expected {expected_val}, got {actual_val}")
+            
+            if transport_errors:
+                details += f" ✗ Transport errors: {transport_errors}"
+                success = False
+            else:
+                details += " ✓ Transport data correct"
+            
+            # Infrastructure details
+            infrastructure_data = details_data.get('infrastructure', {})
+            gas_stations_per_100km2 = infrastructure_data.get('gas_stations_per_100km2', 0)
+            hospitals_per_100k = infrastructure_data.get('hospitals_per_100k', 0)
+            
+            if abs(gas_stations_per_100km2 - 0.88) > 0.1:
+                details += f" ✗ Expected gas stations 0.88/100km², got {gas_stations_per_100km2}"
+                success = False
+            else:
+                details += " ✓ Gas stations: 0.88/100km²"
+            
+            if abs(hospitals_per_100k - 4.9) > 0.1:
+                details += f" ✗ Expected hospitals 4.9/100k, got {hospitals_per_100k}"
+                success = False
+            else:
+                details += " ✓ Hospitals: 4.9/100k"
+            
+            # Fires details
+            fires_data = details_data.get('fires', {})
+            total_fires = fires_data.get('total_fires', 0)
+            human_caused_fires = fires_data.get('human_caused_fires', 0)
+            
+            if total_fires != 95:
+                details += f" ✗ Expected 95 total fires, got {total_fires}"
+                success = False
+            else:
+                details += " ✓ Total fires: 95"
+            
+            if human_caused_fires != 33:
+                details += f" ✗ Expected 33 human fires, got {human_caused_fires}"
+                success = False
+            else:
+                details += " ✓ Human fires: 33"
+            
+            self.log_test("Kyiv Region Analysis Detailed", success, details, 200, response.status_code)
+            return success, data
+            
+        except Exception as e:
+            self.log_test("Kyiv Region Analysis Detailed", False, f"Exception: {str(e)}")
+            return False, {}
+
+    def test_mathematical_consistency(self):
+        """Test mathematical consistency of the 7-factor model"""
+        try:
+            # Get Kyiv region analysis
+            encoded_region = requests.utils.quote("Київська область")
+            response = requests.get(f"{self.api_url}/analyze/{encoded_region}", timeout=15)
+            
+            if response.status_code != 200:
+                self.log_test("Mathematical Consistency", False, f"API Error: {response.status_code}")
+                return False
+            
+            data = response.json()
+            success = True
+            details = "Mathematical verification"
+            
+            # ====== TEST 1: Weight Sum Check ======
+            # 25 + 20 + 15 + 15 + 10 + 5 - 15 = 100
+            expected_sum = 25 + 20 + 15 + 15 + 10 + 5 - 15
+            if expected_sum != 100:
+                details += f" ✗ Weight sum error: {expected_sum} ≠ 100"
+                success = False
+            else:
+                details += " ✓ Weight sum: 100"
+            
+            # ====== TEST 2: Score Sum Check ======
+            # demand_score + pfz_score + nature_score + accessibility_score + infrastructure_score + fire_score + saturation_penalty = total_score
+            individual_scores = [
+                data.get('demand_score', 0),
+                data.get('pfz_score', 0),
+                data.get('nature_score', 0),
+                data.get('accessibility_score', 0),
+                data.get('infrastructure_score', 0),
+                data.get('fire_score', 0),
+                data.get('saturation_penalty', 0)
+            ]
+            
+            calculated_total = sum(individual_scores)
+            actual_total = data.get('total_score', 0)
+            
+            if abs(calculated_total - actual_total) > 0.1:
+                details += f" ✗ Score sum mismatch: {calculated_total} ≠ {actual_total}"
+                details += f" | Individual: {individual_scores}"
+                success = False
+            else:
+                details += f" ✓ Score sum correct: {calculated_total} = {actual_total}"
+            
+            # ====== TEST 3: Score Range Validation ======
+            score_ranges = {
+                'demand_score': (0, 25),
+                'pfz_score': (0, 20),
+                'nature_score': (0, 15),
+                'accessibility_score': (0, 15),
+                'infrastructure_score': (0, 10),
+                'fire_score': (0, 5),
+                'saturation_penalty': (-15, 0)
+            }
+            
+            range_errors = []
+            for score_name, (min_val, max_val) in score_ranges.items():
+                actual_score = data.get(score_name, 0)
+                if not (min_val <= actual_score <= max_val):
+                    range_errors.append(f"{score_name}: {actual_score} not in [{min_val}, {max_val}]")
+            
+            if range_errors:
+                details += f" ✗ Range errors: {range_errors}"
+                success = False
+            else:
+                details += " ✓ All scores in valid ranges"
+            
+            self.log_test("Mathematical Consistency", success, details)
+            return success
+            
+        except Exception as e:
+            self.log_test("Mathematical Consistency", False, f"Exception: {str(e)}")
+            return False
+
     def test_invalid_region(self):
         """Test analysis with invalid region name"""
         try:
