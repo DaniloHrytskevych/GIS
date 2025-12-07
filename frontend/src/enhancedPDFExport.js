@@ -143,54 +143,63 @@ function generateEnhancedPDFContent(analysisResult, d, scoreColor, categoryColor
       Модель базується на методі <strong>Analytic Hierarchy Process (AHP)</strong> - систематичному підході до багатокритеріального прийняття рішень, розробленому Т. Сааті (1980). Метод широко застосовується у міжнародній практиці оцінки туристичного та рекреаційного потенціалу територій. Вагові коефіцієнти визначені на основі наукових досліджень: Kentucky SCORP 2020-2025, District of Columbia SCORP 2020, Wiley AHP 2022 та адаптовані до умов України.
     </p>
     
+    <h3>1.3. Структура факторів оцінки</h3>
     <table>
       <tr>
-        <th style="width: 25%;">Фактор</th>
-        <th style="width: 15%;">Вага</th>
-        <th style="width: 45%;">Формула розрахунку</th>
-        <th style="width: 15%;">Обґрунтування</th>
+        <th style="width: 8%;">№</th>
+        <th style="width: 30%;">Назва фактору</th>
+        <th style="width: 12%;">Вага, %</th>
+        <th style="width: 15%;">Діапазон балів</th>
+        <th style="width: 35%;">Методологічне обґрунтування</th>
       </tr>
       <tr>
-        <td><strong>1. Попит населення</strong></td>
-        <td style="color: #16a34a; font-weight: bold;">25%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">Населення × 0.15 × 3 - Пропозиція</code></td>
-        <td style="font-size: 12px;">Найвищий пріоритет</td>
+        <td style="text-align: center;"><strong>F1</strong></td>
+        <td>Попит населення на рекреацію</td>
+        <td style="text-align: center;"><strong>25</strong></td>
+        <td style="text-align: center;">0-25</td>
+        <td>Економічна основа: без попиту неможливий самоокупний бізнес (Kentucky SCORP 2020)</td>
       </tr>
       <tr>
-        <td><strong>2. ПЗФ атрактор</strong></td>
-        <td style="color: #16a34a; font-weight: bold;">20%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">НПП×2.0 + Зап.×1.5 + РЛП×1.0</code></td>
-        <td style="font-size: 12px;">Туристична цінність</td>
+        <td style="text-align: center;"><strong>F2</strong></td>
+        <td>Природно-заповідний фонд</td>
+        <td style="text-align: center;"><strong>20</strong></td>
+        <td style="text-align: center;">0-20</td>
+        <td>Туристичний атрактор: ПЗФ залучає відвідувачів (Wiley AHP 2022)</td>
       </tr>
       <tr>
-        <td><strong>3. Природні ресурси</strong></td>
-        <td style="color: #16a34a; font-weight: bold;">15%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">Ліси% × 0.275 + Водойми(4)</code></td>
-        <td style="font-size: 12px;">Естетична цінність</td>
+        <td style="text-align: center;"><strong>F3</strong></td>
+        <td>Природні ресурси території</td>
+        <td style="text-align: center;"><strong>15</strong></td>
+        <td style="text-align: center;">0-15</td>
+        <td>Естетична цінність та різноманітність активностей (SCIRP GIS-AHP 2018)</td>
       </tr>
       <tr>
-        <td><strong>4. Транспорт</strong></td>
-        <td style="color: #16a34a; font-weight: bold;">15%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">f(дороги, траси, залізниця, аеропорти)</code></td>
-        <td style="font-size: 12px;">Ключовий бар'єр</td>
+        <td style="text-align: center;"><strong>F4</strong></td>
+        <td>Транспортна доступність</td>
+        <td style="text-align: center;"><strong>15</strong></td>
+        <td style="text-align: center;">0-15</td>
+        <td>Критичний бар'єр для участі у рекреації (DC SCORP 2020)</td>
       </tr>
       <tr>
-        <td><strong>5. Інфраструктура</strong></td>
-        <td style="color: #16a34a; font-weight: bold;">10%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">Медицина + Заправки + Зв'язок + ...</code></td>
-        <td style="font-size: 12px;">Може бути побудована</td>
+        <td style="text-align: center;"><strong>F5</strong></td>
+        <td>Антропогенна інфраструктура</td>
+        <td style="text-align: center;"><strong>10</strong></td>
+        <td style="text-align: center;">0-10</td>
+        <td>Вторинний фактор: може бути розвинута після будівництва (Laguna Hills 2021)</td>
       </tr>
       <tr>
-        <td><strong>6. Пожежі</strong></td>
-        <td style="color: #f59e0b; font-weight: bold;">+5%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">(Людські пожежі / Площа) × коеф.</code></td>
-        <td style="font-size: 12px;">Профілактичний бонус</td>
+        <td style="text-align: center;"><strong>F6</strong></td>
+        <td>Профілактика лісових пожеж</td>
+        <td style="text-align: center;"><strong>+5</strong></td>
+        <td style="text-align: center;">0-5</td>
+        <td>Облаштовані пункти знижують ризик пожеж на 40% (NW Fire Science 2020)</td>
       </tr>
       <tr>
-        <td><strong>7. Штраф насиченості</strong></td>
-        <td style="color: #dc2626; font-weight: bold;">-15%</td>
-        <td><code style="display: inline; padding: 2px 6px; font-size: 12px;">Прогресивна шкала за щільністю</code></td>
-        <td style="font-size: 12px;">Ринкова конкуренція</td>
+        <td style="text-align: center;"><strong>F7</strong></td>
+        <td>Штраф за ринкову насиченість</td>
+        <td style="text-align: center;"><strong>-15</strong></td>
+        <td style="text-align: center;">0 до -15</td>
+        <td>Конкуренція зменшує інвестиційну привабливість (Kentucky Market Analysis)</td>
       </tr>
     </table>
     
