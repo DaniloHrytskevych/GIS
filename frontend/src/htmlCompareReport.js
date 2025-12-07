@@ -410,7 +410,7 @@ function generateTopRegionsByFactor(sortedRegions) {
   const topDemand = [...sortedRegions].sort((a, b) => b.demand_score - a.demand_score).slice(0, 5);
   const topPFZ = [...sortedRegions].sort((a, b) => b.pfz_score - a.pfz_score).slice(0, 5);
   const topNature = [...sortedRegions].sort((a, b) => b.nature_score - a.nature_score).slice(0, 5);
-  const topTransport = [...sortedRegions].sort((a, b) => b.transport_score - a.transport_score).slice(0, 5);
+  const topTransport = [...sortedRegions].sort((a, b) => b.accessibility_score - a.accessibility_score).slice(0, 5);
   
   return `
   <!-- ТОП ПО ФАКТОРАХ -->
