@@ -173,19 +173,17 @@ const DataImport = () => {
         }
       }
       
-      // Try file-saver first, fallback to new window if sandboxed
-      try {
-        saveAs(response.data, filename);
-        console.log('✅ File downloaded successfully:', filename);
-      } catch (sandboxError) {
-        console.warn('⚠️ Sandbox download blocked, opening in new window...');
-        const blobUrl = URL.createObjectURL(response.data);
-        const newWindow = window.open(blobUrl, '_blank');
-        if (!newWindow) {
-          alert('⚠️ Завантаження заблоковано браузером. Будь ласка, дозвольте спливаючі вікна.');
-        }
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-      }
+      // SIMPLE download method
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      console.log('✅ File downloaded successfully:', filename);
       
     } catch (error) {
       console.error('Error downloading file:', error);
