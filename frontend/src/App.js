@@ -455,7 +455,7 @@ function MapPage() {
         </div>
         
         <div style="margin: 10px 0;">
-          <strong style="color: #1e40af;">▶ Крок 2: Існуюча пропозиція</strong><br/>
+          <strong style="color: #1e40af;">Крок 2: Існуюча пропозиція</strong><br/>
           <div style="background: white; padding: 8px; border-radius: 3px; margin: 5px 0; font-family: monospace; font-size: 9px;">
             <strong>Формула:</strong> Пропозиція = Пункти × 50 місць × 180 днів × 2 зміни<br/>
             <strong>Існуючі пункти:</strong> ${d?.saturation?.existing_points || 0} об'єктів<br/>
