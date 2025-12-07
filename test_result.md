@@ -201,9 +201,9 @@ frontend:
           comment: "✅ COMPREHENSIVE LANDING PAGE TESTING COMPLETED - All user requirements verified: 1) Landing page loads correctly on root '/' with proper hero section containing background image and title 'Геоінформаційна система аналізу рекреаційного потенціалу', 2) Sticky navigation present and functional, 3) 'Про систему' section contains exactly 3 cards as required, 4) 'Логіка системи' section displays mathematical formulas correctly, 5) 'Джерела даних' section shows data sources (note: displays 8 items instead of expected 4 - minor UI discrepancy), 6) CTA button 'Відкрити інтерактивну карту' present and functional, 7) Footer complete and properly styled, 8) Navigation to /map works flawlessly via 'Почати аналіз' button. All core landing page functionality operational and meets user specifications."
   - task: "Export functionality for reports (PDF and JSON)"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/App.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -213,6 +213,9 @@ frontend:
         - working: true
           agent: "testing"
           comment: "✅ ПОВТОРНЕ ТЕСТУВАННЯ ЕКСПОРТУ ПІСЛЯ ВИПРАВЛЕНЬ - ВСІ ВИМОГИ КОРИСТУВАЧА ВИКОНАНО: 1) Карта /map завантажується коректно з 2792 інтерактивними елементами ✓, 2) Знайдено та протестовано всі кнопки експорту: 'Порівняння областей (PDF)' у верхній панелі, 'Звіт про область (PDF)', 'Дані (JSON)' ✓, 3) Тест PDF експорту: Успішно завантажено 'Порівняльний_аналіз_областей.pdf' та 'Аналіз_Житомирська область.pdf' без помилок ✓, 4) Тест JSON експорту: Успішно завантажено 'Analiz_Житомирська_область.json' без помилок ✓, 5) Popup функціональність: Знайдено 208 інтерактивних елементів карти, popup відкривається при кліку на області ✓, 6) Консоль браузера: 0 JavaScript помилок, 0 попереджень - повністю чиста консоль ✓, 7) Регіон Житомирська область обрано автоматично з оцінкою 52.4 бали ✓. КРИТИЧНИЙ УСПІХ: Всі кнопки експорту працюють бездоганно, файли завантажуються коректно, жодних помилок у консолі не виявлено. Функціональність експорту повністю готова до продакшену та відповідає всім вимогам користувача."
+        - working: false
+          agent: "testing"
+          comment: "❌ КРИТИЧНІ ПРОБЛЕМИ З ЕКСПОРТОМ ПІСЛЯ ДЕТАЛЬНОГО ТЕСТУВАННЯ: 1) СИНТАКСИЧНА ПОМИЛКА: Виправлено критичну помилку компіляції в App.js - відсутні catch/finally блоки для try statements (лінії 209, 719). Проблема була в подвійних вкладених try-catch блоках у функції exportPDF ✓, 2) КАРТА ЗАВАНТАЖУЄТЬСЯ: 2792 інтерактивних елементів, але popup не відкривається при кліку ❌, 3) PDF ЕКСПОРТ: Знайдено кнопку 'Порівняння областей (PDF)', кнопку натиснуто, але кнопка 'Звіт про область (PDF)' та 'Дані (JSON)' НЕ ЗНАЙДЕНІ ❌, 4) JSON ЕКСПОРТ: Кнопка 'Дані (JSON)' не знайдена на сторінці ❌, 5) ZIP БЕКАП: Кнопка 'Завантажити всі дані (ZIP)' працює коректно ✓. ОСНОВНА ПРОБЛЕМА: Кнопки експорту PDF/JSON для конкретного регіону з'являються тільки після вибору регіону, але селектор регіонів не працює коректно. Потрібно виправити логіку відображення кнопок експорту та функціональність вибору регіонів."
 
 agent_communication:
     - agent: "main"
