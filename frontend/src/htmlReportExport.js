@@ -361,7 +361,7 @@ function generateHTMLReport(analysisResult, d) {
           <td>6. Пожежонебезпечність території</td>
           <td style="text-align: center;">5</td>
           <td style="text-align: center;">5%</td>
-          <td style="text-align: center; font-weight: bold;">${analysisResult.fire_risk_score}</td>
+          <td style="text-align: center; font-weight: bold;">${analysisResult.fire_score}</td>
         </tr>
         <tr>
           <td>7. Насиченість існуючими об'єктами</td>
