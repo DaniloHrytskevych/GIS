@@ -1,15 +1,18 @@
 /**
- * РОЗШИРЕНИЙ PDF-ЕКСПОРТ З ПОВНОЮ НАУКОВОЮ ДОКУМЕНТАЦІЄЮ
+ * АКАДЕМІЧНИЙ PDF-ЕКСПОРТ (СТРОГИЙ НАУКОВИЙ СТИЛЬ)
  * 
- * Включає:
- * - Титульну сторінку
- * - Вихідні дані для розрахунку
- * - Покрокові розрахунки для всіх 7 факторів
- * - Формули з науковими обґрунтуваннями
- * - Висновки та рекомендації
- * - Наукові джерела
+ * Стиль: Чорно-білий академічний без кольорів та смайлів
+ * Формат: Сухі таблиці, списки, виділення жирним
+ * Розмір шрифту: 12px (основний), 14px (заголовки)
  * 
- * Розмір шрифту: 14px (основний текст)
+ * Структура:
+ * - Титульна сторінка
+ * - Методологія розрахунку
+ * - Вихідні дані
+ * - Покрокові розрахунки (7 факторів)
+ * - Підсумкова таблиця
+ * - Висновки
+ * - Бібліографія
  */
 
 import jsPDF from 'jspdf';
@@ -59,23 +62,27 @@ export const exportEnhancedPDF = async (analysisResult, getScoreColor, getCatego
 function generateEnhancedPDFContent(analysisResult, d, scoreColor, categoryColor, shouldBuild) {
   return `
     <style>
-      body { font-size: 14px; line-height: 1.6; color: #1e293b; }
-      h1 { font-size: 28px; font-weight: bold; margin: 20px 0; }
-      h2 { font-size: 22px; font-weight: bold; margin: 18px 0 12px 0; border-bottom: 3px solid #f59e0b; padding-bottom: 8px; }
-      h3 { font-size: 18px; font-weight: bold; margin: 14px 0 10px 0; }
-      h4 { font-size: 16px; font-weight: bold; margin: 12px 0 8px 0; }
+      body { font-size: 12px; line-height: 1.5; color: #000000; font-family: 'Times New Roman', serif; }
+      h1 { font-size: 16px; font-weight: bold; margin: 15px 0 10px 0; text-align: center; text-transform: uppercase; }
+      h2 { font-size: 14px; font-weight: bold; margin: 20px 0 10px 0; border-bottom: 2px solid #000000; padding-bottom: 5px; }
+      h3 { font-size: 13px; font-weight: bold; margin: 12px 0 8px 0; }
+      h4 { font-size: 12px; font-weight: bold; margin: 10px 0 6px 0; text-decoration: underline; }
       .page-break { page-break-after: always; height: 1px; }
-      .formula-box { background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 12px 0; border-radius: 6px; }
-      .step-box { background: #fef3c7; padding: 12px; border-left: 4px solid #f59e0b; margin: 10px 0; border-radius: 4px; }
-      .result-box { background: #dcfce7; padding: 10px 15px; border-radius: 6px; font-weight: bold; display: inline-block; margin: 8px 0; }
-      table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
-      th { background: #1e293b; color: white; padding: 12px; text-align: left; border: 1px solid #475569; }
-      td { padding: 10px; border: 1px solid #e2e8f0; }
-      tr:nth-child(even) { background: #f8fafc; }
-      .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+      .formula-box { padding: 10px; border: 1px solid #000000; margin: 10px 0; background: #ffffff; }
+      .step-box { padding: 8px; margin: 8px 0 8px 20px; border-left: 3px solid #000000; background: #ffffff; }
+      .result-box { padding: 6px 10px; border: 1px solid #000000; font-weight: bold; display: inline-block; margin: 6px 0; background: #ffffff; }
+      table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 11px; page-break-inside: avoid; }
+      th { background: #ffffff; color: #000000; padding: 8px; text-align: left; border: 1px solid #000000; font-weight: bold; }
+      td { padding: 8px; border: 1px solid #000000; background: #ffffff; }
+      tr:nth-child(even) { background: #f5f5f5; }
+      .highlight { font-weight: bold; text-decoration: underline; }
       .text-center { text-align: center; }
-      .mb-4 { margin-bottom: 20px; }
-      code { background: #1e293b; color: #10b981; padding: 8px 12px; border-radius: 4px; display: block; font-family: 'Courier New', monospace; font-size: 13px; margin: 8px 0; }
+      .mb-4 { margin-bottom: 15px; }
+      code { background: #f5f5f5; border: 1px solid #cccccc; padding: 6px 10px; display: block; font-family: 'Courier New', monospace; font-size: 11px; margin: 6px 0; color: #000000; }
+      ul { margin: 8px 0; padding-left: 25px; }
+      li { margin: 4px 0; }
+      strong { font-weight: bold; }
+      .section-number { font-weight: bold; }
     </style>
 
     <!-- СТОРІНКА 1: ТИТУЛЬНА -->
