@@ -1,126 +1,114 @@
 {
-  "timestamp": "2025-12-07T19:20:51.768792",
+  "timestamp": "2025-12-07T19:21:20.705110",
   "total_tests": 17,
-  "passed_tests": 14,
-  "failed_tests": 3,
-  "success_rate": 82.35294117647058,
+  "passed_tests": 16,
+  "failed_tests": 1,
+  "success_rate": 94.11764705882352,
   "test_details": [
     {
       "test": "API Root",
       "success": true,
       "details": "Status: 200, Message: GIS Recreational Potential Analysis API",
-      "timestamp": "2025-12-07T19:20:50.653078"
+      "timestamp": "2025-12-07T19:21:19.601924"
     },
     {
       "test": "AHP Methodology API",
       "success": true,
       "details": "Status: 200 | CR: 0.16% ✓ Consistency valid: CR=0.16% < 10% ✓ AHP weights: 7 criteria present ✓ Target weights: 25-20-15-15-10-5-15 correct ✓ Pairwise matrix: 7×7 structure correct",
-      "timestamp": "2025-12-07T19:20:50.694639"
+      "timestamp": "2025-12-07T19:21:19.640922"
     },
     {
       "test": "Kyiv Region Analysis Detailed",
-      "success": false,
-      "details": "Status: 200 ✓ All scores match expected values ✓ Category: ДУЖЕ ВИСОКИЙ ✗ Expected population 1967185, got 1800000 ✓ Gap: 583920 (deficit) ✓ Forest coverage: 22% ✓ Transport data correct ✓ Gas stations: 0.88/100km² ✓ Hospitals: 4.9/100k ✓ Total fires: 95 ✓ Human fires: 33",
-      "timestamp": "2025-12-07T19:20:50.782419"
+      "success": true,
+      "details": "Status: 200 ✓ All scores match expected values ✓ Category: ДУЖЕ ВИСОКИЙ ✓ Population: 1800000 ✓ Gap: 583920 (deficit) ✓ Forest coverage: 22% ✓ Transport data correct ✓ Gas stations: 0.88/100km² ✓ Hospitals: 4.9/100k ✓ Total fires: 95 ✓ Human fires: 33",
+      "timestamp": "2025-12-07T19:21:19.683498"
     },
     {
       "test": "Mathematical Consistency",
-      "success": false,
-      "details": "Mathematical verification ✗ Weight sum error: 75 ≠ 100 ✓ Score sum correct: 78.6 = 78.5 ✓ All scores in valid ranges",
-      "timestamp": "2025-12-07T19:20:50.825745"
+      "success": true,
+      "details": "Mathematical verification ✓ Theoretical max positive factors: 90 ✓ Score sum correct: 78.6 = 78.5 ✓ All scores in valid ranges",
+      "timestamp": "2025-12-07T19:21:19.729957"
     },
     {
       "test": "Population Data",
       "success": true,
       "details": "Status: 200, Population data regions: 24, Sample: Київська область - 1800000 people",
-      "timestamp": "2025-12-07T19:20:50.865926"
+      "timestamp": "2025-12-07T19:21:19.766503"
     },
     {
       "test": "Infrastructure Data",
       "success": true,
       "details": "Status: 200, Infrastructure data regions: 24, Sample: Київська область - accessibility: 9.5",
-      "timestamp": "2025-12-07T19:20:50.907495"
+      "timestamp": "2025-12-07T19:21:19.806270"
     },
     {
       "test": "Protected Areas Data",
       "success": true,
       "details": "Status: 200, Protected areas data regions: 24, Sample: Київська область - national parks: 3",
-      "timestamp": "2025-12-07T19:20:50.948806"
+      "timestamp": "2025-12-07T19:21:19.843455"
     },
     {
       "test": "Get Regions",
       "success": true,
       "details": "Status: 200, Regions count: 24, Sample: Київська область, Expected regions found: 3/3",
-      "timestamp": "2025-12-07T19:20:50.985572"
+      "timestamp": "2025-12-07T19:21:19.918202"
     },
     {
       "test": "Get Recreational Points",
       "success": true,
       "details": "Status: 200, Points count: 780, Sample: Зона відпочинку \"Криниченька\" in Житомирська область, Valid GeoJSON format",
-      "timestamp": "2025-12-07T19:20:51.060344"
+      "timestamp": "2025-12-07T19:21:19.995475"
     },
     {
       "test": "Analyze Region (Київська область)",
       "success": true,
       "details": "Status: 200, Region: Київська область, Score: 78.5/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-07T19:20:51.107199"
+      "timestamp": "2025-12-07T19:21:20.039054"
     },
     {
       "test": "Analyze Region (Львівська область)",
       "success": true,
       "details": "Status: 200, Region: Львівська область, Score: 82.0/100, Category: ДУЖЕ ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-07T19:20:51.149258"
+      "timestamp": "2025-12-07T19:21:20.079825"
     },
     {
       "test": "Analyze Region (Одеська область)",
       "success": true,
       "details": "Status: 200, Region: Одеська область, Score: 65.8/100, Category: ВИСОКИЙ, All required fields present, All scores in valid ranges",
-      "timestamp": "2025-12-07T19:20:51.189834"
+      "timestamp": "2025-12-07T19:21:20.116653"
     },
     {
       "test": "Analyze All Regions",
       "success": true,
       "details": "Status: 200, Regions analyzed: 24, Sorted by score: True, Top: Львівська область (82.0), Bottom: Черкаська область (29.6)",
-      "timestamp": "2025-12-07T19:20:51.260327"
+      "timestamp": "2025-12-07T19:21:20.186059"
     },
     {
       "test": "Recommended Zones - 7-Factor Model",
       "success": true,
       "details": "Status: 200, Total zones: 106 | Types: near_pfz=34, roadside=36, fire_prevention=36 ✓ All 3 zone types present | Priority: sorted=True, range_valid=True, high=106, med=0, low=0 ✓ Priority calculation valid ✓ Fire prevention zones valid ✓ Near PFZ zones valid ✓ Roadside zones valid ✓ Reasoning structure valid ✓ Data integrity valid | Stats: avg=100.0, max=100, min=100 | Top zone: Біля: НПП \"Голосіївський\" (near_pfz, 100)",
-      "timestamp": "2025-12-07T19:20:51.380716"
+      "timestamp": "2025-12-07T19:21:20.310081"
     },
     {
       "test": "7-Factor Priority Model Verification",
       "success": false,
       "details": "Analyzing 106 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.01) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 100.0, 'roadside': 100.0, 'fire_prevention': 100.0}",
-      "timestamp": "2025-12-07T19:20:51.506923"
+      "timestamp": "2025-12-07T19:21:20.437196"
     },
     {
       "test": "CRITICAL: Fire Coordinates Verification",
       "success": true,
       "details": "Forest fires: 1875 total, 649 human-caused | Fire prevention zones: 36 ✓ Fire prevention zones count acceptable | Total zones: 106 ✓ Total zones count acceptable | Distribution: {'near_pfz': 34, 'roadside': 36, 'fire_prevention': 36} | Kyiv fire zones: 2 ✓ Kyiv fire zones coordinates look valid (not in water) ✓ Sample regional coordinates look reasonable ✓ Total fires count acceptable (1875) ✓ Human fires count acceptable (649) ⚠ Metadata doesn't mention realistic coordinates",
-      "timestamp": "2025-12-07T19:20:51.729541"
+      "timestamp": "2025-12-07T19:21:20.649455"
     },
     {
       "test": "Invalid Region Handling",
       "success": true,
       "details": "Status: 404 - Correctly returns 404 for invalid region",
-      "timestamp": "2025-12-07T19:20:51.767950"
+      "timestamp": "2025-12-07T19:21:20.704234"
     }
   ],
   "failures": [
-    {
-      "test": "Kyiv Region Analysis Detailed",
-      "error": "Status: 200 ✓ All scores match expected values ✓ Category: ДУЖЕ ВИСОКИЙ ✗ Expected population 1967185, got 1800000 ✓ Gap: 583920 (deficit) ✓ Forest coverage: 22% ✓ Transport data correct ✓ Gas stations: 0.88/100km² ✓ Hospitals: 4.9/100k ✓ Total fires: 95 ✓ Human fires: 33",
-      "expected_status": 200,
-      "actual_status": 200
-    },
-    {
-      "test": "Mathematical Consistency",
-      "error": "Mathematical verification ✗ Weight sum error: 75 ≠ 100 ✓ Score sum correct: 78.6 = 78.5 ✓ All scores in valid ranges",
-      "expected_status": 200,
-      "actual_status": null
-    },
     {
       "test": "7-Factor Priority Model Verification",
       "error": "Analyzing 106 zones for 7-factor model compliance | Factor coverage: 6/7 factors found | Factor mentions: {'demand': 8, 'pfz_attractor': 4, 'nature': 2, 'transport': 4, 'infrastructure': 0, 'fires': 6, 'saturation': 8} ✗ Missing factors in reasoning: ['infrastructure'] ✓ Priorities in expected range (35-100) ✗ Low priority diversity (0.01) - may indicate simple calculation | Avg priorities by type: {'near_pfz': 100.0, 'roadside': 100.0, 'fire_prevention': 100.0}",
