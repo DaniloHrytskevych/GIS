@@ -740,6 +740,14 @@ function generateFactorDetails(analysisResult, d) {
 }
 
 function generateInvestmentRecommendations(d, shouldBuild) {
+  // Розрахунок інвестиційних параметрів на основі даних
+  const gap = d?.population?.gap || 0;
+  const avgCapacityPerPoint = 50 * 180 * 2; // 18,000 відвідувань на рік
+  const recommendedCapacity = gap > 0 ? Math.min(Math.ceil(gap / avgCapacityPerPoint), 5) * 50 : 50;
+  const investmentPerPlace = 15000; // $15K на місце
+  const estimatedInvestment = `$${(recommendedCapacity * investmentPerPlace / 1000).toFixed(0)}K`;
+  const paybackPeriod = shouldBuild ? '3-5 років' : '5-7 років';
+  
   if (shouldBuild) {
     return `
       <div style="padding: 15px; border: 3px solid #16a34a; background: #f0fdf4;">
@@ -760,19 +768,19 @@ function generateInvestmentRecommendations(d, shouldBuild) {
           <tbody>
             <tr>
               <td>Рекомендована місткість об'єкту</td>
-              <td style="text-align: right; font-weight: bold;">${d?.investment?.recommended_capacity || 'N/A'} місць</td>
+              <td style="text-align: right; font-weight: bold;">${recommendedCapacity} місць</td>
             </tr>
             <tr>
               <td>Орієнтовна сума інвестицій</td>
-              <td style="text-align: right; font-weight: bold;">${d?.investment?.estimated_investment || 'N/A'}</td>
+              <td style="text-align: right; font-weight: bold;">${estimatedInvestment}</td>
             </tr>
             <tr>
               <td>Очікуваний термін окупності</td>
-              <td style="text-align: right; font-weight: bold;">${d?.investment?.payback_period || 'N/A'}</td>
+              <td style="text-align: right; font-weight: bold;">${paybackPeriod}</td>
             </tr>
             <tr>
               <td>Тип рекомендованого об'єкту</td>
-              <td style="text-align: right;">${d?.investment?.recommended_type || 'Рекреаційний комплекс'}</td>
+              <td style="text-align: right;">Рекреаційний комплекс</td>
             </tr>
           </tbody>
         </table>
