@@ -1,0 +1,521 @@
+{
+  "metadata": {
+    "report_title": "Науковий звіт: Аналіз рекреаційного потенціалу України",
+    "report_version": "1.0",
+    "generated_at": "2025-12-07T11:08:27.797Z",
+    "methodology": "Analytic Hierarchy Process (AHP) - 7-factor weighted model",
+    "scientific_basis": {
+      "primary_method": "Analytic Hierarchy Process (AHP)",
+      "references": [
+        "Kentucky SCORP 2020-2025 (Demand Analysis & Market Saturation)",
+        "District of Columbia SCORP 2020 (Access Barriers & Transport)",
+        "Wiley 'AHP for Ecotourism Site Selection' 2022 (PFZ Weights)",
+        "SCIRP 'GIS-AHP Tourist Resort Location' 2018 (Nature Resources)",
+        "Laguna Hills Recreation Assessment 2021 (Infrastructure)",
+        "NW Fire Science 'Human and Climatic Influences on Wildfires' 2020",
+        "Закон України 'Про природно-заповідний фонд' (адаптація до УА)"
+      ],
+      "validation": "Peer-reviewed international research adapted to Ukrainian context"
+    },
+    "formulas_detailed": {
+      "total_score": {
+        "formula": "TOTAL = demand(0-25) + pfz(0-20) + nature(0-15) + transport(0-15) + infrastructure(0-10) + fire_prevention(0-5) - saturation(0-15)",
+        "max_score": 100,
+        "description": "Загальний потенціал регіону для рекреаційного будівництва"
+      },
+      "demand": {
+        "formula": "(population × 0.15 × 3) - (existing_points × 50 × 180 × 2)",
+        "normalization": "Логарифмічна нормалізація до 0-25",
+        "weight": "25% (найвищий пріоритет)",
+        "justification": "Без попиту немає економічної доцільності (Kentucky SCORP 2020)",
+        "coefficient_0_15": "15% населення - активні рекреанти (емпірично доведено)",
+        "coefficient_3": "3 відвідування/рік - середній показник для активного населення",
+        "supply_formula": "points × 50 місць × 180 днів × 2 зміни = річна пропозиція"
+      },
+      "pfz": {
+        "formula": "НПП×2.0 + Заповідники×1.5 + РЛП×1.0 + Заказники×0.3",
+        "max_score": 20,
+        "weight": "20%",
+        "justification": "ПЗФ = головний туристичний атрактор (Wiley AHP 2022)",
+        "weights_rationale": {
+          "national_parks": "×2.0 - найвища туристична цінність, міжнародна впізнаваність",
+          "reserves": "×1.5 - висока природна цінність, обмежений доступ",
+          "regional_parks": "×1.0 - регіональна значущість",
+          "zakazniks": "×0.3 - локальна значущість"
+        }
+      },
+      "nature": {
+        "formula": "(forest_coverage% × 0.275) + water_bodies(4 if yes, 0 if no)",
+        "max_score": 15,
+        "weight": "15%",
+        "components": {
+          "forests": "0-11 балів (0.275 = коефіцієнт нормалізації до 11 при 40% лісистості)",
+          "water": "0-4 бали (бінарна оцінка наявності)"
+        },
+        "justification": "Естетична цінність + різноманітність активностей (SCIRP GIS-AHP 2018)"
+      },
+      "transport": {
+        "formula": "f(highway_density, international_roads, railways, airports)",
+        "max_score": 15,
+        "weight": "15%",
+        "components": {
+          "roads": "0-8 балів (щільність >400км/1000км² = 8)",
+          "m_roads": "0-3 бали (наявність міжнародних трас)",
+          "railways": "0-2 бали (>30 станцій = 2)",
+          "airports": "0-2 бали (міжнародний аеропорт = 2)"
+        },
+        "justification": "'Відсутність доступу' - 2-га причина неучасті у рекреації (DC SCORP 2020)"
+      },
+      "infrastructure": {
+        "formula": "hospitals(0-3) + gas_stations(0-2) + mobile(0-2) + internet(0-1) + hotels(0-1) + electricity(0-1)",
+        "max_score": 10,
+        "weight": "10%",
+        "justification": "Інфраструктуру можна ПОБУДУВАТИ (вторинний фактор, Laguna Hills 2021)",
+        "components_priority": "Медицина (3) > Заправки (2) = Зв'язок (2) > Інше (3)"
+      },
+      "fire_prevention": {
+        "formula": "(human_caused_fires / region_area_1000km2) × 100 × 0.5",
+        "max_score": 5,
+        "weight": "+5% (бонус)",
+        "paradoxical_logic": "БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях",
+        "justification": "80% рекреаційних пожеж - ПОЗА офіційними місцями (NW Fire Science 2020)",
+        "effect": "Облаштовані вогнища → зниження ризику на 40%"
+      },
+      "saturation": {
+        "formula": "Progressive scale: 0 to -15 points based on density",
+        "max_penalty": -15,
+        "weight": "-15% (штраф)",
+        "scale": {
+          "low": "<1.0 р.п./1000км² = -2",
+          "moderate": "1.0-2.0 = -5",
+          "high": "2.0-3.0 = -10",
+          "critical": ">3.0 = -15"
+        },
+        "justification": "Висока концентрація → менше місця для нових → нижчий потенціал (Kentucky Market Analysis)"
+      }
+    },
+    "weights_summary": {
+      "demand": "25% (найвищий)",
+      "pfz": "20%",
+      "nature": "15%",
+      "transport": "15%",
+      "infrastructure": "10%",
+      "fire_prevention": "+5% (бонус)",
+      "saturation": "-15% (штраф)",
+      "total_positive": "90%",
+      "total_with_penalties": "75-90%"
+    }
+  },
+  "region": "Житомирська область",
+  "analysis_date": "2025-12-07T11:08:27.797Z",
+  "total_potential": {
+    "score": 52.4,
+    "category": "СЕРЕДНІЙ",
+    "recommendation": "Обмежений потенціал. Можливе точкове будівництво."
+  },
+  "raw_input_data": {
+    "demographics": {
+      "total_population": 1200000,
+      "population_density_per_km2": 40,
+      "visit_coefficient": 0.15,
+      "source": "Державна служба статистики України (2023)"
+    },
+    "pfz": {
+      "national_parks": 3,
+      "nature_reserves": 3,
+      "regional_landscape_parks": 12,
+      "zakazniks": 127,
+      "percent_of_region": 6.7,
+      "notable_objects": [
+        "Поліський природний заповідник",
+        "НПП \"Древлянський\"",
+        "НПП \"Sloboda Bushanska\"",
+        "Ушомирський заказник"
+      ],
+      "source": "Міністерство захисту довкілля та природних ресурсів (2024)"
+    },
+    "nature": {
+      "forest_coverage_percent": 42,
+      "has_water_bodies": true,
+      "source": "Держлісагентство України (2023)"
+    },
+    "transport": {
+      "highway_density_per_100km2": 225,
+      "railway_stations": 38,
+      "airports": 0,
+      "avg_travel_time_minutes": 55,
+      "main_roads": [
+        {
+          "name": "М-06 Київ-Чоп",
+          "type": "міжнародна",
+          "quality": "добра"
+        },
+        {
+          "name": "М-21 Житомир-Могилів-Подільський",
+          "type": "міжнародна",
+          "quality": "задовільна"
+        }
+      ],
+      "source": "OpenStreetMap + Укравтодор (2024)"
+    },
+    "infrastructure": {
+      "hospitals_per_100k": 5.7,
+      "gas_stations_per_100km2": 0.66,
+      "hotels_total": 124,
+      "mobile_coverage_percent": 95,
+      "source": "OpenStreetMap + Google Maps API (2024)"
+    },
+    "forest_fires": {
+      "total_fires": 89,
+      "human_caused_fires": 32,
+      "interpretation": "Більше людських пожеж = вища потреба в облаштованих пунктах",
+      "source": "ДСНС України (2025)"
+    },
+    "saturation": {
+      "existing_points": 88,
+      "density_per_1000km2": 2.95,
+      "density_status": "Помірна насиченість",
+      "source": "Мінкультури України (2024)"
+    }
+  },
+  "detailed_calculation_steps": {
+    "demand": {
+      "factor_name": "Попит від населення",
+      "max_score": 25,
+      "weight_percent": 25,
+      "steps": [
+        {
+          "step": 1,
+          "title": "Розрахунок річного попиту на рекреацію",
+          "formula": "annual_demand = population × 0.15 × 3",
+          "input_values": {
+            "population": 1200000,
+            "participation_coefficient": 0.15,
+            "visits_per_year": 3
+          },
+          "calculation": "1200000 × 0.15 × 3",
+          "result": 540000,
+          "unit": "відвідувань/рік",
+          "justification": "15% населення - потенційні рекреанти (Kentucky SCORP 2020), 3 візити - середній показник активності"
+        },
+        {
+          "step": 2,
+          "title": "Розрахунок існуючої пропозиції",
+          "formula": "annual_supply = points × 50 × 180 × 2",
+          "input_values": {
+            "existing_points": 88,
+            "capacity_per_point": 50,
+            "season_days": 180,
+            "shifts_per_day": 2
+          },
+          "calculation": "88 × 50 × 180 × 2",
+          "result": 1584000,
+          "unit": "місць/рік",
+          "justification": "50 місць - стандартна місткість, 180 днів - тривалість сезону, 2 зміни/день"
+        },
+        {
+          "step": 3,
+          "title": "Визначення дефіциту або профіциту",
+          "formula": "gap = demand - supply",
+          "input_values": {
+            "demand": 540000,
+            "supply": 1584000
+          },
+          "calculation": "540000 - 1584000",
+          "result": -751320,
+          "status": "Надлишок",
+          "unit": "відвідувань (дефіцит/профіцит)",
+          "interpretation": "Профіцит = ринок насичений"
+        },
+        {
+          "step": 4,
+          "title": "Нормалізація до шкали 0-25 балів",
+          "formula": "score = f(gap, population) normalized to [0, 25]",
+          "method": "Логарифмічна нормалізація з урахуванням розміру дефіциту",
+          "logic": "Більший дефіцит → вищий бал → вища економічна доцільність",
+          "result": 0,
+          "unit": "балів",
+          "max": 25
+        }
+      ],
+      "final_score": 0,
+      "percentage": "0.0"
+    },
+    "pfz": {
+      "factor_name": "ПЗФ як туристичний атрактор",
+      "max_score": 20,
+      "weight_percent": 20,
+      "steps": [
+        {
+          "step": 1,
+          "title": "Підрахунок ПЗФ за категоріями з ваговими коефіцієнтами",
+          "formula": "score = НПП×2.0 + Заповідники×1.5 + РЛП×1.0 + Заказники×0.3",
+          "input_values": {
+            "national_parks": 3,
+            "nature_reserves": 3,
+            "regional_parks": 12,
+            "zakazniks": 127
+          },
+          "weighted_scores": {
+            "npp": "3 × 2.0 = 6",
+            "reserves": "3 × 1.5 = 4.5",
+            "rlp": "12 × 1.0 = 12",
+            "zakazniks": "127 × 0.3 = 38.1"
+          },
+          "sum": "60.60",
+          "justification": "НПП мають найвищу туристичну цінність та міжнародну впізнаваність (Wiley AHP 2022)"
+        },
+        {
+          "step": 2,
+          "title": "Коригування за площею ПЗФ",
+          "formula": "adjustment = 1 + (pfz_area_percent / 100) × 0.2",
+          "input_values": {
+            "pfz_percent": 6.7
+          },
+          "logic": "Більша площа під ПЗФ = вища туристична привабливість регіону",
+          "result": 1.0134
+        },
+        {
+          "step": 3,
+          "title": "Нормалізація до шкали 0-20 балів",
+          "method": "Нелінійна нормалізація з обмеженням",
+          "result": 20,
+          "max": 20
+        }
+      ],
+      "notable_objects": [
+        "Поліський природний заповідник",
+        "НПП \"Древлянський\"",
+        "НПП \"Sloboda Bushanska\"",
+        "Ушомирський заказник"
+      ],
+      "final_score": 20,
+      "percentage": "100.0"
+    },
+    "nature": {
+      "factor_name": "Природні ресурси",
+      "max_score": 15,
+      "weight_percent": 15,
+      "components": {
+        "forests": {
+          "title": "Лісове покриття",
+          "formula": "forests_score = forest_percent × 0.275",
+          "input": 42,
+          "calculation": "42% × 0.275",
+          "result": "11.00",
+          "max": 11,
+          "justification": "Ліси = естетична цінність + різноманітність активностей (піші прогулянки, велосипед)"
+        },
+        "water": {
+          "title": "Водні об'єкти",
+          "formula": "water_score = 4 (if present) or 0 (if absent)",
+          "input": true,
+          "result": 4,
+          "max": 4,
+          "justification": "Водойми → риболовля, плавання, водні види спорту, пляжний відпочинок"
+        }
+      },
+      "final_score": 15,
+      "percentage": "100.0"
+    },
+    "transport": {
+      "factor_name": "Транспортна доступність",
+      "max_score": 15,
+      "weight_percent": 15,
+      "components": {
+        "roads": {
+          "max": 8,
+          "description": "Щільність доріг"
+        },
+        "m_roads": {
+          "max": 3,
+          "description": "Міжнародні траси"
+        },
+        "railways": {
+          "max": 2,
+          "description": "Залізничні станції"
+        },
+        "airports": {
+          "max": 2,
+          "description": "Аеропорти"
+        }
+      },
+      "input_data": {
+        "highway_density": 225,
+        "railway_stations": 38,
+        "airports": 0
+      },
+      "final_score": 8.4,
+      "percentage": "56.0",
+      "justification": "'Відсутність транспорту' - 2-га причина неучасті у рекреації після вартості (DC SCORP 2020)"
+    },
+    "infrastructure": {
+      "factor_name": "Інфраструктура",
+      "max_score": 10,
+      "weight_percent": 10,
+      "components": {
+        "hospitals": {
+          "max": 3,
+          "priority": 1
+        },
+        "gas_stations": {
+          "max": 2,
+          "priority": 2
+        },
+        "mobile_coverage": {
+          "max": 2,
+          "priority": 2
+        },
+        "internet": {
+          "max": 1,
+          "priority": 3
+        },
+        "hotels": {
+          "max": 1,
+          "priority": 3
+        },
+        "electricity": {
+          "max": 1,
+          "priority": 3
+        }
+      },
+      "final_score": 7,
+      "percentage": "70.0",
+      "note": "Інфраструктуру можна ПОБУДУВАТИ - це вторинний фактор (Laguna Hills 2021)"
+    },
+    "fire_prevention": {
+      "factor_name": "Профілактика лісових пожеж",
+      "max_score": 5,
+      "weight_percent": 5,
+      "paradoxical_logic": "БІЛЬШЕ пожеж = ВИЩА потреба в облаштованих місцях відпочинку",
+      "input_data": {
+        "total_fires": 89,
+        "human_caused": 32,
+        "human_percent": "36.0"
+      },
+      "scientific_basis": {
+        "source": "NW Fire Science 'Human and Climatic Influences on Wildfires' 2020",
+        "key_findings": [
+          "80% рекреаційних пожеж відбуваються ПОЗА офіційними місцями відпочинку",
+          "Облаштовані вогнища з каменю + доступ до води = зниження ризику на 40%",
+          "Щільність пожеж у радіусі 1 км від кемпінгів у 7 РАЗІВ ВИЩА"
+        ]
+      },
+      "final_score": 5,
+      "percentage": "100.0"
+    },
+    "saturation": {
+      "factor_name": "Штраф за насиченість ринку",
+      "max_penalty": -15,
+      "weight_percent": -15,
+      "input_data": {
+        "existing_points": 88,
+        "density_per_1000km2": 2.95,
+        "status": "Помірна насиченість"
+      },
+      "penalty_scale": {
+        "low": {
+          "range": "<1.0 р.п./1000км²",
+          "penalty": -2,
+          "status": "Низька насиченість"
+        },
+        "moderate": {
+          "range": "1.0-2.0",
+          "penalty": -5,
+          "status": "Помірна насиченість"
+        },
+        "high": {
+          "range": "2.0-3.0",
+          "penalty": -10,
+          "status": "Висока насиченість"
+        },
+        "critical": {
+          "range": ">3.0",
+          "penalty": -15,
+          "status": "Критична перенасиченість"
+        }
+      },
+      "final_penalty": -3,
+      "percentage": "20.0",
+      "justification": "Висока концентрація існуючих об'єктів → менше місця для нових → нижчий потенціал (Kentucky Market Analysis)"
+    }
+  },
+  "factors": {
+    "demand": {
+      "score": 0,
+      "max": 25,
+      "gap": -751320
+    },
+    "pfz_attraction": {
+      "score": 20,
+      "max": 20,
+      "notable_objects": [
+        "Поліський природний заповідник",
+        "НПП \"Древлянський\"",
+        "НПП \"Sloboda Bushanska\"",
+        "Ушомирський заказник"
+      ]
+    },
+    "nature": {
+      "score": 15,
+      "max": 15
+    },
+    "accessibility": {
+      "score": 8.4,
+      "max": 15
+    },
+    "infrastructure": {
+      "score": 7,
+      "max": 10
+    },
+    "saturation_penalty": {
+      "score": -3,
+      "max": -15
+    }
+  },
+  "investment_forecast": {
+    "should_build": false,
+    "investment_scale": "ТОЧКОВИЙ (1 унікальний об'єкт)",
+    "points_needed": 0
+  },
+  "recommended_zones": [],
+  "data_sources": [
+    {
+      "category": "Населення та демографія",
+      "source": "Державна служба статистики України",
+      "url": "https://ukrstat.gov.ua",
+      "year": 2023
+    },
+    {
+      "category": "Природно-заповідний фонд",
+      "source": "Міністерство захисту довкілля та природних ресурсів України",
+      "year": 2024
+    },
+    {
+      "category": "Лісові ресурси",
+      "source": "Державне агентство лісових ресурсів України",
+      "year": 2023
+    },
+    {
+      "category": "Транспортна інфраструктура",
+      "source": "OpenStreetMap + Укравтодор",
+      "year": 2024
+    },
+    {
+      "category": "Інфраструктура готелів та послуг",
+      "source": "OpenStreetMap + Google Maps API",
+      "year": 2024
+    },
+    {
+      "category": "Лісові пожежі",
+      "source": "Державна служба України з надзвичайних ситуацій",
+      "url": "https://dsns.gov.ua",
+      "year": 2025
+    },
+    {
+      "category": "Рекреаційні пункти",
+      "source": "Міністерство культури та інформаційної політики України",
+      "year": 2024
+    }
+  ]
+}
