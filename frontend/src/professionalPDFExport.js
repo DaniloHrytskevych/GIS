@@ -5,9 +5,6 @@
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import 'jspdf-customfonts';
-import 'jspdf-customfonts/dist/DejaVuSans-normal';
-import 'jspdf-customfonts/dist/DejaVuSans-bold';
 
 export const exportProfessionalPDF = async (analysisResult, getScoreColor, getCategoryColor) => {
   if (!analysisResult) {
@@ -21,10 +18,8 @@ export const exportProfessionalPDF = async (analysisResult, getScoreColor, getCa
     const pdf = new jsPDF('p', 'mm', 'a4');
     const d = analysisResult.details;
     
-    // Налаштування шрифтів - DejaVu Sans підтримує кирилицю
-    pdf.addFont('DejaVuSans-normal.ttf', 'DejaVuSans', 'normal');
-    pdf.addFont('DejaVuSans-bold.ttf', 'DejaVuSans', 'bold');
-    pdf.setFont('DejaVuSans', 'normal');
+    // Використовуємо courier - єдиний вбудований шрифт з підтримкою кирилиці в jsPDF
+    pdf.setFont('courier', 'normal');
     
     let currentPage = 1;
     
@@ -84,16 +79,16 @@ function generateTitlePage(pdf, analysisResult) {
   
   // Заголовок
   pdf.setFontSize(16);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('НАУКОВИЙ ЗВІТ', pageWidth / 2, 40, { align: 'center' });
   
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text('Аналіз рекреаційного потенціалу території', pageWidth / 2, 55, { align: 'center' });
   pdf.text('за методом багатокритеріального прийняття рішень', pageWidth / 2, 63, { align: 'center' });
   
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text(`Об'єкт дослідження: ${analysisResult.region}`, pageWidth / 2, 85, { align: 'center' });
   
   // Таблиця з результатами
@@ -107,7 +102,7 @@ function generateTitlePage(pdf, analysisResult) {
     ],
     theme: 'grid',
     styles: { 
-      font: 'DejaVuSans', 
+      font: 'courier', 
       fontSize: 11,
       cellPadding: 5
     },
@@ -126,7 +121,7 @@ function generateTitlePage(pdf, analysisResult) {
   
   // Дата та методологія
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   const footerY = pageHeight - 40;
   pdf.text(`Дата формування: ${new Date().toLocaleDateString('uk-UA')}`, pageWidth / 2, footerY, { align: 'center' });
   pdf.text('Методологія: Analytic Hierarchy Process (AHP), версія 1.0', pageWidth / 2, footerY + 7, { align: 'center' });
@@ -135,24 +130,24 @@ function generateTitlePage(pdf, analysisResult) {
 
 function generateMethodology(pdf) {
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('1. МЕТОДОЛОГІЯ ДОСЛІДЖЕННЯ', 20, 20);
   
   pdf.setFontSize(13);
   pdf.text('1.1. Загальна характеристика методу', 20, 32);
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   const methodText = 'Для оцінки рекреаційного потенціалу території застосовано метод Analytic Hierarchy Process (AHP), розроблений Томасом Л. Сааті (1980). AHP є систематичним підходом до багатокритеріального прийняття рішень, що дозволяє інтегрувати кількісні та якісні фактори через парне порівняння та визначення вагових коефіцієнтів.';
   const splitText = pdf.splitTextToSize(methodText, 170);
   pdf.text(splitText, 20, 42);
   
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('1.2. Математична модель', 20, 70);
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text('Інтегральна формула оцінки:', 20, 80);
   
   // Формула в рамці
@@ -163,7 +158,7 @@ function generateMethodology(pdf) {
   pdf.setFontSize(12);
   pdf.text('I = F₁ + F₂ + F₃ + F₄ + F₅ + F₆ - F₇', 25, 94);
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   const formulaDesc = [
     'де: I - інтегральний показник потенціалу (0-100 балів);',
@@ -195,7 +190,7 @@ function generateMethodology(pdf) {
       ['7', 'Ринкова насиченість', '-15', '0 до -15', 'Конкурентний штраф']
     ],
     theme: 'grid',
-    styles: { font: 'DejaVuSans', fontSize: 10 },
+    styles: { font: 'courier', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { halign: 'center', cellWidth: 15 },
@@ -209,7 +204,7 @@ function generateMethodology(pdf) {
 
 function generateInputData(pdf, analysisResult, d) {
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('2. ВИХІДНІ ДАНІ ДЛЯ РОЗРАХУНКУ', 20, 20);
   
   let startY = 30;
@@ -229,7 +224,7 @@ function generateInputData(pdf, analysisResult, d) {
       ['Середня кількість відвідувань на рік', '3 відвідування/особу']
     ],
     theme: 'grid',
-    styles: { font: 'DejaVuSans', fontSize: 10 },
+    styles: { font: 'courier', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 100 },
@@ -239,7 +234,7 @@ function generateInputData(pdf, analysisResult, d) {
   
   // 2.2. ПЗФ
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   const pfzY = (pdf.lastAutoTable && pdf.lastAutoTable.finalY) ? pdf.lastAutoTable.finalY + 10 : 80;
   pdf.text('2.2. Природно-заповідний фонд', 20, pfzY);
   
@@ -255,7 +250,7 @@ function generateInputData(pdf, analysisResult, d) {
       ['Частка території під ПЗФ', `${d?.pfz?.percent_of_region || 0}%`]
     ],
     theme: 'grid',
-    styles: { font: 'DejaVuSans', fontSize: 10 },
+    styles: { font: 'courier', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 100 },
@@ -311,7 +306,7 @@ function generateInputData(pdf, analysisResult, d) {
     if (lastTableY > 240) {
       pdf.addPage();
       pdf.setFontSize(13);
-      pdf.setFont('DejaVuSans', 'bold');
+      pdf.setFont('courier', 'bold');
       pdf.text(table.title, 20, 20);
       
       autoTable(pdf, {
@@ -319,7 +314,7 @@ function generateInputData(pdf, analysisResult, d) {
         head: [['Показник', 'Значення']],
         body: table.data,
         theme: 'grid',
-        styles: { font: 'DejaVuSans', fontSize: 10 },
+        styles: { font: 'courier', fontSize: 10 },
         headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
         columnStyles: {
           0: { cellWidth: 100 },
@@ -329,7 +324,7 @@ function generateInputData(pdf, analysisResult, d) {
       lastTableY = (pdf.lastAutoTable && pdf.lastAutoTable.finalY) ? pdf.lastAutoTable.finalY : 80;
     } else {
       pdf.setFontSize(13);
-      pdf.setFont('DejaVuSans', 'bold');
+      pdf.setFont('courier', 'bold');
       pdf.text(table.title, 20, lastTableY + 10);
       
       autoTable(pdf, {
@@ -337,7 +332,7 @@ function generateInputData(pdf, analysisResult, d) {
         head: [['Показник', 'Значення']],
         body: table.data,
         theme: 'grid',
-        styles: { font: 'DejaVuSans', fontSize: 10 },
+        styles: { font: 'courier', fontSize: 10 },
         headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
         columnStyles: {
           0: { cellWidth: 100 },
@@ -351,7 +346,7 @@ function generateInputData(pdf, analysisResult, d) {
 
 function generateCalculations(pdf, analysisResult, d) {
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('3. ПОКРОКОВІ РОЗРАХУНКИ ФАКТОРІВ', 20, 20);
   
   let yPos = 30;
@@ -362,11 +357,11 @@ function generateCalculations(pdf, analysisResult, d) {
   yPos += 10;
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('Крок 1. Розрахунок річного попиту', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text('Формула:', 20, yPos);
   yPos += 5;
@@ -376,11 +371,11 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Річний попит = Населення × 0,15 × 3', 25, yPos + 5);
   yPos += 10;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text(`Підставлення: ${d?.population?.total?.toLocaleString() || 'н/д'} × 0,15 × 3 = ${d?.population?.annual_demand?.toLocaleString() || 'н/д'} відвідувань/рік`, 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text(`Результат: ${d?.population?.annual_demand?.toLocaleString() || 'н/д'} відвідувань/рік`, 20, yPos);
   yPos += 10;
   
@@ -388,7 +383,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Крок 2. Оцінка існуючої пропозиції', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text('Формула:', 20, yPos);
   yPos += 5;
   
@@ -397,11 +392,11 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Річна пропозиція = Пункти × 50 × 180 × 2', 25, yPos + 5);
   yPos += 10;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text(`Підставлення: ${d?.saturation?.existing_points || 0} × 50 × 180 × 2 = ${d?.population?.annual_supply?.toLocaleString() || 'н/д'} місць/рік`, 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text(`Результат: ${d?.population?.annual_supply?.toLocaleString() || 'н/д'} місць/рік`, 20, yPos);
   yPos += 10;
   
@@ -409,18 +404,18 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Крок 3. Співвідношення пропозиції/попиту', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text(`Співвідношення = ${d?.population?.supply_demand_ratio?.toFixed(3) || 'н/д'}`, 20, yPos);
   yPos += 5;
   pdf.text(`Дефіцит/Профіцит = ${Math.abs(d?.population?.gap || 0).toLocaleString()} відвідувань`, 20, yPos);
   yPos += 10;
   
   // Крок 4
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('Крок 4. Нормалізація до шкали 0-25 балів', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(9);
   const scales = [
     '• Співвідношення < 0,6 (дефіцит >40%): 25 балів',
@@ -436,7 +431,7 @@ function generateCalculations(pdf, analysisResult, d) {
   
   yPos += 3;
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: ${analysisResult.demand_score}/25`, 25, yPos + 5);
   yPos += 15;
@@ -447,7 +442,7 @@ function generateCalculations(pdf, analysisResult, d) {
   
   // ФАКТОР 2: ПЗФ
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('3.2. Фактор 2: Природно-заповідний фонд (0-20 балів)', 20, yPos);
   yPos += 10;
   
@@ -455,7 +450,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Розрахунок з ваговими коефіцієнтами', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text('Формула:', 20, yPos);
   yPos += 5;
@@ -466,7 +461,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Бал = НПП×2,0 + Заповідники×1,5 + РЛП×1,0 + Заказники×0,1 + Пам\'ятки×0,05', 25, yPos + 5);
   yPos += 10;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text('Підставлення:', 20, yPos);
   yPos += 5;
@@ -474,7 +469,7 @@ function generateCalculations(pdf, analysisResult, d) {
   yPos += 10;
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: ${analysisResult.pfz_score}/20`, 25, yPos + 5);
   yPos += 15;
@@ -488,7 +483,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Компонент А: Лісове покриття (0-11 балів)', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text('Формула:', 20, yPos);
   yPos += 5;
@@ -498,19 +493,19 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Бал = Лісистість(%) × 0,275', 25, yPos + 5);
   yPos += 10;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text(`Підставлення: ${d?.nature?.forest_coverage_percent || 0}% × 0,275 = ${((d?.nature?.forest_coverage_percent || 0) * 0.275).toFixed(2)} балів`, 20, yPos);
   yPos += 8;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('Компонент Б: Водні об\'єкти (0-4 бали)', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text(`Наявність: ${d?.nature?.has_water_bodies ? '4 бали' : '0 балів'}`, 20, yPos);
   yPos += 10;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: ${analysisResult.nature_score}/15`, 25, yPos + 5);
   yPos += 15;
@@ -521,7 +516,7 @@ function generateCalculations(pdf, analysisResult, d) {
   yPos += 10;
   
   pdf.setFontSize(10);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text('Формула (композитна оцінка):', 20, yPos);
   yPos += 5;
   
@@ -532,12 +527,12 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('      min(Міжнародні_траси×0,8, 3) + (Аеропорт ? 1 : 0)', 25, yPos + 10);
   yPos += 18;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text(`Вхідні дані: щільність ${d?.transport?.highway_density || 0} км/100км², залізниця ${d?.transport?.railway_stations || 0} ст., аеропорти ${d?.transport?.airports || 0}`, 20, yPos);
   yPos += 8;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: ${analysisResult.accessibility_score}/15`, 25, yPos + 5);
   yPos += 15;
@@ -550,12 +545,12 @@ function generateCalculations(pdf, analysisResult, d) {
   
   // ФАКТОР 5: Інфраструктура (додаємо формулу!)
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('3.5. Фактор 5: Інфраструктура (0-10 балів)', 20, yPos);
   yPos += 10;
   
   pdf.setFontSize(10);
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.text('Формула (композитна оцінка):', 20, yPos);
   yPos += 5;
   
@@ -566,12 +561,12 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('      min(Мобільний_зв\'язок/25, 2) + min(Готелі/50, 2) + 1', 25, yPos + 10);
   yPos += 18;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   pdf.text('Оцінка медицини, АЗС, зв\'язку, готелів, електрифікації', 20, yPos);
   yPos += 8;
   
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: ${analysisResult.infrastructure_score}/10`, 25, yPos + 5);
   yPos += 15;
@@ -585,7 +580,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Шкала оцінювання:', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(9);
   const fireScales = [
     '• ≥15 людських пожеж: 5 балів (критична потреба)',
@@ -604,7 +599,7 @@ function generateCalculations(pdf, analysisResult, d) {
   yPos += 8;
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ БАЛ: +${analysisResult.fire_score || 0}/5`, 25, yPos + 5);
   yPos += 15;
@@ -618,7 +613,7 @@ function generateCalculations(pdf, analysisResult, d) {
   pdf.text('Прогресивна шкала штрафів:', 20, yPos);
   yPos += 6;
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(9);
   const satScales = [
     '• Щільність <1,0 пункт/1000км²: -2 бали',
@@ -637,14 +632,14 @@ function generateCalculations(pdf, analysisResult, d) {
   yPos += 8;
   
   pdf.setFontSize(11);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.rect(20, yPos, 170, 8);
   pdf.text(`ФІНАЛЬНИЙ ШТРАФ: ${analysisResult.saturation_penalty}/0`, 25, yPos + 5);
 }
 
 function generateSummary(pdf, analysisResult) {
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('4. ПІДСУМКОВА ТАБЛИЦЯ РЕЗУЛЬТАТІВ', 20, 20);
   
   autoTable(pdf, {
@@ -664,7 +659,7 @@ function generateSummary(pdf, analysisResult) {
             { content: '100', styles: { fontStyle: 'bold', halign: 'center' } },
             { content: `${analysisResult.total_score}%`, styles: { fontStyle: 'bold', halign: 'center' } }]],
     theme: 'grid',
-    styles: { font: 'DejaVuSans', fontSize: 10 },
+    styles: { font: 'courier', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     footStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], lineWidth: 0.5, lineColor: [0, 0, 0] },
     columnStyles: {
@@ -681,20 +676,20 @@ function generateConclusions(pdf, analysisResult, d) {
   const shouldBuild = d?.investment?.should_build;
   
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('5. ВИСНОВКИ ТА РЕКОМЕНДАЦІЇ', 20, 20);
   
   pdf.setFontSize(13);
   pdf.text('5.1. Загальна оцінка потенціалу', 20, 35);
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(11);
   const conclusionText = `За результатами комплексної оцінки рекреаційного потенціалу території ${analysisResult.region} отримано інтегральний показник ${analysisResult.total_score} балів зі 100 можливих, що відповідає категорії "${analysisResult.category}".`;
   const splitConclusion = pdf.splitTextToSize(conclusionText, 170);
   pdf.text(splitConclusion, 20, 45);
   
   pdf.setFontSize(13);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('5.2. Інвестиційна рекомендація', 20, 65);
   
   pdf.setDrawColor(0);
@@ -703,7 +698,7 @@ function generateConclusions(pdf, analysisResult, d) {
   pdf.setFontSize(12);
   pdf.text(shouldBuild ? 'РЕКОМЕНДУЄТЬСЯ БУДІВНИЦТВО РЕКРЕАЦІЙНИХ ОБ\'ЄКТІВ' : 'БУДІВНИЦТВО РИЗИКОВАНЕ', 105, 80, { align: 'center' });
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   const recText = pdf.splitTextToSize(analysisResult.recommendation, 170);
   pdf.text(recText, 20, 95);
@@ -719,7 +714,7 @@ function generateConclusions(pdf, analysisResult, d) {
       ['Потрібно об\'єктів для покриття дефіциту', `${d?.population?.gap > 0 ? Math.ceil((d?.population?.gap || 0) / (50 * 180 * 2)) : 0} пунктів`]
     ],
     theme: 'grid',
-    styles: { font: 'DejaVuSans', fontSize: 10 },
+    styles: { font: 'courier', fontSize: 10 },
     headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
     columnStyles: {
       0: { cellWidth: 100, fontStyle: 'bold' },
@@ -730,10 +725,10 @@ function generateConclusions(pdf, analysisResult, d) {
 
 function generateBibliography(pdf) {
   pdf.setFontSize(14);
-  pdf.setFont('DejaVuSans', 'bold');
+  pdf.setFont('courier', 'bold');
   pdf.text('6. БІБЛІОГРАФІЧНИЙ СПИСОК', 20, 20);
   
-  pdf.setFont('DejaVuSans', 'normal');
+  pdf.setFont('courier', 'normal');
   pdf.setFontSize(10);
   
   const bibliography = [
