@@ -394,6 +394,9 @@ const DataImport = () => {
           <CardDescription className="text-gray-300">
             Створіть бекап перед імпортом нових файлів. Система дозволяє відновити дані у разі помилки валідації.
           </CardDescription>
+          <div className="mt-2 text-xs text-amber-300 bg-amber-900/30 border border-amber-600/30 rounded p-2">
+            ⚠️ Примітка: Якщо завантаження заблоковане, дозвольте спливаючі вікна або зверніться до підтримки Emergent (Discord: discord.gg/VzKfwCXC4A)
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
