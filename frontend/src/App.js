@@ -1248,21 +1248,9 @@ function MapPage() {
       ]
     };
     
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
+    // ВИКОРИСТОВУЄМО ПРОСТИЙ МОДУЛЬ
     const filename = `Analiz_${analysisResult.region.replace(/ /g, '_')}.json`;
-      
-      // SIMPLE download method - create link and click it
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      console.log('✅ JSON exported successfully:', filename);
+    simpleExportJSON(exportData, filename);
     } catch (error) {
       console.error('❌ JSON export error:', error);
       alert('Помилка експорту JSON: ' + error.message);
