@@ -200,16 +200,26 @@ function MapPage() {
   };
 
   const exportPDF = async () => {
-    if (!analysisResult) return;
+    console.log('🔍 exportPDF called');
+    if (!analysisResult) {
+      console.error('❌ No analysisResult');
+      return;
+    }
     
-    // Create a temporary div for PDF content
-    const pdfContent = document.createElement('div');
-    pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif; font-size: 11px;';
-    
-    const d = analysisResult.details;
-    const shouldBuild = d?.investment?.should_build;
-    
-    pdfContent.innerHTML = `
+    try {
+      // Pre-calculate colors safely
+      const scoreColor = getScoreColor(analysisResult.total_score);
+      const categoryColor = getCategoryColor(analysisResult.category);
+      console.log('✅ Colors calculated:', scoreColor, categoryColor);
+      
+      // Create a temporary div for PDF content
+      const pdfContent = document.createElement('div');
+      pdfContent.style.cssText = 'position: absolute; left: -9999px; width: 800px; padding: 40px; background: white; font-family: Arial, sans-serif; font-size: 11px;';
+      
+      const d = analysisResult.details;
+      const shouldBuild = d?.investment?.should_build;
+      
+      pdfContent.innerHTML = `
       <!-- ТИТУЛЬНА СТОРІНКА -->
       <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #f59e0b; padding-bottom: 20px;">
         <h1 style="color: #1e293b; margin: 0; font-size: 22px; font-weight: bold;">НАУКОВИЙ ЗВІТ</h1>
