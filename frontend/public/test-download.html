@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест завантаження файлів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #f59e0b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #d97706;
+        }
+        .log {
+            background: #1e293b;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Тест завантаження файлів</h1>
+    <p>Ця сторінка тестує базову функціональність завантаження</p>
+    
+    <div>
+        <button onclick="testSimpleDownload()">1. Простий текстовий файл</button>
+        <button onclick="testJSONDownload()">2. JSON файл</button>
+        <button onclick="testBlobDownload()">3. Blob файл</button>
+        <button onclick="testBackendZip()">4. Backend ZIP (бекап)</button>
+    </div>
+    
+    <div class="log" id="log"></div>
+
+    <script>
+        function log(message, isError = false) {
+            const logDiv = document.getElementById('log');
+            const span = document.createElement('div');
+            span.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            if (isError) span.className = 'error';
+            logDiv.appendChild(span);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function testSimpleDownload() {
+            log('🔍 Тест 1: Простий текстовий файл');
+            try {
+                const text = 'Це тестовий файл!\nУкраїнською мовою.\nЧас: ' + new Date().toISOString();
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'test-text.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                log('✅ Текстовий файл створено та завантажено');
+            } catch (error) {
+                log('❌ Помилка: ' + error.message, true);
+            }
+        }
+
+        function testJSONDownload() {
+            log('🔍 Тест 2: JSON файл');
+            try {
+                const data = {
+                    test: 'Це тест',
+                    timestamp: new Date().toISOString(),
+                    ukrainian: 'Українська мова',
+                    numbers: [1, 2, 3, 4, 5]
+                };
+                const jsonStr = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'test-data.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                log('✅ JSON файл створено та завантажено');
+            } catch (error) {
+                log('❌ Помилка: ' + error.message, true);
+            }
+        }
+
+        function testBlobDownload() {
+            log('🔍 Тест 3: Великий Blob файл');
+            try {
+                const largeText = 'Великий текст\n'.repeat(1000);
+                const blob = new Blob([largeText], { type: 'text/plain' });
+                log('📊 Розмір blob: ' + blob.size + ' байтів');
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'test-large.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                log('✅ Великий файл створено та завантажено');
+            } catch (error) {
+                log('❌ Помилка: ' + error.message, true);
+            }
+        }
+
+        async function testBackendZip() {
+            log('🔍 Тест 4: Завантаження ZIP з backend');
+            try {
+                const backendUrl = window.location.origin.replace(':3000', ':8001');
+                const url = backendUrl + '/api/backup/download-all';
+                log('📥 Запит до: ' + url);
+                
+                const response = await fetch(url);
+                log('📊 Статус відповіді: ' + response.status);
+                
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+                
+                const blob = await response.blob();
+                log('📊 Розмір ZIP: ' + blob.size + ' байтів');
+                
+                const downloadUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'backend-test.zip';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(downloadUrl);
+                log('✅ ZIP з backend завантажено успішно');
+            } catch (error) {
+                log('❌ Помилка: ' + error.message, true);
+                console.error(error);
+            }
+        }
+
+        log('✅ Тестова сторінка готова');
+        log('💡 Натисніть кнопки для тестування');
+    </script>
+</body>
+</html>
