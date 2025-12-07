@@ -571,7 +571,7 @@ async def get_methodology():
             "fire_prevention": {"weight": 0.05, "max_score": 5, "justification": "Бонус за безпеку (NW Fire Science 2020)"},
             "saturation": {"weight": -0.15, "max_score": -15, "justification": "Штраф за перенасичення ринку"}
         },
-        "pairwise_matrix": ahp_calculator.pairwise_matrix.tolist(),
+        "pairwise_matrix": [[float(x) for x in row] for row in ahp_calculator.pairwise_matrix.tolist()],
         "criteria_names": ahp_calculator.criteria_names,
         "scientific_references": [
             "Saaty, T.L. (1980). The Analytic Hierarchy Process. McGraw-Hill.",
