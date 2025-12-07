@@ -432,15 +432,15 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr>
           <td>Щільність автомобільних доріг</td>
-          <td style="text-align: right;">${d?.transport?.road_density || 'N/A'} км/км²</td>
+          <td style="text-align: right;">${d?.transport?.highway_density || 'N/A'} км на 1000 км²</td>
         </tr>
         <tr>
           <td>Наявність залізниць</td>
-          <td style="text-align: right;">${d?.transport?.has_railway ? 'Так (+2 бали)' : 'Ні'}</td>
+          <td style="text-align: right;">${d?.transport?.railway_stations ? `Так (${d.transport.railway_stations} станцій)` : 'Ні'}</td>
         </tr>
         <tr>
           <td>Наявність аеропорту</td>
-          <td style="text-align: right;">${d?.transport?.has_airport ? 'Так (+3 бали)' : 'Ні'}</td>
+          <td style="text-align: right;">${d?.transport?.airports > 0 ? `Так (${d.transport.airports})` : 'Ні'}</td>
         </tr>
         <tr>
           <td>Кількість заправок на 1000 км²</td>
