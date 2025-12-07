@@ -718,7 +718,7 @@ function generateFactorDetails(analysisResult, d) {
         <li>5-9 пожеж: <strong>1 бал</strong></li>
         <li>&lt;5 пожеж: <strong>0 балів</strong></li>
       </ul>
-      <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.fire_risk_score}/5 балів</div>
+      <div class="result-box">✅ РЕЗУЛЬТАТ: ${analysisResult.fire_score}/5 балів</div>
     </div>
   </div>
 
