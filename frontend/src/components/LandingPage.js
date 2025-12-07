@@ -769,35 +769,41 @@ const LandingPage = () => {
             
             <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
               <p className="text-lg text-gray-700 mb-4">
-                <strong>Система працює на ДВОХ рівнях:</strong>
+                <strong>Система працює у 2 етапи:</strong>
               </p>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-5 rounded-lg border-2 border-blue-500">
                   <h4 className="font-bold text-xl mb-3 text-blue-800 flex items-center gap-2">
                     <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                    Регіональний рівень
+                    Оцінка області
                   </h4>
                   <ul className="text-sm space-y-2 text-gray-700">
-                    <li><strong>Об'єкт:</strong> 24 області України</li>
-                    <li><strong>Формула:</strong> 7 факторів (попит + ПЗФ + природа + транспорт + інфраструктура + пожежі - насиченість)</li>
-                    <li><strong>Результат:</strong> Бал 0-100 для кожної області</li>
-                    <li className="bg-blue-100 p-2 rounded"><strong>Приклад:</strong> Київська область = 78.5 балів</li>
+                    <li><strong>Об'єкт:</strong> Область (н-д, Київська)</li>
+                    <li><strong>Формула:</strong> 7 факторів AHP</li>
+                    <li><strong>Результат:</strong> Бал 0-100</li>
+                    <li className="bg-blue-100 p-2 rounded"><strong>Приклад:</strong> Київська = 78.5</li>
                   </ul>
                 </div>
                 
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-lg border-2 border-green-500">
                   <h4 className="font-bold text-xl mb-3 text-green-800 flex items-center gap-2">
                     <span className="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                    Локальний рівень
+                    Пошук конкретних локацій
                   </h4>
                   <ul className="text-sm space-y-2 text-gray-700">
-                    <li><strong>Об'єкт:</strong> Конкретні території на карті</li>
-                    <li><strong>Формула:</strong> Priority = Base + Бонуси - Штрафи</li>
-                    <li><strong>Результат:</strong> Точки з пріоритетами 0-100</li>
-                    <li className="bg-green-100 p-2 rounded"><strong>Приклад:</strong> Зона біля НПП "Синевир" = 78 балів</li>
+                    <li><strong>Де шукаємо:</strong> Кластери пожеж, біля ПЗФ, вздовж доріг</li>
+                    <li><strong>Формула:</strong> ТІ САМІ 7 факторів + специфіка локації</li>
+                    <li><strong>Результат:</strong> Точки 0-100 балів</li>
+                    <li className="bg-green-100 p-2 rounded"><strong>Приклад:</strong> Кластер пожеж #1 = 100</li>
                   </ul>
                 </div>
+              </div>
+              
+              <div className="mt-4 bg-amber-100 border-l-4 border-amber-600 p-4">
+                <p className="text-sm font-semibold text-amber-900">
+                  ⚠️ Усі локації позначені однаково: <span className="inline-block w-4 h-4 border-2 border-red-600 border-dashed rounded-full bg-red-200 mx-1"></span> червоне коло в пунктирній лінії
+                </p>
               </div>
             </div>
 
