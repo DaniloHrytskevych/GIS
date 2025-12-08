@@ -2067,7 +2067,7 @@ function MapPage() {
                   })}
 
                   {/* Region score markers */}
-                  {layers.regionScores && !selectedRegion && allAnalysis.map((analysis, idx) => {
+                  {layers.regionScores && allAnalysis.map((analysis, idx) => {
                     const center = REGION_CENTERS[analysis.region];
                     if (!center) return null;
                     return (
@@ -2078,7 +2078,7 @@ function MapPage() {
                             <p className="font-bold mb-1 text-white">{analysis.region}</p>
                             <div className="flex items-center justify-between">
                               <span className="text-gray-300">Потенціал:</span>
-                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }} className="text-white">{analysis.total_score}/100</Badge>
+                              <Badge style={{ backgroundColor: getScoreColor(analysis.total_score) }} className="text-white">{analysis.total_score}/90</Badge>
                             </div>
                             <p className="text-xs text-gray-400 mt-1">{analysis.category}</p>
                           </div>
