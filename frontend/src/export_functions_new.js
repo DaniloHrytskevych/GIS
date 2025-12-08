@@ -73,7 +73,7 @@ export const exportPDF = async (analysisResult, recommendedZones, html2canvas, j
       <div style="display: inline-block; width: 90px; height: 90px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 90px; font-size: 32px; font-weight: bold; margin: 20px 0; border: 5px solid #f59e0b;">
         ${analysisResult.total_score}
       </div>
-      <p style="color: #64748b; margin: 5px 0; font-size: 12px;">зі 100 балів</p>
+      <p style="color: #64748b; margin: 5px 0; font-size: 12px;">зі 90 балів</p>
       <span style="display: inline-block; padding: 6px 16px; border-radius: 15px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold; font-size: 12px;">${analysisResult.category}</span>
       <p style="color: #94a3b8; margin-top: 20px; font-size: 10px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
       <p style="color: #94a3b8; margin: 5px 0; font-size: 9px;">Версія методології: 1.0 | На основі AHP (Analytic Hierarchy Process)</p>
