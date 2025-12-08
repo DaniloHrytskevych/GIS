@@ -2118,7 +2118,7 @@ function MapPage() {
                                 style={{ backgroundColor: getScoreColor(analysisResult.total_score) }}>
                                 {analysisResult.total_score}
                               </div>
-                              <p className="text-sm text-gray-300">зі 100 балів</p>
+                              <p className="text-sm text-gray-300">зі 90 балів</p>
                               <Badge className="mt-2 text-white" style={{ backgroundColor: getCategoryColor(analysisResult.category) }}>
                                 {analysisResult.category}
                               </Badge>
