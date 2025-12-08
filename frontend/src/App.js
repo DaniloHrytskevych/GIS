@@ -249,7 +249,7 @@ function MapPage() {
         <div style="display: inline-block; width: 80px; height: 80px; border-radius: 50%; background: ${scoreColor}; color: white; line-height: 80px; font-size: 28px; font-weight: bold; margin: 15px 0; border: 4px solid #f59e0b;">
           ${analysisResult.total_score}
         </div>
-        <p style="color: #64748b; margin: 5px 0; font-size: 11px;">зі 100 балів</p>
+        <p style="color: #64748b; margin: 5px 0; font-size: 11px;">зі 90 балів</p>
         <span style="display: inline-block; padding: 5px 14px; border-radius: 15px; background: ${categoryColor}; color: white; font-weight: bold; font-size: 11px;">${analysisResult.category}</span>
         <p style="color: #94a3b8; margin-top: 15px; font-size: 10px;">Згенеровано: ${new Date().toLocaleString('uk-UA')}</p>
       </div>
