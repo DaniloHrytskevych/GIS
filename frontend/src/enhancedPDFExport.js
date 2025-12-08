@@ -713,7 +713,7 @@ function generateInvestmentRecommendations(analysisResult, d, shouldBuild) {
       </tr>
       <tr>
         <td>Загальний потенціал регіону</td>
-        <td style="font-weight: bold; font-size: 18px; color: #16a34a;">${analysisResult.total_score}/100 балів</td>
+        <td style="font-weight: bold; font-size: 18px; color: #16a34a;">${analysisResult.total_score}/90 балів</td>
       </tr>
       <tr>
         <td>Категорія потенціалу</td>
