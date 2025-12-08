@@ -56,7 +56,7 @@ export const getDetailedPDFTemplate = (analysisResult, getScoreColor, getCategor
       <div style="display: inline-block; width: 95px; height: 95px; border-radius: 50%; background: ${getScoreColor(analysisResult.total_score)}; color: white; line-height: 95px; font-size: 36px; font-weight: bold; margin: 20px 0; border: 5px solid #f59e0b; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         ${analysisResult.total_score}
       </div>
-      <p style="color: #64748b; margin: 8px 0; font-size: 13px; font-weight: bold;">зі 100 балів</p>
+      <p style="color: #64748b; margin: 8px 0; font-size: 13px; font-weight: bold;">зі 90 балів</p>
       <span style="display: inline-block; padding: 8px 18px; border-radius: 20px; background: ${getCategoryColor(analysisResult.category)}; color: white; font-weight: bold; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">${analysisResult.category}</span>
       <p style="color: #94a3b8; margin-top: 25px; font-size: 11px;">Згенеровано: ${new Date().toLocaleString('uk-UA', { dateStyle: 'full', timeStyle: 'short' })}</p>
       <p style="color: #94a3b8; margin: 8px 0; font-size: 10px;">Методологія: Analytic Hierarchy Process (AHP) | Версія 1.0</p>
