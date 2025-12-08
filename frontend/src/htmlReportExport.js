@@ -517,7 +517,7 @@ function generateHTMLReport(analysisResult, d) {
         </tr>
         <tr style="background: #d1d5db; font-weight: bold; font-size: 13pt;">
           <td>ПІДСУМКОВИЙ БАЛ</td>
-          <td style="text-align: center; font-size: 15pt;">${analysisResult.total_score.toFixed(1)}/100</td>
+          <td style="text-align: center; font-size: 15pt;">${analysisResult.total_score.toFixed(1)}/90</td>
           <td style="text-align: center; font-size: 13pt;">${analysisResult.total_score.toFixed(1)}%</td>
         </tr>
       </tbody>
